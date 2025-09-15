@@ -6,9 +6,10 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { loginAuth } from '@/services/auth';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { toast } from 'sonner';
-import { setLocalUserData } from '@/helpers/storage';
+import { setLocalUserData } from '@/helpers/storage/set';
 import { ToastNotifications } from '@/components/ToastNotification';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
+import { KEY_STORAGE } from '@/constants/key-storage';
 
 // Định nghĩa kiểu cho AuthContext
 type User = {
@@ -47,7 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
+    const storedUser = localStorage.getItem(KEY_STORAGE.USER_DATA);
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }

@@ -4,9 +4,7 @@ import '../globals.css';
 import { i18nConfig } from '@/i18n-config';
 import TranslationProvider from '@/providers/TranslationProvider';
 import initTranslations from '@/configs/i18n';
-import { ThemeProvider } from '@/components/theme-provider';
-import { AuthProvider } from '@/contexts/AuthContext';
-import { Toaster } from '@/components/ui/sonner';
+import AppWrapper from '@/hocs/AppWrappers';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -43,21 +41,13 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
+        <TranslationProvider
+          locale={locale}
+          resources={resources}
+          namespaces={i18nNamespaces}
         >
-          <Toaster />
-          <TranslationProvider
-            locale={locale}
-            resources={resources}
-            namespaces={i18nNamespaces}
-          >
-            <AuthProvider>{children}</AuthProvider>
-          </TranslationProvider>
-        </ThemeProvider>
+          <AppWrapper>{children}</AppWrapper>
+        </TranslationProvider>
       </body>
     </html>
   );
