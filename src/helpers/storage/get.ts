@@ -11,6 +11,5 @@ export const getLocalUserData = () => {
   return {
     userData: '',
     accessToken: '',
-    refreshToken: '',
   };
 };

@@ -4,12 +4,10 @@ import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import { TLoginAuth } from '@/types/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { loginAuth } from '@/services/auth';
-import { Icon } from '@iconify/react/dist/iconify.js';
-import { toast } from 'sonner';
 import { setLocalUserData } from '@/helpers/storage/set';
 import { ToastNotifications } from '@/components/ToastNotification';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
-import { KEY_STORAGE } from '@/constants/key-storage';
+import { getLocalUserData } from '@/helpers/storage/get';
 
 // Định nghĩa kiểu cho AuthContext
 type User = {
@@ -48,9 +46,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const storedUser = localStorage.getItem(KEY_STORAGE.USER_DATA);
+    const storedUser = getLocalUserData().userData;
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      setUser(storedUser);
     }
     setLoading(false);
   }, []);

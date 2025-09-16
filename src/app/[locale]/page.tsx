@@ -2,7 +2,7 @@
 
 import ExampleClientComponent from '@/components/ExampleClientComponent';
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
-import LayoutPublic from '@/views/layouts/LayoutSeller';
+import LayoutPublic from '@/views/layouts/LayoutPublic';
 import { ReactElement } from 'react';
 import { useTranslation } from 'react-i18next';
 

@@ -1,6 +1,6 @@
 import { LoginForm } from '@/components/login-form';
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
-import LayoutPublic from '@/views/layouts/LayoutSeller';
+import LayoutPublic from '@/views/layouts/LayoutPublic';
 import { ReactNode } from 'react';
 
 export default function LoginPage() {
