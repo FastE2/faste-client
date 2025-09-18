@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -118,5 +118,43 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer components {
+  .cut-corner-right {
+    @apply w-48 h-48 bg-blue-500;
+    clip-path: polygon(0 0, 100% 0%, 100% 100%, 0 70%);
+  }
+  .cut-corner-left {
+    /* @apply w-48 h-48 bg-blue-500; */
+    clip-path: polygon(0 0, 100% 0%, 100% 70%, 0 100%);
+  }
+  .bg-custom-gradient-1 {
+    @apply block;
+    background: #1d1969;
+    background: linear-gradient(
+      0deg,
+      rgba(29, 25, 105, 1) 0%,
+      rgba(2, 0, 36, 1) 100%
+    );
+  }
+  .bg-custom-gradient-2 {
+    @apply block;
+    background: rgba(29, 25, 105, 10);
+    background: linear-gradient(
+      40deg,
+      rgba(29, 25, 105, 1) 0%,
+      rgba(20, 11, 67, 1) 100%
+    );
+  }
+  .bg-custom-gradient-2 {
+    @apply block;
+    background: rgba(29, 25, 105, 10);
+    background: linear-gradient(
+      220deg,
+      rgba(29, 25, 105, 1) 0%,
+      rgba(20, 11, 67, 1) 100%
+    );
   }
 }
