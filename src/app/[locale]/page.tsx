@@ -1,23 +1,111 @@
-'use client';
-
-import ExampleClientComponent from '@/components/ExampleClientComponent';
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
+import { getAllProductsPublic } from '@/services/product';
 import LayoutPublic from '@/views/layouts/LayoutPublic';
+import HomePage from '@/views/pages/home';
+import { Metadata } from 'next';
 import { ReactElement } from 'react';
-import { useTranslation } from 'react-i18next';
 
-export default function Home() {
-  const { t } = useTranslation();
+interface TProps {
+  data: [];
+  totalItem: number;
+  page: number;
+  limit: number;
+  totalPage: number;
+}
+
+export const metadata: Metadata = {
+  title: 'FastE - Mua sắm thời trang & điện tử trực tuyến',
+  description:
+    'FastE cung cấp các sản phẩm thời trang, điện tử chất lượng với giá tốt và giao hàng nhanh chóng.',
+  keywords: [
+    'FastE',
+    'thời trang',
+    'điện tử',
+    'mua sắm online',
+    'shopping',
+    'fast delivery',
+  ],
+  viewport: 'width=device-width, initial-scale=1',
+  metadataBase: new URL('https://faste.vn'),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'vi-VN': '/',
+      'en-US': '/en',
+    },
+  },
+  openGraph: {
+    type: 'website',
+    title: 'FastE - Mua sắm thời trang & điện tử trực tuyến',
+    description:
+      'FastE cung cấp các sản phẩm thời trang, điện tử chất lượng với giá tốt và giao hàng nhanh chóng.',
+    siteName: 'FastE',
+    url: 'https://faste.vn',
+    images: [
+      {
+        url: 'https://faste.vn/faste.png',
+        width: 1200,
+        height: 630,
+        alt: 'FastE - Logo',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'FastE - Mua sắm thời trang & điện tử trực tuyến',
+    description:
+      'FastE cung cấp các sản phẩm thời trang, điện tử chất lượng với giá tốt và giao hàng nhanh chóng.',
+    images: [
+      {
+        url: 'https://faste.vn/faste.png',
+        width: 1200,
+        height: 630,
+        alt: 'FastE - Logo',
+      },
+    ],
+  },
+  // JSON-LD schema.org cho landing page
+  icons: [{ rel: 'icon', url: '/favicon.ico' }],
+};
+
+async function getProductsData(): Promise<TProps> {
+  const page = 1;
+  const limit = 10;
+
+  try {
+    const response = await getAllProductsPublic({ page, limit });
+    const products = response?.data ?? [];
+
+    return products;
+  } catch (error) {
+    return {
+      data: [],
+      totalItem: 0,
+      page,
+      limit,
+      totalPage: 0,
+    };
+  }
+}
+export default async function Home() {
+  const products = await getProductsData();
+  const { data, limit, page, totalItem, totalPage } = products;
   return (
     <GuardLayoutWrapper
       getLayout={(page: ReactElement) => <LayoutPublic>{page}</LayoutPublic>}
       authGuard={false}
       guestGuard={false}
     >
-      <div className="container mx-auto max-w-6xl px-4">
-        <h1>{t('getStarted')}</h1>
-        <ExampleClientComponent />
-      </div>
+      <HomePage
+        data={data}
+        limit={limit}
+        page={page}
+        totalItem={totalItem}
+        totalPage={totalPage}
+      />
     </GuardLayoutWrapper>
   );
 }
+
+export const dynamic = 'force-static';
+export const revalidate = 60;

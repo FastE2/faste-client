@@ -229,7 +229,7 @@ const Header = () => {
                 <SheetContent side="right" className="w-80">
                   <div className="flex flex-col gap-4 p-4">
                     {/* Mobile Search */}
-                    <div className="md:hidden py-4">
+                    <div className="md:hidden pt-4">
                       <div className="relative">
                         <Input
                           type="text"
