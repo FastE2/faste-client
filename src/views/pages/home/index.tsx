@@ -1,5 +1,6 @@
 import CartProduct from '@/components/CardProduct';
 import ExampleClientComponent from '@/components/ExampleClientComponent';
+import CardCategory from './partials/CardCategory';
 
 interface TProps {
   data: [];
@@ -14,7 +15,7 @@ const HomePage = (props: TProps) => {
   return (
     <>
       <div className="container mx-auto max-w-6xl px-4">
-        <ExampleClientComponent />
+        <CardCategory />
         <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
           {products.map((product, index) => (
             <CartProduct key={index} data={product} />

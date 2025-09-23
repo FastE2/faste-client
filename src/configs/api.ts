@@ -23,8 +23,8 @@ export const API_ENDPOINT = {
     },
   },
   MANAGE_PRODUCT: {
-    PRODUCT_TYPE: {
-      INDEX: `${BASE_URL}/product-types`,
+    CATEGORY: {
+      INDEX: `${BASE_URL}/category`,
     },
     PRODUCT: {
       INDEX: `${BASE_URL}/products`,
