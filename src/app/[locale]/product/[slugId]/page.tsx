@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import { ReactElement } from 'react';
 import Script from 'next/script';
 import Image from 'next/image';
+import ProductDetails from '@/views/pages/product-details';
 
 type Product = {
   id: string;
@@ -110,17 +111,8 @@ export default async function Page({ params }: { params: { slugId: string } }) {
       authGuard={false}
       guestGuard={false}
     >
-      <main className="max-w-3xl mx-auto p-6">
-        <h1 className="text-3xl font-bold">{product.name}</h1>
-        <Image
-          width={100}
-          height={100}
-          src={product.image}
-          alt={product.name}
-          className="w-full rounded-lg my-4"
-        />
-        <p className="text-gray-600">{product.description}</p>
-        <p className="text-xl font-semibold mt-4">${product.price}</p>
+      <main className="max-w-6xl mx-auto p-6 w-full">
+        <ProductDetails product={product} />
 
         <Script
           id="product-jsonld"

@@ -8,7 +8,7 @@ export default function LayoutPublic({ children }: { children: ReactNode }) {
   return (
     <div>
       <Header />
-      <main className="bg-[#F5F5F5] dark:bg-[#121212] py-10">{children}</main>
+      <main className="bg-[#F5F5F5] dark:bg-[#121212] py-8">{children}</main>
       <Footer />
     </div>
   );
