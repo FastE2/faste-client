@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   images: {
     domains: ['salt.tikicdn.com'],
   },
+  reactStrictMode: false
 };
 
 export default nextConfig;

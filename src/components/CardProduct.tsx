@@ -7,13 +7,15 @@ import { formatCurrencyWithExchange } from '@/utils';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
 
-const CartProduct = (props: { data: any }) => {
-  const { data } = props;
+const CartProduct = (props: { data: any; className?: string }) => {
+  const { data, className = '' } = props;
   const { i18n } = useTranslation();
   return (
     // h-[350px] w-[280px]
     <Link href={`/product/${data.slugId}`}>
-      <Card className="rounded-none bg-white dark:bg-black max-w-80 max-h-96 hover:shadow-accent-foreground text-xs gap-y-1 p-0 border-none transition-all duration-300 ease-in-out overflow-hidden">
+      <Card
+        className={`rounded-none bg-white dark:bg-black max-w-80 h-72 hover:shadow-accent-foreground text-xs gap-y-1 p-0 border-none transition-all duration-300 ease-in-out overflow-hidden ${className}`}
+      >
         <CardContent className="p-0 h-full">
           <div>
             <Image

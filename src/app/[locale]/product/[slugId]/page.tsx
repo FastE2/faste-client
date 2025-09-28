@@ -104,7 +104,6 @@ export default async function Page({ params }: { params: { slugId: string } }) {
       url: `${process.env.NEXT_PUBLIC_BASE_URL}/products/${product.slugId}`,
     },
   };
-
   return (
     <GuardLayoutWrapper
       getLayout={(page: ReactElement) => <LayoutPublic>{page}</LayoutPublic>}

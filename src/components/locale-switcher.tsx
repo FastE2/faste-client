@@ -18,6 +18,7 @@ export default function LocaleSwitcher() {
   const router = useRouter();
   const [selectLang, setSelectLang] = useState(LANGUAGE_OPTIONS[0].lang);
 
+
   // Cập nhật ngôn ngữ khi pathname thay đổi
   useEffect(() => {
     if (pathname) {

@@ -23,7 +23,6 @@ const CardCategory = () => {
   if (isLoading) {
     return <SkeletonCardCategory />;
   }
-  console.log(data);
   return (
     <>
       <div className="bg-white dark:bg-black w-full mb-5">

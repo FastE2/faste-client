@@ -16,6 +16,8 @@ export default function InputNumberCustom({
   max = Infinity,
 }: TInputNumberCustomProps) {
 
+  // console.log('render input number custom');
+
    const handleDecrease = () => {
     setValue(Math.max(min, value - 1));
   };
@@ -25,12 +27,12 @@ export default function InputNumberCustom({
   };
 
   return (
-    <div className="flex items-center border border-gray-500 rounded w-28">
+    <div className="flex items-center border border-gray-300 rounded w-28">
       <button
         type="button"
         onClick={handleDecrease}
         disabled={value <= 1}
-        className="w-8 h-[45px] flex items-center justify-center border-r border-gray-500 hover:bg-gray-100"
+        className="w-8 h-[45px] flex items-center justify-center border-r border-gray-300 hover:bg-gray-100"
       >
         -
       </button>
@@ -49,7 +51,7 @@ export default function InputNumberCustom({
         type="button"
         disabled={value === max}
         onClick={handleIncrease}
-        className="w-8 h-[45px] flex items-center justify-center border-l border-gray-500 hover:bg-gray-100"
+        className="w-8 h-[45px] flex items-center justify-center border-l border-gray-300 hover:bg-gray-100"
       >
         +
       </button>

@@ -7,7 +7,7 @@ import { ReactNode, ReactElement, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 
 // ** Helper
-import { useAuth } from '@/hooks/useAuth';
+import { useAuth } from '@/hooks/use-auth';
 import { getLocalUserData } from '@/helpers/storage/get';
 import { createUrlQuery } from '@/utils/create-query-url';
 import { useTranslation } from 'react-i18next';

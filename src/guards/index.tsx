@@ -1,8 +1,10 @@
-import AuthGuard from "./AuthGuard";
-import GuestGuard from "./GuestGuard";
-import { ReactNode } from "react";
-import PublicGuard from "./PublicGuard";
-import { LoadingSpinner } from "@/components/loading/LoadingSpinner";
+'use client';
+
+import AuthGuard from './AuthGuard';
+import GuestGuard from './GuestGuard';
+import React, { ReactNode } from 'react';
+import PublicGuard from './PublicGuard';
+import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 
 type GuardProps = {
   authGuard?: boolean;
@@ -10,7 +12,7 @@ type GuardProps = {
   children: ReactNode;
 };
 
-const Guard = ({ children, authGuard, guestGuard }: GuardProps) => {
+const Guard = React.memo(({ children, authGuard, guestGuard }: GuardProps) => {
   if (guestGuard) {
     return <GuestGuard fallback={<LoadingSpinner />}>{children}</GuestGuard>;
   } else if (!guestGuard && !authGuard) {
@@ -18,6 +20,8 @@ const Guard = ({ children, authGuard, guestGuard }: GuardProps) => {
   } else {
     return <AuthGuard fallback={<LoadingSpinner />}>{children}</AuthGuard>;
   }
-};
+});
+
+Guard.displayName = 'Guard';
 
 export default Guard;

@@ -1,12 +1,19 @@
 'use client';
 
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, {
+  createContext,
+  useState,
+  useEffect,
+  ReactNode,
+  useMemo,
+  memo,
+  useRef,
+} from 'react';
 import { TLoginAuth } from '@/types/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { loginAuth } from '@/services/auth';
 import { setLocalUserData } from '@/helpers/storage/set';
 import { ToastNotifications } from '@/components/ToastNotification';
-import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import { getLocalUserData } from '@/helpers/storage/get';
 
 // Định nghĩa kiểu cho AuthContext
@@ -44,13 +51,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
   const searchParams = useSearchParams();
+  const isRender = useRef<boolean>(false);
 
   useEffect(() => {
     const storedUser = getLocalUserData().userData;
-    if (storedUser) {
-      setUser(storedUser);
-    }
+    setUser(storedUser ? JSON.parse(storedUser) : null);
     setLoading(false);
+    isRender.current = true;
   }, []);
 
   const login = (data: TLoginAuth) => {
@@ -86,21 +93,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     console.log('Login with Facebook');
   };
 
-  const value = {
-    user,
-    loading,
-    setUser,
-    setLoading,
-    login,
-    logout,
-    loginGoogle,
-    loginFacebook,
-  };
+  const value = useMemo(
+    () => ({
+      user,
+      loading,
+      setUser,
+      setLoading,
+      login,
+      logout,
+      loginGoogle,
+      loginFacebook,
+    }),
+    [user, loading],
+  );
 
   return (
     <AuthContext.Provider value={value}>
-      <LoadingDialog isLoading={loading} />
-      {children}
+      {!loading && children}
     </AuthContext.Provider>
   );
 };
