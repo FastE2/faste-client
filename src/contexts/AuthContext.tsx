@@ -6,8 +6,6 @@ import React, {
   useEffect,
   ReactNode,
   useMemo,
-  memo,
-  useRef,
 } from 'react';
 import { TLoginAuth } from '@/types/auth';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -15,11 +13,11 @@ import { loginAuth } from '@/services/auth';
 import { setLocalUserData } from '@/helpers/storage/set';
 import { ToastNotifications } from '@/components/ToastNotification';
 import { getLocalUserData } from '@/helpers/storage/get';
+import { set } from 'react-hook-form';
 
 // Định nghĩa kiểu cho AuthContext
 type User = {
   email: string;
-  token: string;
 } | null;
 
 type AuthContextType = {
@@ -51,17 +49,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
   const searchParams = useSearchParams();
-  const isRender = useRef<boolean>(false);
 
   useEffect(() => {
-    const storedUser = getLocalUserData().userData;
-    setUser(storedUser ? JSON.parse(storedUser) : null);
+    const { userData } = getLocalUserData();
+    if (!!userData) {
+      setUser({ email: 'lekiett2201@gmail.com' });
+    } else {
+      setUser(null);
+    }
     setLoading(false);
-    isRender.current = true;
   }, []);
 
+  console.log('Auth Context User:', user);
+
   const login = (data: TLoginAuth) => {
-    setUser({ email: data.email, token: '' });
+    setUser({ email: data.email });
     loginAuth(data)
       .then((response) => {
         setLocalUserData(response.data.accessToken);
