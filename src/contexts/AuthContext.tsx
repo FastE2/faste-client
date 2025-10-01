@@ -8,12 +8,13 @@ import React, {
   useMemo,
 } from 'react';
 import { TLoginAuth } from '@/types/auth';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { loginAuth } from '@/services/auth';
 import { setLocalUserData } from '@/helpers/storage/set';
 import { ToastNotifications } from '@/components/ToastNotification';
 import { getLocalUserData } from '@/helpers/storage/get';
 import { set } from 'react-hook-form';
+import { injectAuthDependencies } from '@/utils/axios';
 
 // Định nghĩa kiểu cho AuthContext
 type User = {
@@ -50,6 +51,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const pathName = usePathname();
+
+  // inject to axios when App mount
+
   useEffect(() => {
     const { userData } = getLocalUserData();
     if (!!userData) {
@@ -59,6 +64,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
     setLoading(false);
   }, []);
+
+  useEffect(() => {
+    injectAuthDependencies(router, setUser, pathName);
+  }, [router, setUser, pathName]);
 
   console.log('Auth Context User:', user);
 
@@ -106,6 +115,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       loginGoogle,
       loginFacebook,
     }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [user, loading],
   );
 

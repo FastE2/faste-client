@@ -16,12 +16,14 @@ import { ROUTE_CONFIG } from '@/configs/router';
 import { createUrlQuery } from '@/utils/create-query-url';
 import { cn } from '@/lib/utils';
 import PromoBar from './PromoBar';
+import { useAuth } from '@/hooks/use-auth';
 
 const Header = React.memo(
   () => {
     const [isOpen, setIsOpen] = useState(false);
     const router = useRouter();
     const pathName = usePathname();
+    const { user } = useAuth();
 
     const handleNavigateLogin = () => {
       if (pathName !== '/') {
@@ -31,6 +33,10 @@ const Header = React.memo(
       } else {
         router.replace('/login');
       }
+    };
+
+    const handleNavigateMyAccount = () => {
+      router.replace(ROUTE_CONFIG.USER.INFO.ACCOUNT);
     };
 
     const navigationItems = [
@@ -179,14 +185,59 @@ const Header = React.memo(
                 </Button>
 
                 {/* User Profile */}
-                <Button
+                {/* <Button
                   variant="ghost"
                   size="sm"
                   onClick={handleNavigateLogin}
                   className="text-muted-foreground hover:text-purple-600 transition-colors"
                 >
-                  <Icon icon="lucide:user-round" className="w-5 h-5" />
-                </Button>
+                  
+                </Button> */}
+
+                <div className="group relative">
+                  <Button
+                    variant="ghost"
+                    size={'sm'}
+                    onClick={
+                      !user ? handleNavigateLogin : handleNavigateMyAccount
+                    }
+                    className="inline-flex items-center text-muted-foreground hover:text-purple-600 transition-colors"
+                  >
+                    <Icon icon="lucide:user-round" className="w-5 h-5" />
+                  </Button>
+                  <div
+                    className={`absolute left-0 z-10 hidden w-56 space-y-1 bg-white dark:bg-gray-900 py-2 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-sm ${user ? 'group-hover:block' : ''}`}
+                  >
+                    <Link
+                      href={`${ROUTE_CONFIG.USER.INFO.ACCOUNT}`}
+                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+                      prefetch={false}
+                    >
+                      Thông tin tài khoản
+                    </Link>
+                    <Link
+                      href="#"
+                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+                      prefetch={false}
+                    >
+                      Đơn hàng của tôi
+                    </Link>
+                    <Link
+                      href="#"
+                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+                      prefetch={false}
+                    >
+                      Trung tâm trợ giúp
+                    </Link>
+                    <Link
+                      href="#"
+                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+                      prefetch={false}
+                    >
+                      Đăng xuất
+                    </Link>
+                  </div>
+                </div>
 
                 {/* Wishlist */}
                 <Button

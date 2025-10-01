@@ -15,7 +15,7 @@ export function LoadingDialog({
   return (
     <Dialog open={isLoading} onOpenChange={() => {}}>
       <DialogContent
-        className="flex flex-col items-center justify-center bg-black/50 backdrop-blur-sm border-none shadow-none w-60 h-60 rounded-xl"
+        className="flex flex-col items-center justify-center bg-transparent border-0 border-transparent outline-none border-none shadow-none w-60 h-60 rounded-xl"
         showCloseButton={false}
       >
         <DialogTitle></DialogTitle>

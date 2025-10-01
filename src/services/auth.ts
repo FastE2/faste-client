@@ -10,6 +10,6 @@ export const loginAuth = async (data: TLoginAuth) => {
 };
 
 export const refreshToken = async () => {
-  const res = await axiosInstance.post(`${API_ENDPOINT.AUTH.REFRESH_TOKEN}`);
+  const res = await axios.post(`${API_ENDPOINT.AUTH.REFRESH_TOKEN}`);
   return res.data;
 };

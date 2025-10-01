@@ -4,7 +4,7 @@ import AuthGuard from './AuthGuard';
 import GuestGuard from './GuestGuard';
 import React, { ReactNode } from 'react';
 import PublicGuard from './PublicGuard';
-import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
+import { LoadingDialog } from '@/components/loading/LoadingDialog';
 
 type GuardProps = {
   authGuard?: boolean;
@@ -14,11 +14,11 @@ type GuardProps = {
 
 const Guard = React.memo(({ children, authGuard, guestGuard }: GuardProps) => {
   if (guestGuard) {
-    return <GuestGuard fallback={<LoadingSpinner />}>{children}</GuestGuard>;
+    return <GuestGuard fallback={<LoadingDialog isLoading={true} message='' />}>{children}</GuestGuard>;
   } else if (!guestGuard && !authGuard) {
-    return <PublicGuard fallback={<LoadingSpinner />}>{children}</PublicGuard>;
+    return <PublicGuard fallback={<LoadingDialog isLoading={true} message='' />}>{children}</PublicGuard>;
   } else {
-    return <AuthGuard fallback={<LoadingSpinner />}>{children}</AuthGuard>;
+    return <AuthGuard fallback={<LoadingDialog isLoading={true} message='' />}>{children}</AuthGuard>;
   }
 });
 

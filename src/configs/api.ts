@@ -3,7 +3,7 @@ export const BASE_URL = `${process.env.NEXT_PUBLIC_API_HOST}`;
 export const API_ENDPOINT = {
   AUTH: {
     INDEX: `${BASE_URL}/auth`,
-    REFRESH_TOKEN: `${BASE_URL}/refresh-token`,
+    REFRESH_TOKEN: `${BASE_URL}/auth/refresh-token`,
     AUTH_ME: `${BASE_URL}/auth/me`,
   },
   PROFILE: {
