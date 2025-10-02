@@ -39,7 +39,8 @@ export function ProfileAvatar() {
       <Button
         size="sm"
         variant="secondary"
-        className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full p-0 bg-gray-600 hover:bg-gray-700"
+        className="absolute -bottom-1 -right-1 w-7 h-7 rounded-full p-0 bg-gray-600 hover:bg-gray-700 cursor-pointer"
+        type='button'
         onClick={() => document.getElementById('avatar-upload')?.click()}
       >
         <Edit3 className="w-3 h-3 text-white" />

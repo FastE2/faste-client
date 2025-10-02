@@ -253,7 +253,7 @@ export default function AccountPage() {
           {/* Submit */}
           <Button
             type="submit"
-            className="w-full bg-primary hover:bg-primary/90"
+            className="w-full bg-primary hover:bg-primary/90 cursor-pointer"
           >
             Lưu thay đổi
           </Button>
