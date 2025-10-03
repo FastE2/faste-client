@@ -1,4 +1,4 @@
-import { AppSidebar } from '@/components/app-sidebar';
+import { AppSidebarSeller } from '@/components/sidebar-seller/app-sidebar-seller';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,17 +13,24 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from '@/components/ui/sidebar';
+import { ROUTE_CONFIG } from '@/configs/router';
+import useFindMenu from '@/hooks/use-find-menu';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function ListVerticalLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const pathname = usePathname();
+  const findMenuSelect = useFindMenu(pathname);
+
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebarSeller />
       <SidebarInset>
-        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+        <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 bg-[#F5F5F5] dark:bg-[#121212]">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
             <Separator
@@ -33,19 +40,37 @@ export default function ListVerticalLayout({
             <Breadcrumb>
               <BreadcrumbList>
                 <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Building Your Application
-                  </BreadcrumbLink>
+                  <Link href={ROUTE_CONFIG.SELLER.DASHBOARD}>
+                    Trang chủ
+                  </Link>
                 </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
+                {findMenuSelect.parent &&
+                  findMenuSelect.parent.url !==
+                    ROUTE_CONFIG.SELLER.DASHBOARD && (
+                    <>
+                      <BreadcrumbSeparator className="hidden md:block" />
+                      <BreadcrumbItem>
+                        <BreadcrumbPage>
+                          {findMenuSelect.parent.title}
+                        </BreadcrumbPage>
+                      </BreadcrumbItem>
+                    </>
+                  )}
+                {findMenuSelect.child && (
+                  <>
+                    <BreadcrumbSeparator className="hidden md:block" />
+                    <BreadcrumbItem>
+                      <BreadcrumbPage>
+                        {findMenuSelect.child.title}
+                      </BreadcrumbPage>
+                    </BreadcrumbItem>
+                  </>
+                )}
               </BreadcrumbList>
             </Breadcrumb>
           </div>
         </header>
-        <div className="flex flex-1 flex-col gap-4 p-4 pt-0">{children}</div>
+        <div className="flex flex-1 flex-col gap-4 p-4 pt-0 bg-[#F5F5F5] dark:bg-[#121212]">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

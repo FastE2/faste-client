@@ -162,4 +162,11 @@
       rgba(20, 11, 67, 1) 100%
     );
   }
+  .hide-scrollbar {
+    -ms-overflow-style: none; /* IE và Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
 }

@@ -7,7 +7,7 @@ export default function LayoutSeller({ children }: { children: ReactNode }) {
   return (
     <div>
       <ListVerticalLayout>
-        <main>{children}</main>
+        <main className='w-full h-full'>{children}</main>
       </ListVerticalLayout>
     </div>
   );

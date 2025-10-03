@@ -20,6 +20,65 @@ export const ROUTE_CONFIG = {
     MARKETING: '/m/:id',
   },
 
+  // Seller dashboard
+  SELLER: {
+    DASHBOARD: '/sellercenter/dashboard',
+    NOTIFICATION: '/sellercenter/notification',
+
+    PRODUCT: {
+      LIST: '/sellercenter/products/list',
+      CREATE: '/sellercenter/products/create',
+      STOCK: '/sellercenter/products/stock',
+      MEDIA: '/sellercenter/products/media',
+      REVIEW: '/sellercenter/products/reviews',
+    },
+
+    ORDER: {
+      LIST: '/sellercenter/orders',
+      RETURN: '/sellercenter/orders/returns',
+      REVIEW: '/sellercenter/orders/reviews',
+    },
+
+    STORE: {
+      DESIGN: '/sellercenter/seller-store/template',
+      INFO: '/sellercenter/seller-store/info',
+    },
+
+    FLASH_SALE: {
+      GLOBAL: '/sellercenter/flash-sale/global',
+      SHOP: '/sellercenter/flash-sale/shop',
+    },
+
+    WALLET: {
+      REVENUE: '/sellercenter/wallet/revenue',
+      INTERNAL: '/sellercenter/wallet/internal',
+      BLOCKCHAIN: '/sellercenter/wallet/blockchain',
+    },
+
+    VOUCHER: {
+      LIST: '/sellercenter/vouchers',
+      CREATE: '/sellercenter/vouchers/create',
+      STATS: '/sellercenter/vouchers/stats',
+    },
+
+    MARKETING: {
+      CAMPAIGN: '/sellercenter/marketing/campaigns',
+      ADS: '/sellercenter/marketing/ads',
+    },
+
+    SERVICE_CENTER: {
+      COMPLAINTS: '/sellercenter/service-center/complaints',
+      RETURNS: '/sellercenter/service-center/returns',
+      SUPPORT: '/sellercenter/service-center/support',
+    },
+
+    ACCOUNT: '/sellercenter/account',
+    ADDRESS: '/sellercenter/address',
+    CHANGE_PASSWORD: '/sellercenter/change-password',
+    SETTINGS: '/sellercenter/settings',
+  },
+
+  // Public routes
   LOGIN: '/login',
   REGISTER: '/register',
   FORGOT_PASSWORD: '/forgot-password',

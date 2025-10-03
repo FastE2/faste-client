@@ -54,7 +54,6 @@ const handleRedirectLogin = (
 // Add a request interceptor
 axiosInstance.interceptors.request.use(
   async function (config) {
-    console.log('OK');
     // Do something before the request is sent
     // For example, add an authentication token to the headers
     const { accessToken } = getLocalUserData();
