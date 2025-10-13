@@ -63,7 +63,7 @@ const Header = React.memo(
 
     const topNavItems = [
       { href: '/about', label: 'About us' },
-      { href: '/my-account', label: 'My account' },
+      { href: '/sellercenter/dashboard', label: 'My Shop' },
       { href: '/wishlist', label: 'Wishlist' },
     ];
 
