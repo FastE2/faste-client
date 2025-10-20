@@ -70,6 +70,20 @@ export const USER_MENU_ITEMS: IMenuItem[] = [
     icon: 'mdi:voucher-outline',
   },
   {
+    title: 'Ví',
+    icon: 'iconoir:wallet',
+    items: [
+      {
+        title: 'E-Wallet',
+        url: ROUTE_CONFIG.USER.WALLET.E_WALLER,
+      },
+      {
+        title: 'Crypto Wallet',
+        url: ROUTE_CONFIG.USER.WALLET.CRYPTO_WALLER,
+      },
+    ],
+  },
+  {
     title: 'Siêu sale tháng 11',
     url: ROUTE_CONFIG.USER.MARKETING.replace(':id', '11-11'),
     icon: 'mdi:sale-outline',

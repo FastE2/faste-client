@@ -27,6 +27,9 @@ export const API_ENDPOINT = {
     },
   },
   MANAGE_PRODUCT: {
+    BRAND: {
+      INDEX: `${BASE_URL}/brand`,
+    },
     CATEGORY: {
       INDEX: `${BASE_URL}/category`,
     },

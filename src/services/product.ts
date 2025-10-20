@@ -1,4 +1,5 @@
 import { API_ENDPOINT } from '@/configs/api';
+import { TBodyCreateProduct } from '@/types/product';
 import axiosInstance from '@/utils/axios';
 import axios from 'axios';
 
@@ -38,6 +39,19 @@ export const getAllProductPublicBySeller = async (
     const res = await axiosInstance.get(
       `${API_ENDPOINT.MANAGE_PRODUCT.PRODUCT.INDEX}`,
       { params },
+    );
+
+    return res.data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const createProductBySeller = async (data: TBodyCreateProduct) => {
+  try {
+    const res = await axiosInstance.post(
+      `${API_ENDPOINT.MANAGE_PRODUCT.PRODUCT.INDEX}`,
+      data,
     );
 
     return res.data;

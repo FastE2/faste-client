@@ -1,0 +1,36 @@
+@startuml
+title RabbitMQ Class Diagram
+
+class Producer {
+  +publish(message, exchange, routingKey)
+}
+
+class Exchange {
+  -name
+  -type
+  +route(message)
+}
+
+class Queue {
+  -name
+  +enqueue(message)
+  +dequeue()
+}
+
+class Consumer {
+  +consume(queue)
+  +ack(message)
+}
+
+class Message {
+  -headers
+  -body
+  -routingKey
+}
+
+Producer --> Exchange : publish()
+Exchange --> Queue : route()
+Queue --> Consumer : deliver()
+Consumer --> Queue : ack()
+
+@enduml

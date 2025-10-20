@@ -12,8 +12,6 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '@/hooks/use-auth';
-import { Icon } from '@iconify/react/dist/iconify.js';
-import { toast } from 'sonner';
 
 // Định nghĩa schema validation với yup
 const schema = yup

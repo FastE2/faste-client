@@ -61,9 +61,10 @@ const HomePage = (props: TProps) => {
           </div>
           <div className="flex flex-col gap-y-2 w-full">
             <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
-              {products.map((product, index) => (
-                <CartProduct key={index} data={product} />
-              ))}
+              {products &&
+                products.map((product, index) => (
+                  <CartProduct key={index} data={product} />
+                ))}
             </div>
             <div className="flex justify-center">
               <Button

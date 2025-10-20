@@ -1,0 +1,20 @@
+@startuml
+title RabbitMQ Message Flow Activity Diagram
+
+start
+:Producer tạo message;
+:Producer gửi message đến Exchange;
+
+if (Exchange có route phù hợp?) then (Yes)
+  :Exchange định tuyến message đến Queue;
+  :Message nằm trong Queue;
+  :Consumer lấy message ra;
+  :Consumer xử lý message;
+  :Consumer gửi ACK;
+  :Message bị xóa khỏi Queue;
+else (No)
+  :Message bị loại bỏ hoặc gửi đến DLX;
+endif
+
+stop
+@enduml

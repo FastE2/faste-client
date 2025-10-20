@@ -78,10 +78,9 @@ export default function MobilePreview({
         <div className="absolute left-0 right-0 top-0 z-50 flex h-11 items-center justify-between bg-gradient-to-br from-teal-700 to-teal-900 px-6 text-white">
           <span className="text-sm font-medium">9:41</span>
           <div className="flex items-center gap-1">
-            <div className="h-3 w-4 rounded-sm border border-white" />
-            <div className="h-3 w-4 rounded-sm border border-white" />
-            <div className="h-3 w-4 rounded-sm border border-white" />
-            <div className="h-2 w-2 rounded-full bg-white" />
+            <Icon icon={'mdi:signal'} />
+            <Icon icon={'material-symbols:5g'} />
+            <Icon icon={'gg:battery'} />
           </div>
         </div>
 
@@ -126,10 +125,8 @@ export default function MobilePreview({
                 </Badge> */}
               </div>
               <div className="flex items-center gap-1 text-sm text-white/90">
-                  <Icon icon={'ri:user-add-line'} width={18} height={18} />
-                <span>
-                  {config.followers}
-                </span>
+                <Icon icon={'ri:user-add-line'} width={18} height={18} />
+                <span>{config.followers}</span>
               </div>
             </div>
             <div className="flex flex-col gap-2">

@@ -1,0 +1,34 @@
+@startuml
+actor Client
+participant "Service A" as A
+participant "RabbitMQ" as R
+participant "Service B" as B
+participant "Error Handler" as EH
+participant "Retry Mechanism" as RM
+
+== Client sends message ==
+Client -> A : Send message to Service A
+A -> A : Validate message
+A -> R : Publish message to RabbitMQ
+
+== Message Delivery ==
+R -> B : Deliver message to Service B
+B -> B : Process the message
+
+== Acknowledgment Process ==
+alt Successful Processing
+    B -> R : Acknowledge message (Success)
+    R -> A : Acknowledge message (Success)
+    A -> Client : Respond with success
+else Failed Processing
+    B -> R : Acknowledge message (Failure)
+    R -> EH : Trigger error handler
+    EH -> RM : Retry the message
+    RM -> R : Re-publish message
+    R -> B : Deliver message again
+    B -> B : Retry processing the message
+    B -> R : Acknowledge message (Success)
+    R -> A : Acknowledge message (Success)
+    A -> Client : Respond with success after retry
+end
+@enduml

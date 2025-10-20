@@ -1,0 +1,14 @@
+@startuml
+title RabbitMQ Message State Diagram
+
+[*] --> Published : Producer gửi message
+Published --> Routed : Exchange nhận message
+Routed --> Queued : Message được gửi đến Queue
+Queued --> Consumed : Consumer nhận message
+Consumed --> Acknowledged : Consumer gửi ACK
+Acknowledged --> [*] : Message bị xóa khỏi Queue
+
+Queued --> DeadLettered : Queue đầy hoặc TTL hết hạn
+DeadLettered --> [*] : Message chuyển sang Dead Letter Queue
+
+@enduml

@@ -17,7 +17,10 @@ export const ROUTE_CONFIG = {
     ORDER: {
       ORDER_LIST: '/user/order',
     },
-    WALLET: '/user/ewallet',
+    WALLET: {
+      E_WALLER: '/e-wallet',
+      CRYPTO_WALLER: '/crypto-wallet',
+    },
     VOUCHER_WALLET: '/user/voucher-wallet',
     MARKETING: '/m/:id',
   },

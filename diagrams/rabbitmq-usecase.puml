@@ -1,0 +1,25 @@
+@startuml
+actor "Producer (Service A)" as Producer
+actor "Consumer (Service B)" as Consumer
+actor "Message Broker (RabbitMQ)" as RabbitMQ
+
+rectangle "RabbitMQ Use Cases" {
+  usecase "Send Message to Queue" as UC1
+  usecase "Receive Message from Queue" as UC2
+  usecase "Acknowledge Message" as UC3
+  usecase "Send Failure Notification" as UC4
+  usecase "Request Message Status" as UC5
+  usecase "Notify Failure to Producer" as UC6
+}
+
+Producer -> UC1 : Initiate
+Producer -> UC5 : Request Status
+Consumer -> UC2 : Start Processing
+Consumer -> UC3 : Acknowledge Processed Message
+Consumer -> UC4 : Notify Failure (if error)
+RabbitMQ -> UC1 : Store Message
+RabbitMQ -> UC2 : Deliver Message to Consumer
+RabbitMQ -> UC6 : Notify Failure
+RabbitMQ -> UC5 : Respond with Status
+
+@enduml
