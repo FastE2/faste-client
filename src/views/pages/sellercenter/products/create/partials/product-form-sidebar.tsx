@@ -75,7 +75,7 @@ export function ProductFormSidebar(props: TProps) {
   return (
     <div className="flex flex-col gap-y-2">
       <Tabs defaultValue="info-product">
-        <TabsList className="bg-gray-200">
+        <TabsList className="bg-gray-200 max-w-[400px] w-full">
           <TabsTrigger value="info-product">Thông tin sản phẩm</TabsTrigger>
           <TabsTrigger value="preview-product">xem trước sản phẩm</TabsTrigger>
         </TabsList>
@@ -246,7 +246,7 @@ export function ProductFormSidebar(props: TProps) {
 
         <TabsContent value="preview-product">
           <Card className="flex-1 flex items-center">
-            <div className="relative h-[500px] w-[270px] overflow-hidden rounded-[3rem] border-[14px] border-gray-900 bg-white shadow-2xl">
+            <div className="relative h-[500px] w-[270px] overflow-hidden rounded-[3rem] border-[14px] border-gray-900 bg-white shadow-2xl cursor-grab">
               <div className="absolute left-0 right-0 top-0 z-50 flex h-6 items-center justify-between bg-black/40 px-6 text-white">
                 <span className="text-xs font-medium">9:41</span>
                 <div className="flex items-center gap-1">

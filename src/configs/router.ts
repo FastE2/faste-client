@@ -99,4 +99,5 @@ export const ROUTE_CONFIG = {
   },
   CART: '/cart',
   CHECKOUT: '/checkout',
+  PAYMENT: '/payment',
 };

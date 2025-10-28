@@ -1,6 +1,5 @@
 import { API_ENDPOINT } from '@/configs/api';
 import { TLoginAuth } from '@/types/auth';
-import axiosInstance from '@/utils/axios';
 import axios from 'axios';
 
 export const loginAuth = async (data: TLoginAuth) => {

@@ -13,3 +13,9 @@ export const getLocalUserData = () => {
     accessToken: '',
   };
 };
+
+export const getCheckoutItems = (): any[] => {
+  if (typeof window === 'undefined') return [];
+  const data = localStorage.getItem(KEY_STORAGE.CHECKOUT_ITEMS);
+  return data ? JSON.parse(data) : [];
+};

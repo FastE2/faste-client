@@ -6,3 +6,8 @@ export const clearLocalUserData = () => {
     window.localStorage.removeItem(KEY_STORAGE.ACCESS_TOKEN);
   }
 };
+
+export const clearCheckoutItems = () => {
+  if (typeof window === 'undefined') return;
+  localStorage.removeItem(KEY_STORAGE.CHECKOUT_ITEMS);
+};
