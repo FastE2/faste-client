@@ -7,28 +7,19 @@ import React, {
   ReactNode,
   useMemo,
 } from 'react';
-import { TLoginAuth } from '@/types/auth';
+import { TLoginAuth, UserDataType } from '@/types/auth';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { loginAuth } from '@/services/auth';
-import { setLocalUserData } from '@/helpers/storage/set';
+import { loginAuth, logoutAuth } from '@/services/auth';
+import { setLocalAccessToken, setLocalUserData } from '@/helpers/storage/set';
 import { ToastNotifications } from '@/components/ToastNotification';
 import { getLocalUserData } from '@/helpers/storage/get';
-import { set } from 'react-hook-form';
 import { injectAuthDependencies } from '@/utils/axios';
 import { useGetProfile } from '@/hooks/queries/useGetProfile';
 import { keepPreviousData } from '@tanstack/react-query';
-
-// Định nghĩa kiểu cho AuthContext
-type UserDataType = {
-  id: number;
-  name: string;
-  email: string;
-  phoneNumber: string;
-  dateOfBirth: string;
-  gender: 'MALE' | 'FEMALE' | 'OTHER';
-  avatar: string;
-  addresses: any[];
-} | null;
+import {
+  clearCheckoutItems,
+  clearLocalUserData,
+} from '@/helpers/storage/clear';
 
 type AuthContextType = {
   user: UserDataType;
@@ -68,7 +59,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const enabled = !!userData;
 
-  const { data, isLoading } = useGetProfile({
+  const { data, isLoading, refetch } = useGetProfile({
     enabled,
     select: (data) => data,
     staleTime: 5 * 60 * 1000,
@@ -87,43 +78,58 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (data) {
       setUser(data);
+      setLocalUserData(data)
     }
 
-    // khi react-query load xong thì setLoading = false
     if (!isLoading) {
       setLoading(false);
     }
-  }, [enabled, data]);
+  }, [enabled, data, isLoading]);
 
   useEffect(() => {
     injectAuthDependencies(router, setUser, pathName);
   }, [router, setUser, pathName]);
 
-  console.log('Auth Context User:', user);
+  // console.log('Auth Context User:', user);
 
-  const login = (data: TLoginAuth) => {
-    // setUser({ email: data.email });
-    loginAuth(data)
-      .then((response) => {
-        setLocalUserData(response.data.accessToken);
-        ToastNotifications.success('Login', 'Login successfully!');
-        const returnUrl = searchParams.get('returnUrl');
-        const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/';
-        router.replace(redirectURL as string);
-      })
-      .catch((error) => {
-        if (error.response.status === 400) {
-          ToastNotifications.error('Login', 'Email or password invalid!');
-          return;
-        }
+  const login = async (data: TLoginAuth) => {
+    setLoading(true);
+    try {
+      const response = await loginAuth(data);
+      const { accessToken } = response.data;
+
+      setLocalUserData(accessToken);
+      ToastNotifications.success('Login', 'Login successfully!');
+
+      await refetch();
+
+      const returnUrl = searchParams.get('returnUrl');
+      router.replace(returnUrl && returnUrl !== '/' ? returnUrl : '/');
+    } catch (error: any) {
+      if (error.response?.status === 400) {
+        ToastNotifications.error('Login', 'Email or password invalid!');
+      } else {
         ToastNotifications.error('Login', 'Server error!');
-      });
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
-    router.push('/');
+  const logout = async () => {
+    try {
+      const res = await logoutAuth();
+      if (res.statusCode === 201) {
+        ToastNotifications.success('Logout', 'Logout successfully');
+      }
+    } catch (error) {
+      ToastNotifications.error('Logout', 'Something went wrong');
+    } finally {
+      setUser(null);
+      clearLocalUserData();
+      clearCheckoutItems();
+      router.push('/');
+    }
   };
 
   const loginGoogle = async () => {

@@ -9,6 +9,7 @@ import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.share
 import { clearLocalUserData } from '@/helpers/storage/clear';
 import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { refreshToken } from '@/services/auth';
+import { setLocalAccessToken } from '@/helpers/storage/set';
 
 let _router: any = null;
 let _setUser: any = null;
@@ -57,26 +58,24 @@ axiosInstance.interceptors.request.use(
     // Do something before the request is sent
     // For example, add an authentication token to the headers
     const { accessToken } = getLocalUserData();
-    // const router = useRouter(); // Retrieve auth token from localStorage
-    // const { setUser } = useAuth();
-    // const pathName = usePathname();
 
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
       if (isTokenExpired(accessToken)) {
         handleRedirectLogin(_router, _setUser, _pathName!);
         console.log('isTokenExpired');
-        // try {
-        //   const res = await refreshToken();
-        //   config.headers.Authorization = `Bearer ${res.accessToken}`;
-        // } catch (err) {
-        //   console.log('handleRedirectLogin 1');
-        //   handleRedirectLogin(_router, _setUser, _pathName!);
-        // }
+        try {
+          const res = await refreshToken();
+          config.headers.Authorization = `Bearer ${res.accessToken}`;
+          setLocalAccessToken(res.accessToken);
+        } catch (err) {
+          console.log('handleRedirectLogin 1');
+          handleRedirectLogin(_router, _setUser, _pathName!);
+        }
       }
     } else {
       console.log('handleRedirectLogin 2');
-      // handleRedirectLogin(_router, _setUser, _pathName!);
+      handleRedirectLogin(_router, _setUser, _pathName!);
     }
     return config;
   },
@@ -88,26 +87,23 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
   (response) => response,
-  // async (error: AxiosError & { config?: AxiosRequestConfig }) => {
-  //   // const router = useRouter();
-  //   // const { setUser } = useAuth();
-  //   // const pathName = usePathname();
-  //   const originalRequest = error.config;
-  //   if (error.response?.status === 401 && !(originalRequest as any)._retry) {
-  //     (originalRequest as any)._retry = true;
-  //     try {
-  //       const res = await refreshToken();
-  //       if (originalRequest?.headers) {
-  //         originalRequest.headers.Authorization = `Bearer ${res.accessToken}`;
-  //       }
-  //       return axiosInstance(originalRequest!);
-  //     } catch (err) {
-  //       console.error('Refresh token failed in response', err);
-  //       handleRedirectLogin(_router, _setUser, _pathName!);
-  //     }
-  //   }
-  //   return Promise.reject(error);
-  // },
+  async (error: AxiosError & { config?: AxiosRequestConfig }) => {
+    const originalRequest = error.config;
+    if (error.response?.status === 401 && !(originalRequest as any)._retry) {
+      (originalRequest as any)._retry = true;
+      try {
+        const res = await refreshToken();
+        if (originalRequest?.headers) {
+          originalRequest.headers.Authorization = `Bearer ${res.accessToken}`;
+        }
+        return axiosInstance(originalRequest!);
+      } catch (err) {
+        console.error('Refresh token failed in response', err);
+        handleRedirectLogin(_router, _setUser, _pathName!);
+      }
+    }
+    return Promise.reject(error);
+  },
 );
 
 export default axiosInstance;

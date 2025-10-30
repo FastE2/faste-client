@@ -5,6 +5,9 @@ export const API_ENDPOINT = {
     INDEX: `${BASE_URL}/auth`,
     REFRESH_TOKEN: `${BASE_URL}/auth/refresh-token`,
     AUTH_ME: `${BASE_URL}/auth/me`,
+    LOGOUT: `${BASE_URL}/auth/logout`,
+    LOGIN: `${BASE_URL}/auth/login`,
+    REGISTER: `${BASE_URL}/auth/register`,
   },
   PROFILE: {
     INDEX: `${BASE_URL}/profile`,

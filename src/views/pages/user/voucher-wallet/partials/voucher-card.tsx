@@ -21,10 +21,10 @@ export function VoucherCard({
   validity,
 }: VoucherCardProps) {
   const typeConfig = {
-    freeship: { bg: 'bg-teal-500', label: 'FREE SHIP', icon: '🚚' },
-    discount: { bg: 'bg-teal-500', label: 'Lâm Đẹp', icon: '🎁' },
-    live: { bg: 'bg-red-500', label: 'SHOPEE LIVE', icon: '📺' },
-    video: { bg: 'bg-red-500', label: 'SHOPEE VIDEO', icon: '🎬' },
+    freeship: { bg: '#14b8a6', label: 'FREE SHIP', icon: '🚚' },
+    discount: { bg: '#14b8a6', label: 'Lâm Đẹp', icon: '🎁' },
+    live: { bg: '#ef4444', label: 'SHOPEE LIVE', icon: '📺' },
+    video: { bg: '#ef4444', label: 'SHOPEE VIDEO', icon: '🎬' },
   };
 
   const config = typeConfig[type];
@@ -33,11 +33,30 @@ export function VoucherCard({
     <div className="flex gap-4 bg-white dark:bg-slate-900 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow border border-gray-200 dark:border-slate-800">
       {/* Left colored section with ticket edge */}
       <div
-        className={`${config.bg} w-24 flex-shrink-0 flex flex-col items-center justify-center text-white relative`}
+        className="w-24 flex-shrink-0 flex flex-col items-center justify-center text-white relative"
+        style={{
+          backgroundColor: config.bg,
+        }}
       >
+        <div
+          style={{
+            content: "''",
+            position: 'absolute',
+            top: 0,
+            right: '-50px',
+            bottom: 0,
+            display: 'block',
+            width: '60px',
+            backgroundSize: '100% 10px',
+            backgroundImage: `linear-gradient(45deg, ${config.bg} 25%, transparent 25%),
+                        linear-gradient(135deg, ${config.bg} 25%, transparent 25%)`,
+            backgroundPosition: '0 0',
+          }}
+        />
         {/* Ticket edge effect */}
-        <div className="absolute -right-3 top-0 w-6 h-6 bg-gray-50 dark:bg-slate-900 rounded-full"></div>
-        <div className="absolute -right-3 bottom-0 w-6 h-6 bg-gray-50 dark:bg-slate-900 rounded-full"></div>
+        {/* <div className="absolute -right-3 top-0 w-6 h-6 bg-gray-50 dark:bg-slate-900 rounded-full"></div>
+        <div className="absolute -right-3 bottom-0 w-6 h-6 bg-gray-50 dark:bg-slate-900 rounded-full"></div> */}
+
         <div className="text-2xl mb-1">{config.icon}</div>
         <div className="text-xs font-bold text-center px-1 leading-tight">
           {config.label}

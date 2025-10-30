@@ -27,7 +27,7 @@ const Header = React.memo(
     const [cartItemList, SetCartItemList] = useState<any[] | null>(null);
     const router = useRouter();
     const pathName = usePathname();
-    const { user } = useAuth();
+    const { user, logout } = useAuth();
     const { i18n } = useTranslation();
 
     const handleNavigateLogin = () => {
@@ -44,7 +44,7 @@ const Header = React.memo(
       router.replace(ROUTE_CONFIG.USER.INFO.ACCOUNT);
     };
 
-     const handleNavigateUtils = (path: string) => {
+    const handleNavigateUtils = (path: string) => {
       router.replace(path);
     };
 
@@ -234,33 +234,32 @@ const Header = React.memo(
                     className={`absolute right-0 z-10 hidden w-56 space-y-1 bg-white dark:bg-gray-900 py-2 shadow-[0_3px_10px_rgb(0,0,0,0.2)] rounded-sm ${user ? 'group-hover:block' : ''}`}
                   >
                     <Link
-                      href={`${ROUTE_CONFIG.USER.INFO.ACCOUNT}`}
-                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+                      href={ROUTE_CONFIG.USER.INFO.ACCOUNT}
+                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
                       prefetch={false}
                     >
                       Thông tin tài khoản
                     </Link>
                     <Link
-                      href="#"
-                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+                      href={ROUTE_CONFIG.USER.ORDER.ORDER_LIST}
+                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
                       prefetch={false}
                     >
                       Đơn hàng của tôi
                     </Link>
                     <Link
                       href="#"
-                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
+                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
                       prefetch={false}
                     >
                       Trung tâm trợ giúp
                     </Link>
-                    <Link
-                      href="#"
-                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800"
-                      prefetch={false}
+                    <div
+                      className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+                      onClick={logout}
                     >
                       Đăng xuất
-                    </Link>
+                    </div>
                   </div>
                 </div>
 
@@ -307,42 +306,50 @@ const Header = React.memo(
                       <div className="mb-4 max-w-[400px] max-h-[400px]">
                         {cartItemList.map((ci, indexCi: number) => (
                           <div key={ci.shop.shopid + indexCi}>
-                            {ci.cartItems.map((item: any, indexItem: number) => (
-                              <div
-                                key={
-                                  indexCi + indexItem + item.id + item.sku.id
-                                }
-                                className="flex items-start max-w-[400px] max-h-14 hover:bg-gray-100 p-2"
-                                onClick={() => handleNavigateUtils(`product/${item.sku.product.slugId}`)}
-                              >
-                                <div className="w-10 h-10 border border-gray-200">
-                                  {item.sku.product.images[0] ? (
-                                    <Image
-                                      width={100}
-                                      height={100}
-                                      src={'/nftt-2.png'}
-                                      alt={item.sku.product.name}
-                                      className="object-cover w-full h-full"
-                                    />
-                                  ) : (
-                                    <Icon icon={'fluent-mdl2:product'} />
-                                  )}
-                                </div>
-                                <div className="pl-2 w-full h-full flex-1 flex justify-between items-start">
-                                  <div className="text-sm max-w-48 overflow-hidden text-ellipsis whitespace-nowrap">
-                                    {item.sku.product.name}
-                                  </div>
-                                  <div className="text-sm text-red-500">
-                                    {formatCurrencyWithExchange(
-                                      item.sku.price,
-                                      {
-                                        language: i18n.language as 'vi' | 'en',
-                                      },
+                            {ci.cartItems.map(
+                              (item: any, indexItem: number) => (
+                                <div
+                                  key={
+                                    indexCi + indexItem + item.id + item.sku.id
+                                  }
+                                  className="flex items-start max-w-[400px] max-h-14 hover:bg-gray-100 p-2"
+                                  onClick={() =>
+                                    handleNavigateUtils(
+                                      `product/${item.sku.product.slugId}`,
+                                    )
+                                  }
+                                >
+                                  <div className="w-10 h-10 border border-gray-200">
+                                    {item.sku.product.images[0] ? (
+                                      <Image
+                                        width={100}
+                                        height={100}
+                                        src={'/nftt-2.png'}
+                                        alt={item.sku.product.name}
+                                        className="object-cover w-full h-full"
+                                      />
+                                    ) : (
+                                      <Icon icon={'fluent-mdl2:product'} />
                                     )}
                                   </div>
+                                  <div className="pl-2 w-full h-full flex-1 flex justify-between items-start">
+                                    <div className="text-sm max-w-48 overflow-hidden text-ellipsis whitespace-nowrap">
+                                      {item.sku.product.name}
+                                    </div>
+                                    <div className="text-sm text-red-500">
+                                      {formatCurrencyWithExchange(
+                                        item.sku.price,
+                                        {
+                                          language: i18n.language as
+                                            | 'vi'
+                                            | 'en',
+                                        },
+                                      )}
+                                    </div>
+                                  </div>
                                 </div>
-                              </div>
-                            ))}
+                              ),
+                            )}
                           </div>
                         ))}
                       </div>
@@ -354,7 +361,7 @@ const Header = React.memo(
                         83 Sản phẩm trong giỏ
                       </div>
                       <Link href={'/cart'} className="cursor-pointer">
-                        <Button className='cursor-pointer'>Xem giỏ hàng</Button>
+                        <Button className="cursor-pointer">Xem giỏ hàng</Button>
                       </Link>
                     </div>
                   </div>
