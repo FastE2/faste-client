@@ -2,10 +2,7 @@
 
 import { Checkbox } from '@/components/ui/checkbox';
 import { CartItem } from './cart-item';
-import type { Shop } from '@/lib/cart-data';
 import { ChevronRight } from 'lucide-react';
-import { getCartByMe } from '@/services/cart';
-import { useEffect, useState } from 'react';
 
 interface ShopSectionProps {
   CartShop: any;

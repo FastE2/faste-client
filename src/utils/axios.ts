@@ -1,15 +1,11 @@
+import axios, { AxiosRequestConfig, AxiosError } from 'axios';
 import { BASE_URL } from '@/configs/api';
 import { getLocalUserData } from '@/helpers/storage/get';
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-// import { usePathname, useRouter } from 'next/navigation';
-// import { useAuth } from '@/hooks/use-auth';
-import { createUrlQuery } from './create-query-url';
-import { ROUTE_CONFIG } from '@/configs/router';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
-import { clearLocalUserData } from '@/helpers/storage/clear';
-import { jwtDecode, JwtPayload } from 'jwt-decode';
 import { refreshToken } from '@/services/auth';
 import { setLocalAccessToken } from '@/helpers/storage/set';
+import { clearLocalUserData } from '@/helpers/storage/clear';
+import { ROUTE_CONFIG } from '@/configs/router';
+import { createUrlQuery } from './create-query-url';
 
 let _router: any = null;
 let _setUser: any = null;
@@ -26,80 +22,74 @@ export const injectAuthDependencies = (
 };
 
 const axiosInstance = axios.create({
-  baseURL: BASE_URL, // Replace with your API base URL
+  baseURL: BASE_URL,
 });
 
-const isTokenExpired = (token: string | null) => {
-  if (!token) return true;
-  const decoded = jwtDecode<JwtPayload>(token);
-  if (typeof decoded.exp === 'undefined') return true;
-  return Date.now() >= decoded.exp * 1000;
+// ==== QUEUE AVOID PARALLEL REFRESH ====
+let isRefreshing = false;
+let failedQueue: any[] = [];
+
+const processQueue = (error: any, token: string | null = null) => {
+  failedQueue.forEach((p) => {
+    if (error) p.reject(error);
+    else p.resolve(token);
+  });
+  failedQueue = [];
 };
 
-const handleRedirectLogin = (
-  router: AppRouterInstance,
-  setUser: (data: { email: string } | null) => void,
-  pathName: string,
-) => {
-  if (pathName !== '/') {
-    router.replace(
-      ROUTE_CONFIG.LOGIN + '?' + createUrlQuery('returnUrl', pathName),
-    );
-  } else {
-    router.replace('/login');
+// ==== REQUEST INTERCEPTOR ====
+axiosInstance.interceptors.request.use((config) => {
+  const { accessToken } = getLocalUserData();
+  if (accessToken) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
   }
-  setUser(null);
-  clearLocalUserData();
-};
+  return config;
+});
 
-// Add a request interceptor
-axiosInstance.interceptors.request.use(
-  async function (config) {
-    // Do something before the request is sent
-    // For example, add an authentication token to the headers
-    const { accessToken } = getLocalUserData();
-
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
-      if (isTokenExpired(accessToken)) {
-        handleRedirectLogin(_router, _setUser, _pathName!);
-        console.log('isTokenExpired');
-        try {
-          const res = await refreshToken();
-          config.headers.Authorization = `Bearer ${res.accessToken}`;
-          setLocalAccessToken(res.accessToken);
-        } catch (err) {
-          console.log('handleRedirectLogin 1');
-          handleRedirectLogin(_router, _setUser, _pathName!);
-        }
-      }
-    } else {
-      console.log('handleRedirectLogin 2');
-      handleRedirectLogin(_router, _setUser, _pathName!);
-    }
-    return config;
-  },
-  function (error) {
-    // Handle the error
-    return Promise.reject(error);
-  },
-);
-
+// ==== RESPONSE INTERCEPTOR ====
 axiosInstance.interceptors.response.use(
   (response) => response,
+
   async (error: AxiosError & { config?: AxiosRequestConfig }) => {
     const originalRequest = error.config;
-    if (error.response?.status === 401 && !(originalRequest as any)._retry) {
-      (originalRequest as any)._retry = true;
+
+    if (error.response?.status === 401 && !(originalRequest as any)?._retry) {
+      if (isRefreshing) {
+        return new Promise(function (resolve, reject) {
+          failedQueue.push({ resolve, reject });
+        }).then((token) => {
+          originalRequest!.headers.Authorization = `Bearer ${token}`;
+          return axiosInstance(originalRequest!);
+        });
+      }
+
+      (originalRequest as any)!._retry = true;
+      isRefreshing = true;
+
       try {
         const res = await refreshToken();
-        if (originalRequest?.headers) {
-          originalRequest.headers.Authorization = `Bearer ${res.accessToken}`;
-        }
+        setLocalAccessToken(res.accessToken);
+        processQueue(null, res.accessToken);
+
+        originalRequest!.headers.Authorization = `Bearer ${res.accessToken}`;
         return axiosInstance(originalRequest!);
       } catch (err) {
-        console.error('Refresh token failed in response', err);
-        handleRedirectLogin(_router, _setUser, _pathName!);
+        processQueue(err, null);
+        clearLocalUserData();
+
+        if (_router) {
+          const redirectUrl =
+            _pathName !== '/'
+              ? ROUTE_CONFIG.LOGIN +
+                '?' +
+                createUrlQuery('returnUrl', _pathName!)
+              : ROUTE_CONFIG.LOGIN;
+          _router.replace(redirectUrl);
+        }
+        if (_setUser) _setUser(null);
+        return Promise.reject(err);
+      } finally {
+        isRefreshing = false;
       }
     }
     return Promise.reject(error);

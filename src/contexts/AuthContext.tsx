@@ -55,7 +55,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // inject to axios when App mount
 
-  const { userData } = getLocalUserData();
+  const { userData, accessToken } = getLocalUserData();
 
   const enabled = !!userData;
 
@@ -70,7 +70,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   });
 
   useEffect(() => {
-    if (!enabled) {
+    if (!userData && !accessToken) {
       setUser(null);
       setLoading(false);
       return;
@@ -78,13 +78,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     if (data) {
       setUser(data);
-      setLocalUserData(data)
+      setLocalUserData(data);
     }
 
     if (!isLoading) {
       setLoading(false);
     }
-  }, [enabled, data, isLoading]);
+  }, [enabled, data, isLoading, accessToken]);
 
   useEffect(() => {
     injectAuthDependencies(router, setUser, pathName);
@@ -98,7 +98,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const response = await loginAuth(data);
       const { accessToken } = response.data;
 
-      setLocalUserData(accessToken);
+      setLocalAccessToken(accessToken);
       ToastNotifications.success('Login', 'Login successfully!');
 
       await refetch();

@@ -94,6 +94,7 @@ const Header = React.memo(
     };
 
     useEffect(() => {
+      console.log("REUN!")
       fetchDataCartItem();
     }, []);
 
