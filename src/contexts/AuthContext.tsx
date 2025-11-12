@@ -7,9 +7,9 @@ import React, {
   ReactNode,
   useMemo,
 } from 'react';
-import { TLoginAuth, UserDataType } from '@/types/auth';
+import { TLoginAuth, TRegisterAuth, UserDataType } from '@/types/auth';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
-import { loginAuth, logoutAuth } from '@/services/auth';
+import { loginAuth, logoutAuth, registerAuth } from '@/services/auth';
 import { setLocalAccessToken, setLocalUserData } from '@/helpers/storage/set';
 import { toastify } from '@/components/ToastNotification';
 import { getLocalUserData } from '@/helpers/storage/get';
@@ -20,6 +20,7 @@ import {
   clearCheckoutItems,
   clearLocalUserData,
 } from '@/helpers/storage/clear';
+import { ROUTE_CONFIG } from '@/configs/router';
 
 type AuthContextType = {
   user: UserDataType;
@@ -27,6 +28,7 @@ type AuthContextType = {
   setUser: React.Dispatch<React.SetStateAction<UserDataType>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   login: (data: TLoginAuth) => void;
+  register: (data: TRegisterAuth) => void;
   logout: () => void;
   loginGoogle: () => Promise<void>;
   loginFacebook: () => Promise<void>;
@@ -38,6 +40,7 @@ const defaultValueProvider: AuthContextType = {
   setUser: () => null,
   setLoading: () => Boolean,
   login: () => Promise.resolve(),
+  register: () => Promise.resolve(),
   logout: () => Promise.resolve(),
   loginGoogle: () => Promise.resolve(),
   loginFacebook: () => Promise.resolve(),
@@ -109,7 +112,36 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (error.response?.status === 400) {
         toastify.error('Login', 'Email or password invalid!');
       } else {
-        toastify.error('Login', 'Server error!');
+        toastify.error(
+          'Server Error',
+          'Something went wrong. Please try again later.',
+        );
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const register = async (data: TRegisterAuth) => {
+    setLoading(true);
+    try {
+      const response = await registerAuth(data);
+      console.log(response);
+      if (response.statusCode === 201) {
+        toastify.success('Success', 'Your account has been registered!');
+      }
+      router.replace(ROUTE_CONFIG.LOGIN);
+    } catch (error: any) {
+      if (error.response?.status === 400) {
+        toastify.error(
+          'Server Error',
+          'Something went wrong. Please try again later.',
+        );
+      } else {
+        toastify.error(
+          'Server Error',
+          'Something went wrong. Please try again later.',
+        );
       }
     } finally {
       setLoading(false);
@@ -147,6 +179,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setUser,
       setLoading,
       login,
+      register,
       logout,
       loginGoogle,
       loginFacebook,

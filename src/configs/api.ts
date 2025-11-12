@@ -8,6 +8,7 @@ export const API_ENDPOINT = {
     LOGOUT: `${BASE_URL}/auth/logout`,
     LOGIN: `${BASE_URL}/auth/login`,
     REGISTER: `${BASE_URL}/auth/register`,
+    OTP: `${BASE_URL}/auth/otp`,
   },
   PROFILE: {
     INDEX: `${BASE_URL}/profile`,

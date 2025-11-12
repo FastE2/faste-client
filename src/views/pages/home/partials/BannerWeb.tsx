@@ -6,16 +6,19 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import Image from 'next/image';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const BannerWeb = () => {
+  const isMobile = useIsMobile();
+  console.log('isMobile', isMobile);
   return (
     <div className="bg-white dark:bg-black w-full mb-5 p-4">
       <div className="w-full">
         <Swiper
-          slidesPerView={2}
+          slidesPerView={isMobile ? 1 : 2}
           spaceBetween={30}
-          slidesPerGroupSkip={2}
-          slidesPerGroup={2}
+          slidesPerGroupSkip={isMobile ? 1 : 2}
+          slidesPerGroup={isMobile ? 1 : 2}
           loop={true}
           autoplay={{
             delay: 3000,

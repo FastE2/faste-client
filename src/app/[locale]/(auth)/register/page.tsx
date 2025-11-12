@@ -1,14 +1,14 @@
-import { LoginForm } from '@/components/login-form';
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
 import LayoutPublic from '@/views/layouts/LayoutPublic';
+import { RegisterPage } from '@/views/pages/(auth)/register';
 import { Metadata } from 'next';
 import { ReactNode } from 'react';
 
 export const metadata: Metadata = {
-  title: 'Đăng nhập tài khoản - FastE',
+  title: 'Đăng ký ngay - FastE',
 };
 
-export default function LoginPage() {
+export default function Page() {
   return (
     <GuardLayoutWrapper
       guestGuard={true}
@@ -16,7 +16,7 @@ export default function LoginPage() {
     >
       <div className="bg-muted flex min-h-svh flex-col items-center justify-center p-6 md:p-10">
         <div className="w-full max-w-sm md:max-w-3xl">
-          <LoginForm />
+          <RegisterPage />
         </div>
       </div>
     </GuardLayoutWrapper>

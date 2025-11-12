@@ -1,7 +1,22 @@
+import { VerificationCodeType } from '../../constants/index';
+
 export type TLoginAuth = {
   email: string;
   password: string;
-  deviceToken?: string;
+};
+
+export type TRegisterAuth = {
+  email: string;
+  name: string;
+  code: string;
+  phoneNumber: string;
+  password: string;
+  confirmPassword: string;
+};
+
+export type TSendOtp = {
+  email: string;
+  type: VerificationCodeType;
 };
 
 export type UserDataType = {

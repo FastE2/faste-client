@@ -1,5 +1,5 @@
 import { API_ENDPOINT } from '@/configs/api';
-import { TLoginAuth } from '@/types/auth';
+import { TLoginAuth, TRegisterAuth, TSendOtp } from '@/types/auth';
 import axiosInstance from '@/utils/axios';
 import axios from 'axios';
 
@@ -7,6 +7,18 @@ export const loginAuth = async (data: TLoginAuth) => {
   const res = await axios.post(`${API_ENDPOINT.AUTH.LOGIN}`, data, {
     withCredentials: true,
   });
+
+  return res.data;
+};
+
+export const registerAuth = async (data: TRegisterAuth) => {
+  const res = await axios.post(`${API_ENDPOINT.AUTH.REGISTER}`, data);
+
+  return res.data;
+};
+
+export const sendOTP = async (data: TSendOtp) => {
+  const res = await axios.post(`${API_ENDPOINT.AUTH.OTP}`, data);
 
   return res.data;
 };
