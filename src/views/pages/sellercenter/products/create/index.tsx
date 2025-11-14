@@ -87,7 +87,7 @@ const productSchema = yup.object().shape({
         skuCode: yup.string().required('Mã SKU là bắt buộc'),
         price: yup
           .number()
-          .positive('Giá SKU phải lớn hơn 0')
+          // .positive('Giá SKU phải lớn hơn 0')
           .required('Giá SKU là bắt buộc'),
         attributes: yup.object().required('Thuộc tính SKU là bắt buộc'),
         quantity: yup
@@ -177,7 +177,7 @@ export const CreateProductPage = () => {
       name: '',
       categories: [],
       brandId: undefined,
-      images: [],
+      images: ["https://upload.wikimedia.org/wikipedia/commons/7/78/Image.jpg"],
       variants: [],
       skus: [],
       description: '',
@@ -189,6 +189,7 @@ export const CreateProductPage = () => {
 
   // -- onSubmit --
   const onSubmit = async (data: any) => {
+    console.log("RUN SUBMIT")
     try {
       if (!Object.keys(errors).length) {
         console.log(data);
@@ -890,6 +891,7 @@ export const CreateProductPage = () => {
             <Button
               type="submit"
               onClick={() => {
+                console.log("submit", errors)
                 setValue('status', 'PUBLISHED');
               }}
               className="cursor-pointer"

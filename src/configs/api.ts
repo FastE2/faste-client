@@ -34,6 +34,9 @@ export const API_ENDPOINT = {
       INDEX: `${BASE_URL}/payment-type`,
     },
   },
+  SHOP: {
+    INDEX: `${BASE_URL}/shop`,
+  },
   MANAGE_PRODUCT: {
     BRAND: {
       INDEX: `${BASE_URL}/brand`,
@@ -44,6 +47,7 @@ export const API_ENDPOINT = {
     PRODUCT: {
       INDEX: `${BASE_URL}/products`,
       PUBLIC: `${BASE_URL}/products/public`,
+      PUBLIC_SHOP: `${BASE_URL}/products/public/shop`,
     },
     COMMENT: {
       INDEX: `${BASE_URL}/comments`,

@@ -14,6 +14,7 @@ import { useState, useMemo, useCallback, useEffect, use } from 'react';
 import { set } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
 import { ImageGallery } from './partials/image-gallery';
+import { useRouter } from 'next/navigation';
 
 type TProps = {
   product: any;
@@ -30,6 +31,7 @@ const ProductDetails = (props: TProps) => {
   const [products, setProducts] = useState<any[]>([]);
   const [quantityProduct, setQuantityProduct] = useState<number>(1);
   const { i18n } = useTranslation();
+  const router = useRouter();
 
   // ** Calculate total sold
   const totalSold = useMemo(() => {
@@ -48,6 +50,10 @@ const ProductDetails = (props: TProps) => {
     } catch (error) {
       toastify.error('Server', 'Server error!');
     }
+  };
+
+  const handleNavigateUtils = (path: string) => {
+    router.push(path);
   };
 
   useEffect(() => {
@@ -101,6 +107,7 @@ const ProductDetails = (props: TProps) => {
         toastify.info('Thông tin', `Đã có lỗi xảy ra vui lòng thử lại!`);
       }
     } catch (error) {
+      console.log(error)
       toastify.error('Lỗi', 'Không thể thêm sản phẩm vào giỏ hàng.');
     }
   };
@@ -264,7 +271,7 @@ const ProductDetails = (props: TProps) => {
       <div className="flex items-center gap-x-4 bg-white dark:bg-black w-full p-4">
         <div>
           <Image
-            src={'/nftt-1.png'}
+            src={product.shop.logo || '/nftt-1.png'}
             alt={product.shop.name}
             width={100}
             height={100}
@@ -278,7 +285,13 @@ const ProductDetails = (props: TProps) => {
               <Icon icon="tdesign:chat-double-filled" width="24" height="24" />{' '}
               <span>Chat Ngay</span>
             </Button>
-            <Button>
+            <Button
+              onClick={() => {
+                console.log('shop slug', product.shop);
+                handleNavigateUtils(`/shop/${product.shop.slug}`)
+              }}
+              className='cursor-pointer'
+            >
               <Icon icon="iconoir:shop" width="24" height="24" />{' '}
               <span>Xem Shop</span>
             </Button>

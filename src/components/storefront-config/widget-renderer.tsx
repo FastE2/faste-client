@@ -12,9 +12,11 @@ import { Widget, WidgetType } from '@/types/widget';
 
 interface WidgetRendererProps {
   widget: Widget;
+  shopId?: number;
 }
 
-export default function WidgetRenderer({ widget }: WidgetRendererProps) {
+export default function WidgetRenderer({ widget, shopId }: WidgetRendererProps) {
+  console.log("shopId", shopId)
   switch (widget.type) {
     case WidgetType.TITLE:
       return <TitleWidget widget={widget} />;
@@ -25,7 +27,7 @@ export default function WidgetRenderer({ widget }: WidgetRendererProps) {
     case WidgetType.CATEGORIES_CAROUSEL:
       return <CategoriesWidget widget={widget} />;
     case WidgetType.PRODUCTS_ALL:
-      return <ProductsWidget widget={widget} />;
+      return <ProductsWidget widget={widget} shopId={shopId ? shopId : null} />;
     case WidgetType.STORIES_CAROUSEL:
       return <StoriesWidget widget={widget} />;
     case WidgetType.FLASH_SALE:

@@ -5,7 +5,6 @@ import BannerWeb from './partials/BannerWeb';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { Card } from '@/components/ui/card';
 import PrimaryProductCard from './partials/PrimaryProductCard';
-import Image from 'next/image';
 
 interface TProps {
   data: [];

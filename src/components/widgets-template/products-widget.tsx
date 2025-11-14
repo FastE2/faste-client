@@ -1,41 +1,63 @@
+'use client';
+
+import { getAllProductsPublicByShop } from '@/services/product';
 import { Widget } from '@/types/widget';
 import { Star } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import CartProduct from '../CardProduct';
 
 interface ProductsWidgetProps {
   widget: Widget;
+  data?: any;
+  shopId?: number | null;
 }
 
-export default function ProductsWidget({ widget }: ProductsWidgetProps) {
+export default function ProductsWidget({
+  widget,
+  data,
+  shopId,
+}: ProductsWidgetProps) {
+  const [dataProducts, setDataProducts] = useState<any[]>([]);
   const products = [
     {
       name: 'iPhone 15 Pro Max',
-      price: '29.990.000',
-      oldPrice: '34.990.000',
-      rating: 4.8,
-      sold: 1200,
+      basePrice: '29990000',
+      slugId: '#',
+      images: [''],
     },
     {
       name: 'Samsung Galaxy S24',
-      price: '22.990.000',
-      oldPrice: '27.990.000',
-      rating: 4.7,
-      sold: 890,
+      basePrice: '22990000',
+      slugId: '#',
+      images: [''],
     },
     {
       name: 'MacBook Air M3',
-      price: '28.990.000',
-      oldPrice: '32.990.000',
-      rating: 4.9,
-      sold: 650,
+      basePrice: '28990000',
+      slugId: '#',
+      images: [''],
     },
     {
       name: 'iPad Pro 2024',
-      price: '24.990.000',
-      oldPrice: '29.990.000',
-      rating: 4.8,
-      sold: 420,
+      basePrice: '24990000',
+      slugId: '#',
+      images: [''],
     },
   ];
+  const fetchProductByShop = async (shopId: number) => {
+    const res = await getAllProductsPublicByShop(shopId);
+    console.log('PRODUCT BY SHOP =========', res);
+    if (!res.error) {
+      setDataProducts(res.data.data);
+    }
+  };
+  useEffect(() => {
+    if (shopId) {
+      fetchProductByShop(shopId);
+    } else {
+      setDataProducts(products);
+    }
+  }, [shopId]);
 
   return (
     <div className="rounded-lg bg-white p-3 shadow-sm">
@@ -47,7 +69,16 @@ export default function ProductsWidget({ widget }: ProductsWidgetProps) {
           Xem tất cả
         </button>
       </div>
-      <div className="grid grid-cols-2 gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+        {dataProducts ? (
+          dataProducts.map((product, index) => (
+            <CartProduct key={index} data={product} />
+          ))
+        ) : (
+          <div>Not found</div>
+        )}
+      </div>
+      {/* <div className="grid grid-cols-2 gap-2">
         {products.map((product, index) => (
           <div
             key={index}
@@ -78,7 +109,7 @@ export default function ProductsWidget({ widget }: ProductsWidgetProps) {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

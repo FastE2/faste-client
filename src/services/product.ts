@@ -1,4 +1,5 @@
 import { API_ENDPOINT } from '@/configs/api';
+import { ApiResponse } from '@/types/api-response';
 import { TBodyCreateProduct } from '@/types/product';
 import axiosInstance from '@/utils/axios';
 import axios from 'axios';
@@ -17,6 +18,40 @@ export const getAllProductsPublic = async (
     return res.data;
   } catch (error) {
     return error;
+  }
+};
+
+export const getAllProductsPublicByShop = async (
+  id: number,
+  params: { page?: number; limit?: number } = { page: 1, limit: 12 },
+): Promise<ApiResponse> => {
+  try {
+    const res = await axios.get(
+      `${API_ENDPOINT.MANAGE_PRODUCT.PRODUCT.PUBLIC_SHOP}/${id}`,
+      {
+        params,
+      },
+    );
+
+    return {
+      status: 'success',
+      message: 'Fetch product by shop success.',
+      data: res.data.data,
+      error: null,
+      errorCode: null,
+    };
+  } catch (error: any) {
+    const errorMessage =
+      error?.response?.data?.message || 'Unknown error occurred';
+    const errorCode = error?.response?.status || 500;
+
+    return {
+      status: 'error',
+      message: 'Unable to fetch product by shop. Please try again later.',
+      data: null,
+      error: errorMessage,
+      errorCode: errorCode,
+    };
   }
 };
 
