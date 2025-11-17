@@ -1,4 +1,6 @@
 import { API_ENDPOINT } from '@/configs/api';
+import { ApiResponse } from '@/types/api-response';
+import { CreateOrderType } from '@/types/order';
 import axiosInstance from '@/utils/axios';
 
 export const createOrder = async (data: CreateOrderType) => {
@@ -55,7 +57,7 @@ export const getDetailOrderTXById = async (id: number) => {
 
 export const getOrdersByShop = async (
   params: { page?: number; limit?: number } = { page: 1, limit: 10 },
-) => {
+): Promise<ApiResponse> => {
   try {
     const res = await axiosInstance.get(
       `${API_ENDPOINT.MANAGE_ORDER.ORDER.INDEX}/seller`,
@@ -70,6 +72,37 @@ export const getOrdersByShop = async (
       errorCode: null,
     };
   } catch (error: any) {
+    const errorMessage =
+      error?.response?.data?.message || 'Unknown error occurred';
+    const errorCode = error?.response?.status || 500;
+
+    return {
+      status: 'error',
+      message: 'Unable to fetch order by shop details. Please try again later.',
+      data: null,
+      error: errorMessage,
+      errorCode: errorCode,
+    };
+  }
+};
+
+export const getDetailOrderByIdByShop = async (
+  id: number,
+): Promise<ApiResponse> => {
+  try {
+    const res = await axiosInstance.get(
+      `${API_ENDPOINT.MANAGE_ORDER.ORDER.INDEX}/shop/${id}`,
+    );
+
+    return {
+      status: 'success',
+      message: 'Fetch order by shop success.',
+      data: res.data.data,
+      error: null,
+      errorCode: null,
+    };
+  } catch (error: any) {
+    console.log('error', error);
     const errorMessage =
       error?.response?.data?.message || 'Unknown error occurred';
     const errorCode = error?.response?.status || 500;

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import dayjs from 'dayjs';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -32,16 +32,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import Image from 'next/image';
 import { Icon } from '@iconify/react/dist/iconify.js';
-
-type OrderStatus =
-  | 'PENDING_CONFIRMATION'
-  | 'PROCESSING'
-  | 'PENDING_PAYMENT'
-  | 'PENDING_PICKUP'
-  | 'PENDING_DELIVERY'
-  | 'DELIVERED'
-  | 'RETURNED'
-  | 'CANCELLED';
+import { getOrdersByShop } from '@/services/order';
+import { Tooltip, TooltipContent } from '@/components/ui/tooltip';
+import { TooltipTrigger } from '@radix-ui/react-tooltip';
+import { getAddressShipIsDefaultUser } from '@/services/address-ship';
+import { toastify } from '@/components/ToastNotification';
+import { OrderStatus } from '@/types/order';
+import Link from 'next/link';
 
 type Order = {
   id: number;
@@ -49,14 +46,14 @@ type Order = {
   updatedAt?: string;
   status: OrderStatus;
   paymentMethod: string;
-  payment: {
+  Payment: {
     id: number;
     transactionId?: number;
     amount: number;
     status: string;
     paidAt: string | null;
   };
-  shop: {
+  Shop: {
     name: string;
     slug: string;
   };
@@ -71,308 +68,309 @@ type Order = {
   }[];
   deliveryId?: number;
   addressShipId?: number;
+  addressShip?: any;
   voucherId?: number | null;
 };
 
-const MOCK_ORDERS: Order[] = [
-  {
-    id: 4,
-    createdAt: '2025-01-15T07:50:57.238Z',
-    updatedAt: '2025-01-15T09:21:40.858Z',
-    status: 'PENDING_PAYMENT',
-    paymentMethod: 'COD',
-    payment: {
-      id: 4,
-      transactionId: 3,
-      amount: 150000,
-      status: 'PENDING',
-      paidAt: null,
-    },
-    shop: { name: 'FastE Office', slug: 'faste-office' },
-    userId: 1,
-    items: [
-      {
-        id: 4,
-        productName: 'Áo Thun Nam',
-        skuPrice: 150000,
-        image:
-          'https://images.pexels.com/photos/1192609/pexels-photo-1192609.jpeg?auto=compress&w=200',
-        skuAttributes: { size: 'M', color: 'Đen' },
-        quantity: 1,
-      },
-    ],
-    deliveryId: 1,
-    addressShipId: 1,
-    voucherId: null,
-  },
-  {
-    id: 5,
-    createdAt: '2025-01-14T08:30:22.123Z',
-    updatedAt: '2025-01-14T10:15:30.456Z',
-    status: 'PENDING_CONFIRMATION',
-    paymentMethod: 'BANK_TRANSFER',
-    payment: {
-      id: 5,
-      transactionId: 4,
-      amount: 450000,
-      status: 'PENDING',
-      paidAt: null,
-    },
-    shop: { name: 'Tech Store VN', slug: 'tech-store-vn' },
-    userId: 2,
-    items: [
-      {
-        id: 5,
-        productName: 'Tai nghe Bluetooth',
-        skuPrice: 250000,
-        image:
-          'https://images.pexels.com/photos/3825517/pexels-photo-3825517.jpeg?auto=compress&w=200',
-        skuAttributes: { color: 'Trắng' },
-        quantity: 1,
-      },
-      {
-        id: 6,
-        productName: 'Chuột không dây',
-        skuPrice: 200000,
-        image:
-          'https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&w=200',
-        skuAttributes: { color: 'Đen' },
-        quantity: 1,
-      },
-    ],
-    deliveryId: 2,
-    addressShipId: 2,
-    voucherId: null,
-  },
-  {
-    id: 6,
-    createdAt: '2025-01-13T14:20:10.789Z',
-    updatedAt: '2025-01-14T16:45:22.123Z',
-    status: 'PROCESSING',
-    paymentMethod: 'COD',
-    payment: {
-      id: 6,
-      transactionId: 5,
-      amount: 320000,
-      status: 'PENDING',
-      paidAt: null,
-    },
-    shop: { name: 'Fashion Hub', slug: 'fashion-hub' },
-    userId: 3,
-    items: [
-      {
-        id: 7,
-        productName: 'Quần Jean Nam',
-        skuPrice: 320000,
-        image:
-          'https://images.pexels.com/photos/1082529/pexels-photo-1082529.jpeg?auto=compress&w=200',
-        skuAttributes: { size: 'L', color: 'Xanh' },
-        quantity: 1,
-      },
-    ],
-    deliveryId: 3,
-    addressShipId: 3,
-    voucherId: 1,
-  },
-  {
-    id: 7,
-    createdAt: '2025-01-12T09:15:33.456Z',
-    updatedAt: '2025-01-13T11:20:45.789Z',
-    status: 'PENDING_PICKUP',
-    paymentMethod: 'CREDIT_CARD',
-    payment: {
-      id: 7,
-      transactionId: 6,
-      amount: 580000,
-      status: 'PAID',
-      paidAt: '2025-01-12T09:20:00.000Z',
-    },
-    shop: { name: 'Electronics Pro', slug: 'electronics-pro' },
-    userId: 4,
-    items: [
-      {
-        id: 8,
-        productName: 'Bàn phím cơ',
-        skuPrice: 580000,
-        image:
-          'https://images.pexels.com/photos/2582928/pexels-photo-2582928.jpeg?auto=compress&w=200',
-        skuAttributes: { switch: 'Blue', layout: 'TKL' },
-        quantity: 1,
-      },
-    ],
-    deliveryId: 4,
-    addressShipId: 4,
-    voucherId: null,
-  },
-  {
-    id: 8,
-    createdAt: '2025-01-11T16:40:55.111Z',
-    updatedAt: '2025-01-12T08:30:22.333Z',
-    status: 'PENDING_DELIVERY',
-    paymentMethod: 'COD',
-    payment: {
-      id: 8,
-      transactionId: 7,
-      amount: 750000,
-      status: 'PENDING',
-      paidAt: null,
-    },
-    shop: { name: 'Home & Living', slug: 'home-living' },
-    userId: 5,
-    items: [
-      {
-        id: 9,
-        productName: 'Đèn bàn LED',
-        skuPrice: 350000,
-        image:
-          'https://images.pexels.com/photos/1112598/pexels-photo-1112598.jpeg?auto=compress&w=200',
-        skuAttributes: { color: 'Trắng' },
-        quantity: 1,
-      },
-      {
-        id: 10,
-        productName: 'Gối tựa lưng',
-        skuPrice: 200000,
-        image:
-          'https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&w=200',
-        skuAttributes: { color: 'Xám' },
-        quantity: 2,
-      },
-    ],
-    deliveryId: 5,
-    addressShipId: 5,
-    voucherId: 2,
-  },
-  {
-    id: 9,
-    createdAt: '2025-01-10T11:25:44.222Z',
-    updatedAt: '2025-01-11T14:10:33.555Z',
-    status: 'DELIVERED',
-    paymentMethod: 'BANK_TRANSFER',
-    payment: {
-      id: 9,
-      transactionId: 8,
-      amount: 920000,
-      status: 'PAID',
-      paidAt: '2025-01-10T11:30:00.000Z',
-    },
-    shop: { name: 'Sports World', slug: 'sports-world' },
-    userId: 6,
-    items: [
-      {
-        id: 11,
-        productName: 'Giày chạy bộ Nike',
-        skuPrice: 920000,
-        image:
-          'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&w=200',
-        skuAttributes: { size: '42', color: 'Đỏ' },
-        quantity: 1,
-      },
-    ],
-    deliveryId: 6,
-    addressShipId: 6,
-    voucherId: null,
-  },
-  {
-    id: 10,
-    createdAt: '2025-01-09T13:50:11.666Z',
-    updatedAt: '2025-01-09T15:20:44.888Z',
-    status: 'CANCELLED',
-    paymentMethod: 'COD',
-    payment: {
-      id: 10,
-      transactionId: 9,
-      amount: 180000,
-      status: 'CANCELLED',
-      paidAt: null,
-    },
-    shop: { name: 'Book Store', slug: 'book-store' },
-    userId: 7,
-    items: [
-      {
-        id: 12,
-        productName: 'Sách lập trình Python',
-        skuPrice: 180000,
-        image:
-          'https://images.pexels.com/photos/1370298/pexels-photo-1370298.jpeg?auto=compress&w=200',
-        skuAttributes: {},
-        quantity: 1,
-      },
-    ],
-    deliveryId: 7,
-    addressShipId: 7,
-    voucherId: null,
-  },
-  {
-    id: 11,
-    createdAt: '2025-01-08T10:30:22.999Z',
-    updatedAt: '2025-01-10T09:15:55.111Z',
-    status: 'RETURNED',
-    paymentMethod: 'CREDIT_CARD',
-    payment: {
-      id: 11,
-      transactionId: 10,
-      amount: 650000,
-      status: 'REFUNDED',
-      paidAt: '2025-01-08T10:35:00.000Z',
-    },
-    shop: { name: 'Fashion Hub', slug: 'fashion-hub' },
-    userId: 8,
-    items: [
-      {
-        id: 13,
-        productName: 'Áo khoác nữ',
-        skuPrice: 650000,
-        image:
-          'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&w=200',
-        skuAttributes: { size: 'M', color: 'Be' },
-        quantity: 1,
-      },
-    ],
-    deliveryId: 8,
-    addressShipId: 8,
-    voucherId: 3,
-  },
-  {
-    id: 12,
-    createdAt: '2025-01-16T15:22:10.444Z',
-    updatedAt: '2025-01-16T15:22:10.444Z',
-    status: 'PENDING_CONFIRMATION',
-    paymentMethod: 'COD',
-    payment: {
-      id: 12,
-      transactionId: 11,
-      amount: 290000,
-      status: 'PENDING',
-      paidAt: null,
-    },
-    shop: { name: 'Tech Store VN', slug: 'tech-store-vn' },
-    userId: 9,
-    items: [
-      {
-        id: 14,
-        productName: 'Ốp lưng iPhone 14',
-        skuPrice: 120000,
-        image:
-          'https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&w=200',
-        skuAttributes: { color: 'Đen' },
-        quantity: 1,
-      },
-      {
-        id: 15,
-        productName: 'Cáp sạc Type-C',
-        skuPrice: 85000,
-        image:
-          'https://images.pexels.com/photos/4195325/pexels-photo-4195325.jpeg?auto=compress&w=200',
-        skuAttributes: { length: '1m' },
-        quantity: 2,
-      },
-    ],
-    deliveryId: 9,
-    addressShipId: 9,
-    voucherId: null,
-  },
-];
+// const MOCK_ORDERS: Order[] = [
+//   {
+//     id: 4,
+//     createdAt: '2025-01-15T07:50:57.238Z',
+//     updatedAt: '2025-01-15T09:21:40.858Z',
+//     status: 'PENDING_PAYMENT',
+//     paymentMethod: 'COD',
+//     payment: {
+//       id: 4,
+//       transactionId: 3,
+//       amount: 150000,
+//       status: 'PENDING',
+//       paidAt: null,
+//     },
+//     shop: { name: 'FastE Office', slug: 'faste-office' },
+//     userId: 1,
+//     items: [
+//       {
+//         id: 4,
+//         productName: 'Áo Thun Nam',
+//         skuPrice: 150000,
+//         image:
+//           'https://images.pexels.com/photos/1192609/pexels-photo-1192609.jpeg?auto=compress&w=200',
+//         skuAttributes: { size: 'M', color: 'Đen' },
+//         quantity: 1,
+//       },
+//     ],
+//     deliveryId: 1,
+//     addressShipId: 1,
+//     voucherId: null,
+//   },
+//   {
+//     id: 5,
+//     createdAt: '2025-01-14T08:30:22.123Z',
+//     updatedAt: '2025-01-14T10:15:30.456Z',
+//     status: 'PENDING_CONFIRMATION',
+//     paymentMethod: 'BANK_TRANSFER',
+//     payment: {
+//       id: 5,
+//       transactionId: 4,
+//       amount: 450000,
+//       status: 'PENDING',
+//       paidAt: null,
+//     },
+//     shop: { name: 'Tech Store VN', slug: 'tech-store-vn' },
+//     userId: 2,
+//     items: [
+//       {
+//         id: 5,
+//         productName: 'Tai nghe Bluetooth',
+//         skuPrice: 250000,
+//         image:
+//           'https://images.pexels.com/photos/3825517/pexels-photo-3825517.jpeg?auto=compress&w=200',
+//         skuAttributes: { color: 'Trắng' },
+//         quantity: 1,
+//       },
+//       {
+//         id: 6,
+//         productName: 'Chuột không dây',
+//         skuPrice: 200000,
+//         image:
+//           'https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&w=200',
+//         skuAttributes: { color: 'Đen' },
+//         quantity: 1,
+//       },
+//     ],
+//     deliveryId: 2,
+//     addressShipId: 2,
+//     voucherId: null,
+//   },
+//   {
+//     id: 6,
+//     createdAt: '2025-01-13T14:20:10.789Z',
+//     updatedAt: '2025-01-14T16:45:22.123Z',
+//     status: 'PROCESSING',
+//     paymentMethod: 'COD',
+//     payment: {
+//       id: 6,
+//       transactionId: 5,
+//       amount: 320000,
+//       status: 'PENDING',
+//       paidAt: null,
+//     },
+//     shop: { name: 'Fashion Hub', slug: 'fashion-hub' },
+//     userId: 3,
+//     items: [
+//       {
+//         id: 7,
+//         productName: 'Quần Jean Nam',
+//         skuPrice: 320000,
+//         image:
+//           'https://images.pexels.com/photos/1082529/pexels-photo-1082529.jpeg?auto=compress&w=200',
+//         skuAttributes: { size: 'L', color: 'Xanh' },
+//         quantity: 1,
+//       },
+//     ],
+//     deliveryId: 3,
+//     addressShipId: 3,
+//     voucherId: 1,
+//   },
+//   {
+//     id: 7,
+//     createdAt: '2025-01-12T09:15:33.456Z',
+//     updatedAt: '2025-01-13T11:20:45.789Z',
+//     status: 'PENDING_PICKUP',
+//     paymentMethod: 'CREDIT_CARD',
+//     payment: {
+//       id: 7,
+//       transactionId: 6,
+//       amount: 580000,
+//       status: 'PAID',
+//       paidAt: '2025-01-12T09:20:00.000Z',
+//     },
+//     shop: { name: 'Electronics Pro', slug: 'electronics-pro' },
+//     userId: 4,
+//     items: [
+//       {
+//         id: 8,
+//         productName: 'Bàn phím cơ',
+//         skuPrice: 580000,
+//         image:
+//           'https://images.pexels.com/photos/2582928/pexels-photo-2582928.jpeg?auto=compress&w=200',
+//         skuAttributes: { switch: 'Blue', layout: 'TKL' },
+//         quantity: 1,
+//       },
+//     ],
+//     deliveryId: 4,
+//     addressShipId: 4,
+//     voucherId: null,
+//   },
+//   {
+//     id: 8,
+//     createdAt: '2025-01-11T16:40:55.111Z',
+//     updatedAt: '2025-01-12T08:30:22.333Z',
+//     status: 'PENDING_DELIVERY',
+//     paymentMethod: 'COD',
+//     payment: {
+//       id: 8,
+//       transactionId: 7,
+//       amount: 750000,
+//       status: 'PENDING',
+//       paidAt: null,
+//     },
+//     shop: { name: 'Home & Living', slug: 'home-living' },
+//     userId: 5,
+//     items: [
+//       {
+//         id: 9,
+//         productName: 'Đèn bàn LED',
+//         skuPrice: 350000,
+//         image:
+//           'https://images.pexels.com/photos/1112598/pexels-photo-1112598.jpeg?auto=compress&w=200',
+//         skuAttributes: { color: 'Trắng' },
+//         quantity: 1,
+//       },
+//       {
+//         id: 10,
+//         productName: 'Gối tựa lưng',
+//         skuPrice: 200000,
+//         image:
+//           'https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&w=200',
+//         skuAttributes: { color: 'Xám' },
+//         quantity: 2,
+//       },
+//     ],
+//     deliveryId: 5,
+//     addressShipId: 5,
+//     voucherId: 2,
+//   },
+//   {
+//     id: 9,
+//     createdAt: '2025-01-10T11:25:44.222Z',
+//     updatedAt: '2025-01-11T14:10:33.555Z',
+//     status: 'DELIVERED',
+//     paymentMethod: 'BANK_TRANSFER',
+//     payment: {
+//       id: 9,
+//       transactionId: 8,
+//       amount: 920000,
+//       status: 'PAID',
+//       paidAt: '2025-01-10T11:30:00.000Z',
+//     },
+//     shop: { name: 'Sports World', slug: 'sports-world' },
+//     userId: 6,
+//     items: [
+//       {
+//         id: 11,
+//         productName: 'Giày chạy bộ Nike',
+//         skuPrice: 920000,
+//         image:
+//           'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&w=200',
+//         skuAttributes: { size: '42', color: 'Đỏ' },
+//         quantity: 1,
+//       },
+//     ],
+//     deliveryId: 6,
+//     addressShipId: 6,
+//     voucherId: null,
+//   },
+//   {
+//     id: 10,
+//     createdAt: '2025-01-09T13:50:11.666Z',
+//     updatedAt: '2025-01-09T15:20:44.888Z',
+//     status: 'CANCELLED',
+//     paymentMethod: 'COD',
+//     payment: {
+//       id: 10,
+//       transactionId: 9,
+//       amount: 180000,
+//       status: 'CANCELLED',
+//       paidAt: null,
+//     },
+//     shop: { name: 'Book Store', slug: 'book-store' },
+//     userId: 7,
+//     items: [
+//       {
+//         id: 12,
+//         productName: 'Sách lập trình Python',
+//         skuPrice: 180000,
+//         image:
+//           'https://images.pexels.com/photos/1370298/pexels-photo-1370298.jpeg?auto=compress&w=200',
+//         skuAttributes: {},
+//         quantity: 1,
+//       },
+//     ],
+//     deliveryId: 7,
+//     addressShipId: 7,
+//     voucherId: null,
+//   },
+//   {
+//     id: 11,
+//     createdAt: '2025-01-08T10:30:22.999Z',
+//     updatedAt: '2025-01-10T09:15:55.111Z',
+//     status: 'RETURNED',
+//     paymentMethod: 'CREDIT_CARD',
+//     payment: {
+//       id: 11,
+//       transactionId: 10,
+//       amount: 650000,
+//       status: 'REFUNDED',
+//       paidAt: '2025-01-08T10:35:00.000Z',
+//     },
+//     shop: { name: 'Fashion Hub', slug: 'fashion-hub' },
+//     userId: 8,
+//     items: [
+//       {
+//         id: 13,
+//         productName: 'Áo khoác nữ',
+//         skuPrice: 650000,
+//         image:
+//           'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&w=200',
+//         skuAttributes: { size: 'M', color: 'Be' },
+//         quantity: 1,
+//       },
+//     ],
+//     deliveryId: 8,
+//     addressShipId: 8,
+//     voucherId: 3,
+//   },
+//   {
+//     id: 12,
+//     createdAt: '2025-01-16T15:22:10.444Z',
+//     updatedAt: '2025-01-16T15:22:10.444Z',
+//     status: 'PENDING_CONFIRMATION',
+//     paymentMethod: 'COD',
+//     payment: {
+//       id: 12,
+//       transactionId: 11,
+//       amount: 290000,
+//       status: 'PENDING',
+//       paidAt: null,
+//     },
+//     shop: { name: 'Tech Store VN', slug: 'tech-store-vn' },
+//     userId: 9,
+//     items: [
+//       {
+//         id: 14,
+//         productName: 'Ốp lưng iPhone 14',
+//         skuPrice: 120000,
+//         image:
+//           'https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&w=200',
+//         skuAttributes: { color: 'Đen' },
+//         quantity: 1,
+//       },
+//       {
+//         id: 15,
+//         productName: 'Cáp sạc Type-C',
+//         skuPrice: 85000,
+//         image:
+//           'https://images.pexels.com/photos/4195325/pexels-photo-4195325.jpeg?auto=compress&w=200',
+//         skuAttributes: { length: '1m' },
+//         quantity: 2,
+//       },
+//     ],
+//     deliveryId: 9,
+//     addressShipId: 9,
+//     voucherId: null,
+//   },
+// ];
 
 const STATUS_LABELS: Record<OrderStatus, string> = {
   PENDING_CONFIRMATION: 'Chờ xác nhận',
@@ -448,11 +446,13 @@ export default function OrderListPage() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [ordersData, setOrdersData] = useState<Order[]>([]);
+  const [, setTick] = useState(0);
 
   const pageSize = 10;
 
   const filteredOrders = useMemo(() => {
-    let filtered = [...MOCK_ORDERS];
+    let filtered = [...(ordersData.length ? ordersData : [])];
 
     if (selectedTab !== 'ALL') {
       filtered = filtered.filter((order) => order.status === selectedTab);
@@ -469,7 +469,7 @@ export default function OrderListPage() {
       filtered = filtered.filter(
         (order) =>
           order.id.toString().includes(query) ||
-          order.shop.name.toLowerCase().includes(query) ||
+          order.Shop.name.toLowerCase().includes(query) ||
           order.items.some((item) =>
             item.productName.toLowerCase().includes(query),
           ),
@@ -482,7 +482,7 @@ export default function OrderListPage() {
     );
 
     return filtered;
-  }, [selectedTab, searchQuery, paymentMethodFilter]);
+  }, [selectedTab, searchQuery, paymentMethodFilter, ordersData]);
 
   const paginatedOrders = useMemo(() => {
     const startIndex = (currentPage - 1) * pageSize;
@@ -582,6 +582,38 @@ export default function OrderListPage() {
     }
   };
 
+  const fetchDataOrder = async () => {
+    const res = await getOrdersByShop();
+    if (res.status === 'error') {
+      toastify.error('error', res.message);
+    }
+    setOrdersData(res.data.data);
+  };
+
+  const fetchAddresswhipDefault = async (id: number) => {
+    const res = await getAddressShipIsDefaultUser(id);
+    if (res.status === 'success') {
+      if (selectedOrder) {
+        selectedOrder.addressShip = res.data;
+        setTick((tick) => tick + 1); // Force re-render
+      }
+    } else {
+      toastify.error('error', res.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchDataOrder();
+  }, []);
+
+  useEffect(() => {
+    if (selectedOrder) {
+      fetchAddresswhipDefault(selectedOrder.addressShipId as number);
+    }
+  }, [selectedOrder]);
+
+  console.log('paginatedOrders', paginatedOrders, selectedOrder);
+
   return (
     <div className="container mx-auto p-4 md:p-6 space-y-6">
       <div className="flex items-center gap-3">
@@ -593,7 +625,10 @@ export default function OrderListPage() {
 
       <div className="flex flex-col md:flex-row gap-4">
         <div className="relative flex-1">
-          <Icon icon={icons.search} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl"/>
+          <Icon
+            icon={icons.search}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xl"
+          />
           <Input
             placeholder="Tìm theo mã đơn hàng, tên sản phẩm, shop..."
             value={searchQuery}
@@ -629,7 +664,7 @@ export default function OrderListPage() {
         onValueChange={handleTabChange}
         className="w-full"
       >
-        <TabsList className="w-full flex-wrap h-auto justify-start gap-2 bg-transparent p-0">
+        <TabsList className="w-full flex-wrap h-auto justify-start gap-2 bg-white py-2 ">
           {TAB_OPTIONS.map((tab) => (
             <TabsTrigger
               key={tab.value}
@@ -674,13 +709,32 @@ export default function OrderListPage() {
                         {dayjs(order.createdAt).format('DD/MM/YYYY HH:mm')}
                       </TableCell>
                       <TableCell className="text-sm">
-                        {order.shop.name}
+                        {order.Shop.name}
                       </TableCell>
                       <TableCell className="text-sm">
-                        {order.items.length} sản phẩm
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              // tabIndex={0}
+                              className="outline-none border-none bg-transparent hover:bg-transparent shadow-none cursor-pointer pl-0"
+                              variant={'outline'}
+                            >
+                              {order.items.length} sản phẩm
+                            </Button>
+                          </TooltipTrigger>
+
+                          <TooltipContent side="top" align="center">
+                            {order.items.map((item) => (
+                              <div key={item.id}>
+                                {item.productName} x {item.quantity || 1}
+                              </div>
+                            ))}
+                          </TooltipContent>
+                        </Tooltip>
                       </TableCell>
+
                       <TableCell className="font-medium">
-                        {formatCurrency(order.payment.amount)}
+                        {formatCurrency(order.Payment.amount)}
                       </TableCell>
                       <TableCell className="text-sm">
                         {order.paymentMethod}
@@ -700,9 +754,12 @@ export default function OrderListPage() {
                           size="sm"
                         >
                           <Icon icon={icons.eye} className="mr-1" />
-                          
                           Xem
                         </Button>
+
+                        <Link href={`/sellercenter/orders/${order.id}`}>
+                          Chi tiết
+                        </Link>
                       </TableCell>
                     </TableRow>
                   ))
@@ -715,7 +772,10 @@ export default function OrderListPage() {
             {paginatedOrders.length === 0 ? (
               <Card>
                 <CardContent className="flex flex-col items-center justify-center py-12">
-                  <Icon icon={icons.package} className="text-5xl text-gray-300 mb-3" />
+                  <Icon
+                    icon={icons.package}
+                    className="text-5xl text-gray-300 mb-3"
+                  />
                   <p className="text-gray-500">Không tìm thấy đơn hàng nào</p>
                 </CardContent>
               </Card>
@@ -742,8 +802,8 @@ export default function OrderListPage() {
                   </CardHeader>
                   <CardContent className="space-y-3">
                     <div className="flex items-center gap-2 text-sm">
-                      <Icon icon={icons.package} className="text-gray-400" /> 
-                      <span className="text-gray-600">{order.shop.name}</span>
+                      <Icon icon={icons.package} className="text-gray-400" />
+                      <span className="text-gray-600">{order.Shop.name}</span>
                     </div>
                     <div className="text-sm text-gray-600">
                       {order.items.length} sản phẩm
@@ -758,7 +818,7 @@ export default function OrderListPage() {
                     <div className="flex justify-between items-center">
                       <span className="text-sm font-medium">Tổng tiền:</span>
                       <span className="text-lg font-bold text-primary">
-                        {formatCurrency(order.payment.amount)}
+                        {formatCurrency(order.Payment.amount)}
                       </span>
                     </div>
                     <Button
@@ -873,20 +933,20 @@ export default function OrderListPage() {
                     <div className="flex justify-between">
                       <span className="text-gray-600">Trạng thái:</span>
                       <span className="font-medium">
-                        {selectedOrder.payment.status}
+                        {selectedOrder.Payment.status}
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-600">Tổng tiền:</span>
                       <span className="font-bold text-primary">
-                        {formatCurrency(selectedOrder.payment.amount)}
+                        {formatCurrency(selectedOrder.Payment.amount)}
                       </span>
                     </div>
-                    {selectedOrder.payment.paidAt && (
+                    {selectedOrder.Payment.paidAt && (
                       <div className="flex justify-between">
                         <span className="text-gray-600">Đã thanh toán:</span>
                         <span className="font-medium">
-                          {dayjs(selectedOrder.payment.paidAt).format(
+                          {dayjs(selectedOrder.Payment.paidAt).format(
                             'DD/MM/YYYY HH:mm',
                           )}
                         </span>
@@ -948,11 +1008,22 @@ export default function OrderListPage() {
                   Địa chỉ giao hàng
                 </h3>
                 <div className="flex items-start gap-2 text-sm bg-gray-50 p-3 rounded-lg">
-                  <Icon icon={icons.localShipping} className="text-xl text-gray-400 mt-0.5" />
+                  <Icon
+                    icon={icons.localShipping}
+                    className="text-xl text-gray-400 mt-0.5"
+                  />
                   <div>
-                    <p className="font-medium">Nguyễn Văn A</p>
-                    <p className="text-gray-600">0123456789</p>
+                    <p className="font-medium">
+                      {selectedOrder.addressShip?.name || 'or'}
+                    </p>
                     <p className="text-gray-600">
+                      {selectedOrder.addressShip?.phone || '0123456789'}
+                    </p>
+                    <p className="text-gray-600">
+                      {selectedOrder.addressShip?.address},{' '}
+                      {selectedOrder.addressShip?.divisionPath['WARD']},{' '}
+                      {selectedOrder.addressShip?.divisionPath['DISTRICT']},{' '}
+                      {selectedOrder.addressShip?.divisionPath['PROVINCE']}
                       123 Đường ABC, Phường XYZ, Quận 1, TP.HCM
                     </p>
                   </div>
