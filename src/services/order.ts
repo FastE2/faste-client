@@ -1,6 +1,6 @@
 import { API_ENDPOINT } from '@/configs/api';
 import { ApiResponse } from '@/types/api-response';
-import { CreateOrderType } from '@/types/order';
+import { CreateOrderType, OrderStatus } from '@/types/order';
 import axiosInstance from '@/utils/axios';
 
 export const createOrder = async (data: CreateOrderType) => {
@@ -110,6 +110,71 @@ export const getDetailOrderByIdByShop = async (
     return {
       status: 'error',
       message: 'Unable to fetch order by shop details. Please try again later.',
+      data: null,
+      error: errorMessage,
+      errorCode: errorCode,
+    };
+  }
+};
+
+export const updateOrderStatus = async (
+  id: number,
+  data: {
+    status?: OrderStatus | undefined;
+    addressShipId?: number | undefined;
+  },
+): Promise<ApiResponse> => {
+  try {
+    const res = await axiosInstance.patch(
+      `${API_ENDPOINT.MANAGE_ORDER.ORDER.INDEX}/status/${id}`,
+      data,
+    );
+
+    return {
+      status: 'success',
+      message: 'Update status order success.',
+      data: res.data.data,
+      error: null,
+      errorCode: null,
+    };
+  } catch (error: any) {
+    console.log('error', error);
+    const errorMessage =
+      error?.response?.data?.message || 'Unknown error occurred';
+    const errorCode = error?.response?.status || 500;
+
+    return {
+      status: 'error',
+      message: 'Unable to Update order. Please try again later.',
+      data: null,
+      error: errorMessage,
+      errorCode: errorCode,
+    };
+  }
+};
+
+export const cancelOrder = async (id: number): Promise<ApiResponse> => {
+  try {
+    const res = await axiosInstance.patch(
+      `${API_ENDPOINT.MANAGE_ORDER.ORDER.INDEX}/cancel/${id}`,
+    );
+
+    return {
+      status: 'success',
+      message: 'Cancel order success.',
+      data: res.data.data,
+      error: null,
+      errorCode: null,
+    };
+  } catch (error: any) {
+    console.log('error', error);
+    const errorMessage =
+      error?.response?.data?.message || 'Unknown error occurred';
+    const errorCode = error?.response?.status || 500;
+
+    return {
+      status: 'error',
+      message: 'Unable to cancel order. Please try again later.',
       data: null,
       error: errorMessage,
       errorCode: errorCode,

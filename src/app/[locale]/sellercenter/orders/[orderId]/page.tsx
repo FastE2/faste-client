@@ -1,4 +1,4 @@
-import { OrderDetailPage } from '@/views/pages/sellercenter/orders/[orderId]';
+import OrderDetailPage from '@/views/pages/sellercenter/orders/[orderId]';
 import { notFound } from 'next/navigation';
 
 // server component

@@ -39,6 +39,14 @@ import { getAddressShipIsDefaultUser } from '@/services/address-ship';
 import { toastify } from '@/components/ToastNotification';
 import { OrderStatus } from '@/types/order';
 import Link from 'next/link';
+import { statusToColor, statusToLabel } from '@/configs/order';
+import { formatCurrency } from '@/helpers/currency';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 type Order = {
   id: number;
@@ -72,328 +80,6 @@ type Order = {
   voucherId?: number | null;
 };
 
-// const MOCK_ORDERS: Order[] = [
-//   {
-//     id: 4,
-//     createdAt: '2025-01-15T07:50:57.238Z',
-//     updatedAt: '2025-01-15T09:21:40.858Z',
-//     status: 'PENDING_PAYMENT',
-//     paymentMethod: 'COD',
-//     payment: {
-//       id: 4,
-//       transactionId: 3,
-//       amount: 150000,
-//       status: 'PENDING',
-//       paidAt: null,
-//     },
-//     shop: { name: 'FastE Office', slug: 'faste-office' },
-//     userId: 1,
-//     items: [
-//       {
-//         id: 4,
-//         productName: 'Áo Thun Nam',
-//         skuPrice: 150000,
-//         image:
-//           'https://images.pexels.com/photos/1192609/pexels-photo-1192609.jpeg?auto=compress&w=200',
-//         skuAttributes: { size: 'M', color: 'Đen' },
-//         quantity: 1,
-//       },
-//     ],
-//     deliveryId: 1,
-//     addressShipId: 1,
-//     voucherId: null,
-//   },
-//   {
-//     id: 5,
-//     createdAt: '2025-01-14T08:30:22.123Z',
-//     updatedAt: '2025-01-14T10:15:30.456Z',
-//     status: 'PENDING_CONFIRMATION',
-//     paymentMethod: 'BANK_TRANSFER',
-//     payment: {
-//       id: 5,
-//       transactionId: 4,
-//       amount: 450000,
-//       status: 'PENDING',
-//       paidAt: null,
-//     },
-//     shop: { name: 'Tech Store VN', slug: 'tech-store-vn' },
-//     userId: 2,
-//     items: [
-//       {
-//         id: 5,
-//         productName: 'Tai nghe Bluetooth',
-//         skuPrice: 250000,
-//         image:
-//           'https://images.pexels.com/photos/3825517/pexels-photo-3825517.jpeg?auto=compress&w=200',
-//         skuAttributes: { color: 'Trắng' },
-//         quantity: 1,
-//       },
-//       {
-//         id: 6,
-//         productName: 'Chuột không dây',
-//         skuPrice: 200000,
-//         image:
-//           'https://images.pexels.com/photos/2115257/pexels-photo-2115257.jpeg?auto=compress&w=200',
-//         skuAttributes: { color: 'Đen' },
-//         quantity: 1,
-//       },
-//     ],
-//     deliveryId: 2,
-//     addressShipId: 2,
-//     voucherId: null,
-//   },
-//   {
-//     id: 6,
-//     createdAt: '2025-01-13T14:20:10.789Z',
-//     updatedAt: '2025-01-14T16:45:22.123Z',
-//     status: 'PROCESSING',
-//     paymentMethod: 'COD',
-//     payment: {
-//       id: 6,
-//       transactionId: 5,
-//       amount: 320000,
-//       status: 'PENDING',
-//       paidAt: null,
-//     },
-//     shop: { name: 'Fashion Hub', slug: 'fashion-hub' },
-//     userId: 3,
-//     items: [
-//       {
-//         id: 7,
-//         productName: 'Quần Jean Nam',
-//         skuPrice: 320000,
-//         image:
-//           'https://images.pexels.com/photos/1082529/pexels-photo-1082529.jpeg?auto=compress&w=200',
-//         skuAttributes: { size: 'L', color: 'Xanh' },
-//         quantity: 1,
-//       },
-//     ],
-//     deliveryId: 3,
-//     addressShipId: 3,
-//     voucherId: 1,
-//   },
-//   {
-//     id: 7,
-//     createdAt: '2025-01-12T09:15:33.456Z',
-//     updatedAt: '2025-01-13T11:20:45.789Z',
-//     status: 'PENDING_PICKUP',
-//     paymentMethod: 'CREDIT_CARD',
-//     payment: {
-//       id: 7,
-//       transactionId: 6,
-//       amount: 580000,
-//       status: 'PAID',
-//       paidAt: '2025-01-12T09:20:00.000Z',
-//     },
-//     shop: { name: 'Electronics Pro', slug: 'electronics-pro' },
-//     userId: 4,
-//     items: [
-//       {
-//         id: 8,
-//         productName: 'Bàn phím cơ',
-//         skuPrice: 580000,
-//         image:
-//           'https://images.pexels.com/photos/2582928/pexels-photo-2582928.jpeg?auto=compress&w=200',
-//         skuAttributes: { switch: 'Blue', layout: 'TKL' },
-//         quantity: 1,
-//       },
-//     ],
-//     deliveryId: 4,
-//     addressShipId: 4,
-//     voucherId: null,
-//   },
-//   {
-//     id: 8,
-//     createdAt: '2025-01-11T16:40:55.111Z',
-//     updatedAt: '2025-01-12T08:30:22.333Z',
-//     status: 'PENDING_DELIVERY',
-//     paymentMethod: 'COD',
-//     payment: {
-//       id: 8,
-//       transactionId: 7,
-//       amount: 750000,
-//       status: 'PENDING',
-//       paidAt: null,
-//     },
-//     shop: { name: 'Home & Living', slug: 'home-living' },
-//     userId: 5,
-//     items: [
-//       {
-//         id: 9,
-//         productName: 'Đèn bàn LED',
-//         skuPrice: 350000,
-//         image:
-//           'https://images.pexels.com/photos/1112598/pexels-photo-1112598.jpeg?auto=compress&w=200',
-//         skuAttributes: { color: 'Trắng' },
-//         quantity: 1,
-//       },
-//       {
-//         id: 10,
-//         productName: 'Gối tựa lưng',
-//         skuPrice: 200000,
-//         image:
-//           'https://images.pexels.com/photos/1350789/pexels-photo-1350789.jpeg?auto=compress&w=200',
-//         skuAttributes: { color: 'Xám' },
-//         quantity: 2,
-//       },
-//     ],
-//     deliveryId: 5,
-//     addressShipId: 5,
-//     voucherId: 2,
-//   },
-//   {
-//     id: 9,
-//     createdAt: '2025-01-10T11:25:44.222Z',
-//     updatedAt: '2025-01-11T14:10:33.555Z',
-//     status: 'DELIVERED',
-//     paymentMethod: 'BANK_TRANSFER',
-//     payment: {
-//       id: 9,
-//       transactionId: 8,
-//       amount: 920000,
-//       status: 'PAID',
-//       paidAt: '2025-01-10T11:30:00.000Z',
-//     },
-//     shop: { name: 'Sports World', slug: 'sports-world' },
-//     userId: 6,
-//     items: [
-//       {
-//         id: 11,
-//         productName: 'Giày chạy bộ Nike',
-//         skuPrice: 920000,
-//         image:
-//           'https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&w=200',
-//         skuAttributes: { size: '42', color: 'Đỏ' },
-//         quantity: 1,
-//       },
-//     ],
-//     deliveryId: 6,
-//     addressShipId: 6,
-//     voucherId: null,
-//   },
-//   {
-//     id: 10,
-//     createdAt: '2025-01-09T13:50:11.666Z',
-//     updatedAt: '2025-01-09T15:20:44.888Z',
-//     status: 'CANCELLED',
-//     paymentMethod: 'COD',
-//     payment: {
-//       id: 10,
-//       transactionId: 9,
-//       amount: 180000,
-//       status: 'CANCELLED',
-//       paidAt: null,
-//     },
-//     shop: { name: 'Book Store', slug: 'book-store' },
-//     userId: 7,
-//     items: [
-//       {
-//         id: 12,
-//         productName: 'Sách lập trình Python',
-//         skuPrice: 180000,
-//         image:
-//           'https://images.pexels.com/photos/1370298/pexels-photo-1370298.jpeg?auto=compress&w=200',
-//         skuAttributes: {},
-//         quantity: 1,
-//       },
-//     ],
-//     deliveryId: 7,
-//     addressShipId: 7,
-//     voucherId: null,
-//   },
-//   {
-//     id: 11,
-//     createdAt: '2025-01-08T10:30:22.999Z',
-//     updatedAt: '2025-01-10T09:15:55.111Z',
-//     status: 'RETURNED',
-//     paymentMethod: 'CREDIT_CARD',
-//     payment: {
-//       id: 11,
-//       transactionId: 10,
-//       amount: 650000,
-//       status: 'REFUNDED',
-//       paidAt: '2025-01-08T10:35:00.000Z',
-//     },
-//     shop: { name: 'Fashion Hub', slug: 'fashion-hub' },
-//     userId: 8,
-//     items: [
-//       {
-//         id: 13,
-//         productName: 'Áo khoác nữ',
-//         skuPrice: 650000,
-//         image:
-//           'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&w=200',
-//         skuAttributes: { size: 'M', color: 'Be' },
-//         quantity: 1,
-//       },
-//     ],
-//     deliveryId: 8,
-//     addressShipId: 8,
-//     voucherId: 3,
-//   },
-//   {
-//     id: 12,
-//     createdAt: '2025-01-16T15:22:10.444Z',
-//     updatedAt: '2025-01-16T15:22:10.444Z',
-//     status: 'PENDING_CONFIRMATION',
-//     paymentMethod: 'COD',
-//     payment: {
-//       id: 12,
-//       transactionId: 11,
-//       amount: 290000,
-//       status: 'PENDING',
-//       paidAt: null,
-//     },
-//     shop: { name: 'Tech Store VN', slug: 'tech-store-vn' },
-//     userId: 9,
-//     items: [
-//       {
-//         id: 14,
-//         productName: 'Ốp lưng iPhone 14',
-//         skuPrice: 120000,
-//         image:
-//           'https://images.pexels.com/photos/788946/pexels-photo-788946.jpeg?auto=compress&w=200',
-//         skuAttributes: { color: 'Đen' },
-//         quantity: 1,
-//       },
-//       {
-//         id: 15,
-//         productName: 'Cáp sạc Type-C',
-//         skuPrice: 85000,
-//         image:
-//           'https://images.pexels.com/photos/4195325/pexels-photo-4195325.jpeg?auto=compress&w=200',
-//         skuAttributes: { length: '1m' },
-//         quantity: 2,
-//       },
-//     ],
-//     deliveryId: 9,
-//     addressShipId: 9,
-//     voucherId: null,
-//   },
-// ];
-
-const STATUS_LABELS: Record<OrderStatus, string> = {
-  PENDING_CONFIRMATION: 'Chờ xác nhận',
-  PROCESSING: 'Đang xử lý',
-  PENDING_PAYMENT: 'Chờ thanh toán',
-  PENDING_PICKUP: 'Chờ lấy hàng',
-  PENDING_DELIVERY: 'Đang giao hàng',
-  DELIVERED: 'Đã giao',
-  RETURNED: 'Đã trả hàng',
-  CANCELLED: 'Đã hủy',
-};
-
-const STATUS_COLORS: Record<OrderStatus, string> = {
-  PENDING_CONFIRMATION: 'bg-amber-100 text-amber-800 border-amber-200',
-  PROCESSING: 'bg-blue-100 text-blue-800 border-blue-200',
-  PENDING_PAYMENT: 'bg-amber-100 text-amber-800 border-amber-200',
-  PENDING_PICKUP: 'bg-orange-100 text-orange-800 border-orange-200',
-  PENDING_DELIVERY: 'bg-cyan-100 text-cyan-800 border-cyan-200',
-  DELIVERED: 'bg-green-100 text-green-800 border-green-200',
-  RETURNED: 'bg-gray-100 text-gray-800 border-gray-200',
-  CANCELLED: 'bg-red-100 text-red-800 border-red-200',
-};
-
 const TAB_OPTIONS = [
   { value: 'ALL', label: 'Tất cả' },
   { value: 'PENDING_CONFIRMATION', label: 'Chờ xác nhận' },
@@ -412,21 +98,6 @@ const PAYMENT_METHODS = [
   { value: 'BANK_TRANSFER', label: 'Chuyển khoản' },
   { value: 'CREDIT_CARD', label: 'Thẻ tín dụng' },
 ];
-
-function statusToLabel(status: OrderStatus): string {
-  return STATUS_LABELS[status] || status;
-}
-
-function statusToColor(status: OrderStatus): string {
-  return STATUS_COLORS[status] || 'bg-gray-100 text-gray-800 border-gray-200';
-}
-
-function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat('vi-VN', {
-    style: 'currency',
-    currency: 'VND',
-  }).format(amount);
-}
 
 const icons = {
   search: 'mdi:magnify',
@@ -756,10 +427,28 @@ export default function OrderListPage() {
                           <Icon icon={icons.eye} className="mr-1" />
                           Xem
                         </Button>
-
-                        <Link href={`/sellercenter/orders/${order.id}`}>
-                          Chi tiết
-                        </Link>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button variant={'outline'}>
+                              <Icon
+                                icon="weui:more-filled"
+                                width="18"
+                                height="18"
+                              />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end">
+                            <Link
+                              href={`/sellercenter/orders/${order.id}`}
+                              className='p-0 m-0'
+                            >
+                              <DropdownMenuItem className="flex items-center gap-x-2">
+                                <Icon icon={'bx:detail'} />
+                                Chi tiết
+                              </DropdownMenuItem>
+                            </Link>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       </TableCell>
                     </TableRow>
                   ))

@@ -1,9 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import { toastify } from '@/components/ToastNotification';
-import { getDetailOrderByIdByShop } from '@/services/order';
+import {
+  cancelOrder,
+  getDetailOrderByIdByShop,
+  updateOrderStatus,
+} from '@/services/order';
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -41,7 +45,21 @@ import {
   User,
   Phone,
   Loader2,
+  Hash,
 } from 'lucide-react';
+import dayjs from 'dayjs';
+import { Separator } from '@/components/ui/separator';
+import {
+  STATUS_LABELS,
+  STATUS_OPTIONS,
+  statusToColor,
+  statusToLabel,
+} from '@/configs/order';
+import Image from 'next/image';
+import { Icon } from '@iconify/react/dist/iconify.js';
+import { formatCurrency } from '@/helpers/currency';
+import { getAddressShipIsDefaultUser } from '@/services/address-ship';
+import { OrderStatus } from '@/types/order';
 
 export const OrderDetailPage = ({
   params,
@@ -55,7 +73,10 @@ export const OrderDetailPage = ({
   const [openStatusDialog, setOpenStatusDialog] = useState(false);
   const [updatingStatus, setUpdatingStatus] = useState(false);
   const [pendingStatus, setPendingStatus] = useState<string>('');
+  const [, setTick] = useState(0);
+  const router = useRouter();
 
+  // Fetch Data
   const fetchDataOrder = async (orderId: string) => {
     setLoading(true);
     const order = await getDetailOrderByIdByShop(Number(orderId));
@@ -66,7 +87,24 @@ export const OrderDetailPage = ({
     setOrderData(order.data);
     setLoading(false);
   };
+  const fetchAddresswhipDefault = async (id: number) => {
+    const res = await getAddressShipIsDefaultUser(id);
+    if (res.status === 'success') {
+      if (orderData) {
+        orderData.addressShip = res.data;
+        setTick((tick) => tick + 1);
+      }
+    } else {
+      toastify.error('error', res.message);
+    }
+  };
 
+  // ** useEffect
+  useEffect(() => {
+    if (orderData) {
+      fetchAddresswhipDefault(orderData.addressShipId as number);
+    }
+  }, [orderData]);
   useEffect(() => {
     fetchDataOrder(orderId);
   }, [orderId]);
@@ -80,13 +118,16 @@ export const OrderDetailPage = ({
 
   const confirmStatusChange = async () => {
     setUpdatingStatus(true);
-    try {
-      // TODO: Gọi API update status
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API call
+    const res = await updateOrderStatus(Number(orderId), {
+      status: pendingStatus as OrderStatus,
+    });
+    console.log('RES ORX', res);
+    if (res.status === 'success') {
+      console.log('UPDATE STATUS OK');
       setOrderData({ ...orderData, status: pendingStatus });
       toastify.success('Cập nhật trạng thái thành công!');
       setOpenStatusDialog(false);
-    } catch (error) {
+    } else {
       toastify.error('Cập nhật trạng thái thất bại!');
     }
     setUpdatingStatus(false);
@@ -94,12 +135,11 @@ export const OrderDetailPage = ({
 
   const handleCancelOrder = async () => {
     setUpdatingStatus(true);
-    try {
-      // TODO: API cancel order
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+    const res = await cancelOrder(Number(orderId));
+    if (res.status === 'success') {
       toastify.success('Đơn hàng đã được hủy');
       setOpenCancelDialog(false);
-    } catch (err) {
+    } else {
       toastify.error('Hủy đơn thất bại');
     }
     setUpdatingStatus(false);
@@ -145,221 +185,261 @@ export const OrderDetailPage = ({
   const StatusIcon = statusConfig.icon;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4">
-      <div className="max-w-5xl mx-auto space-y-6">
+    <div className="min-h-screen bg-white py-8 px-4">
+      <div className="mx-auto space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div className="space-y-1">
-            <Button variant="ghost" size="sm" className="gap-2 -ml-2 mb-2">
-              <ArrowLeft size={16} /> Quay lại
+        <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 py-4">
+          <div className="space-y-3">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="gap-2 -ml-2 hover:bg-slate-100 text-slate-600"
+              onClick={() => {
+                router.push('/sellercenter/orders/list');
+              }}
+            >
+              <ArrowLeft size={16} /> Quay lại danh sách đơn hàng
             </Button>
-            <h1 className="text-3xl font-bold text-gray-900">
-              Đơn hàng #{orderId}
-            </h1>
-            <p className="text-sm text-gray-500">
-              Tạo lúc {new Date(createdAt).toLocaleString('vi-VN')}
-            </p>
+            <div>
+              <h1 className="text-3xl font-bold text-slate-900 flex items-center gap-2">
+                <Hash size={28} className="text-slate-400" />
+                Đơn hàng {orderId}
+              </h1>
+              <div className="flex flex-wrap items-center gap-3 mt-2 text-sm text-slate-600">
+                <div className="flex items-center gap-1.5">
+                  <Calendar size={16} />
+                  <span>
+                    Tạo lúc: {new Date(createdAt).toLocaleString('vi-VN')}
+                  </span>
+                </div>
+                <span className="text-slate-300">•</span>
+                <div className="flex items-center gap-1.5">
+                  <Clock size={16} />
+                  <span>
+                    Cập nhật:{' '}
+                    {new Date(orderData.updatedAt).toLocaleString('vi-VN')}
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div
-            className={`flex items-center gap-2 px-4 py-2 rounded-full border-2 ${statusConfig.color}`}
-          >
-            <StatusIcon size={20} />
-            <span className="font-semibold">{statusConfig.label}</span>
+          <div className="flex flex-wrap gap-3">
+            <Select
+              onValueChange={handleStatusChange}
+              value={status}
+              disabled={updatingStatus}
+            >
+              <SelectTrigger className="w-64 h-11 border-2 hover:border-blue-400 transition-colors">
+                <SelectValue placeholder="Chọn trạng thái" />
+              </SelectTrigger>
+              <SelectContent>
+                {STATUS_OPTIONS.map((option) => (
+                  <SelectItem value={option.value} key={option.value}>
+                    <div className="flex items-center gap-2">
+                      <Icon icon={option.icon} />
+                      {STATUS_LABELS[option.value]}
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Button
+              variant="destructive"
+              className="gap-2 h-11 shadow-md transition-all"
+              onClick={() => setOpenCancelDialog(true)}
+              disabled={status === 'CANCELLED' || status === 'COMPLETED'}
+            >
+              <XCircle size={18} />
+              Hủy đơn hàng
+            </Button>
           </div>
         </div>
 
-        {/* Status Management Card */}
-        <Card className="border-2 shadow-lg hover:shadow-xl transition-shadow">
-          <CardHeader className="bg-gradient-to-r from-blue-50 to-indigo-50 border-b">
-            <CardTitle className="flex items-center gap-2 text-gray-900">
-              <Package size={22} className="text-blue-600" />
-              Quản lý đơn hàng
-            </CardTitle>
-          </CardHeader>
-
-          <CardContent className="p-6 space-y-4">
-            <div className="flex flex-wrap gap-3">
-              <Select
-                onValueChange={handleStatusChange}
-                value={status}
-                disabled={updatingStatus}
-              >
-                <SelectTrigger className="w-64 h-11 border-2 hover:border-blue-400 transition-colors">
-                  <SelectValue placeholder="Chọn trạng thái" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="PENDING_PAYMENT">
-                    <div className="flex items-center gap-2">
-                      <Clock size={16} className="text-yellow-600" />
-                      Chờ thanh toán
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="PROCESSING">
-                    <div className="flex items-center gap-2">
-                      <Package size={16} className="text-blue-600" />
-                      Đang xử lý
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="SHIPPING">
-                    <div className="flex items-center gap-2">
-                      <Truck size={16} className="text-purple-600" />
-                      Đang vận chuyển
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="COMPLETED">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle2 size={16} className="text-green-600" />
-                      Hoàn thành
-                    </div>
-                  </SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Button
-                variant="destructive"
-                className="gap-2 h-11 shadow-md hover:shadow-lg transition-all"
-                onClick={() => setOpenCancelDialog(true)}
-                disabled={status === 'CANCELLED' || status === 'COMPLETED'}
-              >
-                <XCircle size={18} />
-                Hủy đơn hàng
-              </Button>
+        {/* Order Info */}
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-4">
+            {/* Cột 1 */}
+            <div>
+              <h3 className="text-sm font-semibold text-gray-700 mb-2">
+                Thông tin đơn hàng
+              </h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Trạng thái:</span>
+                  <Badge
+                    variant="outline"
+                    className={statusToColor(orderData.status)}
+                  >
+                    {statusToLabel(orderData.status)}
+                  </Badge>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Ngày tạo:</span>
+                  <span className="font-medium">
+                    {dayjs(orderData.createdAt).format('DD/MM/YYYY HH:mm')}
+                  </span>
+                </div>
+                {orderData.updatedAt && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Cập nhật:</span>
+                    <span className="font-medium">
+                      {dayjs(orderData.updatedAt).format('DD/MM/YYYY HH:mm')}
+                    </span>
+                  </div>
+                )}
+              </div>
             </div>
 
-            <div className="flex items-center gap-2 text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
-              <Clock size={16} />
-              <span>
-                Cập nhật lần cuối:{' '}
-                {new Date(orderData.updatedAt).toLocaleString('vi-VN')}
-              </span>
-            </div>
-          </CardContent>
-        </Card>
+            {/* Divider */}
+            <div className="w-0.5 bg-red-300 mx-auto hidden md:block" />
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* Order Info */}
-          <Card className="border-2 shadow-md hover:shadow-lg transition-shadow">
-            <CardHeader className="bg-gradient-to-r from-green-50 to-emerald-50 border-b">
-              <CardTitle className="flex items-center gap-2 text-gray-900">
-                <DollarSign size={22} className="text-green-600" />
+            {/* Cột 2 */}
+            <div>
+              <h3 className="text-sm font-semibold text-gray-700 mb-2">
                 Thông tin thanh toán
-              </CardTitle>
-            </CardHeader>
+              </h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Phương thức:</span>
+                  <span className="font-medium">{orderData.paymentMethod}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Trạng thái:</span>
+                  <span className="font-medium">
+                    {orderData.Payment.status}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Tổng tiền:</span>
+                  <span className="font-bold text-primary">
+                    {formatCurrency(orderData.Payment.amount)}
+                  </span>
+                </div>
+                {orderData.Payment.paidAt && (
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Đã thanh toán:</span>
+                    <span className="font-medium">
+                      {dayjs(orderData.Payment.paidAt).format(
+                        'DD/MM/YYYY HH:mm',
+                      )}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
 
-            <CardContent className="p-6 space-y-4">
-              <InfoRow
-                icon={<CreditCard size={18} className="text-blue-600" />}
-                label="Phương thức"
-                value={paymentMethod}
-              />
-              <InfoRow
-                icon={<DollarSign size={18} className="text-green-600" />}
-                label="Tổng tiền"
-                value={`${Payment.amount.toLocaleString()}₫`}
-                highlight
-              />
-              <InfoRow
-                icon={<Calendar size={18} className="text-purple-600" />}
-                label="Ngày tạo"
-                value={new Date(createdAt).toLocaleString('vi-VN')}
-              />
-            </CardContent>
-          </Card>
+          <Separator />
 
-          {/* Customer Info */}
-          <Card className="border-2 shadow-md hover:shadow-lg transition-shadow">
-            <CardHeader className="bg-gradient-to-r from-orange-50 to-amber-50 border-b">
-              <CardTitle className="flex items-center gap-2 text-gray-900">
-                <User size={22} className="text-orange-600" />
-                Thông tin khách hàng
-              </CardTitle>
-            </CardHeader>
-
-            <CardContent className="p-6 space-y-4">
-              <InfoRow
-                icon={<User size={18} className="text-orange-600" />}
-                label="Tên khách hàng"
-                value={orderData.shippingAddress?.name || 'N/A'}
-              />
-              <InfoRow
-                icon={<Phone size={18} className="text-blue-600" />}
-                label="Số điện thoại"
-                value={orderData.shippingAddress?.phone || 'N/A'}
-              />
-              <InfoRow
-                icon={<MapPin size={18} className="text-red-600" />}
-                label="Địa chỉ"
-                value={
-                  orderData.shippingAddress
-                    ? `${orderData.shippingAddress.street}, ${orderData.shippingAddress.district}, ${orderData.shippingAddress.city}`
-                    : 'N/A'
-                }
-              />
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Products List */}
-        <Card className="border-2 shadow-md hover:shadow-lg transition-shadow">
-          <CardHeader className="bg-gradient-to-r from-purple-50 to-pink-50 border-b">
-            <CardTitle className="flex items-center gap-2 text-gray-900">
-              <Truck size={22} className="text-purple-600" />
-              Sản phẩm ({items.length})
-            </CardTitle>
-          </CardHeader>
-
-          <CardContent className="p-6">
-            <div className="space-y-4">
-              {items.map((item: any, index: number) => (
+          <div>
+            <h3 className="text-sm font-semibold text-gray-700 mb-3">
+              Sản phẩm
+            </h3>
+            <div className="space-y-3">
+              {orderData.items.map((item: any) => (
                 <div
                   key={item.id}
-                  className={`flex items-center gap-4 pb-4 ${
-                    index !== items.length - 1 ? 'border-b' : ''
-                  } hover:bg-gray-50 p-3 rounded-lg transition-colors`}
+                  className="flex gap-3 p-3 bg-gray-50 rounded-lg"
                 >
-                  <div className="w-24 h-24 bg-gradient-to-br from-gray-100 to-gray-200 rounded-xl shadow-inner flex items-center justify-center">
-                    <Package size={32} className="text-gray-400" />
-                  </div>
-
-                  <div className="flex-1 space-y-1">
-                    <p className="font-semibold text-gray-900 text-lg">
-                      {item.productName}
-                    </p>
-                    <p className="text-sm text-gray-600">
-                      {Object.entries(item.skuAttributes)
-                        .map(([k, v]) => `${k}: ${v}`)
-                        .join(' • ')}
-                    </p>
-                    <div className="flex items-center gap-2 text-sm">
-                      <Badge variant="secondary" className="text-xs">
-                        x{item.quantity}
-                      </Badge>
+                  <Image
+                    width={100}
+                    height={100}
+                    src={item.image || 'https://via.placeholder.com/80'}
+                    alt={item.productName}
+                    className="w-20 h-20 object-cover rounded"
+                  />
+                  <div className="flex-1">
+                    <h4 className="font-medium text-sm">{item.productName}</h4>
+                    {item.skuAttributes &&
+                      Object.keys(item.skuAttributes).length > 0 && (
+                        <p className="text-xs text-gray-500 mt-1">
+                          {Object.entries(item.skuAttributes)
+                            .map(([key, value]) => `${key}: ${value}`)
+                            .join(', ')}
+                        </p>
+                      )}
+                    <div className="flex justify-between items-center mt-2">
+                      <span className="text-sm text-gray-600">
+                        x{item.quantity || 1}
+                      </span>
+                      <span className="font-medium text-primary">
+                        {formatCurrency(item.skuPrice)}
+                      </span>
                     </div>
-                  </div>
-
-                  <div className="text-right space-y-1">
-                    <p className="font-bold text-lg text-green-600">
-                      {item.skuPrice.toLocaleString()}₫
-                    </p>
-                    <p className="text-sm text-gray-500">
-                      Tổng: {(item.skuPrice * item.quantity).toLocaleString()}₫
-                    </p>
                   </div>
                 </div>
               ))}
             </div>
+          </div>
 
-            <div className="mt-6 pt-4 border-t-2 flex justify-between items-center bg-gradient-to-r from-green-50 to-emerald-50 p-4 rounded-lg">
-              <span className="text-lg font-semibold text-gray-900">
-                Tổng cộng
-              </span>
-              <span className="text-2xl font-bold text-green-600">
-                {Payment.amount.toLocaleString()}₫
-              </span>
+          <Separator />
+
+          <div>
+            <h3 className="text-sm font-semibold text-gray-700 mb-3">
+              Địa chỉ giao hàng
+            </h3>
+            <div className="flex items-start gap-2 text-sm bg-gray-50 p-3 rounded-lg">
+              <Icon
+                icon={'mdi:truck-outline'}
+                className="text-xl text-gray-400 mt-0.5"
+              />
+              <div>
+                <p className="font-medium">
+                  {orderData.addressShip?.name || 'or'}
+                </p>
+                <p className="text-gray-600">
+                  {orderData.addressShip?.phone || '0123456789'}
+                </p>
+                <p className="text-gray-600">
+                  {orderData.addressShip?.address},{' '}
+                  {orderData.addressShip?.divisionPath['WARD']},{' '}
+                  {orderData.addressShip?.divisionPath['DISTRICT']},{' '}
+                  {orderData.addressShip?.divisionPath['PROVINCE']}
+                  123 Đường ABC, Phường XYZ, Quận 1, TP.HCM
+                </p>
+              </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+
+          <div className="flex justify-between items-center gap-x-2 overflow-hidden">
+            {Array.from({ length: 50 }).map((_, index) => (
+              <div
+                key={index}
+                className={`h-[3px] flex-1 ${index % 2 === 0 ? 'bg-blue-300' : 'bg-red-300'}`}
+              />
+            ))}
+          </div>
+
+          <div>
+            <h3 className="text-sm font-semibold text-gray-700 mb-3">
+              Timeline
+            </h3>
+            <div className="space-y-3">
+              <div className="flex gap-3">
+                <div className="w-2 h-2 rounded-full bg-green-500 mt-1.5"></div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">Đơn hàng được tạo</p>
+                  <p className="text-xs text-gray-500">
+                    {dayjs(orderData.createdAt).format('DD/MM/YYYY HH:mm')}
+                  </p>
+                </div>
+              </div>
+              {orderData.updatedAt && (
+                <div className="flex gap-3">
+                  <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5"></div>
+                  <div className="flex-1">
+                    <p className="text-sm font-medium">Cập nhật trạng thái</p>
+                    <p className="text-xs text-gray-500">
+                      {dayjs(orderData.updatedAt).format('DD/MM/YYYY HH:mm')}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
 
         {/* Status Change Dialog */}
         <AlertDialog open={openStatusDialog} onOpenChange={setOpenStatusDialog}>
@@ -444,32 +524,6 @@ export const OrderDetailPage = ({
     </div>
   );
 };
-
-const InfoRow = ({
-  icon,
-  label,
-  value,
-  highlight,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  value: any;
-  highlight?: boolean;
-}) => (
-  <div className="flex items-start justify-between gap-4 p-2 hover:bg-gray-50 rounded-lg transition-colors">
-    <div className="flex items-center gap-2 text-gray-600">
-      {icon}
-      <span className="text-sm font-medium">{label}</span>
-    </div>
-    <span
-      className={`text-sm text-right ${
-        highlight ? 'font-bold text-green-600 text-lg' : 'font-medium text-gray-900'
-      }`}
-    >
-      {value}
-    </span>
-  </div>
-);
 
 const LoadingUI = () => (
   <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 px-4">
