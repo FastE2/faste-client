@@ -126,7 +126,7 @@ export default function StoreBuilder() {
     }));
   };
 
-  const handleAddWidgetTemplete = (data: Omit<Widget, 'widgetIndex'>) => {
+  const handleAddWidgetTemplete = async (data: Omit<Widget, 'widgetIndex'>) => {
     if (config.widgets.length > 10) {
       toastify.error(
         '',

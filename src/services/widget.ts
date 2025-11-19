@@ -1,5 +1,6 @@
 import { API_ENDPOINT } from '@/configs/api';
 import { ApiResponse } from '@/types/api-response';
+import { AddWidgetBodyType } from '@/types/widget';
 import axiosInstance from '@/utils/axios';
 
 export const getAllWidgets = async (id: number): Promise<ApiResponse> => {
@@ -24,6 +25,38 @@ export const getAllWidgets = async (id: number): Promise<ApiResponse> => {
     return {
       status: 'error',
       message: 'Unable to fetch widget by shop. Please try again later.',
+      data: null,
+      error: errorMessage,
+      errorCode: errorCode,
+    };
+  }
+};
+
+export const AddWidget = async (
+  data: AddWidgetBodyType,
+): Promise<ApiResponse> => {
+  try {
+    const res = await axiosInstance.post(
+      `${API_ENDPOINT.SELLER_STORE.WIDGET}`,
+      data,
+    );
+
+    return {
+      status: 'success',
+      message: 'Fetch add widget by shop success.',
+      data: res.data.data,
+      error: null,
+      errorCode: null,
+    };
+  } catch (error: any) {
+    console.log('error', error);
+    const errorMessage =
+      error?.response?.data?.message || 'Unknown error occurred';
+    const errorCode = error?.response?.status || 500;
+
+    return {
+      status: 'error',
+      message: 'Unable to add widget by shop. Please try again later.',
       data: null,
       error: errorMessage,
       errorCode: errorCode,

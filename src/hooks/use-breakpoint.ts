@@ -29,6 +29,8 @@ export function useBreakpoint() {
     window.addEventListener('resize', handleResize);
     handleResize();
 
+    console.log(breakpoint);
+
     if (windowSize.width < 600) {
       setBreakPoint(breakpoints[0]); // xs
     } else if (windowSize.width < 960) {

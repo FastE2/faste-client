@@ -35,3 +35,26 @@ export interface StoreConfig {
   followers: number;
   widgets: Widget[];
 }
+
+export type AddWidgetBodyType = {
+  templateId: number;
+  refViewId: number;
+  type:
+    | 'TITLE'
+    | 'BANNER_CAROUSEL'
+    | 'BANNER_GRID4'
+    | 'CATEGORIES_GRID'
+    | 'CATEGORIES_CAROUSEL'
+    | 'PRODUCTS_ALL'
+    | 'PRODUCTS_RATING'
+    | 'PRODUCTS_GRID'
+    | 'STORIES_CAROUSEL'
+    | 'FLASH_SALE'
+    | 'DISCOUNT'
+    | 'COLLECTIONS_CAROUSEL'
+    | 'COLLECTIONS_VERTICAL';
+  isVisible: boolean;
+  widgetIndex: number;
+  name?: string | null | undefined;
+  viewConfig?: any;
+};

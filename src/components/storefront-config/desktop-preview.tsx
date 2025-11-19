@@ -77,9 +77,9 @@ export default function DesktopPreview({
     let newMaxWidthClass = 'max-w-[1400px]'; // default
 
     if (isPathName) {
-      if (breakpoint === 'xl' || breakpoint === 'lg') {
-        newMaxWidthClass = 'max-w-4xl';
-      } else if (breakpoint === '2xl') newMaxWidthClass = 'max-w-5xl';
+      if (breakpoint === 'xl' || breakpoint === 'lg')
+        newMaxWidthClass = 'max-w-2xl';
+      else if (breakpoint === '2xl') newMaxWidthClass = 'max-w-5xl';
     }
 
     if (newMaxWidthClass !== maxWidthClass) {

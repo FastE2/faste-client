@@ -1,5 +1,7 @@
 'use client';
 
+import { AlertConfirm } from '@/components/AlertConfirm';
+import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import { AddWidgets } from '@/components/storefront-config/add-widgets';
 import DesktopPreview from '@/components/storefront-config/desktop-preview';
 import MobilePreview from '@/components/storefront-config/mobile-preview';
@@ -9,7 +11,7 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/hooks/use-auth';
 import { getDetailShopById } from '@/services/shop';
-import { getAllWidgets } from '@/services/widget';
+import { AddWidget, getAllWidgets } from '@/services/widget';
 import { StoreConfig, Widget, WidgetType } from '@/types/widget';
 import { useEffect, useState } from 'react';
 
@@ -25,7 +27,16 @@ export const TemplateWidgetDetailPage = (props: TProps) => {
     followers: 0,
     widgets: [],
   });
-  const [activeTab, setActiveTab] = useState('computer');
+  const [activeTab, setActiveTab] = useState<string>('computer');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [confirmDialog, setConfirmDialog] = useState<{
+    itemId: string | null;
+    open: boolean;
+  }>({
+    itemId: null,
+    open: false,
+  });
+
   const { user } = useAuth();
 
   const handleToggleWidget = (widgetId: string) => {
@@ -45,10 +56,31 @@ export const TemplateWidgetDetailPage = (props: TProps) => {
   };
 
   const handleDeleteWidget = (widgetId: string) => {
-    setConfig((prev) => ({
-      ...prev,
-      widgets: prev.widgets.filter((w) => w.id !== widgetId),
-    }));
+    setConfirmDialog({ itemId: widgetId, open: true });
+  };
+
+  const handleCloseAlertConfirm = () => {
+    setConfirmDialog({ itemId: null, open: false });
+  };
+
+  const handleConfirmDeleteWidget = () => {
+    setIsLoading(true);
+    if (!confirmDialog.itemId) {
+      toastify.error('', 'Có lỗi xảy ra vui lòng thử lại!');
+    } else {
+      try {
+        console.log(confirmDialog);
+        setConfig((prev) => ({
+          ...prev,
+          widgets: prev.widgets.filter((w) => w.id !== confirmDialog.itemId),
+        }));
+      } catch (error) {
+        toastify.error('', 'Có lỗi xảy ra vui lòng thử lại!');
+      }
+    }
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
   };
 
   const handleAddWidget = () => {
@@ -66,7 +98,7 @@ export const TemplateWidgetDetailPage = (props: TProps) => {
     }));
   };
 
-  const handleAddWidgetTemplete = (data: Omit<Widget, 'widgetIndex'>) => {
+  const handleAddWidgetTemplete = async (data: Omit<Widget, 'widgetIndex'>) => {
     if (config.widgets.length > 10) {
       toastify.error(
         '',
@@ -74,18 +106,39 @@ export const TemplateWidgetDetailPage = (props: TProps) => {
       );
       return;
     }
-    const newWidget: Widget = {
-      id: Date.now().toString(),
-      type: data.type,
-      label: data.label,
-      icon: data.icon,
-      isVisible: true,
-      widgetIndex: config.widgets.length,
-    };
-    setConfig((prev) => ({
-      ...prev,
-      widgets: [...prev.widgets, newWidget],
-    }));
+    setIsLoading(true);
+    try {
+      const res = await AddWidget({
+        templateId,
+        refViewId: templateId,
+        isVisible: true,
+        widgetIndex: config.widgets.length,
+        name: data.label,
+        type: data.type,
+        viewConfig: data.viewConfig,
+      });
+      if (res.status === 'success') {
+        toastify.error('', res.message);
+        return;
+      }
+      toastify.success('', res.message);
+      const newWidget: Widget = {
+        id: Date.now().toString(),
+        type: data.type,
+        label: data.label,
+        icon: data.icon,
+        isVisible: true,
+        widgetIndex: config.widgets.length,
+      };
+      setConfig((prev) => ({
+        ...prev,
+        widgets: [...prev.widgets, newWidget],
+      }));
+    } catch (error) {
+      toastify.error('', 'Đã có lỗi xảy ra vui long thử lại sau vài giây');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleApply = async () => {
@@ -103,7 +156,7 @@ export const TemplateWidgetDetailPage = (props: TProps) => {
     const resShop = await getDetailShopById(userId);
     const resWidget = await getAllWidgets(templateId);
     console.log(resShop);
-    console.log("resWidget", resWidget);
+    console.log('resWidget', resWidget);
     if (resShop.status === 'success' && resWidget.status === 'success') {
       setConfig({
         followers: resShop.data.followerCount ? resShop.data.followerCount : 0,
@@ -124,6 +177,17 @@ export const TemplateWidgetDetailPage = (props: TProps) => {
 
   return (
     <div className="min-h-screen bg-background">
+      <AlertConfirm
+        onClose={handleCloseAlertConfirm}
+        type="warning"
+        onConfirm={handleConfirmDeleteWidget}
+        open={confirmDialog.open}
+        title="Thông báo"
+        description="Bạn có chắc chắn muốn thực hiện?"
+      />
+
+      <LoadingDialog isLoading={isLoading} />
+
       {/* Header */}
       <header className="border-b bg-card">
         <div className="flex items-center justify-between px-6 py-4">
