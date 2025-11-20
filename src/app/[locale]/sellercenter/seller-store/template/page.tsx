@@ -1,5 +1,5 @@
-import StoreBuilder from '@/components/storefront-config/store-builder';
+import TemplateListPage from '@/views/pages/sellercenter/seller-store/template';
 
 export default function Home() {
-  return <StoreBuilder />;
+  return <TemplateListPage />;
 }

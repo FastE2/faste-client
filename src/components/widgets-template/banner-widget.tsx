@@ -1,5 +1,4 @@
 import { Widget } from '@/types/widget';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -30,24 +29,39 @@ export default function BannerWidget({ widget }: BannerWidgetProps) {
         modules={[Autoplay, Pagination, Navigation]}
         className="mySwiper rounded-xl"
       >
-        {widget.viewConfig &&
-          widget.viewConfig.images.map((image: string, index: number) => (
-            <SwiperSlide key={index}>
-              <div className="h-[500px] bg-red-400 rounded-xl">
-                <Image
-                  src={
-                    image
-                      ? image
-                      : 'https://salt.tikicdn.com/cache/w750/ts/tikimsp/cb/3f/52/5ed5314cabc00d10d36c789df95b4348.png.webp'
-                  }
-                  alt="Slide 1"
-                  layout="fill"
-                  objectFit="cover"
-                  className="overflow-hidden rounded-xl"
-                />
-              </div>
-            </SwiperSlide>
-          ))}
+        {widget.viewConfig
+          ? widget.viewConfig.images.map((image: string, index: number) => (
+              <SwiperSlide key={index}>
+                <div className="h-[500px] bg-red-400 rounded-xl">
+                  <Image
+                    src={
+                      image
+                        ? image
+                        : 'https://salt.tikicdn.com/cache/w750/ts/tikimsp/cb/3f/52/5ed5314cabc00d10d36c789df95b4348.png.webp'
+                    }
+                    alt="Slide 1"
+                    layout="fill"
+                    objectFit="cover"
+                    className="overflow-hidden rounded-xl"
+                  />
+                </div>
+              </SwiperSlide>
+            ))
+          : Array.from({ length: 3 }).map((_, index) => (
+              <SwiperSlide key={index}>
+                <div className="h-[500px] bg-red-400 rounded-xl">
+                  <Image
+                    src={
+                      'https://salt.tikicdn.com/cache/w750/ts/tikimsp/cb/3f/52/5ed5314cabc00d10d36c789df95b4348.png.webp'
+                    }
+                    alt="Slide 1"
+                    layout="fill"
+                    objectFit="cover"
+                    className="overflow-hidden rounded-xl"
+                  />
+                </div>
+              </SwiperSlide>
+            ))}
       </Swiper>
     </>
   );

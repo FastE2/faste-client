@@ -11,7 +11,12 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/hooks/use-auth';
 import { getDetailShopById } from '@/services/shop';
-import { AddWidget, getAllWidgets } from '@/services/widget';
+import {
+  AddWidget,
+  deleteWidget,
+  getAllWidgets,
+  updateManyWidgets,
+} from '@/services/widget';
 import { StoreConfig, Widget, WidgetType } from '@/types/widget';
 import { useEffect, useState } from 'react';
 
@@ -63,24 +68,28 @@ export const TemplateWidgetDetailPage = (props: TProps) => {
     setConfirmDialog({ itemId: null, open: false });
   };
 
-  const handleConfirmDeleteWidget = () => {
+  const handleConfirmDeleteWidget = async () => {
     setIsLoading(true);
     if (!confirmDialog.itemId) {
       toastify.error('', 'Có lỗi xảy ra vui lòng thử lại!');
     } else {
       try {
         console.log(confirmDialog);
-        setConfig((prev) => ({
-          ...prev,
-          widgets: prev.widgets.filter((w) => w.id !== confirmDialog.itemId),
-        }));
+        const res = await deleteWidget(Number(confirmDialog.itemId));
+        if (res.status === 'success') {
+          toastify.success('', res.message);
+          setConfig((prev) => ({
+            ...prev,
+            widgets: prev.widgets.filter((w) => w.id !== confirmDialog.itemId),
+          }));
+        } else {
+          toastify.error('', res.message);
+        }
       } catch (error) {
         toastify.error('', 'Có lỗi xảy ra vui lòng thử lại!');
       }
     }
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+    setIsLoading(false);
   };
 
   const handleAddWidget = () => {
@@ -118,22 +127,22 @@ export const TemplateWidgetDetailPage = (props: TProps) => {
         viewConfig: data.viewConfig,
       });
       if (res.status === 'success') {
-        toastify.error('', res.message);
+        const newWidget: Widget = {
+          id: res.data.id,
+          type: data.type,
+          label: data.label,
+          icon: data.icon,
+          isVisible: true,
+          widgetIndex: config.widgets.length,
+        };
+        setConfig((prev) => ({
+          ...prev,
+          widgets: [...prev.widgets, newWidget],
+        }));
+        toastify.success('', res.message);
         return;
       }
-      toastify.success('', res.message);
-      const newWidget: Widget = {
-        id: Date.now().toString(),
-        type: data.type,
-        label: data.label,
-        icon: data.icon,
-        isVisible: true,
-        widgetIndex: config.widgets.length,
-      };
-      setConfig((prev) => ({
-        ...prev,
-        widgets: [...prev.widgets, newWidget],
-      }));
+      toastify.error('', res.message);
     } catch (error) {
       toastify.error('', 'Đã có lỗi xảy ra vui long thử lại sau vài giây');
     } finally {
@@ -142,10 +151,29 @@ export const TemplateWidgetDetailPage = (props: TProps) => {
   };
 
   const handleApply = async () => {
+    setIsLoading(true);
     try {
-      console.log(config);
+      const newWidgetFillter = config.widgets.map((item) => ({
+        id: Number(item.id),
+        name: item.label,
+        type: item.type,
+        widgetIndex: item.widgetIndex,
+        isVisible: item.isVisible,
+        viewConfig: item.viewConfig ? item.viewConfig : null,
+      }));
+      console.log('APply config', config);
+      const res = await updateManyWidgets(templateId, {
+        widgets: newWidgetFillter,
+      });
+      if (res.status === 'error') {
+        toastify.error('', res.message);
+        return;
+      }
+      toastify.success('', res.message);
     } catch (err) {
-      console.error(err);
+      toastify.error('', 'Có lỗi xảy ra vui lòng thử lại');
+    } finally {
+      setIsLoading(false);
     }
   };
 

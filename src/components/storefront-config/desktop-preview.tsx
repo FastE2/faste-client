@@ -184,13 +184,6 @@ export default function DesktopPreview({
               </div>
             </SortableContext>
           </DndContext>
-
-          {/* Add Widget Button */}
-          <div className="mt-6 flex justify-center">
-            <button className="rounded-lg border-2 border-dashed border-gray-300 bg-white px-6 py-4 text-sm text-gray-500 hover:border-blue-400 hover:text-blue-500">
-              + Thêm widget
-            </button>
-          </div>
         </div>
       </div>
     </div>

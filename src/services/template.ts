@@ -5,7 +5,7 @@ import axiosInstance from '@/utils/axios';
 export const getAllTemplatesBySeller = async (): Promise<ApiResponse> => {
   try {
     const res = await axiosInstance.get(
-      `${API_ENDPOINT.SELLER_STORE.TEMPLATE}`,
+      `${API_ENDPOINT.SELLER_STORE.TEMPLATE}/seller`,
     );
 
     return {
