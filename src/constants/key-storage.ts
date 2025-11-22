@@ -3,4 +3,5 @@ export const KEY_STORAGE = {
   ACCESS_TOKEN: 'access-token',
   CHECKOUT_ITEMS: 'checkout_items',
   SEARCH_HISTORY: 'search_history',
+  RECENT_VIEWED_PRODUCTS: 'recent_viewed_products',
 };

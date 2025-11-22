@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import CartProduct from '@/components/CardProduct';
 import CardCategory from './partials/CardCategory';
@@ -10,6 +10,8 @@ import PrimaryProductCard from './partials/PrimaryProductCard';
 import Image from 'next/image';
 import WelcomePopup from './partials/WelcomePopup';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import { useSearchStore } from '@/stores/useSearchStore';
 
 interface TProps {
   data: [];
@@ -21,11 +23,16 @@ interface TProps {
 
 const HomePage = (props: TProps) => {
   const { data: products, limit, page, totalItem, totalPage } = props;
-  const router = useRouter()
+  const router = useRouter();
+  const { setSearchText } = useSearchStore();
+
+  useEffect(() => {
+    setSearchText('');
+  }, []);
   return (
     <>
       <div className="container mx-auto max-w-6xl px-4">
-        <WelcomePopup /> 
+        <WelcomePopup />
         <BannerWeb />
         <CardCategory />
 

@@ -15,6 +15,10 @@ export const API_ENDPOINT = {
     WIDGET: `${BASE_URL}/widget`,
     INFO: `${BASE_URL}/seller-store/info`,
   },
+  SEARCH: {
+    INDEX: `${BASE_URL}/search`,
+    SUGGEST: `${BASE_URL}/search/suggest`,
+  },
   PROFILE: {
     INDEX: `${BASE_URL}/profile`,
     CHANGE_PASSWORD: `${BASE_URL}/profile/change-password`,

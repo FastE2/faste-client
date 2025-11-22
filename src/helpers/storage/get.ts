@@ -25,3 +25,9 @@ export const getStoreSearchHistory = (): any[] => {
   const data = localStorage.getItem(KEY_STORAGE.SEARCH_HISTORY);
   return data ? JSON.parse(data) : [];
 };
+
+export const getViewedProduct = (): any[] => {
+  if (typeof window === 'undefined') return [];
+  const data = localStorage.getItem(KEY_STORAGE.RECENT_VIEWED_PRODUCTS);
+  return data ? JSON.parse(data) : [];
+};

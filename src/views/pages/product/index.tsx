@@ -18,10 +18,12 @@ import InputNumberCustom from '@/components/InputNumberCustom';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { useSearchStore } from '@/stores/useSearchStore';
 
 export const ProductListPage = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { searchText } = useSearchStore();
 
   const [products, setProducts] = useState([]);
 
@@ -212,7 +214,7 @@ export const ProductListPage = () => {
           </div>{' '}
           <div className="w-full h-[1px] bg-gray-200" />
           {/* Theo đánh giá  */}
-          <div className='space-y-2'>
+          <div className="space-y-2">
             <div className="text-sm">Đánh giá</div>
             <div className="pl-4 space-y-1">
               {[5, 4, 3, 2, 1].map((item) => (
@@ -247,9 +249,14 @@ export const ProductListPage = () => {
         </div>
 
         {/* RIGHT PRODUCT LIST */}
-        <div className="col-span-10">
+        <div className="col-span-10 space-y-2">
           {/* SORT */}
-          <div className="flex space-x-4 items-center bg-card px-4 py-2 mb-2">
+          <div className="mb-4 flex items-center gap-x-2">
+            <Icon icon="stash:light-bulb-exclamation" width="28" height="28" />
+            <span>Kết quả tìm kiếm cho từ khoá</span>
+            <span className="text-red-500">{`'${searchText}'`}</span>
+          </div>
+          <div className="flex space-x-4 items-center bg-card px-4 py-2">
             <span className="font-semibold">Sắp xếp theo:</span>
 
             <button

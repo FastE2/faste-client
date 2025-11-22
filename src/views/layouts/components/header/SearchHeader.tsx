@@ -8,6 +8,10 @@ import { getStoreSearchHistory } from '@/helpers/storage/get';
 import { setStoreSearchHistory } from '@/helpers/storage/set';
 import { clearStoreSearchHistory } from '@/helpers/storage/clear';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { useSearchStore } from '@/stores/useSearchStore';
+import useDebounce from '@/hooks/use-debounce';
+import { getSearchSuggest } from '@/services/search';
+import { hasVietnameseAccent } from '@/helpers/hasVietnameseAccent';
 
 const POPULAR_KEYWORDS = [
   'Máy Tính',
@@ -17,14 +21,22 @@ const POPULAR_KEYWORDS = [
   'Mỹ phẩm',
 ];
 
+interface suggestKeywordType {
+  keyword: string;
+}
+
 const SearchHeader = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [searchText, setSearchText] = useState('');
+  // const [searchText, setSearchText] = useState('');
+  const { searchText, setSearchText } = useSearchStore();
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
+  const [suggestKeyword, setSuggestKeyword] = useState<suggestKeywordType[]>(
+    [],
+  );
   const searchRef = useRef(null);
   const router = useRouter();
   const searchParams = useSearchParams();
-
+  const debounce = useDebounce(searchText, 200);
   // Lấy lịch sử tìm kiếm từ localStorage
   useEffect(() => {
     const storedHistory = getStoreSearchHistory();
@@ -32,6 +44,25 @@ const SearchHeader = () => {
       setSearchHistory(storedHistory);
     }
   }, []);
+
+  const fetchGetSearchSuggest = async (keyword: string) => {
+    const res = await getSearchSuggest(keyword);
+    const isAccent = keyword
+      .trim()
+      .split(/\s+/)
+      .every((item) => hasVietnameseAccent(item));
+    const field = isAccent ? 'keyword_raw' : 'keyword';
+
+    const suggestList = res.data.map((item: any) => ({
+      ...item,
+      keyword: item[field].toLowerCase(),
+    }));
+
+    setSuggestKeyword(suggestList);
+  };
+  useEffect(() => {
+    fetchGetSearchSuggest(debounce);
+  }, [debounce]);
 
   // Sự kiện click ngoài input để ẩn suggestions
   useEffect(() => {
@@ -62,13 +93,13 @@ const SearchHeader = () => {
   };
 
   // Xử lý khi người dùng thực hiện tìm kiếm
-  const handleSearch = () => {
-    if (searchText && !searchHistory.includes(searchText)) {
-      saveSearchHistory(searchText);
+  const handleSearch = (keyword: string) => {
+    if (keyword && !searchHistory.includes(keyword)) {
+      saveSearchHistory(keyword);
     }
     setIsVisible(false);
     const params = new URLSearchParams(searchParams.toString());
-    params.set('keyword', searchText);
+    params.set('keyword', keyword);
     router.replace(`/product?${params.toString()}`);
   };
 
@@ -100,18 +131,34 @@ const SearchHeader = () => {
         <Button
           size="sm"
           className="absolute right-1 top-1/2 -translate-y-1/2 rounded-xl cursor-pointer"
-          onClick={handleSearch}
+          onClick={() => handleSearch(searchText)}
         >
           <Icon icon="material-symbols-light:search" className="w-4 h-4" />
         </Button>
         {isVisible && (
           <>
             {searchText ? (
-              <div className="absolute left-0 top-11 bg-card w-full z-50 rounded-xs shadow-lg outline outline-gray-200 p-2">
+              <div className="absolute left-0 top-11 bg-card w-full z-50 rounded-xs shadow-lg outline outline-gray-200 py-2 px-4">
                 <div className="text-gray-400">GỢI Ý TÌM KIẾM</div>
+                <div>
+                  <div>
+                    {suggestKeyword.slice(0, 8).map((item, index) => (
+                      <div
+                        key={index}
+                        className="text-gray-500 cursor-pointer py-1 flex items-center justify-between hover:bg-gray-50"
+                        onClick={() => {
+                          setSearchText(item.keyword);
+                          handleSearch(item.keyword);
+                        }}
+                      >
+                        <span>{String(item.keyword)}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             ) : (
-              <div className="absolute left-0 top-11 bg-card w-full z-50 rounded-xs shadow-lg outline outline-gray-200 p-2">
+              <div className="absolute left-0 top-11 bg-card w-full z-50 rounded-xs shadow-lg outline outline-gray-200 py-2 px-4">
                 <div className="flex justify-between items-center py-1">
                   <div className="text-gray-400">LỊCH SỬ TÌM KIẾM</div>
                   <div
@@ -124,12 +171,13 @@ const SearchHeader = () => {
                 <div className="pb-2">
                   {searchHistory.length > 0 ? (
                     <div>
-                      {searchHistory.slice(0, 3).map((item, index) => (
+                      {searchHistory.slice(0, 5).map((keyword, index) => (
                         <div
                           key={index}
-                          className="text-gray-500 cursor-pointer py-1 flex items-center justify-between hover:bg-gray-50"
+                          className="text-gray-500 cursor-pointer py-1 flex items-center justify-between hover:bg-gray-50 relative"
                           onClick={() => {
-                            setSearchText(item.trim());
+                            setSearchText(keyword);
+                            handleSearch(keyword);
                           }}
                         >
                           <div className="flex items-center gap-x-2">
@@ -138,11 +186,12 @@ const SearchHeader = () => {
                               width="18"
                               height="18"
                             />
-                            <span>{item}</span>
+                            <span>{keyword}</span>
                           </div>
                           <button
-                            className="hover:bg-gray-300 rounded-sm p-0.5 cursor-pointer"
-                            onClick={() => {
+                            className="hover:bg-gray-300 rounded-sm p-0.5 cursor-pointer absolute right-0"
+                            onClick={(e) => {
+                              e.stopPropagation();
                               handleDeleteSearchHistory(index);
                             }}
                           >
@@ -161,13 +210,20 @@ const SearchHeader = () => {
                 <div className="pt-2">
                   <div className="text-gray-400">TỪ KHÓA PHỔ BIẾN</div>
                   <div>
-                    {POPULAR_KEYWORDS.map((key, index) => (
-                      <div key={index} className="text-gray-500 cursor-pointer py-1 flex items-center gap-x-2 hover:bg-gray-50">
+                    {POPULAR_KEYWORDS.map((keyword, index) => (
+                      <div
+                        key={index}
+                        className="text-gray-500 cursor-pointer py-1 flex items-center gap-x-2 hover:bg-gray-50"
+                        onClick={() => {
+                          setSearchText(keyword);
+                          handleSearch(keyword);
+                        }}
+                      >
                         <Icon
                           icon={'mdi:chart-line'}
                           className="text-yellow-500"
                         />
-                        <span>{key}</span>
+                        <span>{keyword}</span>
                       </div>
                     ))}
                   </div>

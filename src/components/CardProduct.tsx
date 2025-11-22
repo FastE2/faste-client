@@ -10,6 +10,7 @@ import Link from 'next/link';
 const CartProduct = (props: { data: any; className?: string }) => {
   const { data, className = '' } = props;
   const { i18n } = useTranslation();
+
   return (
     // h-[350px] w-[280px]
     <Link href={`/product/${data.slugId}`}>

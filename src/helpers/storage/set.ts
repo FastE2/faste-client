@@ -30,3 +30,17 @@ export const setStoreSearchHistory = (items: any[]) => {
     );
   }
 };
+
+export const setViewedProduct = (items: any[]) => {
+  if (typeof window !== 'undefined') {
+    // const filtered = existing.filter((id: number) => id !== productId);
+
+    // filtered.unshift(productId);
+
+    // const limited = filtered.slice(0, 20);
+    window.localStorage.setItem(
+      KEY_STORAGE.RECENT_VIEWED_PRODUCTS,
+      JSON.stringify(items),
+    );
+  }
+};
