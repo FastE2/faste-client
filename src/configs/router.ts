@@ -83,6 +83,74 @@ export const ROUTE_CONFIG = {
     SETTINGS: '/sellercenter/settings',
   },
 
+  // Admin dashboard
+  ADMIN: {
+    DASHBOARD: '/admin/dashboard',
+
+    USER: {
+      LIST: '/admin/users/list',
+      SELLERS: '/admin/users/sellers',
+      ADMINS: '/admin/users/admins',
+      SHOP_REQUESTS: '/admin/users/shop-requests',
+    },
+
+    PRODUCT: {
+      LIST: '/admin/products/list',
+      APPROVAL: '/admin/products/approval',
+    },
+
+    CATEGORY: {
+      LIST: '/admin/categories',
+    },
+
+    BRAND: {
+      LIST: '/admin/brands',
+    },
+
+    ATTRIBUTE: {
+      LIST: '/admin/attributes',
+    },
+
+    ORDER: {
+      LIST: '/admin/orders/list',
+      DISPUTE: '/admin/orders/disputes',
+    },
+
+    SHIPPING: {
+      SETTINGS: '/admin/shipping/settings',
+    },
+
+    FINANCE: {
+      OVERVIEW: '/admin/finance/overview',
+      REVENUE: '/admin/finance/revenue',
+      PAYOUTS: '/admin/finance/payouts',
+      RECONCILIATION: '/admin/finance/reconciliation',
+    },
+
+    MARKETING: {
+      CAMPAIGN: '/admin/marketing/campaigns',
+      VOUCHER: '/admin/marketing/vouchers',
+      FLASH_SALE: '/admin/marketing/flash-sale',
+    },
+
+    CONTENT: {
+      BANNER: '/admin/content/banners',
+      BLOG: '/admin/content/blog',
+      PAGES: '/admin/content/pages',
+    },
+
+    NOTIFICATION: {
+      SEND: '/admin/notifications/send',
+    },
+
+    SETTINGS: {
+      GENERAL: '/admin/settings/general',
+      ROLES: '/admin/settings/roles',
+      PAYMENT: '/admin/settings/payment',
+      LOGS: '/admin/settings/logs',
+    },
+  },
+
   // Public routes
   LOGIN: '/login',
   REGISTER: '/register',

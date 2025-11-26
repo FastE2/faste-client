@@ -202,3 +202,96 @@ export const SELLER_MENU_ITEMS: IMenuItem[] = [
     ],
   },
 ];
+
+export const ADMIN_MENU_ITEMS: IMenuItem[] = [
+  {
+    title: 'Dashboard',
+    url: ROUTE_CONFIG.ADMIN.DASHBOARD,
+    icon: 'mdi:view-dashboard-outline',
+    isActive: true,
+  },
+  {
+    title: 'Quản lý người dùng',
+    icon: 'ph:users-three',
+    items: [
+      { title: 'Danh sách người dùng', url: ROUTE_CONFIG.ADMIN.USER.LIST },
+      { title: 'Danh sách người bán', url: ROUTE_CONFIG.ADMIN.USER.SELLERS },
+      { title: 'Quản trị viên', url: ROUTE_CONFIG.ADMIN.USER.ADMINS },
+      {
+        title: 'Yêu cầu duyệt Shop',
+        url: ROUTE_CONFIG.ADMIN.USER.SHOP_REQUESTS,
+      },
+    ],
+  },
+  {
+    title: 'Quản lý sản phẩm',
+    icon: 'gridicons:product',
+    items: [
+      { title: 'Tất cả sản phẩm', url: ROUTE_CONFIG.ADMIN.PRODUCT.LIST },
+      { title: 'Duyệt sản phẩm', url: ROUTE_CONFIG.ADMIN.PRODUCT.APPROVAL },
+      { title: 'Danh mục ngành hàng', url: ROUTE_CONFIG.ADMIN.CATEGORY.LIST },
+      { title: 'Thương hiệu', url: ROUTE_CONFIG.ADMIN.BRAND.LIST },
+      { title: 'Thuộc tính', url: ROUTE_CONFIG.ADMIN.ATTRIBUTE.LIST },
+    ],
+  },
+  {
+    title: 'Đơn hàng & Vận chuyển',
+    icon: 'lets-icons:order',
+    items: [
+      { title: 'Tất cả đơn hàng', url: ROUTE_CONFIG.ADMIN.ORDER.LIST },
+      {
+        title: 'Tranh chấp / Khiếu nại',
+        url: ROUTE_CONFIG.ADMIN.ORDER.DISPUTE,
+      },
+      {
+        title: 'Cài đặt vận chuyển',
+        url: ROUTE_CONFIG.ADMIN.SHIPPING.SETTINGS,
+      },
+    ],
+  },
+  {
+    title: 'Tài chính',
+    icon: 'mdi:finance',
+    items: [
+      {
+        title: 'Tổng quan tài chính',
+        url: ROUTE_CONFIG.ADMIN.FINANCE.OVERVIEW,
+      },
+      { title: 'Doanh thu sàn', url: ROUTE_CONFIG.ADMIN.FINANCE.REVENUE },
+      { title: 'Yêu cầu rút tiền', url: ROUTE_CONFIG.ADMIN.FINANCE.PAYOUTS },
+      { title: 'Đối soát', url: ROUTE_CONFIG.ADMIN.FINANCE.RECONCILIATION },
+    ],
+  },
+  {
+    title: 'Marketing & Banner',
+    icon: 'solar:sale-outline',
+    items: [
+      { title: 'Chiến dịch sàn', url: ROUTE_CONFIG.ADMIN.MARKETING.CAMPAIGN },
+      { title: 'Voucher sàn', url: ROUTE_CONFIG.ADMIN.MARKETING.VOUCHER },
+      { title: 'Flash Sale', url: ROUTE_CONFIG.ADMIN.MARKETING.FLASH_SALE },
+      { title: 'Quản lý Banner', url: ROUTE_CONFIG.ADMIN.CONTENT.BANNER },
+    ],
+  },
+  {
+    title: 'Nội dung & Thông báo',
+    icon: 'fluent:content-settings-20-regular',
+    items: [
+      { title: 'Bài viết / Blog', url: ROUTE_CONFIG.ADMIN.CONTENT.BLOG },
+      { title: 'Gửi thông báo', url: ROUTE_CONFIG.ADMIN.NOTIFICATION.SEND },
+      { title: 'Trang tĩnh (Pages)', url: ROUTE_CONFIG.ADMIN.CONTENT.PAGES },
+    ],
+  },
+  {
+    title: 'Hệ thống',
+    icon: 'uil:setting',
+    items: [
+      { title: 'Cấu hình chung', url: ROUTE_CONFIG.ADMIN.SETTINGS.GENERAL },
+      { title: 'Phân quyền (Roles)', url: ROUTE_CONFIG.ADMIN.SETTINGS.ROLES },
+      {
+        title: 'Phương thức thanh toán',
+        url: ROUTE_CONFIG.ADMIN.SETTINGS.PAYMENT,
+      },
+      { title: 'Nhật ký hoạt động', url: ROUTE_CONFIG.ADMIN.SETTINGS.LOGS },
+    ],
+  },
+];

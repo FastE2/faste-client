@@ -41,16 +41,20 @@ const CartProduct = (props: { data: any; className?: string }) => {
             <p className="line-clamp-2 text-sm">{data.name}</p>
             <div className="flex items-center gap-x-1">
               <div className="text-[#EE4D2D] text-base">
-                {formatCurrencyWithExchange(data.skus[0].price, {
-                  language: i18n.language as 'vi' | 'en',
-                })}
+                {data?.skus?.length
+                  ? formatCurrencyWithExchange(data.skus[0].price, {
+                      language: i18n.language as 'vi' | 'en',
+                    })
+                  : formatCurrencyWithExchange(data?.basePrice ?? 0, {
+                      language: i18n.language as 'vi' | 'en',
+                    })}
               </div>
               <div className="w-8 h-4 text-[10px] bg-[#FEEEEA] text-[#EE4D2D] py-0.5 px-1 ">
                 -39%
               </div>
             </div>
             <div>
-              <Rating defaultValue={3} readOnly className="gap-x-0">
+              <Rating defaultValue={data.rating ?? 0} readOnly className="gap-x-0">
                 {Array.from({ length: 5 }).map((_, index) => (
                   <RatingButton
                     className="text-yellow-500"

@@ -107,3 +107,53 @@ export const getDetailShopById = async (id: number): Promise<ApiResponse> => {
     };
   }
 };
+
+export const getDetailShopMe = async (): Promise<ApiResponse> => {
+  try {
+    const res = await axiosInstance.get(`${API_ENDPOINT.SHOP.INDEX}/me/detail`);
+    return {
+      status: 'success',
+      message: 'Fetch shop details success.',
+      data: res.data.data,
+      error: null,
+      errorCode: null,
+    };
+  } catch (error: any) {
+    const errorMessage =
+      error?.response?.data?.message || 'Unknown error occurred';
+    const errorCode = error?.response?.status || 500;
+
+    return {
+      status: 'error',
+      message: 'Unable to fetch shop details. Please try again later.',
+      data: null,
+      error: errorMessage,
+      errorCode: errorCode,
+    };
+  }
+};
+
+export const registerSeller = async (data: FormData): Promise<ApiResponse> => {
+  try {
+    const res = await axiosInstance.post(`${API_ENDPOINT.SHOP.INDEX}/register`);
+    return {
+      status: 'success',
+      message: 'Fetch shop details success.',
+      data: res.data.data,
+      error: null,
+      errorCode: null,
+    };
+  } catch (error: any) {
+    const errorMessage =
+      error?.response?.data?.message || 'Unknown error occurred';
+    const errorCode = error?.response?.status || 500;
+
+    return {
+      status: 'error',
+      message: 'Unable to fetch shop details. Please try again later.',
+      data: null,
+      error: errorMessage,
+      errorCode: errorCode,
+    };
+  }
+};
