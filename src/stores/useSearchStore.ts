@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 interface SearchState {
-  searchText: string; // từ khóa search
+  searchText: string;
   setSearchText: (k: string) => void;
 }
 
