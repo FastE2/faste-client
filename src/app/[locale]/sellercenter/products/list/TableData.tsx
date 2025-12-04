@@ -1,3 +1,4 @@
+import PaginationTable from '@/components/pagination-table';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -11,6 +12,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -158,11 +160,8 @@ export function TableData(props: TProps) {
           </TableRow>
         ))}
       </TableBody>
-      {/* <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
+      {/* <TableFooter className='flex items-center justify-center w-full'>
+        <PaginationTable />
       </TableFooter> */}
     </Table>
   );

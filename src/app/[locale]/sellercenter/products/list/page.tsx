@@ -18,6 +18,9 @@ import { getAllProductPublicBySeller } from '@/services/product';
 import { useEffect, useState } from 'react';
 import { toastify } from '@/components/ToastNotification';
 import { TableData } from './TableData';
+import { PaginationWithLinks } from '@/components/pagination-table';
+
+
 
 const tabs = [
   { name: 'Tất cả', value: 'all' },
@@ -76,15 +79,15 @@ export default function Page() {
   };
 
   return (
-    <Tabs defaultValue={tabs[0].value} className="w-full p-2 h-full">
-      <TabsList className="w-full p-0 bg-background justify-start border-b rounded-xl overflow-hidden">
+    <Tabs defaultValue={tabs[0].value} className="w-full h-full">
+      <TabsList className="w-full flex-wrap h-auto justify-start gap-2 bg-white py-2 ">
         {tabs.map((tab) => (
           <TabsTrigger
             key={tab.value}
             value={tab.value}
-            className="rounded-none bg-background h-full data-[state=active]:shadow-none border border-transparent border-b-border data-[state=active]:border-border data-[state=active]:border-b-blue-600 data-[state=active]:border-b-2 data-[state=active]:text-blue-500 -mb-[2px] rounded-t"
+            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
           >
-            <span className="text-lg font-normal">{tab.name}</span>
+            {tab.name}
           </TabsTrigger>
         ))}
       </TabsList>
@@ -124,20 +127,16 @@ export default function Page() {
         </div>
       </div>
 
-      <div className="bg-white px-2 py-4 rounded-xl">
+      <div className="bg-white rounded-xl mb-4">
         {tabs.map((tab) => (
           <TabsContent key={tab.value} value={tab.value}>
             <div className="p-3 border rounded-md">
               {tabContentMap[tab.value]}
-              <div className="mt-2 flex justify-end">
-                <Button size="icon" variant="secondary" className="h-7 w-7">
-                  <Copy className="h-3.5 w-3.5" />
-                </Button>
-              </div>
             </div>
           </TabsContent>
         ))}
       </div>
+      <PaginationWithLinks page={1} pageSize={10} totalCount={5} />
     </Tabs>
   );
 }

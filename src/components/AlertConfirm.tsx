@@ -22,7 +22,7 @@ interface TProps {
   onCancel?: () => void;
 }
 
-export function AlertConfirm({
+export default function AlertConfirm({
   title = 'Are you sure?',
   description = 'This action cannot be undone.',
   open,

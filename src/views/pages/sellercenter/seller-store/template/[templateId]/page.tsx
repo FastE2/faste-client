@@ -1,6 +1,5 @@
 'use client';
 
-import { AlertConfirm } from '@/components/AlertConfirm';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import { AddWidgets } from '@/components/storefront-config/add-widgets';
 import DesktopPreview from '@/components/storefront-config/desktop-preview';
@@ -18,7 +17,13 @@ import {
   updateManyWidgets,
 } from '@/services/widget';
 import { StoreConfig, Widget, WidgetType } from '@/types/widget';
+import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
+
+const AlertConfirm = dynamic(() => import('@/components/AlertConfirm'), {
+  loading: () => <p>Loading...</p>,
+  ssr: false,
+});
 
 interface TProps {
   templateId: number;

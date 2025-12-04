@@ -28,6 +28,7 @@ const CartProduct = (props: { data: any; className?: string }) => {
           {/* Ảnh */}
           <Image
             src={data.images[0] ?? '/nftt-1.png'}
+            loading='lazy'
             width={190}
             height={190}
             alt={data.name}
