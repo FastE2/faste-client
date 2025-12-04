@@ -49,3 +49,14 @@ export function statusToLabel(status: OrderStatus): string {
 export function statusToColor(status: OrderStatus): string {
   return STATUS_COLORS[status] || 'bg-gray-100 text-gray-800 border-gray-200';
 }
+
+export const iconsStatusOrder = {
+  search: 'mdi:magnify',
+  eye: 'mdi:eye-outline',
+  clipboardList: 'mdi:clipboard-list-outline',
+  chevronLeft: 'mdi:chevron-left',
+  chevronRight: 'mdi:chevron-right',
+  package: 'mdi:package-variant-closed',
+  payment: 'mdi:credit-card-outline',
+  localShipping: 'mdi:truck-outline',
+};

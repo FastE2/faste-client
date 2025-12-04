@@ -181,8 +181,8 @@ export default function ShopPage() {
           {paginatedShops.length > 0 ? (
             <>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                {paginatedShops.map((shop) => (
-                  <article key={shop.id}>
+                {paginatedShops.map((shop, index) => (
+                  <article key={shop.id + index}>
                     <Link href={`/shop/${shop.slug}`}>
                       <Card className="h-full overflow-hidden transition-all hover:shadow-lg gap-y-4">
                         {/* Shop Logo */}
