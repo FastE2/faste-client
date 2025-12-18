@@ -19,6 +19,10 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { getDetailOrderById } from '@/services/order';
 import Image from 'next/image';
 import { Checkbox } from '@/components/ui/checkbox';
+import { CreateReview } from '@/services/review';
+import { toast } from 'sonner';
+import { toastify } from '@/components/ToastNotification';
+import { ReasonType } from '@/types/review';
 
 interface ProductRatingFormProps {
   id: number | null;
@@ -29,7 +33,7 @@ interface ProductRatingFormProps {
 interface FormData {
   rating: number;
   message: string;
-  reason: string;
+  reason: ReasonType | null;
   serviceSeller: number;
   serviceShip: number;
   images: File[];
@@ -48,13 +52,32 @@ export interface ProductOrderItem {
   skuAttributes: Record<string, string>;
   image: string;
   createdAt: string;
+  userId: number;
+  shopId: number;
 }
 
-const badReasons = [
-  'Hàng lỗi hoặc bị hư hỏng',
-  'Sản phẩm giả mạo',
-  'Sản phẩm không như mô tả',
-  'Sản phẩm chất lượng kém',
+interface badReasonItem {
+  value: ReasonType;
+  label: string;
+}
+
+const badReasons: badReasonItem[] = [
+  {
+    value: 'DAMAGED_PRODUCT',
+    label: 'Hàng lỗi hoặc bị hư hỏng',
+  },
+  {
+    value: 'FAKE_PRODUCT',
+    label: 'Sản phẩm giả mạo',
+  },
+  {
+    value: 'NOT_AS_DESCRIBED',
+    label: 'Sản phẩm không như mô tả',
+  },
+  {
+    value: 'POOR_QUALITY',
+    label: 'Sản phẩm chất lượng kém',
+  },
 ];
 
 const ratingStatus: Record<number, string> = {
@@ -70,10 +93,18 @@ const schema = yup.object({
   message: yup.string().max(100, 'Tối đa 100 ký tự').default(null),
   reason: yup
     .string()
+    .oneOf([
+      'DAMAGED_PRODUCT',
+      'FAKE_PRODUCT',
+      'NOT_AS_DESCRIBED',
+      'POOR_QUALITY',
+    ])
+    .nullable()
     .default(null)
     .when('rating', {
       is: (v: number) => v <= 2,
       then: (s) => s.required('Hãy chọn lý do'),
+      otherwise: (s) => s.default(null),
     }),
   serviceSeller: yup.number().required(),
   serviceShip: yup.number().required(),
@@ -105,7 +136,7 @@ const ProductRatingForm = memo(function ProductRatingForm({
     defaultValues: {
       rating: 5,
       message: '',
-      reason: '',
+      reason: null,
       serviceSeller: 5,
       serviceShip: 5,
       images: [],
@@ -117,16 +148,48 @@ const ProductRatingForm = memo(function ProductRatingForm({
   const seller = watch('serviceSeller');
   const ship = watch('serviceShip');
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = async (data: FormData) => {
     console.log('Form Submitted:', data);
-    onClose();
-    reset();
+
+    const orderItemId = productOrder!.id;
+    const productId = productOrder!.productId;
+    const skuId = productOrder?.skuId ?? null;
+    const sellerId = productOrder!.shopId;
+    try {
+      const { images, ...rest } = data;
+      console.log({
+        orderItemId,
+        productId,
+        sellerId,
+        skuId,
+        images: [],
+        ...rest,
+      });
+      const res = await CreateReview({
+        orderItemId,
+        productId,
+        sellerId,
+        skuId,
+        images: [],
+        ...rest,
+      });
+      if (!res.error) {
+        toastify.success('', 'Đánh giá sản phẩm thành công!');
+      } else {
+        toastify.error('', 'Có lỗi xảy ra khi gửi đánh giá.');
+      }
+    } catch (error) {
+      toastify.error('', 'Có lỗi xảy ra khi gửi đánh giá.');
+    } finally {
+      onClose();
+      reset();
+    }
   };
 
   const fetchDetailOrder = async (id: number) => {
     try {
       const res = await getDetailOrderById(id);
-      setProductOrder(res.data.items[0]);
+      setProductOrder({ ...res.data.items[0], shopId: res.data.shopId });
       console.log('RESORDER', res);
     } catch (error) {}
   };
@@ -243,16 +306,16 @@ const ProductRatingForm = memo(function ProductRatingForm({
                     <div className="flex flex-col gap-2">
                       {badReasons.map((item) => (
                         <label
-                          key={item}
+                          key={item.value}
                           className="flex items-center gap-2 cursor-pointer"
                         >
                           <input
                             type="radio"
-                            value={item}
-                            checked={field.value === item}
-                            onChange={() => field.onChange(item)}
+                            value={item.value}
+                            checked={field.value === item.value}
+                            onChange={() => field.onChange(item.value)}
                           />
-                          <span>{item}</span>
+                          <span>{item.label}</span>
                         </label>
                       ))}
                     </div>

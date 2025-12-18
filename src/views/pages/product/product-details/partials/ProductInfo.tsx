@@ -21,15 +21,15 @@ export const ProductInfo = memo(({ product, matchedSku, totalSold }: Props) => {
       <h1 className="text-xl font-[450]">{product.name}</h1>
 
       <div className="flex items-center gap-x-2 my-2">
-        <Rating defaultValue={3} readOnly className="gap-x-0">
+        <Rating defaultValue={product.rating ?? 0} readOnly className="gap-x-0">
           {Array.from({ length: 5 }).map((_, index) => (
             <RatingButton className="text-yellow-500" key={index} size={12} />
           ))}
         </Rating>
         <div className="h-4 w-[1px] bg-gray-400" />
-        <span>510 Đánh giá</span>
+        <span>{product.ratingCount ?? 0} Đánh giá</span>
         <div className="h-4 w-[1px] bg-gray-400" />
-        <span>Đã bán {totalSold}</span>
+        <span>Đã bán {product.sold ?? totalSold}</span>
       </div>
 
       <p className="text-xl font-semibold mt-4">

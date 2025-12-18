@@ -200,20 +200,24 @@ const OrderCard = memo(function OrderCard({
       <div className="bg-card px-4 sm:px-6 py-4 border-t border-gray-100">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="text-xs text-gray-500">
-            {order.orders[0].status === OrderStatus.RECEIVED && (
-              <>
-                <span>Đánh giá sản phẩm trước</span>{' '}
-                <Tooltip>
-                  <TooltipTrigger className="text-xs text-gray-500 underline cursor-pointer">
-                    {order.orders[0].status === OrderStatus.RECEIVED &&
-                      `${dayjs(order.orders[0].updatedAt).add(30, 'day').format('DD-MM-YYYY')}`}
-                  </TooltipTrigger>
-                 <TooltipContent side='bottom' className='bg-neutral-200 [&_svg]:bg-neutral-200 [&_svg]:fill-neutral-200 text-neutral-950'>
-                    <p className="max-w-[200px]">{`Bạn sẽ không thể đánh giá đơn hàng và nhận 200 Shopee Xu sau ngày ${dayjs(order.orders[0].updatedAt).add(30, 'day').format('DD-MM-YYYY')}. Hãy đánh giá sản phẩm và nhận 200 Shopee Xu ngay!`}</p>
-                  </TooltipContent>
-                </Tooltip>
-              </>
-            )}
+            {order.orders[0].status === OrderStatus.RECEIVED &&
+              !order.orders[0].isReviewed && (
+                <>
+                  <span>Đánh giá sản phẩm trước</span>{' '}
+                  <Tooltip>
+                    <TooltipTrigger className="text-xs text-gray-500 underline cursor-pointer">
+                      {order.orders[0].status === OrderStatus.RECEIVED &&
+                        `${dayjs(order.orders[0].updatedAt).add(30, 'day').format('DD-MM-YYYY')}`}
+                    </TooltipTrigger>
+                    <TooltipContent
+                      side="bottom"
+                      className="bg-neutral-200 [&_svg]:bg-neutral-200 [&_svg]:fill-neutral-200 text-neutral-950"
+                    >
+                      <p className="max-w-[200px]">{`Bạn sẽ không thể đánh giá đơn hàng và nhận 200 Shopee Xu sau ngày ${dayjs(order.orders[0].updatedAt).add(30, 'day').format('DD-MM-YYYY')}. Hãy đánh giá sản phẩm và nhận 200 Shopee Xu ngay!`}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </>
+              )}
           </div>
           <div className="space-y-4">
             <div className="text-right flex justify-end items-center gap-x-2">
@@ -281,25 +285,25 @@ const OrderCard = memo(function OrderCard({
                   )}
 
                 {/* ===== CHỜ XÁC NHẬN ĐƠN HÀNG ===== */}
-                {order.orders[0].status === OrderStatus.PENDING_CONFIRMATION ||
-                  (order.orders[0].status === OrderStatus.PROCESSING && (
-                    <>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto cursor-pointer"
-                      >
-                        Liên Hệ Người Bán
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto cursor-pointer"
-                      >
-                        Hủy Đơn Hàng
-                      </Button>
-                    </>
-                  ))}
+                {(order.orders[0].status === OrderStatus.PENDING_CONFIRMATION ||
+                  order.orders[0].status === OrderStatus.PROCESSING) && (
+                  <>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto cursor-pointer"
+                    >
+                      Liên Hệ Người Bán
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto cursor-pointer"
+                    >
+                      Hủy Đơn Hàng
+                    </Button>
+                  </>
+                )}
 
                 {/* ===== ĐANG GIAO ===== */}
                 {order.orders[0].status === OrderStatus.PENDING_DELIVERY && (
@@ -353,33 +357,37 @@ const OrderCard = memo(function OrderCard({
                 )}
 
                 {/* ===== XÁC NHẬN ĐÃ NHẬN ===== */}
-                {order.orders[0].status === OrderStatus.RECEIVED && (
-                  <>
-                    <Button
-                      size="sm"
-                      className="text-xs sm:text-sm font-normal bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 h-auto cursor-pointer"
-                      onClick={() =>
-                        handleProductRating(order?.orders[0]?.items[0].orderId)
-                      }
-                    >
-                      Đánh giá
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto"
-                    >
-                      Liên Hệ Người Bán
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto"
-                    >
-                      Mua Lại
-                    </Button>
-                  </>
-                )}
+                {order.orders[0].status === OrderStatus.RECEIVED &&
+                  !order.orders[0].isReviewed && (
+                    <>
+                      <Button
+                        size="sm"
+                        className="text-xs sm:text-sm font-normal bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 h-auto cursor-pointer"
+                        onClick={() =>
+                          handleProductRating(
+                            order?.orders[0]?.items[0].orderId,
+                          )
+                        }
+                      >
+                        Đánh giá
+                      </Button>
+
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto"
+                      >
+                        Liên Hệ Người Bán
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto"
+                      >
+                        Mua Lại
+                      </Button>
+                    </>
+                  )}
 
                 {/* ===== HỦY ĐƠN ===== */}
                 {order.orders[0].status === OrderStatus.CANCELLED && (
@@ -418,6 +426,34 @@ const OrderCard = memo(function OrderCard({
                     Mua Lại
                   </Button>
                 )}
+
+                {/* ==== Đã đánh giá ==== */}
+                {order.orders[0].status === OrderStatus.RECEIVED &&
+                  order.orders[0].isReviewed && (
+                    <>
+                      <Button
+                        size="sm"
+                        className="text-xs sm:text-sm font-normal bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 h-auto cursor-pointer"
+                        onClick={() => {}}
+                      >
+                        Mua Lại
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto"
+                      >
+                        Liên Hệ Người Bán
+                      </Button>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto"
+                      >
+                        Xem Lại Đánh Giá
+                      </Button>
+                    </>
+                  )}
               </div>
             </div>
           </div>

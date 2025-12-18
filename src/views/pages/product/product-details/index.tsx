@@ -34,6 +34,8 @@ const ProductDetails = (props: TProps) => {
   const [quantityProduct, setQuantityProduct] = useState<number>(1);
   const { setTotalCartItem, totalCartItem } = useCartStore();
 
+  console.log('PROJFKL', product);
+
   // ** Calculate total sold
   const totalSold = useMemo(() => {
     return (
@@ -209,7 +211,7 @@ const ProductDetails = (props: TProps) => {
         />
       </div>
 
-      <ProductReviews />
+      <ProductReviews product={product} />
       <Suspense
         fallback={Array.from({ length: 10 }).map((_, i) => (
           <CartProductSkeleton key={i} />
