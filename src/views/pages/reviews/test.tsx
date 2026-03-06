@@ -99,7 +99,7 @@ const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 const api = {
   getReviews: async (page: number, filters: FilterState): Promise<{ data: Review[] }> => {
     await wait(500);
-    let filtered = MOCK_REVIEWS.filter(r => {
+    const filtered = MOCK_REVIEWS.filter(r => {
       const matchSearch = r.content.toLowerCase().includes(filters.search.toLowerCase()) || r.orderId.includes(filters.search);
       const matchStar = filters.star === "all" || r.rating.toString() === filters.star;
       const matchStatus = filters.status === "ALL" || (filters.status === "Replied" && r.replyStatus === "replied") || (filters.status === "Pending Reply" && r.replyStatus === "pending");
@@ -173,6 +173,7 @@ const ReplyModal = ({ review, open, onOpenChange, onSubmitSuccess }: any) => {
 
   useEffect(() => {
     if (open && review) form.reset({ content: review.sellerReply?.content || "" });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, review]);
 
   const onSubmit = async (data: any) => {
@@ -262,6 +263,7 @@ export default function ReviewsTablePage() {
   // Infinite scroll refs
   const { ref, inView } = useInView();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => { fetchReviews(); }, [filters]);
 
   const fetchReviews = async () => {

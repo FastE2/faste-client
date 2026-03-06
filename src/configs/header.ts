@@ -5,7 +5,7 @@ export const topNavItems = [
 ];
 
 export const rightNavItems = [
-  { href: '/my-account', label: 'My account' },
+  { href: '/# ', label: 'My account' },
   { href: '/support', label: 'Support' },
 ];
 
@@ -18,11 +18,11 @@ export const navigationItems = [
   },
   { href: '/shop', label: 'Shop', icon: 'iconoir:shop', hasDropdown: true },
   {
-    href: '/fruits-vegetables',
+    href: '#',
     label: 'Fruits & Vegetables',
     icon: 'lucide:apple',
   },
-  { href: '/beverages', label: 'Beverages', icon: 'line-md:coffee-loop' },
+  { href: '/#', label: 'Beverages', icon: 'line-md:coffee-loop' },
   { href: '/blog', label: 'Blog', icon: 'mdi:file-text-outline' },
   {
     href: '/contact',

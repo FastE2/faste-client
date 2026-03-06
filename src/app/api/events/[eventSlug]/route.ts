@@ -4,10 +4,10 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { eventSlug: string } },
+  { params }: { params: Promise<{ eventSlug: string }> },
 ) {
   try {
-    const eventSlug = params.eventSlug;
+    const { eventSlug } = await params;
     const eventData = mockEventData[eventSlug];
 
     if (!eventData) {

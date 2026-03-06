@@ -139,6 +139,7 @@ export default function CartPage() {
     setCheckoutItems(checkoutData!);
 
     router.push('/checkout');
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItems]);
 
   const allSelected = cartItemList?.every((shop) =>

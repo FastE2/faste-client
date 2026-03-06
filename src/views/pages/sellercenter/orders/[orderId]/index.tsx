@@ -102,6 +102,7 @@ export const OrderDetailPage = ({ orderId }: Props) => {
     if (orderData) {
       fetchAddresswhipDefault(orderData.addressShipId as number);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderData]);
   useEffect(() => {
     fetchDataOrder(orderId);
@@ -121,7 +122,6 @@ export const OrderDetailPage = ({ orderId }: Props) => {
     });
     console.log('RES ORX', res);
     if (res.status === 'success') {
-      console.log('UPDATE STATUS OK');
       setOrderData({ ...orderData, status: pendingStatus });
       toastify.success('Cập nhật trạng thái thành công!');
       setOpenStatusDialog(false);

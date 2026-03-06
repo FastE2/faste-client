@@ -2,7 +2,7 @@ import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
 import { getAllProductsPublic } from '@/services/product';
 import LayoutPublic from '@/views/layouts/LayoutPublic';
 import HomePage from '@/views/pages/home';
-import { Metadata } from 'next';
+import { Metadata, Viewport } from 'next';
 import { ReactElement } from 'react';
 
 interface TProps {
@@ -25,7 +25,6 @@ export const metadata: Metadata = {
     'shopping',
     'fast delivery',
   ],
-  viewport: 'width=device-width, initial-scale=1',
   metadataBase: new URL('https://faste.vn'),
   alternates: {
     canonical: '/',
@@ -66,6 +65,11 @@ export const metadata: Metadata = {
   },
   // JSON-LD schema.org cho landing page
   icons: [{ rel: 'icon', url: '/favicon.ico' }],
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
 };
 
 async function getProductsData(): Promise<TProps> {

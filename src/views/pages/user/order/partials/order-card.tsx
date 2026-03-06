@@ -52,7 +52,6 @@ const OrderCard = memo(function OrderCard({
     }).format(price);
   };
 
-  console.log('REDNER');
 
   const getOrderStatusMeta = (status: OrderStatus) => {
     return (

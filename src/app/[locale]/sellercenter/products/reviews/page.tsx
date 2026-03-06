@@ -1,9 +1,7 @@
 'use client';
 import ReviewsPage from '@/views/pages/reviews';
 import ReviewsTablePage from '@/views/pages/reviews/test';
-import App from '@/views/pages/sellercenter/products/create/partials/drang';
 import SortableList from '@/views/pages/sellercenter/products/create/partials/drang';
-import Droppable from '@/views/pages/sellercenter/products/create/partials/drang';
 import dynamic from 'next/dynamic';
 import React, { useRef, useState } from 'react';
 const RichTextEditor = dynamic(() => import('@/views/pages/sellercenter/products/create/partials/editor-desc'), {
@@ -13,6 +11,7 @@ const RichTextEditor = dynamic(() => import('@/views/pages/sellercenter/products
 // Define the RichTextEditorHandle type
 type RichTextEditorHandle = {
   getContent: () => string;
+  setContent: (value: string) => void;
 };
 
 export default function Page() {

@@ -27,14 +27,31 @@ type TProps = {
   product: any;
 };
 
+const getShareUrl = (type: string, url: string) => {
+  const encodedUrl = encodeURIComponent(url);
+  const text = encodeURIComponent('Share this product!');
+  const image = encodeURIComponent('https://your-site.com/og.png');
+
+  switch (type) {
+    case 'facebook':
+      return `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+    case 'x':
+      return `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${text}`;
+    case 'linkedin':
+      return `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
+    case 'pinterest':
+      return `https://pinterest.com/pin/create/button/?url=${encodedUrl}&media=${image}&description=${text}`;
+    default:
+      return '#';
+  }
+};
+
 const ProductDetails = (props: TProps) => {
   const { product } = props;
   const [selected, setSelected] = useState<Record<string, string>>({});
   const [products, setProducts] = useState<any[]>([]);
   const [quantityProduct, setQuantityProduct] = useState<number>(1);
   const { setTotalCartItem, totalCartItem } = useCartStore();
-
-  console.log('PROJFKL', product);
 
   // ** Calculate total sold
   const totalSold = useMemo(() => {
@@ -133,6 +150,36 @@ const ProductDetails = (props: TProps) => {
     return [...productImages, ...skuImages];
   }
 
+  const url =
+    typeof window !== 'undefined' ? window.location.href : 'https://faste.com';
+
+  const socials = [
+    {
+      type: 'facebook',
+      icon: 'bxl:facebook-circle',
+      color: 'text-blue-600',
+      label: 'Share Facebook',
+    },
+    {
+      type: 'x',
+      icon: 'ri:twitter-x-fill',
+      color: 'text-black',
+      label: 'Share X',
+    },
+    {
+      type: 'linkedin',
+      icon: 'ant-design:linkedin-filled',
+      color: 'text-blue-700',
+      label: 'Share LinkedIn',
+    },
+    {
+      type: 'pinterest',
+      icon: 'ant-design:pinterest-circle-filled',
+      color: 'text-red-500',
+      label: 'Share Pinterest',
+    },
+  ];
+
   const allImages = collectProductImages(product);
 
   return (
@@ -178,30 +225,23 @@ const ProductDetails = (props: TProps) => {
           <div className="flex items-center gap-x-4">
             <span className="text-sm text-gray-400">Chia sẻ:</span>
             <div className="flex items-center gap-x-2">
-              <Icon
-                icon="bxl:facebook-circle"
-                width="32"
-                height="32"
-                className="text-blue-600"
-              />
-              <Icon
-                icon="ant-design:twitter-circle-filled"
-                width="32"
-                height="32"
-                className="text-blue-400"
-              />
-              <Icon
-                icon="ant-design:linkedin-filled"
-                width="32"
-                height="32"
-                className="text-blue-700"
-              />
-              <Icon
-                icon="ant-design:pinterest-circle-filled"
-                width="32"
-                height="32"
-                className="text-red-500"
-              />
+              {socials.map((item) => (
+                <a
+                  key={item.type}
+                  href={getShareUrl(item.type, url)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={item.label}
+                  className="transition-transform hover:scale-110"
+                >
+                  <Icon
+                    icon={item.icon}
+                    width="32"
+                    height="32"
+                    className={item.color}
+                  />
+                </a>
+              ))}
             </div>
           </div>
         </div>

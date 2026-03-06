@@ -8,6 +8,7 @@ export const STATUS_LABELS: Record<OrderStatus, string> = {
   PENDING_PICKUP: 'Chờ lấy hàng',
   PENDING_DELIVERY: 'Đang giao hàng',
   DELIVERED: 'Đã giao',
+  RECEIVED: 'Đã nhận hàng',
   RETURNED: 'Đã trả hàng',
   CANCELLED: 'Đã hủy',
 };
@@ -19,6 +20,7 @@ export const STATUS_COLORS: Record<OrderStatus, string> = {
   PENDING_PICKUP: 'bg-orange-100 text-orange-800 border-orange-200',
   PENDING_DELIVERY: 'bg-cyan-100 text-cyan-800 border-cyan-200',
   DELIVERED: 'bg-green-100 text-green-800 border-green-200',
+  RECEIVED: 'bg-lime-100 text-lime-800 border-lime-200',
   RETURNED: 'bg-gray-100 text-gray-800 border-gray-200',
   CANCELLED: 'bg-red-100 text-red-800 border-red-200',
 };
@@ -30,6 +32,7 @@ const STATUS_ICONS: Record<OrderStatus, string> = {
   PENDING_PICKUP: 'mdi:package-variant-closed',
   PENDING_DELIVERY: 'mdi:truck-delivery-outline',
   DELIVERED: 'mdi:check-circle-outline',
+  RECEIVED: 'mdi:package-check',
   RETURNED: 'mdi:arrow-u-left-top',
   CANCELLED: 'mdi:cancel',
 };

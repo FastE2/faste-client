@@ -45,6 +45,7 @@ export default function CryptoWalletPage() {
       fetchBalance();
       setAccount(account);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [account, accountStore]);
 
   const fetchBalance = async () => {

@@ -18,7 +18,6 @@ export default function LocaleSwitcher() {
   const router = useRouter();
   const [selectLang, setSelectLang] = useState(LANGUAGE_OPTIONS[0].lang);
 
-
   // Cập nhật ngôn ngữ khi pathname thay đổi
   useEffect(() => {
     if (pathname) {
@@ -47,7 +46,7 @@ export default function LocaleSwitcher() {
     <div>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <div className="flex items-center justify-center gap-x-1">
+          <div className="flex items-center justify-center gap-x-1 cursor-pointer px-2">
             <Icon icon="solar:global-linear" width="18" height="18" />
             <div>{selectLang}</div>
             <Icon icon="icon-park-outline:down" width="18" height="18" />
@@ -56,17 +55,18 @@ export default function LocaleSwitcher() {
         <DropdownMenuContent align="end">
           {LANGUAGE_OPTIONS.map((lang) => {
             return (
-              <DropdownMenuItem key={lang.value}>
-                <Link
-                  href="#"
-                  onClick={(e) => {
-                    e.preventDefault(); // Ngừng việc chuyển trang mặc định
-                    handleLangChange(lang.value, lang.lang);
-                  }}
-                >
+              <Link
+                key={lang.value}
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleLangChange(lang.value, lang.lang);
+                }}
+              >
+                <DropdownMenuItem key={lang.value} className="cursor-pointer">
                   {lang.lang}
-                </Link>
-              </DropdownMenuItem>
+                </DropdownMenuItem>
+              </Link>
             );
           })}
         </DropdownMenuContent>

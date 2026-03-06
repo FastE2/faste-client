@@ -181,6 +181,7 @@ export default function OrderListPage() {
     if (selectedOrder) {
       fetchAddresswhipDefault(selectedOrder.addressShipId as number);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOrder]);
 
   console.log('paginatedOrders', paginatedOrders);

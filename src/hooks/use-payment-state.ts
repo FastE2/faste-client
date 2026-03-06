@@ -90,7 +90,7 @@ export function usePaymentState(): UsePaymentStateReturn {
   }, []);
 
   const canRetry = useCallback(() => {
-    return state.error?.retryable && state.retryCount < MAX_RETRIES;
+    return !!state.error?.retryable && state.retryCount < MAX_RETRIES;
   }, [state.error?.retryable, state.retryCount]);
 
   return {

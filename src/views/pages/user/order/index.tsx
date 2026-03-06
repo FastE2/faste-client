@@ -133,12 +133,10 @@ export default function OrdersPage() {
 
   // ** Handle function
   const handleProductRating = useCallback((id: number) => {
-    console.log('OPEN FORM');
     setSelectOrder(id);
     setIsOpenForm(true);
   }, []);
   const handleConfirnReceived = useCallback((id: number) => {
-    console.log('OPEN ALERT');
     setSelectOrder(id);
     setIsOpenAlertConfirm(true);
   }, []);
@@ -156,6 +154,7 @@ export default function OrdersPage() {
       toastify.error('Cập nhật trạng thái thất bại!');
     }
     setIsLoading(false);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectOrder]);
   const handleColseForm = useCallback(() => {
     setSelectOrder(null);
@@ -170,7 +169,6 @@ export default function OrdersPage() {
     setSelectOrder(id);
   }, []);
 
-  console.log('ORDER RENDER');
 
   const fetchDataOrders = async () => {
     setIsLoading(true);

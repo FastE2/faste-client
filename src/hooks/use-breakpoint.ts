@@ -46,6 +46,7 @@ export function useBreakpoint() {
     }
 
     return () => window.removeEventListener('resize', handleResize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [windowSize.width]);
 
   return breakpoint;

@@ -1,3 +1,9 @@
+import { Suspense } from 'react';
+
 export default function Home() {
-  return <div>Admim</div>;
+  return (
+    <Suspense fallback={<div>Loading template...</div>}>
+      <div>Admim</div>
+    </Suspense>
+  );
 }

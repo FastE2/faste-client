@@ -97,14 +97,14 @@ export default function RegisterSellerPage() {
   const router = useRouter();
 
   const form = useForm<RegisterShopFormType>({
-    resolver: yupResolver(registerShopSchema),
+    resolver: yupResolver(registerShopSchema) as any,
     defaultValues: {
       name: '',
       slug: '',
       logo: '',
       description: '',
       addressShipId: undefined,
-      businessType: undefined,
+      businessType: '',
       taxCode: '',
       paymentMethods: [],
       deliveryTypeIds: [],
@@ -152,6 +152,7 @@ export default function RegisterSellerPage() {
 
   useEffect(() => {
     fetchShopMe();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const validateStep = async () => {

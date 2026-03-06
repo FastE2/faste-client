@@ -56,6 +56,7 @@ const RichTextEditor = forwardRef<RichTextEditorHandle, RichTextEditorProps>(
       return () => {
         quillRef.current = null;
       };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // expose ra ngoài các hàm tiện ích

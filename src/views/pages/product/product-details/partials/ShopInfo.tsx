@@ -26,11 +26,11 @@ export const ShopInfo = memo(({ shop }: Props) => {
       <div>
         <h3 className="font-medium text-xl">{shop.name}</h3>
         <div className="flex items-center gap-x-2 mt-2">
-          <Button variant="outline" size="sm">
+          <Button variant="outline" size="sm" className="cursor-pointer" >
             <MessageCircle className="w-4 h-4 mr-1" />
             Chat Ngay
           </Button>
-          <Button size="sm" onClick={() => router.push(`/shop/${shop.slug}`)}>
+          <Button size="sm" onClick={() => router.push(`/shop/${shop.slug}`)} className='cursor-pointer'>
             <Store className="w-4 h-4 mr-1" />
             Xem Shop
           </Button>

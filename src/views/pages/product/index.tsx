@@ -11,7 +11,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Rating, RatingButton } from '@/components/ui/shadcn-io/rating';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
@@ -65,12 +65,13 @@ export const ProductListPage = () => {
       // rating: Number(filters.rating),
       // categoryIds: filters.categoryIds,
     });
-    // chạy lại mỗi lần URL params thay đổi
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   console.log("==== PRODUCT RENDER")
 
   return (
+    <Suspense fallback={<div>Loading...</div>}>
     <div className="container mx-auto max-w-6xl px-4">
       <div className="w-full grid grid-cols-12 space-x-1">
         {/* LEFT FILTER */}
@@ -315,6 +316,6 @@ export const ProductListPage = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div></Suspense>
   );
 };

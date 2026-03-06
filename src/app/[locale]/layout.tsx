@@ -5,6 +5,7 @@ import { i18nConfig } from '@/i18n-config';
 import TranslationProvider from '@/providers/TranslationProvider';
 import initTranslations from '@/configs/i18n';
 import AppWrapper from '@/hocs/AppWrappers';
+import { Suspense } from 'react';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -41,13 +42,15 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <TranslationProvider
-          locale={locale}
-          resources={resources}
-          namespaces={i18nNamespaces}
-        >
-          <AppWrapper>{children}</AppWrapper>
-        </TranslationProvider>
+        <Suspense fallback={<div>Loading template...</div>}>
+          <TranslationProvider
+            locale={locale}
+            resources={resources}
+            namespaces={i18nNamespaces}
+          >
+            <AppWrapper>{children}</AppWrapper>
+          </TranslationProvider>
+        </Suspense>
       </body>
     </html>
   );

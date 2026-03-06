@@ -80,9 +80,9 @@ const Header = () => {
             {/* Logo */}
             <div className="flex items-center gap-2 shrink-0">
               <Image
-                src="/next.svg"
-                width={40}
-                height={40}
+                src="/logo.svg"
+                width={100}
+                height={100}
                 alt="FastE3 logo"
                 className="dark:invert"
               />

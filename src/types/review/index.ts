@@ -52,6 +52,8 @@ export type ReviewQueryType = {
   sortBy?: 'rating' | 'createdAt';
   order?: 'asc' | 'desc';
   orderItemId?: number | undefined;
+  sellerId?: number | undefined;
+  isReply?: boolean | undefined;
   productId?: number | undefined;
   skuId?: number | undefined;
   userId?: number | undefined;

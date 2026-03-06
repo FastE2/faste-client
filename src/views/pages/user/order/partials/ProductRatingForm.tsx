@@ -190,7 +190,6 @@ const ProductRatingForm = memo(function ProductRatingForm({
     try {
       const res = await getDetailOrderById(id);
       setProductOrder({ ...res.data.items[0], shopId: res.data.shopId });
-      console.log('RESORDER', res);
     } catch (error) {}
   };
 

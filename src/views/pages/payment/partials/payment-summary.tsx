@@ -2,7 +2,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import type { PaymentStatus } from '@/hooks/use-payment-state';
-import CountdownTimer from './countdown-timer';
 import { formatCurrencyWithExchange } from '@/utils';
 import { useTranslation } from 'react-i18next';
 

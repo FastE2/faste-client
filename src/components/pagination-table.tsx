@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import { type ReactNode, useCallback } from "react";
+import { type ReactNode, Suspense, useCallback } from 'react';
 import {
   Pagination,
   PaginationContent,
@@ -9,10 +9,16 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from "./ui/pagination";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { cn } from "@/lib/utils";
+} from './ui/pagination';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from './ui/select';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 export interface PaginationWithLinksProps {
   pageSizeSelectOptions?: {
@@ -52,22 +58,24 @@ export function PaginationWithLinks({
 
   const buildLink = useCallback(
     (newPage: number) => {
-      const key = pageSearchParam || "page";
+      const key = pageSearchParam || 'page';
       if (!searchParams) return `${pathname}?${key}=${newPage}`;
       const newSearchParams = new URLSearchParams(searchParams);
       newSearchParams.set(key, String(newPage));
       return `${pathname}?${newSearchParams.toString()}`;
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [searchParams, pathname],
   );
 
   const navToPageSize = useCallback(
     (newPageSize: number) => {
-      const key = pageSizeSelectOptions?.pageSizeSearchParam || "pageSize";
+      const key = pageSizeSelectOptions?.pageSizeSearchParam || 'pageSize';
       const newSearchParams = new URLSearchParams(searchParams || undefined);
       newSearchParams.set(key, String(newPageSize));
       router.push(`${pathname}?${newSearchParams.toString()}`);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [searchParams, pathname],
   );
 
@@ -125,7 +133,10 @@ export function PaginationWithLinks({
 
       items.push(
         <PaginationItem key={totalPageCount}>
-          <PaginationLink href={buildLink(totalPageCount)} isActive={page === totalPageCount}>
+          <PaginationLink
+            href={buildLink(totalPageCount)}
+            isActive={page === totalPageCount}
+          >
             {totalPageCount}
           </PaginationLink>
         </PaginationItem>,
@@ -146,14 +157,16 @@ export function PaginationWithLinks({
           />
         </div>
       )}
-      <Pagination className={cn({ "md:justify-end": pageSizeSelectOptions })}>
+      <Pagination className={cn({ 'md:justify-end': pageSizeSelectOptions })}>
         <PaginationContent className="max-sm:gap-0">
           <PaginationItem>
             <PaginationPrevious
               href={buildLink(Math.max(page - 1, 1))}
               aria-disabled={page === 1}
               tabIndex={page === 1 ? -1 : undefined}
-              className={page === 1 ? "pointer-events-none opacity-50" : undefined}
+              className={
+                page === 1 ? 'pointer-events-none opacity-50' : undefined
+              }
             />
           </PaginationItem>
           {renderPageNumbers()}
@@ -162,7 +175,11 @@ export function PaginationWithLinks({
               href={buildLink(Math.min(page + 1, totalPageCount))}
               aria-disabled={page === totalPageCount}
               tabIndex={page === totalPageCount ? -1 : undefined}
-              className={page === totalPageCount ? "pointer-events-none opacity-50" : undefined}
+              className={
+                page === totalPageCount
+                  ? 'pointer-events-none opacity-50'
+                  : undefined
+              }
             />
           </PaginationItem>
         </PaginationContent>
@@ -181,21 +198,28 @@ function SelectRowsPerPage({
   pageSize: number;
 }) {
   return (
-    <div className="flex items-center gap-4">
-      <span className="whitespace-nowrap text-sm">Rows per page</span>
+    <Suspense fallback={<div>Loading...</div>}>
+      <div className="flex items-center gap-4">
+        <span className="whitespace-nowrap text-sm">Rows per page</span>
 
-      <Select value={String(pageSize)} onValueChange={(value) => setPageSize(Number(value))}>
-        <SelectTrigger>
-          <SelectValue placeholder="Select page size">{String(pageSize)}</SelectValue>
-        </SelectTrigger>
-        <SelectContent>
-          {options.map((option) => (
-            <SelectItem key={option} value={String(option)}>
-              {option}
-            </SelectItem>
-          ))}
-        </SelectContent>
-      </Select>
-    </div>
+        <Select
+          value={String(pageSize)}
+          onValueChange={(value) => setPageSize(Number(value))}
+        >
+          <SelectTrigger>
+            <SelectValue placeholder="Select page size">
+              {String(pageSize)}
+            </SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            {options.map((option) => (
+              <SelectItem key={option} value={String(option)}>
+                {option}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+    </Suspense>
   );
 }

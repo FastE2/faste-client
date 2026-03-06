@@ -20,7 +20,9 @@ export const ProductReviews = memo(({ product }: { product: any }) => {
         rating: selectedRating !== null ? selectedRating : undefined,
       });
       console.log('fetchReviewsByProduct', res);
-      setReviews(res.data.data);
+      if (res?.data) {
+        setReviews(res.data);
+      }
       setLoading(false);
     }
   };
@@ -58,6 +60,7 @@ export const ProductReviews = memo(({ product }: { product: any }) => {
 
   useEffect(() => {
     fetchReviewsByProduct();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [product.id, selectedRating]);
 
   const handleRatingFilter = (rating: number | null) => {

@@ -21,7 +21,7 @@ interface FlashSale {
   image: string;
   status: FlashSaleStatus;
   type: FlashSaleType;
-  items: FlashSaleItem[];
+  items: number[];
   startAt: Date;
   endAt: Date;
   updatedAt: Date;

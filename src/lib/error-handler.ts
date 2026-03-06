@@ -56,13 +56,34 @@ export function getErrorMessage(code: string): string {
   return ERROR_MESSAGES[code] || ERROR_MESSAGES[ERROR_CODES.UNKNOWN_ERROR];
 }
 
-export function isRetryableError(code: string): boolean {
-  const nonRetryableCodes = [
+export function isRetryableError(
+  code:
+    | typeof ERROR_CODES.INVALID_AMOUNT
+    | typeof ERROR_CODES.INVALID_ADDRESS
+    | typeof ERROR_CODES.INVALID_BANK_DETAILS
+    | typeof ERROR_CODES.INSUFFICIENT_BALANCE
+    | typeof ERROR_CODES.PAYMENT_CANCELLED
+    | string,
+): boolean {
+  const nonRetryableCodes: Array<
+    | typeof ERROR_CODES.INVALID_AMOUNT
+    | typeof ERROR_CODES.INVALID_ADDRESS
+    | typeof ERROR_CODES.INVALID_BANK_DETAILS
+    | typeof ERROR_CODES.INSUFFICIENT_BALANCE
+    | typeof ERROR_CODES.PAYMENT_CANCELLED
+  > = [
     ERROR_CODES.INVALID_AMOUNT,
     ERROR_CODES.INVALID_ADDRESS,
     ERROR_CODES.INVALID_BANK_DETAILS,
     ERROR_CODES.INSUFFICIENT_BALANCE,
     ERROR_CODES.PAYMENT_CANCELLED,
   ];
-  return !nonRetryableCodes.includes(code);
+  return !nonRetryableCodes.includes(
+    code as
+      | typeof ERROR_CODES.INVALID_AMOUNT
+      | typeof ERROR_CODES.INVALID_ADDRESS
+      | typeof ERROR_CODES.INVALID_BANK_DETAILS
+      | typeof ERROR_CODES.INSUFFICIENT_BALANCE
+      | typeof ERROR_CODES.PAYMENT_CANCELLED,
+  );
 }

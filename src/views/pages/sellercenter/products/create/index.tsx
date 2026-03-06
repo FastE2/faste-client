@@ -312,6 +312,7 @@ export const CreateProductPage = () => {
 
       setValue('images', [...currentImages, ...fileArray]);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [getValues('images')],
   );
 
@@ -324,6 +325,7 @@ export const CreateProductPage = () => {
 
       setValue('images', filterImages);
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [getValues('images')],
   );
   // --- End Handle ---

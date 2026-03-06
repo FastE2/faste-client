@@ -68,6 +68,7 @@ import {
 import { Skeleton } from '@/components/ui/skeleton';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
+import Image from 'next/image';
 
 // Utility function
 function cn(...inputs: ClassValue[]) {
@@ -266,7 +267,9 @@ const ComplaintCard = ({
                 key={i}
                 className="h-12 w-12 rounded-lg overflow-hidden border bg-gray-50"
               >
-                <img
+                <Image
+                width={48}
+                height={48}
                   src={img}
                   alt="proof"
                   className="h-full w-full object-cover"
@@ -761,9 +764,11 @@ function ComplaintDetailModal({
                         key={idx}
                         className="aspect-square rounded-lg border bg-gray-100 overflow-hidden relative group cursor-pointer"
                       >
-                        <img
+                        <Image
                           src={img}
                           alt="evidence"
+                          width={100}
+                          height={100}
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                         />
                       </div>

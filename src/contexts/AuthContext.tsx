@@ -6,6 +6,7 @@ import React, {
   useEffect,
   ReactNode,
   useMemo,
+  Suspense,
 } from 'react';
 import { TLoginAuth, TRegisterAuth, UserDataType } from '@/types/auth';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
@@ -87,6 +88,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (!isLoading) {
       setLoading(false);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enabled, data, isLoading, accessToken]);
 
   useEffect(() => {
@@ -190,7 +192,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider value={value}>
+      <Suspense fallback={<div>Loading...</div>}>
       {!loading && children}
+      </Suspense>
     </AuthContext.Provider>
   );
 };

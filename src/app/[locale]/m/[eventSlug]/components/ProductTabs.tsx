@@ -1,7 +1,7 @@
 // app/m/[eventSlug]/components/ProductTabs.tsx
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -27,7 +27,7 @@ const mockProducts: Record<string, Product[]> = {
       category: 'smartphones',
       sold: 150,
       stock: 50,
-      rating: 4.8
+      rating: 4.8,
     },
     {
       id: '2',
@@ -39,8 +39,8 @@ const mockProducts: Record<string, Product[]> = {
       category: 'smartphones',
       sold: 89,
       stock: 30,
-      rating: 4.6
-    }
+      rating: 4.6,
+    },
   ],
   fashion: [
     {
@@ -53,9 +53,9 @@ const mockProducts: Record<string, Product[]> = {
       category: 'clothing',
       sold: 450,
       stock: 100,
-      rating: 4.4
-    }
-  ]
+      rating: 4.4,
+    },
+  ],
 };
 
 const categories = [
@@ -65,7 +65,12 @@ const categories = [
   { id: 'beauty', name: 'Làm đẹp', icon: '💄' },
 ];
 
-export default function ProductTabs({ eventSlug, initialTab, initialCategory, theme }: ProductTabsProps) {
+export default function ProductTabs({
+  eventSlug,
+  initialTab,
+  initialCategory,
+  theme,
+}: ProductTabsProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState(initialTab || 'electronics');
@@ -92,9 +97,11 @@ export default function ProductTabs({ eventSlug, initialTab, initialCategory, th
         <div className="aspect-square bg-gray-200 rounded-lg mb-3 flex items-center justify-center">
           <span className="text-gray-400">📱</span>
         </div>
-        
-        <h3 className="font-medium text-sm line-clamp-2 mb-2">{product.name}</h3>
-        
+
+        <h3 className="font-medium text-sm line-clamp-2 mb-2">
+          {product.name}
+        </h3>
+
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="text-red-500 font-bold text-lg">
@@ -104,11 +111,14 @@ export default function ProductTabs({ eventSlug, initialTab, initialCategory, th
               {product.originalPrice.toLocaleString('vi-VN')}₫
             </span>
           </div>
-          
+
           <div className="flex items-center justify-between">
-            <span 
+            <span
               className="px-2 py-1 text-xs font-medium rounded"
-              style={{ backgroundColor: `${theme.primary}20`, color: theme.primary }}
+              style={{
+                backgroundColor: `${theme.primary}20`,
+                color: theme.primary,
+              }}
             >
               -{product.discount}%
             </span>
@@ -120,41 +130,48 @@ export default function ProductTabs({ eventSlug, initialTab, initialCategory, th
   );
 
   return (
-    <Card>
-      <CardContent className="p-6">
-        <Tabs value={activeTab} onValueChange={handleTabChange}>
-          <TabsList className="grid w-full grid-cols-4">
-            {categories.map(category => (
-              <TabsTrigger 
-                key={category.id} 
+    <Suspense fallback={<div>Loading...</div>}>
+      <Card>
+        <CardContent className="p-6">
+          <Tabs value={activeTab} onValueChange={handleTabChange}>
+            <TabsList className="grid w-full grid-cols-4">
+              {categories.map((category) => (
+                <TabsTrigger
+                  key={category.id}
+                  value={category.id}
+                  style={{
+                    color:
+                      activeTab === category.id ? theme.primary : undefined,
+                  }}
+                >
+                  <span className="mr-2">{category.icon}</span>
+                  {category.name}
+                </TabsTrigger>
+              ))}
+            </TabsList>
+
+            {categories.map((category) => (
+              <TabsContent
+                key={category.id}
                 value={category.id}
-                style={{ 
-                  color: activeTab === category.id ? theme.primary : undefined 
-                }}
+                className="mt-6"
               >
-                <span className="mr-2">{category.icon}</span>
-                {category.name}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-          
-          {categories.map(category => (
-            <TabsContent key={category.id} value={category.id} className="mt-6">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-                {mockProducts[category.id]?.map(product => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-              
-              {!mockProducts[category.id] && (
-                <div className="text-center py-8 text-gray-500">
-                  Không có sản phẩm nào trong danh mục này
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                  {mockProducts[category.id]?.map((product) => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
                 </div>
-              )}
-            </TabsContent>
-          ))}
-        </Tabs>
-      </CardContent>
-    </Card>
+
+                {!mockProducts[category.id] && (
+                  <div className="text-center py-8 text-gray-500">
+                    Không có sản phẩm nào trong danh mục này
+                  </div>
+                )}
+              </TabsContent>
+            ))}
+          </Tabs>
+        </CardContent>
+      </Card>
+    </Suspense>
   );
 }

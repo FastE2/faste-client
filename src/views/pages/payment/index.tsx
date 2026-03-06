@@ -69,14 +69,14 @@ export default function PaymentPage() {
   useEffect(() => {
     const fetchDetailOrder = async () => {
       try {
-        const res = await getDetailOrderTXById(3)
-        console.log(res)
+        const res = await getDetailOrderTXById(3);
+        console.log(res);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-    } 
-    fetchDetailOrder()
-  }, [])
+    };
+    fetchDetailOrder();
+  }, []);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 py-8 px-4">
@@ -96,7 +96,7 @@ export default function PaymentPage() {
           <div className="lg:col-span-2">
             <Card className="border-0 shadow-lg">
               <CardHeader className="border-b border-slate-200 dark:border-slate-800 px-4 pb-2!">
-                <div className='flex justify-between items-center'>
+                <div className="flex justify-between items-center">
                   <div>
                     <CardTitle>Payment Method</CardTitle>
                     <CardDescription>
@@ -177,7 +177,9 @@ export default function PaymentPage() {
                   onValueChange={(value) =>
                     setSelectedMethod(value as PaymentMethod)
                   }
-                  aria-disabled={timeExpired || paymentState.status === 'success'}
+                  aria-disabled={
+                    timeExpired || paymentState.status === 'success'
+                  }
                 >
                   <TabsList className="grid w-full grid-cols-3 mb-6">
                     <TabsTrigger
@@ -250,7 +252,7 @@ export default function PaymentPage() {
           {/* Sidebar - Summary and Timer */}
           {/* Payment Summary */}
           <PaymentSummary
-            orderData={orderData}
+            transactionData={orderData}
             paymentStatus={paymentState.status}
           />
 
