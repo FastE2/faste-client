@@ -25,6 +25,7 @@ import { useGetProfile } from '@/hooks/queries/useGetProfile';
 import { keepPreviousData } from '@tanstack/react-query';
 import { useMutationUpdateProfile } from '@/hooks/mutations/use-update-profile';
 import { toastify } from '@/components/ToastNotification';
+import { useTranslation } from 'react-i18next';
 
 type TProfileForm = {
   name: string;
@@ -74,6 +75,7 @@ export default function AccountPage() {
       gender: GENDER.OTHER,
     },
   });
+  const {t} = useTranslation()
 
   const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
   const months = Array.from({ length: 12 }, (_, i) => (i + 1).toString());
@@ -140,7 +142,7 @@ export default function AccountPage() {
     <div className="flex gap-4 h-full">
       <div className="flex-[7]">
         <h1 className="text-lg font-medium text-muted-foreground mb-6">
-          Thông tin cá nhân
+          {t('account.accountInfo')}
         </h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -150,7 +152,7 @@ export default function AccountPage() {
             <div className="flex-1 space-y-4">
               <div>
                 <Label htmlFor="name" className="text-sm font-medium">
-                  Họ & Tên
+                  {t('account.fullName')}
                 </Label>
                 <Controller
                   name="name"
@@ -173,7 +175,7 @@ export default function AccountPage() {
 
           {/* Birth Date */}
           <div>
-            <Label className="text-sm font-medium">Ngày sinh</Label>
+            <Label className="text-sm font-medium">{t('account.birthday')}</Label>
             <div className="flex gap-2 mt-1">
               {['day', 'month', 'year'].map((fieldName, idx) => {
                 const options =
@@ -214,7 +216,7 @@ export default function AccountPage() {
 
           {/* Gender */}
           <div>
-            <Label className="text-sm font-medium">Giới tính</Label>
+            <Label className="text-sm font-medium">{t('account.gender')}</Label>
             <Controller
               name="gender"
               control={control}
@@ -252,7 +254,7 @@ export default function AccountPage() {
             type="submit"
             className="w-full bg-primary hover:bg-primary/90 cursor-pointer"
           >
-            Lưu thay đổi
+            {isPending ? 'Updating...' : t('common.update')}
           </Button>
         </form>
       </div>

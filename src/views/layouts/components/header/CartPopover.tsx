@@ -17,7 +17,7 @@ interface CartPopoverProps {
 }
 
 function CartPopover({ totalCartItem, data }: CartPopoverProps) {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const { user } = useAuth();
   const router = useRouter();
 
@@ -48,7 +48,7 @@ function CartPopover({ totalCartItem, data }: CartPopoverProps) {
       <div
         className={`absolute right-0 z-10 py-2 hidden w-90 space-y-1 bg-white dark:bg-gray-900 shadow-[0_3px_10px_rgb(0,0,0,0.2)] transition-all duration-300 rounded-sm ${user ? 'group-hover:block' : ''}`}
       >
-        <div className="text-sm text-gray-300 px-2">Sản Phẩm Mới Thêm</div>
+        <div className="text-sm text-gray-300 px-2">{t('product.newAdded')}</div>
         {data ? (
           <div className="mb-4 max-w-[400px] max-h-[400px]">
             {data.map((ci: any, indexCi: number) => (
@@ -100,9 +100,9 @@ function CartPopover({ totalCartItem, data }: CartPopoverProps) {
           </div>
         )}
         <div className="flex items-center justify-between px-2">
-          <div className="text-xs text-gray-300">{`${totalCartItem ? totalCartItem : 0} Sản phẩm trong giỏ`}</div>
+          <div className="text-xs text-gray-300">{`${totalCartItem ? totalCartItem : 0} ${t('cart.productsInCart')}`}</div>
           <Link href={'/cart'} className="cursor-pointer">
-            <Button className="cursor-pointer">Xem giỏ hàng</Button>
+            <Button className="cursor-pointer">{t('cart.viewCart')}</Button>
           </Link>
         </div>
       </div>

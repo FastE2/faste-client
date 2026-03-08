@@ -28,4 +28,7 @@ export type UserDataType = {
   gender: 'MALE' | 'FEMALE' | 'OTHER';
   avatar: string;
   addresses: any[];
+  role: {
+    name: string;
+  };
 } | null;

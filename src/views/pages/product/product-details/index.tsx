@@ -22,6 +22,7 @@ import { AddToCartSection } from './partials/AddToCartSection';
 import { VariantSelector } from './partials/VariantSelector';
 import { ProductSpecs } from './partials/ProductSpecs';
 import { ProductReviews } from './partials/ProductReviews';
+import { useTranslation } from 'react-i18next';
 
 type TProps = {
   product: any;
@@ -52,6 +53,7 @@ const ProductDetails = (props: TProps) => {
   const [products, setProducts] = useState<any[]>([]);
   const [quantityProduct, setQuantityProduct] = useState<number>(1);
   const { setTotalCartItem, totalCartItem } = useCartStore();
+  const { t } = useTranslation();
 
   // ** Calculate total sold
   const totalSold = useMemo(() => {
@@ -221,9 +223,9 @@ const ProductDetails = (props: TProps) => {
 
       <div className="bg-white dark:bg-black w-full p-4">
         <div className="flex items-center justify-between bg-gray-50">
-          <h3 className="uppercase font-medium">Mô tả sản phẩm</h3>
+          <h3 className="uppercase font-medium">{t('product.description')}</h3>
           <div className="flex items-center gap-x-4">
-            <span className="text-sm text-gray-400">Chia sẻ:</span>
+            <span className="text-sm text-gray-400">{t('common.share')}:</span>
             <div className="flex items-center gap-x-2">
               {socials.map((item) => (
                 <a

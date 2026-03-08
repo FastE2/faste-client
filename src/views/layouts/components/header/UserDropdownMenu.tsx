@@ -5,11 +5,13 @@ import { createUrlQuery } from '@/utils/create-query-url';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import { useTranslation } from 'react-i18next';
 
 const UserDropdownMenu = () => {
   const { user, logout } = useAuth();
   const router = useRouter();
   const pathName = usePathname();
+  const {t} = useTranslation()
 
   const handleNavigateLogin = () => {
     if (pathName !== '/') {
@@ -42,27 +44,27 @@ const UserDropdownMenu = () => {
           className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
           prefetch={false}
         >
-          Thông tin tài khoản
+          {t('account.accountInfo')}
         </Link>
         <Link
           href={ROUTE_CONFIG.USER.ORDER.ORDER_LIST}
           className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
           prefetch={false}
         >
-          Đơn hàng của tôi
+          {t('userMenu.myOrders')}
         </Link>
         <Link
           href="#"
           className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
           prefetch={false}
         >
-          Trung tâm trợ giúp
+         {t('support.helpCenter')}
         </Link>
         <div
           className="block px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
           onClick={logout}
         >
-          Đăng xuất
+          {t('navigation.logout')}
         </div>
       </div>
     </div>

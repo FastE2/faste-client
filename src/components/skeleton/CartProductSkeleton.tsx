@@ -8,7 +8,7 @@ export default function CartProductSkeleton({ className = '' }) {
     <Card
       className={`rounded-none bg-white dark:bg-black max-w-80 h-72 p-0 border-none overflow-hidden ${className}`}
     >
-      <CardContent className="p-0 h-full space-y-2">
+      <CardContent className="p-0 h-full space-y-2 bg-white">
         {/* Image skeleton */}
         <Skeleton className="w-full h-[190px] rounded-none" />
 

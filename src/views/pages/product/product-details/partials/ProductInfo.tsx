@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const ProductInfo = memo(({ product, matchedSku, totalSold }: Props) => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const displayPrice = matchedSku?.price ?? product.basePrice;
 
@@ -27,9 +27,9 @@ export const ProductInfo = memo(({ product, matchedSku, totalSold }: Props) => {
           ))}
         </Rating>
         <div className="h-4 w-[1px] bg-gray-400" />
-        <span>{product.ratingCount ?? 0} Đánh giá</span>
+        <span>{product.ratingCount ?? 0} {t('product.reviews')}</span>
         <div className="h-4 w-[1px] bg-gray-400" />
-        <span>Đã bán {product.sold ?? totalSold}</span>
+        <span>{t('product.sold')}: {product.sold ?? totalSold}</span>
       </div>
 
       <p className="text-xl font-semibold mt-4">

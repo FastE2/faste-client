@@ -79,7 +79,7 @@ export const CheckoutPage = () => {
   const [pendingFormData, setPendingFormData] =
     useState<CheckoutFormData | null>(null);
   const router = useRouter();
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const {
     control,
@@ -314,7 +314,7 @@ export const CheckoutPage = () => {
             <div className="space-y-4 w-full bg-card p-2 rounded-md">
               <div>
                 <h2 className="text-xl font-semibold mb-2">
-                  Chọn hình thức giao hàng
+                  {t('checkout.selectShippingMethod')}
                 </h2>
                 <p className="text-sm text-muted-foreground">
                   Chọn phương thức giao hàng phù hợp với bạn

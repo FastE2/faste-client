@@ -29,6 +29,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { StoreConfig } from '@/types/widget';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { useTranslation } from 'react-i18next';
 
 interface MobilePreviewProps {
   config: StoreConfig;
@@ -49,6 +50,8 @@ export default function MobilePreview({
       coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
+
+  const {t} = useTranslation();
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
@@ -141,7 +144,7 @@ export default function MobilePreview({
                 variant="outline"
                 className="h-8 bg-white/10 hover:bg-white/20 text-white border-white/30 text-xs px-3"
               >
-                Theo dõi
+                {t('shop.follow')}
               </Button>
             </div>
           </div>

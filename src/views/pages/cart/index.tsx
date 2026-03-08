@@ -15,12 +15,15 @@ import { useRouter } from 'next/navigation';
 import useDebounce from '@/hooks/use-debounce';
 import { UpdateCartQuantityRequest } from '@/types/cart';
 import { se } from 'date-fns/locale';
+import { ShopSectionSkeleton } from './partials/ShopSectionSkeleton';
+import { useTranslation } from 'react-i18next';
 
 export default function CartPage() {
   const [pendingUpdate, setPendingUpdate] = useState<any>(null);
 
   const [cartItemList, SetCartItemList] = useState<any[] | null>(null);
   const router = useRouter();
+  const {t} = useTranslation();
 
   const fetchDataCartItem = async () => {
     try {
@@ -172,9 +175,9 @@ export default function CartPage() {
       <div className="max-w-6xl mx-auto p-2">
         {/* Header */}
         <div className="mb-4">
-          <h1 className="text-2xl font-bold text-foreground mb-2">Giỏ hàng</h1>
+          <h1 className="text-2xl font-bold text-foreground mb-2">{t('navigation.cart')}</h1>
           <p className="text-muted-foreground">
-            {cartItemList?.length} sản phẩm
+            {cartItemList?.length} {t('navigation.products')}
           </p>
         </div>
 
@@ -184,7 +187,7 @@ export default function CartPage() {
           <div className="lg:col-span-2">
             {cartItemList?.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-muted-foreground">Giỏ hàng của bạn trống</p>
+                <p className="text-muted-foreground">{t('cart.emptyCart')}</p>
               </div>
             ) : (
               <div className="space-y-2">
@@ -198,22 +201,22 @@ export default function CartPage() {
                     />
                   </div>
                   <div className="flex-1 text-sm font-medium text-muted-foreground">
-                    Sản phẩm
+                    {t('navigation.products')}
                   </div>
                   <div className="flex-shrink-1 min-w-[120px] text-center text-sm font-medium text-muted-foreground">
-                    Đơn giá
+                    {t('cart.unitPrice')}
                   </div>
                   <div className="flex-shrink-0 text-sm min-w-[120px] text-center font-medium text-muted-foreground">
-                    Số lượng
+                    {t('cart.quantity')}
                   </div>
                   <div className="flex-shrink-0 min-w-[120px] text-center text-sm font-medium text-muted-foreground">
-                    Thành tiền
+                    {t('cart.totalPrice')}
                   </div>
                   <div className="flex-shrink-0 w-6">
                     <Trash2 className="h-4 w-4 text-muted-foreground" />
                   </div>
                 </div>
-                {cartItemList &&
+                {cartItemList ? 
                   cartItemList.map((CartShop) => (
                     <ShopSection
                       key={CartShop.shop.shopid}
@@ -223,7 +226,9 @@ export default function CartPage() {
                       onSelect={handleSelect}
                       onSelectAll={handleSelectAll}
                     />
-                  ))}
+                  )) : (
+                    <ShopSectionSkeleton />
+                  )}
               </div>
             )}
           </div>

@@ -12,6 +12,7 @@ import WelcomePopup from './partials/WelcomePopup';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useSearchStore } from '@/stores/useSearchStore';
+import { useTranslation } from 'react-i18next';
 
 interface TProps {
   data: [];
@@ -24,6 +25,7 @@ interface TProps {
 const HomePage = (props: TProps) => {
   const { data: products, limit, page, totalItem, totalPage } = props;
   const router = useRouter();
+  const {t} = useTranslation()
 
   return (
     <>
@@ -37,7 +39,7 @@ const HomePage = (props: TProps) => {
           <div className="bg-white dark:bg-black w-full mb-4">
             <div className="text-center uppercase text-base font-medium text-red-400 py-2 w-full flex justify-center items-center gap-2">
               <Icon icon="mingcute:fire-line" width="24" height="24" />
-              Sản phẩm bán chạy
+              {t('product.bestSelling')}
             </div>
             <div className="bg-red-500 h-1 w-full"></div>
           </div>
@@ -55,7 +57,7 @@ const HomePage = (props: TProps) => {
                 <CartProduct key={index} data={product} />
               ))
             ) : (
-              <div>Not found</div>
+              <div>{t('NotFound')}</div>
             )}
           </div>
         </div>
@@ -74,7 +76,7 @@ const HomePage = (props: TProps) => {
         <div className="w-full">
           <div className="bg-white dark:bg-black w-full mb-4">
             <div className="text-center uppercase text-base font-medium text-red-400 py-2 w-full">
-              Sản phẩm mới
+              {t('product.newProducts')}
             </div>
             <div className="bg-red-500 h-1 w-full"></div>
           </div>
@@ -91,7 +93,7 @@ const HomePage = (props: TProps) => {
                 className="font-normal bg-transparent text-blue-400 border border-blue-400 rounded-none px-40 cursor-pointer"
                 onClick={() => router.push('/product')}
               >
-                Xem Thêm
+                {t('common.viewMore')}
               </Button>
             </div>
           </div>

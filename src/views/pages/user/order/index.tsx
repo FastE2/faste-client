@@ -207,7 +207,7 @@ export default function OrdersPage() {
           onClose={handleColseAlertConfirm}
           onConfirm={handleSubmitReceived}
           description={
-            "Shopee sẽ thanh toán số tiền trên cho Người bán. Bạn vui lòng chỉ nhấn 'Xác nhận' khi đã nhận được sản phẩm và sản phẩm không có vấn đề nào."
+            "FastE sẽ thanh toán số tiền trên cho Người bán. Bạn vui lòng chỉ nhấn 'Xác nhận' khi đã nhận được sản phẩm và sản phẩm không có vấn đề nào."
           }
         />
       </Suspense>

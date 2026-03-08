@@ -25,6 +25,7 @@ import { Icon } from '@iconify/react/dist/iconify.js';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { useBreakpoint } from '@/hooks/use-breakpoint';
+import { useTranslation } from 'react-i18next';
 
 interface DesktopPreviewProps {
   config: StoreConfig;
@@ -48,6 +49,8 @@ export default function DesktopPreview({
       coordinateGetter: sortableKeyboardCoordinates,
     }),
   );
+
+  const {t} = useTranslation()
 
   const breakpoint = useBreakpoint();
 
@@ -99,7 +102,7 @@ export default function DesktopPreview({
             <div className="h-3 w-3 rounded-full bg-green-500" />
           </div>
           <div className="flex-1 rounded bg-white px-3 py-1 text-xs text-gray-500">
-            https://faste.com/{config.storeName.toLowerCase()}
+            https://faste.com/shop/{config.storeName.toLowerCase()}
           </div>
         </div>
 
@@ -131,7 +134,7 @@ export default function DesktopPreview({
               </Button>
               <Button className="bg-blue-500 hover:bg-blue-600 text-white">
                 <span className="mr-2">+</span>
-                Theo dõi
+                {t('shop.follow')}
               </Button>
             </div>
           </div>
@@ -152,7 +155,7 @@ export default function DesktopPreview({
                 Giá Sốc Hôm Nay
               </button>
               <button className="pb-2 text-sm font-medium text-white/70 hover:text-white">
-                Hồ Sơ Cửa Hàng
+                {t('shop.shopProfile')}
               </button>
             </div>
             <div className="flex items-center gap-2 rounded-lg bg-white px-4 py-2">

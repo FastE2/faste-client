@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { AllProducts } from './partials/AllProducts';
 import ShopInfo from './partials/ShopInfo';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type TProps = {
   shop: any;
@@ -24,6 +25,7 @@ const tabs = [
 
 export const ShopDetails = ({ shop }: TProps) => {
   const [activeTab, setActiveTab] = useState('store');
+  const {t} = useTranslation();
   const templateWidgets =
     shop?.Template[0]?.widgets.sort(
       (a: any, b: any) => a.widgetIndex - b.widgetIndex,
@@ -74,7 +76,7 @@ export const ShopDetails = ({ shop }: TProps) => {
               </Button>
               <Button className="bg-blue-500 hover:bg-blue-600 text-white">
                 <span className="mr-2">+</span>
-                Theo dõi
+                {t('shop.follow')}
               </Button>
             </div>
           </div>

@@ -3,9 +3,140 @@
   "saveAndSee": "Lưu và xem thay đổi của bạn ngay lập tức.",
   "deployNow": "Triển khai ngay",
   "readDocs": "Đọc tài liệu",
+
   "footer": {
     "learn": "Học tập",
     "examples": "Ví dụ",
     "goToNextjs": "Đến nextjs.org →"
-  }
+  },
+
+  "common": {
+    "viewMore": "Xem thêm",
+    "saveChanges": "Lưu thay đổi",
+    "change": "Thay đổi",
+    "apply": "Áp dụng",
+    "share": "Chia sẻ",
+    "viewNow": "Xem ngay",
+    "update": "Cập nhật"
+  },
+
+  "navigation": {
+    "home": "Trang chủ",
+    "products": "Sản phẩm",
+    "contact": "Liên hệ",
+    "about": "Giới thiệu",
+    "cart": "Giỏ hàng",
+    "login": "Đăng nhập",
+    "register": "Đăng ký",
+    "logout": "Đăng xuất",
+    "categories": "Danh mục",
+    "brands": "Thương hiệu"
+  },
+
+  "product": {
+    "bestSelling": "Sản phẩm đang bán chạy",
+    "newProducts": "Sản phẩm mới",
+    "newAdded": "Sản phẩm mới thêm",
+    "priceShockToday": "Giá sốc hôm nay",
+    "description": "Mô tả sản phẩm",
+    "reviews": "Đánh giá sản phẩm",
+    "rating": "Đánh giá",
+    "sold": "Đã bán",
+    "joined": "Tham gia",
+    "similarProducts": "Sản phẩm tương tự",
+    "remainingProducts": "Số sản phẩm còn lại",
+    "shipFrom": "Gửi từ",
+    "addToCart": "Thêm vào giỏ hàng",
+    "buyNow": "Mua ngay",
+    "inStock": "Còn hàng"
+  },
+
+  "account": {
+    "accountInfo": "Thông tin tài khoản",
+    "personalInfo": "Thông tin cá nhân",
+    "fullName": "Họ & Tên",
+    "gender": "Giới tính",
+    "birthday": "Ngày sinh",
+    "phoneEmail": "Số điện thoại và Email"
+  },
+
+  "userMenu": {
+    "account": "Tài khoản",
+    "address": "Địa chỉ",
+    "security": "Bảo mật",
+    "changePassword": "Đổi mật khẩu",
+    "notifications": "Thông báo",
+    "notificationSettings": "Cài đặt thông báo",
+    "orders": "Đơn mua",
+    "myOrders": "Đơn hàng của tôi",
+    "voucherWallet": "Kho voucher",
+    "wallet": "Ví",
+    "viewedProducts": "Sản phẩm đã xem",
+    "favoriteProducts": "Sản phẩm yêu thích"
+  },
+
+  "address": {
+    "myAddress": "Địa chỉ của tôi",
+    "addNewAddress": "Thêm địa chỉ mới"
+  },
+
+  "cart": {
+    "cart": "Giỏ hàng",
+    "productsInCart": "Sản phẩm trong giỏ",
+    "viewCart": "Xem giỏ hàng",
+    "unitPrice": "Đơn giá",
+    "quantity": "Số lượng",
+    "totalPrice": "Thành tiền",
+    "deliverTo": "Giao tới",
+    "promoCode": "Mã khuyến mãi",
+    "enterPromoCode": "Nhập mã khuyến mãi",
+    "totalProductPrice": "Tổng tiền hàng",
+    "shippingFee": "Phí vận chuyển",
+    "totalPayment": "Tổng tiền thanh toán",
+    "vatIncluded": "Đã bao gồm VAT nếu có",
+    "checkout": "Mua hàng",
+    "emptyCart": "Giỏ hàng của bạn trống"
+  },
+
+  "checkout": {
+    "selectShippingMethod": "Chọn hình thức giao hàng",
+    "chooseShippingMethod": "Chọn phương thức giao hàng phù hợp với bạn",
+    "selectPaymentMethod": "Chọn hình thức thanh toán",
+    "choosePaymentMethod": "Chọn phương thức thanh toán an toàn",
+    "shippingUnit": "Đơn vị vận chuyển",
+    "placeOrder": "Đặt hàng"
+  },
+
+  "shop": {
+    "shop": "Cửa hàng",
+    "shopProfile": "Hồ sơ cửa hàng",
+    "searchProductInShop": "Tìm kiếm sản phẩm tại cửa hàng",
+    "follow": "Theo dõi",
+    "collection": "Bộ sưu tập",
+    "viewShop": "Xem Shop",
+    "chatNow": "Chat Ngay"
+  },
+
+  "search": {
+    "filter": "Bộ lọc tìm kiếm",
+    "resultsForKeyword": "Kết quả cho từ khóa",
+    "sortBy": "Sắp xếp theo",
+    "sellerLocation": "Nơi bán",
+    "byCategory": "Theo danh mục",
+    "priceRange": "Khoảng giá",
+    "rating": "Đánh giá",
+    "noProductsFound": "Không tìm thấy sản phẩm",
+    "tryAnotherKeyword": "Hãy thử từ khóa khác hoặc thay đổi bộ lọc tìm kiếm"
+  },
+
+  "theme": {
+    "light": "Sáng",
+    "dark": "Tối",
+    "system": "Hệ thống"
+  },
+
+  "support": {
+    "helpCenter": "Trung tâm trợ giúp"
+  },
+  "NotFound": "Không tìm thấy"
 }

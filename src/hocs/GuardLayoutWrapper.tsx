@@ -10,12 +10,13 @@ type TProps = {
   guestGuard?: boolean;
   children: ReactNode;
   getLayout?: (page: ReactElement) => ReactNode;
+  roles?: string[];
 };
 
 const GuardLayoutWrapper = (props: TProps) => {
-  const { children, authGuard = true, guestGuard = false, getLayout } = props;
+  const { children, authGuard = true, guestGuard = false, getLayout, roles } = props;
   return (
-    <Guard authGuard={authGuard} guestGuard={guestGuard}>
+    <Guard authGuard={authGuard} guestGuard={guestGuard} roles={roles}>
       {getLayout ? (
         getLayout(<>{children}</>)
       ) : (

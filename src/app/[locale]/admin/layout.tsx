@@ -17,6 +17,7 @@ export default async function RootLayout({
     <GuardLayoutWrapper
       getLayout={(page: ReactElement) => <LayoutAdmin>{page}</LayoutAdmin>}
       authGuard={true}
+      roles={['ADMIN']}
     >
       {children}
     </GuardLayoutWrapper>

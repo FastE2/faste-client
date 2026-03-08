@@ -5,7 +5,6 @@ import LayoutSeller from '@/views/layouts/LayoutSeller';
 import { ReactElement, useEffect, useState } from 'react';
 import { getDetailShopMe } from '@/services/shop';
 import { useRouter } from 'next/navigation';
-import { ROUTE_CONFIG } from '@/configs/router';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
 
 // export const metadata: Metadata = {
@@ -47,6 +46,7 @@ export default function RootLayout({
     <GuardLayoutWrapper
       getLayout={(page: ReactElement) => <LayoutSeller>{page}</LayoutSeller>}
       authGuard={true}
+      roles={['ADMIN', 'SELLER']}
     >
       {children}
     </GuardLayoutWrapper>

@@ -2,15 +2,141 @@
   "getStarted": "Get started by editing",
   "saveAndSee": "Save and see your changes instantly.",
   "deployNow": "Deploy now",
-  "readDocs": "Read our docs",
+  "readDocs": "Read documentation",
+
   "footer": {
     "learn": "Learn",
     "examples": "Examples",
     "goToNextjs": "Go to nextjs.org →"
   },
-  "header": {
-    "about": "",
-    "wishlist": "",
-    "support": ""
-  }
+
+  "common": {
+    "viewMore": "View more",
+    "saveChanges": "Save changes",
+    "change": "Change",
+    "apply": "Apply",
+    "share": "Share",
+    "viewNow": "View now",
+    "update": "Update"
+  },
+
+  "navigation": {
+    "home": "Home",
+    "products": "Products",
+    "contact": "Contact",
+    "about": "About",
+    "cart": "Cart",
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "categories": "Categories",
+    "brands": "Brands"
+  },
+
+  "product": {
+    "bestSelling": "Best Selling Products",
+    "newProducts": "New Products",
+    "newAdded": "Newly Added Products",
+    "priceShockToday": "Today's Hot Deals",
+    "description": "Product Description",
+    "reviews": "Product Reviews",
+    "rating": "Rating",
+    "sold": "Sold",
+    "joined": "Joined",
+    "similarProducts": "Similar Products",
+    "remainingProducts": "Remaining Products",
+    "shipFrom": "Ships from",
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "inStock": "In Stock"
+  },
+
+  "account": {
+    "accountInfo": "Account Information",
+    "personalInfo": "Personal Information",
+    "fullName": "Full Name",
+    "gender": "Gender",
+    "birthday": "Date of Birth",
+    "phoneEmail": "Phone Number & Email"
+  },
+
+  "userMenu": {
+    "account": "Account",
+    "address": "Address",
+    "security": "Security",
+    "changePassword": "Change Password",
+    "notifications": "Notifications",
+    "notificationSettings": "Notification Settings",
+    "orders": "Orders",
+    "myOrders": "My Orders",
+    "voucherWallet": "Voucher Wallet",
+    "wallet": "Wallet",
+    "viewedProducts": "Viewed Products",
+    "favoriteProducts": "Favorite Products"
+  },
+
+  "address": {
+    "myAddress": "My Address",
+    "addNewAddress": "Add New Address"
+  },
+
+  "cart": {
+    "cart": "Cart",
+    "productsInCart": "Products in Cart",
+    "viewCart": "View Cart",
+    "unitPrice": "Unit Price",
+    "quantity": "Quantity",
+    "totalPrice": "Total Price",
+    "deliverTo": "Deliver to",
+    "promoCode": "Promo Code",
+    "enterPromoCode": "Enter promo code",
+    "totalProductPrice": "Total Product Price",
+    "shippingFee": "Shipping Fee",
+    "totalPayment": "Total Payment",
+    "vatIncluded": "VAT included if applicable",
+    "checkout": "Checkout",
+    "emptyCart": "Your cart is empty"
+  },
+
+  "checkout": {
+    "selectShippingMethod": "Select Shipping Method",
+    "chooseShippingMethod": "Choose the shipping method that suits you",
+    "selectPaymentMethod": "Select Payment Method",
+    "choosePaymentMethod": "Choose a secure payment method",
+    "shippingUnit": "Shipping Carrier",
+    "placeOrder": "Place Order"
+  },
+
+  "shop": {
+    "shop": "Shop",
+    "shopProfile": "Shop Profile",
+    "searchProductInShop": "Search products in shop",
+    "follow": "Follow",
+    "collection": "Collection",
+    "viewShop": "View Shop",
+    "chatNow": "Chat Now"
+  },
+
+  "search": {
+    "filter": "Search Filters",
+    "resultsForKeyword": "Results for keyword",
+    "sortBy": "Sort by",
+    "sellerLocation": "Seller Location",
+    "byCategory": "By Category",
+    "priceRange": "Price Range",
+    "rating": "Rating",
+    "noProductsFound": "No products found",
+    "tryAnotherKeyword": "Try another keyword or adjust your filters"
+  },
+
+  "theme": {
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System"
+  },
+
+  "support": {
+    "helpCenter": "Help Center"
+  },
+  "NotFound": "Not found"
 }

@@ -4,6 +4,7 @@ import { memo } from 'react';
 import { Button } from '@/components/ui/button';
 import InputNumberCustom from '@/components/InputNumberCustom';
 import { ShoppingCart } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   matchedSku: any;
@@ -25,6 +26,7 @@ export const AddToCartSection = memo(
   }: Props) => {
     const isDisabled =
       selectedLength < variantsLength || matchedSku?.quantity === 0;
+    const {t} = useTranslation();
 
     return (
       <div className="space-y-4">
@@ -37,7 +39,7 @@ export const AddToCartSection = memo(
           />
           {matchedSku && (
             <span className="text-gray-500">
-              {matchedSku.quantity} sản phẩm có sẵn
+              {matchedSku.quantity} {t('product.inStock')}
             </span>
           )}
         </div>
@@ -51,10 +53,10 @@ export const AddToCartSection = memo(
             className="bg-red-100 text-red-500 border-red-500 hover:bg-red-50"
           >
             <ShoppingCart className="w-5 h-5 mr-2" />
-            Thêm vào giỏ hàng
+            {t('product.addToCart')}
           </Button>
           <Button disabled={isDisabled} className="bg-red-500 hover:bg-red-400">
-            Mua ngay
+            {t('product.buyNow')}
           </Button>
         </div>
       </div>

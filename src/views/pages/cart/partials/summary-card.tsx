@@ -7,6 +7,7 @@ import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { usePathname } from 'next/navigation';
 import { ROUTE_CONFIG } from '@/configs/router';
+import { useTranslation } from 'react-i18next';
 
 interface SummaryCardProps {
   subtotal: number;
@@ -28,6 +29,7 @@ function SummaryCardComponent({
   onOrder,
 }: SummaryCardProps) {
   const pathname = usePathname();
+  const {t} = useTranslation();
 
   // Memoized format
   const formatPrice = useCallback((price: number) => {
@@ -53,10 +55,10 @@ function SummaryCardComponent({
       <div>
         <div className="flex justify-between items-center">
           <h3 className="text-sm font-semibold text-foreground mb-3">
-            Giao tới
+            {t('cart.deliverTo')}
           </h3>
           <button className="text-sm text-primary hover:underline">
-            Thay đổi
+            {t('common.change')}
           </button>
         </div>
         <div className="bg-muted p-3 rounded-lg mb-2">
@@ -73,12 +75,12 @@ function SummaryCardComponent({
       {/* Promo Code */}
       <div>
         <h3 className="text-sm font-semibold text-foreground mb-3">
-          Mã khuyến mãi
+          {t('cart.promoCode')}
         </h3>
         <div className="flex gap-2">
-          <Input placeholder="Nhập mã khuyến mãi" className="text-sm" />
+          <Input placeholder={t('cart.enterPromoCode')} className="text-sm" />
           <Button variant="outline" size="sm">
-            Áp dụng
+            {t('common.apply')}
           </Button>
         </div>
       </div>
@@ -88,18 +90,18 @@ function SummaryCardComponent({
       {/* Price Summary */}
       <div className="space-y-2 ">
         <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Tổng tiền hàng</span>
+          <span className="text-muted-foreground">{t('cart.totalProductPrice')}</span>
           <span className="text-foreground">{formatPrice(subtotal)}</span>
         </div>
 
         <div className="flex justify-between text-sm">
-          <span className="text-muted-foreground">Phí vận chuyển</span>
+          <span className="text-muted-foreground">{t('cart.shippingFee')}</span>
           <span className="text-foreground">{formatPrice(shipping)}</span>
         </div>
 
         {discount > 0 && (
           <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Giảm giá</span>
+            <span className="text-muted-foreground">{t('cart.discount')}</span>
             <span className="text-destructive">-{formatPrice(discount)}</span>
           </div>
         )}
@@ -111,14 +113,14 @@ function SummaryCardComponent({
       <div>
         <div className="flex justify-between items-center">
           <span className="text-sm font-medium text-foreground">
-            Tổng tiền thanh toán
+            {t('cart.totalPayment')}
           </span>
           <span className="text-2xl font-bold text-destructive">
             {formatPrice(total)}
           </span>
         </div>
         <p className="text-xs text-muted-foreground mt-1">
-          (Đã bao gồm VAT nếu có)
+          ({t('cart.vatIncluded')})
         </p>
       </div>
 
@@ -130,7 +132,7 @@ function SummaryCardComponent({
         }`}
         onClick={isCartPage ? onCheckout : onOrder}
       >
-        {`${isCartPage ? 'Mua hàng' : 'Đặt hàng'} (${selectedItems.length})`}
+        {`${isCartPage ? t('cart.checkout') : t('checkout.placeOrder')} (${selectedItems.length})`}
       </Button>
     </Card>
   );
