@@ -4,9 +4,11 @@ import { ReactNode } from 'react';
 import Header from './components/header';
 import { ChatWidget } from '@/components/chat-widget';
 import dynamic from 'next/dynamic';
+import { LoadingDialog } from '@/components/loading/LoadingDialog';
+import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 
 const Footer = dynamic(() => import('./components/footer'), {
-  loading: () => <p>Loading...</p>,
+  loading: () => <LoadingSpinner />,
   ssr: false,
 });
 

@@ -14,6 +14,7 @@ import OrderList from './partials/OrderList';
 import AlertConfirm from '@/components/AlertConfirm';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import { toastify } from '@/components/ToastNotification';
+import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 
 type PaymentFieldType = {
   id: number;
@@ -193,15 +194,15 @@ export default function OrdersPage() {
   return (
     <main className="bg-gray-50 space-y-2">
       {/* Header */}
-      {isLoading && <LoadingDialog isLoading={true} />}
-      <Suspense fallback={<LoadingDialog isLoading={true} />}>
+      {isLoading && <LoadingSpinner />}
+      <Suspense fallback={<LoadingSpinner />}>
         <ProductRatingForm
           id={selectOrder}
           open={isOpenForm}
           onClose={handleColseForm}
         />
       </Suspense>
-      <Suspense fallback={<LoadingDialog isLoading={true} />}>
+      <Suspense fallback={<LoadingSpinner />}>
         <AlertConfirm
           open={isOpenAlertConfirm}
           onClose={handleColseAlertConfirm}

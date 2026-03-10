@@ -22,6 +22,8 @@ import {
   clearLocalUserData,
 } from '@/helpers/storage/clear';
 import { ROUTE_CONFIG } from '@/configs/router';
+import { LoadingDialog } from '@/components/loading/LoadingDialog';
+import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 
 type AuthContextType = {
   user: UserDataType;
@@ -192,7 +194,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
       {!loading && children}
       </Suspense>
     </AuthContext.Provider>

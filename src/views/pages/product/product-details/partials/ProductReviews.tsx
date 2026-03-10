@@ -3,6 +3,8 @@ import { getAllReviews } from '@/services/review';
 import { memo, useState, useEffect } from 'react';
 import { ReviewCard } from './ReviewCard';
 import { useTranslation } from 'react-i18next';
+import { LoadingDialog } from '@/components/loading/LoadingDialog';
+import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 
 export const ProductReviews = memo(({ product }: { product: any }) => {
   const [reviews, setReviews] = useState<any[]>([]);
@@ -101,7 +103,7 @@ export const ProductReviews = memo(({ product }: { product: any }) => {
 
       {/* Review cards */}
       {loading ? (
-        <div>Loading...</div>
+        <LoadingSpinner />
       ) : (
         <div className="w-full space-y-4">
           {reviews.length > 0 ? (

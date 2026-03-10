@@ -36,6 +36,7 @@ import { getDetailShopMe } from '@/services/shop';
 import { useRouter } from 'next/navigation';
 import { ROUTE_CONFIG } from '@/configs/router';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
+import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 
 // Mock data
 const addressShipOptions = [
@@ -202,7 +203,7 @@ export default function RegisterSellerPage() {
     },
   ];
   if (isLoading) {
-    return <LoadingDialog isLoading={true} />;
+    return <LoadingSpinner />;
   }
 
   return (

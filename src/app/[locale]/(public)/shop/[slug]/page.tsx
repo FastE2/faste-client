@@ -1,3 +1,4 @@
+import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
 import { getDetailShopPublicBySlug } from '@/services/shop';
 import LayoutPublic from '@/views/layouts/LayoutPublic';
@@ -47,7 +48,7 @@ const Page = async ({ params }: ShopDetailPageProps) => {
   //   console.log('Store slug:', slug);
   // }, [slug]);
 
-  if (!slug) return <div>Loading...</div>; // Handle case when `slug` is not available yet
+  if (!slug) return <LoadingSpinner />; // Handle case when `slug` is not available yet
 
   return (
     <GuardLayoutWrapper

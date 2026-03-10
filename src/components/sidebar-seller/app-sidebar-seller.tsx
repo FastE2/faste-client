@@ -25,6 +25,8 @@ import {
 } from '@/components/ui/sidebar';
 import { SELLER_MENU_ITEMS } from '@/configs/sidebar-items';
 import { NavMainSeller } from './nav-main-seller';
+import Image from 'next/image';
+import Link from 'next/link';
 
 // This is sample data.
 const data = {
@@ -156,11 +158,24 @@ const data = {
   // ],
 };
 
-export function AppSidebarSeller({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebarSeller({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        FastE
+        <Link href={'/'} className="flex items-center gap-1.5 shrink-0">
+          <Image
+            src="/logo.svg"
+            width={100}
+            height={100}
+            alt="FastE3 logo"
+            className="dark:invert"
+          />
+          <span className="font-bold text-xl text-foreground hidden sm:block">
+            FastE Seller
+          </span>
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         <NavMainSeller items={SELLER_MENU_ITEMS} />

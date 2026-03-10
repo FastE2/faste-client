@@ -12,6 +12,8 @@ import { useSearchStore } from '@/stores/useSearchStore';
 import useDebounce from '@/hooks/use-debounce';
 import { getSearchSuggest } from '@/services/search';
 import { hasVietnameseAccent } from '@/helpers/hasVietnameseAccent';
+import { LoadingDialog } from '@/components/loading/LoadingDialog';
+import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 
 const POPULAR_KEYWORDS = [
   'Máy Tính',
@@ -117,7 +119,7 @@ const SearchHeader = () => {
   };
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoadingSpinner />}>
       <div
         className="relative not-first:not-last:flex-1 max-w-2xl hidden md:flex items-center gap-2"
         ref={searchRef}

@@ -40,6 +40,7 @@ import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import { getAllReviews } from '@/services/review';
 import { useAuth } from '@/hooks/use-auth';
 import { ReasonType, ReviewQueryType } from '@/types/review';
+import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 
 type ReviewTag =
   | 'Sản phẩm tốt'
@@ -487,7 +488,7 @@ export default function ReviewsTablePage() {
       </div>
 
       {/* Modals */}
-      <Suspense fallback={<LoadingDialog isLoading={true} />}>
+      <Suspense fallback={<LoadingSpinner />}>
         <ReplyModal
           open={replyModalOpen}
           onOpenChange={setReplyModalOpen}
@@ -495,7 +496,7 @@ export default function ReviewsTablePage() {
           onSubmitSuccess={handleReplySuccess}
         />
       </Suspense>
-      <Suspense fallback={<LoadingDialog isLoading={true} />}>
+      <Suspense fallback={<LoadingSpinner />}>
         <DetailModal
           open={detailModalOpen}
           onOpenChange={setDetailModalOpen}

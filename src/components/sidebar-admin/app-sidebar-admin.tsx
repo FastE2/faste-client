@@ -25,6 +25,8 @@ import {
 } from '@/components/ui/sidebar';
 import { ADMIN_MENU_ITEMS } from '@/configs/sidebar-items';
 import { NavMainAdmin } from './nav-main-admin';
+import Link from 'next/link';
+import Image from 'next/image';
 
 // This is sample data.
 const data = {
@@ -161,7 +163,18 @@ export function AppSidebarAdmin({
 }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>FastE</SidebarHeader>
+       <Link href={'/'} className="flex items-center gap-1.5 shrink-0">
+          <Image
+            src="/logo.svg"
+            width={100}
+            height={100}
+            alt="FastE3 logo"
+            className="dark:invert"
+          />
+          <span className="font-bold text-xl text-foreground hidden sm:block">
+            FastE Admin
+          </span>
+        </Link>
       <SidebarContent>
         <NavMainAdmin items={ADMIN_MENU_ITEMS} />
         <NavProjects projects={data.projects} />

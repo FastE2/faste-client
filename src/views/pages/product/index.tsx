@@ -21,6 +21,8 @@ import { getSearchProduct } from '@/services/search';
 import { TParamsSearch } from '@/types/params';
 import CartProductSkeleton from '@/components/skeleton/CartProductSkeleton';
 import ProductNotFound from './ProductNotFound';
+import { LoadingDialog } from '@/components/loading/LoadingDialog';
+import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 
 export const ProductListPage = () => {
   const router = useRouter();
@@ -71,7 +73,7 @@ export const ProductListPage = () => {
   console.log("==== PRODUCT RENDER")
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoadingSpinner />}>
     <div className="container mx-auto max-w-6xl px-4">
       <div className="w-full grid grid-cols-12 space-x-1">
         {/* LEFT FILTER */}

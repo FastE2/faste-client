@@ -18,26 +18,27 @@ import { useGetCart } from '@/hooks/queries/useGetCart';
 import { keepPreviousData } from '@tanstack/react-query';
 import { useCartStore } from '@/stores/cart-store';
 import CartPopover from './CartPopover';
+import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 
 const SearchHeader = dynamic(() => import('./SearchHeader'), {
-  loading: () => <p>Loading...</p>,
+  loading: () => <LoadingSpinner />,
   ssr: false,
 });
 
 const UserDropdownMenu = dynamic(() => import('./UserDropdownMenu'), {
-  loading: () => <p>Loading...</p>,
+  loading: () => <LoadingSpinner />,
   ssr: false,
 });
 
 const MobileNavigation = dynamic(() => import('./mobile/MobileNavigation'), {
-  loading: () => <p>Loading...</p>,
+  loading: () => <LoadingSpinner />,
   ssr: false,
 });
 
 const MobileTopNavigation = dynamic(
   () => import('./mobile/MobileTopNavigation'),
   {
-    loading: () => <p>Loading...</p>,
+    loading: () => <LoadingSpinner />,
     ssr: false,
   },
 );

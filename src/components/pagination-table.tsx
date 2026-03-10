@@ -19,6 +19,7 @@ import {
 } from './ui/select';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { LoadingSpinner } from './loading/LoadingSpinner';
 
 export interface PaginationWithLinksProps {
   pageSizeSelectOptions?: {
@@ -198,7 +199,7 @@ function SelectRowsPerPage({
   pageSize: number;
 }) {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoadingSpinner />}>
       <div className="flex items-center gap-4">
         <span className="whitespace-nowrap text-sm">Rows per page</span>
 

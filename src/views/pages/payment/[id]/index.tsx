@@ -21,6 +21,7 @@ import PaymentSummary from '../partials/payment-summary';
 import { useRouter } from 'next/navigation';
 import { ROUTE_CONFIG } from '@/configs/router';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
+import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 
 type TProps = {
   id: number;
@@ -113,7 +114,7 @@ export default function PaymentPage({ id }: TProps) {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900 py-8 px-4">
-      {isLoading && <LoadingDialog isLoading={true} />}
+      {isLoading && <LoadingSpinner />}
       {transactionData && (
         <div className="max-w-6xl mx-auto">
           {/* Header */}

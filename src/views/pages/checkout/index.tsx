@@ -19,9 +19,10 @@ import { clearCheckoutItems } from '@/helpers/storage/clear';
 import { createOrder } from '@/services/order';
 import { CreateOrderType } from '@/types/order';
 import dynamic from 'next/dynamic';
+import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 
 const ConfirmModal = dynamic(() => import('./partials/confirm-modal'), {
-  loading: () => <p>Loading...</p>,
+  loading: () => <LoadingSpinner />,
   ssr: false,
 });
 interface CheckoutFormData {
@@ -189,7 +190,7 @@ export const CheckoutPage = () => {
 
   return (
     <main className="min-h-screen">
-      {submitStatus === 'loading' && <LoadingDialog isLoading={true} />}
+      {submitStatus === 'loading' && <LoadingSpinner />}
       <div className="max-w-6xl mx-auto p-2">
         {/* Header */}
         <div className="mb-4 flex">

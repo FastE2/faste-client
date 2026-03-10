@@ -6,6 +6,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Product } from '@/types/event';
+import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 
 interface ProductTabsProps {
   eventSlug: string;
@@ -130,7 +131,7 @@ export default function ProductTabs({
   );
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<LoadingSpinner />}>
       <Card>
         <CardContent className="p-6">
           <Tabs value={activeTab} onValueChange={handleTabChange}>
