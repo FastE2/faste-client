@@ -392,16 +392,13 @@ export default function ContactPage() {
             {/* Map Placeholder */}
             <Card className="overflow-hidden">
               <div className="w-full h-80 bg-muted flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-12 h-12 text-muted-foreground mx-auto mb-2 opacity-50" />
-                  <p className="text-muted-foreground text-sm">
-                    Map embed placeholder
-                    <br />
-                    <span className="text-xs">
-                      Replace with Google Maps or Leaflet
-                    </span>
-                  </p>
-                </div>
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d501725.41846951726!2d106.36557944642779!3d10.755292848243197!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317529292e8d3dd1%3A0xf15f5aad773c112b!2zVGjDoG5oIHBo4buRIEjhu5MgQ2jDrSBNaW5oLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1773160351548!5m2!1svi!2s"
+                  className="w-full h-full border-0"
+                  loading="lazy"
+                  allowFullScreen
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
               </div>
             </Card>
           </div>

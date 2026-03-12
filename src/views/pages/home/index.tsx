@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { useSearchStore } from '@/stores/useSearchStore';
 import { useTranslation } from 'react-i18next';
+import EmptyProductHome from './partials/EmptyProductHome';
 
 interface TProps {
   data: [];
@@ -25,7 +26,7 @@ interface TProps {
 const HomePage = (props: TProps) => {
   const { data: products, limit, page, totalItem, totalPage } = props;
   const router = useRouter();
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   return (
     <>
@@ -43,23 +44,24 @@ const HomePage = (props: TProps) => {
             </div>
             <div className="bg-red-500 h-1 w-full"></div>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 items-stretch">
-            {/* Primary product card */}
-            <div className="col-span-2">
-              <Card className="rounded-none bg-white dark:bg-black max-h-[288px] h-full w-full hover:shadow-accent-foreground text-xs gap-y-1 p-0 border-none transition-all duration-300 ease-in-out overflow-hidden">
-                <PrimaryProductCard />
-              </Card>
-            </div>
 
-            {/* Other products */}
-            {products ? (
-              products.map((product, index) => (
-                <CartProduct key={index} data={product} />
-              ))
-            ) : (
-              <div>{t('NotFound')}</div>
-            )}
-          </div>
+          {/* Other products */}
+          {products && products.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2 items-stretch">
+              {/* Primary product card */}
+              <div className="col-span-2">
+                <Card className="rounded-none bg-white dark:bg-black max-h-[288px] h-full w-full hover:shadow-accent-foreground text-xs gap-y-1 p-0 border-none transition-all duration-300 ease-in-out overflow-hidden">
+                  <PrimaryProductCard />
+                </Card>
+              </div>
+
+              {products.map((product: any) => (
+                <CartProduct key={product.id} data={product} />
+              ))}
+            </div>
+          ) : (
+            <EmptyProductHome />
+          )}
         </div>
 
         <div className="w-full mb-5 rounded-2xl overflow-hidden">
@@ -81,17 +83,21 @@ const HomePage = (props: TProps) => {
             <div className="bg-red-500 h-1 w-full"></div>
           </div>
           <div className="flex flex-col gap-y-2 w-full">
-            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
-              {products &&
-                products.map((product, index) => (
+            {products && products.length > 0 ? (
+              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-2">
+                {products.map((product, index) => (
                   <CartProduct key={index} data={product} />
                 ))}
-            </div>
+              </div>
+            ) : (
+              <EmptyProductHome />
+            )}
+
             <div className="flex justify-center">
               <Button
                 variant="outline"
                 className="font-normal bg-transparent text-blue-400 border border-blue-400 rounded-none px-40 cursor-pointer"
-                onClick={() => router.push('/product')}
+                onClick={() => router.push('/product?page=1&limit=20')}
               >
                 {t('common.viewMore')}
               </Button>

@@ -207,7 +207,7 @@ export default function RegisterSellerPage() {
   }
 
   return (
-    <div className="bg-background p-4 md:p-8">
+    <div className="p-4 md:p-8">
       <div className="mx-auto max-w-2xl">
         <Card>
           <CardHeader>

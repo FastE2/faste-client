@@ -72,6 +72,7 @@ export default function PaymentPage({ id }: TProps) {
         if (res.statusCode !== 200) {
           throw new Error();
         }
+        console.log('Transaction data:', res.data);
         setTransactionData(res.data);
       } catch (error) {
         router.push(ROUTE_CONFIG.HOME);
@@ -139,7 +140,7 @@ export default function PaymentPage({ id }: TProps) {
                         {transactionData.method}
                       </CardDescription>
                     </div>
-                    <CountdownTimer onTimeExpired={handleTimeExpired} />
+                    <CountdownTimer onTimeExpired={handleTimeExpired} timeCreated={transactionData.createdAt} />
                   </div>
                 </CardHeader>
 

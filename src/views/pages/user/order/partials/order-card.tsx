@@ -7,13 +7,16 @@ import { ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { ROUTE_CONFIG } from '@/configs/router';
 import { OrderStatus } from '@/enums';
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import dayjs from 'dayjs';
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import AlertConfirm from '@/components/AlertConfirm';
+import { cancelOrder } from '@/services/order';
+import { toastify } from '@/components/ToastNotification';
 
 interface OrderCardProps {
   // order: {
@@ -43,6 +46,8 @@ const OrderCard = memo(function OrderCard({
   handleConfirnReceived,
 }: OrderCardProps) {
   const router = useRouter();
+  const [openCancel, setOpenCancel] = useState(false);
+  const [cancelOrderId, setCancelOrderId] = useState<string | null>(null);
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('vi-VN', {
@@ -51,7 +56,6 @@ const OrderCard = memo(function OrderCard({
       minimumFractionDigits: 0,
     }).format(price);
   };
-
 
   const getOrderStatusMeta = (status: OrderStatus) => {
     return (
@@ -108,8 +112,31 @@ const OrderCard = memo(function OrderCard({
     router.push(path);
   };
 
+  const openCancelConfirm = (id: string) => {
+    setCancelOrderId(id);
+    setOpenCancel(true);
+  };
+  const handleCancelOrder = async () => {
+    if (!cancelOrderId) return;
+    try {
+      await cancelOrder(Number(cancelOrderId));
+      toastify.success('Thành công', 'Hủy đơn hàng thành công!');
+    } catch (error) {
+      toastify.error('Lỗi', 'Có lỗi xảy ra khi hủy đơn hàng!');
+    }
+    setOpenCancel(false);
+    setCancelOrderId(null);
+  };
+
   return (
     <div className="overflow-hidden border rounded-xl transition-shadow bg-card">
+      <AlertConfirm
+        open={openCancel}
+        onClose={() => setOpenCancel(false)}
+        onConfirm={handleCancelOrder}
+        title="Xác nhận hủy đơn hàng"
+        description="Bạn có chắc chắn muốn hủy đơn hàng này không?"
+      />
       {/* Shop Header */}
       {order.orders.map((od: any) => {
         let attributeKeys: string[] = [];
@@ -255,6 +282,7 @@ const OrderCard = memo(function OrderCard({
                         variant="outline"
                         size="sm"
                         className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto cursor-pointer"
+                        onClick={() => openCancelConfirm(order.orders[0].id)}
                       >
                         Hủy Đơn Hàng
                       </Button>
@@ -277,6 +305,7 @@ const OrderCard = memo(function OrderCard({
                         variant="outline"
                         size="sm"
                         className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto cursor-pointer"
+                        onClick={() => openCancelConfirm(order.orders[0].id)}
                       >
                         Hủy Đơn Hàng
                       </Button>
@@ -298,6 +327,7 @@ const OrderCard = memo(function OrderCard({
                       variant="outline"
                       size="sm"
                       className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto cursor-pointer"
+                      onClick={() => openCancelConfirm(order.orders[0].id)}
                     >
                       Hủy Đơn Hàng
                     </Button>

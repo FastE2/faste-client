@@ -66,8 +66,8 @@ const deliveryMethods: DeliveryMethod[] = [
 const paymentMethods = [
   { id: 'COD', label: 'Thanh toán tiền mặt', icon: 'mdi:cash' },
   { id: 'SEPAY', label: 'SEPAY', icon: 'mdi:wallet' },
-  { id: 'PAYFAST', label: 'PayFast', icon: 'mdi:mobile-payment' },
-  { id: 'WEB3', label: 'Web3 Wallet', icon: 'mdi:ethereum' },
+  // { id: 'PAYFAST', label: 'PayFast', icon: 'mdi:mobile-payment' },
+  // { id: 'WEB3', label: 'Web3 Wallet', icon: 'mdi:ethereum' },
 ];
 
 export const CheckoutPage = () => {

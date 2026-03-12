@@ -30,7 +30,7 @@ export const API_ENDPOINT = {
     INDEX: `${BASE_URL}/address-ship`,
   },
   USER: {
-    INDEX: `${BASE_URL}/users`,
+    INDEX: `${BASE_URL}/user`,
   },
   CART: {
     INDEX: `${BASE_URL}/cart`,

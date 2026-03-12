@@ -33,7 +33,7 @@ const CardCategory = () => {
               .slice(0, window.innerWidth <= 768 ? 8 : 20)
               .map((item: any, index: number) => (
                 <Link
-                  href={'ok'}
+                  href={'/product?categoryIds=' + item.id}
                   key={item.id}
                   className={`
         flex flex-col items-center justify-between p-2 h-40
