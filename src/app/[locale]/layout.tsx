@@ -6,8 +6,14 @@ import TranslationProvider from '@/providers/TranslationProvider';
 import initTranslations from '@/configs/i18n';
 import AppWrapper from '@/hocs/AppWrappers';
 import { Suspense } from 'react';
-import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
+import dynamic from 'next/dynamic';
+
+
+const Analytics = dynamic(
+  () => import('@vercel/analytics/react').then(m => m.Analytics),
+  { ssr: false }
+)
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -93,6 +99,7 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <Analytics />
         <Suspense fallback={<LoadingSpinner />}>
           <TranslationProvider
             locale={locale}
