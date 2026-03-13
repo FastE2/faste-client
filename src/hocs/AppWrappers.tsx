@@ -15,6 +15,16 @@ import {
   WalletProvider,
 } from '@mysten/dapp-kit';
 import { getFullnodeUrl } from '@mysten/sui/client';
+import dynamic from 'next/dynamic';
+const Analytics = dynamic(
+  () => import('@vercel/analytics/react').then((m) => m.Analytics),
+  { ssr: false },
+);
+
+const SpeedInsights = dynamic(
+  () => import('@vercel/speed-insights/next').then((m) => m.SpeedInsights),
+  { ssr: false },
+);
 
 export default function AppWrapper({
   children,
@@ -28,24 +38,25 @@ export default function AppWrapper({
   });
   const [queryClient] = useState(() => new QueryClient());
   return (
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Toaster />
-          <SuiClientProvider networks={networkConfig} defaultNetwork="testnet">
-            <WalletProvider autoConnect>
-              <AuthProvider>{children}</AuthProvider>
-            </WalletProvider>
-          </SuiClientProvider>
-        </ThemeProvider>
-        <ReactQueryDevtools
-          initialIsOpen={false}
-          buttonPosition="bottom-left"
-        />
-      </QueryClientProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        disableTransitionOnChange
+      >
+        <Toaster />
+        <SuiClientProvider networks={networkConfig} defaultNetwork="testnet">
+          <WalletProvider autoConnect>
+            <AuthProvider>
+              {children}
+              <Analytics />
+              <SpeedInsights />
+            </AuthProvider>
+          </WalletProvider>
+        </SuiClientProvider>
+      </ThemeProvider>
+      <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+    </QueryClientProvider>
   );
 }
