@@ -4,6 +4,8 @@ import { RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Icon } from '@iconify/react';
 
+import { useTranslation } from 'react-i18next';
+
 interface PaymentMethod {
   id: string;
   label: string;
@@ -16,6 +18,7 @@ interface PaymentOptionProps {
 }
 
 export default function PaymentOption({ method, value }: PaymentOptionProps) {
+  const { t } = useTranslation();
   return (
     <Label className="cursor-pointer group">
       <div className="w-full">
@@ -44,7 +47,7 @@ export default function PaymentOption({ method, value }: PaymentOptionProps) {
 
             {/* Label */}
             <span className="font-medium text-foreground flex-1">
-              {method.label}
+              {t(method.label)}
             </span>
 
             {/* Checkmark Animation */}

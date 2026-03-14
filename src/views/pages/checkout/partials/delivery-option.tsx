@@ -4,6 +4,8 @@ import { Card } from '@/components/ui/card';
 import { RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { Icon } from '@iconify/react/dist/iconify.js';
+import { useTranslation } from 'react-i18next';
+import { formatCurrencyWithExchange } from '@/utils';
 
 interface DeliveryMethod {
   id: number;
@@ -24,6 +26,7 @@ export default function DeliveryOption({
   isSelected,
   value,
 }: DeliveryOptionProps) {
+  const { i18n, t } = useTranslation();
   return (
     <Label className="cursor-pointer group max-">
       <div>
@@ -49,7 +52,7 @@ export default function DeliveryOption({
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="font-semibold text-foreground text-sm">
-                    {method.name}
+                    {t(method.name)}
                   </h3>
                   <div className="flex items-center gap-1 mt-1">
                     <Icon
@@ -59,16 +62,18 @@ export default function DeliveryOption({
                       className="text-muted-foreground"
                     />
                     <p className="text-xs text-muted-foreground">
-                      {method.estimatedTime}
+                      {t(method.estimatedTime)}
                     </p>
                   </div>
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-lg bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
-                    {method.cost.toLocaleString('vi-VN')} ₫
+                    {formatCurrencyWithExchange(method.cost, {
+                      language: i18n.language as 'vi' | 'en' | 'cn' | 'kr',
+                    })}
                   </p>
                   <p className="max-w-[100px] text-xs text-muted-foreground">
-                    {method.provider}
+                    {t(method.provider)}
                   </p>
                 </div>
               </div>

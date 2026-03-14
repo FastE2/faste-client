@@ -68,6 +68,10 @@ export const getViewedProduct = (): any[] => {
   return data ? JSON.parse(data) : [];
 };
 
+export const getPopupShown = (): string | null => {
+  return getFromCacheOrStorage(KEY_STORAGE.POPUP_SHOWN);
+};
+
 /**
  * Setters
  */
@@ -85,6 +89,10 @@ export const setCheckoutItems = (items: any[]) => {
 
 export const setStoreSearchHistory = (items: any[]) => {
   setToCacheAndStorage(KEY_STORAGE.SEARCH_HISTORY, JSON.stringify(items));
+};
+
+export const setPopupShown = (data: string) => {
+  setToCacheAndStorage(KEY_STORAGE.POPUP_SHOWN, JSON.stringify(data));
 };
 
 export const setViewedProduct = (items: any[]) => {

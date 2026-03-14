@@ -10,30 +10,22 @@ export interface IMenuItem {
 
 export const USER_MENU_ITEMS: IMenuItem[] = [
   {
-    title: 'Tài Khoản của tôi',
+    title: 'userMenu.myAccount',
     icon: 'uil:user',
     isActive: true,
     items: [
       {
-        title: 'Tài khoản',
+        title: 'userMenu.account',
         url: ROUTE_CONFIG.USER.INFO.ACCOUNT,
       },
       {
-        title: 'Địa chỉ',
+        title: 'userMenu.address',
         url: ROUTE_CONFIG.USER.INFO.ADDRESS,
       },
-      // {
-      //   title: 'Bảo mật',
-      //   url: ROUTE_CONFIG.USER.INFO.SECURITYS,
-      // },
       {
-        title: 'Đổi mật khẩu',
+        title: 'userMenu.changePassword',
         url: ROUTE_CONFIG.USER.INFO.CHANGE_PASSWORD,
       },
-      // {
-      //   title: 'Cài đặt thông báo',
-      //   url: ROUTE_CONFIG.USER.INFO.NOTIFICATION,
-      // },
     ],
   },
   // {
@@ -42,7 +34,7 @@ export const USER_MENU_ITEMS: IMenuItem[] = [
   //   icon: 'tdesign:notification',
   // },
   {
-    title: 'Đơn mua',
+    title: 'userMenu.orders',
     url: ROUTE_CONFIG.USER.ORDER.ORDER_LIST,
     icon: 'lets-icons:order',
   },
@@ -66,7 +58,7 @@ export const USER_MENU_ITEMS: IMenuItem[] = [
   //   icon: 'mdi:voucher-outline',
   // },
   {
-    title: 'Ví',
+    title: 'userMenu.wallet',
     icon: 'iconoir:wallet',
     items: [
       // {
@@ -74,7 +66,7 @@ export const USER_MENU_ITEMS: IMenuItem[] = [
       //   url: ROUTE_CONFIG.USER.WALLET.E_WALLER,
       // },
       {
-        title: 'Crypto Wallet',
+        title: 'userMenu.cryptoWallet',
         url: ROUTE_CONFIG.USER.WALLET.CRYPTO_WALLER,
       },
     ],

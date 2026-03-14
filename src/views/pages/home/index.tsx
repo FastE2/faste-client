@@ -10,8 +10,6 @@ import PrimaryProductCard from './partials/PrimaryProductCard';
 import Image from 'next/image';
 import WelcomePopup from './partials/WelcomePopup';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
-import { useSearchStore } from '@/stores/useSearchStore';
 import { useTranslation } from 'react-i18next';
 import EmptyProductHome from './partials/EmptyProductHome';
 

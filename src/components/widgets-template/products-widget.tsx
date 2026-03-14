@@ -60,7 +60,7 @@ export default function ProductsWidget({
   }, [shopId]);
 
   return (
-    <div className="rounded-lg bg-white p-3 shadow-sm">
+    <div className="rounded-lg bg-background p-3 shadow-sm">
       <div className="mb-3 flex items-center justify-between">
         <h3 className="text-sm font-semibold text-gray-900">
           Sản phẩm nổi bật

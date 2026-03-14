@@ -12,6 +12,7 @@ import { getSearchSuggest } from '@/services/search';
 import { hasVietnameseAccent } from '@/helpers/hasVietnameseAccent';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
+import { useTranslation } from 'react-i18next';
 
 const POPULAR_KEYWORDS = [
   'Máy Tính',
@@ -26,6 +27,7 @@ interface suggestKeywordType {
 }
 
 const SearchHeaderContent = () => {
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
   // const [searchText, setSearchText] = useState('');
   const { searchText, setSearchText } = useSearchStore();
@@ -37,6 +39,15 @@ const SearchHeaderContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const debounce = useDebounce(searchText, 400);
+
+  const POPULAR_KEYWORDS_INTERNAL = React.useMemo(() => [
+    t('header.keywords.computer'),
+    t('header.keywords.ram'),
+    t('header.keywords.clothing'),
+    t('header.keywords.laptop'),
+    t('header.keywords.cosmetics'),
+  ], [t]);
+
   // Lấy lịch sử tìm kiếm từ localStorage
   useEffect(() => {
     const storedHistory = getStoreSearchHistory();
@@ -124,7 +135,7 @@ const SearchHeaderContent = () => {
       <div className="w-full rounded-2xl border border-gray-200">
         <Input
           type="text"
-          placeholder="Search for products, categories or brands..."
+          placeholder={t('header.searchPlaceholder')}
           className="pr-10 bg-muted/50 border-0 rounded-2xl"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
@@ -141,7 +152,7 @@ const SearchHeaderContent = () => {
           <>
             {searchText ? (
               <div className="absolute left-0 top-11 bg-card w-full z-50 rounded-xs shadow-lg outline outline-gray-200 py-2 px-4">
-                <div className="text-gray-400">GỢI Ý TÌM KIẾM</div>
+                <div className="text-gray-400 font-bold text-xs">{t('header.searchSuggestions')}</div>
                 <div>
                   <div>
                     {suggestKeyword.slice(0, 8).map((item, index) => (
@@ -162,12 +173,12 @@ const SearchHeaderContent = () => {
             ) : (
               <div className="absolute left-0 top-11 bg-card w-full z-50 rounded-xs shadow-lg outline outline-gray-200 py-2 px-4">
                 <div className="flex justify-between items-center py-1">
-                  <div className="text-gray-400">LỊCH SỬ TÌM KIẾM</div>
+                  <div className="text-gray-400 font-bold text-xs">{t('header.searchHistory')}</div>
                   <div
-                    className="text-blue-400 cursor-pointer"
+                    className="text-blue-400 cursor-pointer text-sm"
                     onClick={handleClearHistory}
                   >
-                    Xóa tất cả
+                    {t('header.clearAll')}
                   </div>
                 </div>
                 <div className="pb-2">
@@ -203,16 +214,16 @@ const SearchHeaderContent = () => {
                       ))}
                     </div>
                   ) : (
-                    <div className="text-gray-400">
-                      Chưa có lịch sử tìm kiếm
+                    <div className="text-gray-400 text-sm">
+                      {t('header.noSearchHistory')}
                     </div>
                   )}
                 </div>
                 <div className="w-full h-[1px] bg-gray-300" />
                 <div className="pt-2">
-                  <div className="text-gray-400">TỪ KHÓA PHỔ BIẾN</div>
+                  <div className="text-gray-400 font-bold text-xs">{t('header.popularKeywords')}</div>
                   <div>
-                    {POPULAR_KEYWORDS.map((keyword, index) => (
+                    {POPULAR_KEYWORDS_INTERNAL.map((keyword, index) => (
                       <div
                         key={index}
                         className="text-gray-500 cursor-pointer py-1 flex items-center gap-x-2 hover:bg-gray-50"
@@ -240,11 +251,12 @@ const SearchHeaderContent = () => {
 };
 
 const SearchHeader = () => {
+  const { t } = useTranslation();
   return (
     <Suspense fallback={
       <div className="relative not-first:not-last:flex-1 max-w-2xl hidden md:flex items-center gap-2">
         <div className="w-full rounded-2xl border border-gray-200">
-          <Input type="text" placeholder="Search for products, categories or brands..." className="pr-10 bg-muted/50 border-0 rounded-2xl" disabled />
+          <Input type="text" placeholder={t('header.searchPlaceholder')} className="pr-10 bg-muted/50 border-0 rounded-2xl" disabled />
         </div>
       </div>
     }>

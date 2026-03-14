@@ -11,9 +11,13 @@ import { USER_MENU_ITEMS } from '@/configs/sidebar-items';
 import { NavMain } from './nav-main-user';
 import Image from 'next/image';
 import { useAuth } from '@/hooks/use-auth';
+import { useTranslation } from 'react-i18next';
+
 
 export default function AppSidebar() {
+  const { t } = useTranslation();
   const { user } = useAuth();
+
   return (
     <Sidebar
       side="right"
@@ -45,7 +49,7 @@ export default function AppSidebar() {
             </div>
             <div>
               <h3 className="font-medium">
-                {user?.name ? user?.name : 'customer_user_name'}
+                {user?.name ? user?.name : t('common.customerName')}
               </h3>
             </div>
           </SidebarGroupLabel>

@@ -17,6 +17,8 @@ import {
 import AlertConfirm from '@/components/AlertConfirm';
 import { cancelOrder } from '@/services/order';
 import { toastify } from '@/components/ToastNotification';
+import { useTranslation } from 'react-i18next';
+
 
 interface OrderCardProps {
   // order: {
@@ -45,7 +47,9 @@ const OrderCard = memo(function OrderCard({
   handleProductRating,
   handleConfirnReceived,
 }: OrderCardProps) {
+  const { t } = useTranslation();
   const router = useRouter();
+
   const [openCancel, setOpenCancel] = useState(false);
   const [cancelOrderId, setCancelOrderId] = useState<string | null>(null);
 
@@ -60,7 +64,7 @@ const OrderCard = memo(function OrderCard({
   const getOrderStatusMeta = (status: OrderStatus) => {
     return (
       ORDER_STATUS_META[status] ?? {
-        label: 'Không xác định',
+        label: t('order.status.unknown'),
         color: 'text-gray-600',
       }
     );
@@ -71,39 +75,39 @@ const OrderCard = memo(function OrderCard({
     { label: string; color: string }
   > = {
     [OrderStatus.PENDING_CONFIRMATION]: {
-      label: 'Chờ xác nhận',
+      label: t('order.status.pendingConfirmation'),
       color: 'text-gray-600',
     },
     [OrderStatus.PROCESSING]: {
-      label: 'Đang xử lý',
+      label: t('order.status.processing'),
       color: 'text-sky-600',
     },
     [OrderStatus.PENDING_PAYMENT]: {
-      label: 'Chờ thanh toán',
+      label: t('order.status.pendingPayment'),
       color: 'text-yellow-600',
     },
     [OrderStatus.PENDING_PICKUP]: {
-      label: 'Chờ lấy hàng',
+      label: t('order.status.pendingPickup'),
       color: 'text-blue-600',
     },
     [OrderStatus.PENDING_DELIVERY]: {
-      label: 'Đang giao hàng',
+      label: t('order.status.pendingDelivery'),
       color: 'text-indigo-600',
     },
     [OrderStatus.DELIVERED]: {
-      label: 'Đã giao thành công',
+      label: t('order.status.delivered'),
       color: 'text-green-600',
     },
     [OrderStatus.RECEIVED]: {
-      label: 'Đã giao thành công',
+      label: t('order.status.delivered'),
       color: 'text-green-600',
     },
     [OrderStatus.RETURNED]: {
-      label: 'Đã trả hàng / hoàn hàng',
+      label: t('order.status.returned'),
       color: 'text-rose-600',
     },
     [OrderStatus.CANCELLED]: {
-      label: 'Đã hủy đơn',
+      label: t('order.status.cancelled'),
       color: 'text-orange-600',
     },
   };
@@ -120,9 +124,9 @@ const OrderCard = memo(function OrderCard({
     if (!cancelOrderId) return;
     try {
       await cancelOrder(Number(cancelOrderId));
-      toastify.success('Thành công', 'Hủy đơn hàng thành công!');
+      toastify.success(t('order.status.updateSuccess'), t('order.status.updateSuccessDesc')); // I should probably simplify toastify calls or add keys
     } catch (error) {
-      toastify.error('Lỗi', 'Có lỗi xảy ra khi hủy đơn hàng!');
+      toastify.error(t('order.status.updateError'), t('order.status.updateErrorDesc'));
     }
     setOpenCancel(false);
     setCancelOrderId(null);
@@ -134,8 +138,8 @@ const OrderCard = memo(function OrderCard({
         open={openCancel}
         onClose={() => setOpenCancel(false)}
         onConfirm={handleCancelOrder}
-        title="Xác nhận hủy đơn hàng"
-        description="Bạn có chắc chắn muốn hủy đơn hàng này không?"
+        title={t('order.cancelConfirmTitle')}
+        description={t('order.cancelConfirmDescription')}
       />
       {/* Shop Header */}
       {order.orders.map((od: any) => {
@@ -153,7 +157,7 @@ const OrderCard = memo(function OrderCard({
                 <ChevronRight className="h-4 w-4 text-muted-foreground" />
                 <div className="text-sm text-gray-400 flex items-center gap-1 cursor-pointer">
                   <Icon icon={'entypo:chat'} />
-                  <span>Chat ngay</span>
+                  <span>{t('order.chatNow')}</span>
                 </div>
                 <Button
                   variant="ghost"
@@ -164,7 +168,7 @@ const OrderCard = memo(function OrderCard({
                   }
                 >
                   <Icon icon={'bx:store'} />
-                  <span>Xem Shop</span>
+                  <span>{t('order.viewShop')}</span>
                 </Button>
               </div>
               <div
@@ -229,7 +233,7 @@ const OrderCard = memo(function OrderCard({
             {order.orders[0].status === OrderStatus.RECEIVED &&
               !order.orders[0].isReviewed && (
                 <>
-                  <span>Đánh giá sản phẩm trước</span>{' '}
+                  <span>{t('order.reviewBefore')}</span>{' '}
                   <Tooltip>
                     <TooltipTrigger className="text-xs text-gray-500 underline cursor-pointer">
                       {order.orders[0].status === OrderStatus.RECEIVED &&
@@ -239,7 +243,13 @@ const OrderCard = memo(function OrderCard({
                       side="bottom"
                       className="bg-neutral-200 [&_svg]:bg-neutral-200 [&_svg]:fill-neutral-200 text-neutral-950"
                     >
-                      <p className="max-w-[200px]">{`Bạn sẽ không thể đánh giá đơn hàng và nhận 200 Shopee Xu sau ngày ${dayjs(order.orders[0].updatedAt).add(30, 'day').format('DD-MM-YYYY')}. Hãy đánh giá sản phẩm và nhận 200 Shopee Xu ngay!`}</p>
+                      <p className="max-w-[200px]">
+                        {t('order.reviewPenaltyNote', {
+                          date: dayjs(order.orders[0].updatedAt)
+                            .add(30, 'day')
+                            .format('DD-MM-YYYY'),
+                        })}
+                      </p>
                     </TooltipContent>
                   </Tooltip>
                 </>
@@ -247,7 +257,7 @@ const OrderCard = memo(function OrderCard({
           </div>
           <div className="space-y-4">
             <div className="text-right flex justify-end items-center gap-x-2">
-              <p className="text-xs text-muted-foreground">Thành tiền:</p>
+              <p className="text-xs text-muted-foreground">{t('order.totalAmountLabel')}</p>
               <p className="text-lg sm:text-xl font-bold text-orange-600">
                 {formatPrice(order.totalAmount)}
               </p>
@@ -269,14 +279,14 @@ const OrderCard = memo(function OrderCard({
                           )
                         }
                       >
-                        Thanh toán ngay
+                        {t('order.payNow')}
                       </Button>
                       <Button
                         variant="outline"
                         size="sm"
                         className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto cursor-pointer"
                       >
-                        Liên Hệ Người Bán
+                        {t('order.contactSeller')}
                       </Button>
                       <Button
                         variant="outline"
@@ -284,7 +294,7 @@ const OrderCard = memo(function OrderCard({
                         className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto cursor-pointer"
                         onClick={() => openCancelConfirm(order.orders[0].id)}
                       >
-                        Hủy Đơn Hàng
+                        {t('order.cancelOrder')}
                       </Button>
                     </>
                   )}
@@ -321,7 +331,7 @@ const OrderCard = memo(function OrderCard({
                       size="sm"
                       className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto cursor-pointer"
                     >
-                      Liên Hệ Người Bán
+                      {t('order.contactSeller')}
                     </Button>
                     <Button
                       variant="outline"
@@ -329,7 +339,7 @@ const OrderCard = memo(function OrderCard({
                       className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto cursor-pointer"
                       onClick={() => openCancelConfirm(order.orders[0].id)}
                     >
-                      Hủy Đơn Hàng
+                      {t('order.cancelOrder')}
                     </Button>
                   </>
                 )}
@@ -342,14 +352,14 @@ const OrderCard = memo(function OrderCard({
                       size="sm"
                       className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto cursor-pointer"
                     >
-                      Theo Dõi Đơn Hàng
+                      {t('order.trackOrder')}
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto cursor-pointer"
                     >
-                      Liên Hệ Người Bán
+                      {t('order.contactSeller')}
                     </Button>
                   </>
                 )}
@@ -366,21 +376,21 @@ const OrderCard = memo(function OrderCard({
                         )
                       }
                     >
-                      Đã Nhận Hàng
+                      {t('order.received')}
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto"
                     >
-                      Liên Hệ Người Bán
+                      {t('order.contactSeller')}
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto"
                     >
-                      Yêu Cầu Trả Hàng/Hoàn Tiền
+                      {t('order.returnRequest')}
                     </Button>
                   </>
                 )}
@@ -398,7 +408,7 @@ const OrderCard = memo(function OrderCard({
                           )
                         }
                       >
-                        Đánh giá
+                        {t('order.rate')}
                       </Button>
 
                       <Button
@@ -406,14 +416,14 @@ const OrderCard = memo(function OrderCard({
                         size="sm"
                         className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto"
                       >
-                        Liên Hệ Người Bán
+                        {t('order.contactSeller')}
                       </Button>
                       <Button
                         variant="outline"
                         size="sm"
                         className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto"
                       >
-                        Mua Lại
+                        {t('order.buyAgain')}
                       </Button>
                     </>
                   )}
@@ -426,21 +436,21 @@ const OrderCard = memo(function OrderCard({
                       size="sm"
                       className="text-xs sm:text-sm font-normal bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 h-auto cursor-pointer"
                     >
-                      Mua Lại
+                      {t('order.buyAgain')}
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto"
                     >
-                      Xem chi tiết đơn hủy
+                      {t('order.viewCancelledDetails')}
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto"
                     >
-                      Liên Hệ Người Bán
+                      {t('order.contactSeller')}
                     </Button>
                   </>
                 )}
@@ -452,7 +462,7 @@ const OrderCard = memo(function OrderCard({
                     size="sm"
                     className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto cursor-pointer"
                   >
-                    Mua Lại
+                    {t('order.buyAgain')}
                   </Button>
                 )}
 
@@ -465,21 +475,21 @@ const OrderCard = memo(function OrderCard({
                         className="text-xs sm:text-sm font-normal bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 h-auto cursor-pointer"
                         onClick={() => {}}
                       >
-                        Mua Lại
+                        {t('order.buyAgain')}
                       </Button>
                       <Button
                         variant="outline"
                         size="sm"
                         className="text-xs sm:text-sm font-normal bg-white text-gray-700 border-gray-300 hover:bg-gray-50 px-3 py-2 h-auto"
                       >
-                        Liên Hệ Người Bán
+                        {t('order.contactSeller')}
                       </Button>
                       <Button
                         variant="outline"
                         size="sm"
                         className="text-xs sm:text-sm font-normal bg-background text-foreground border-border hover:bg-muted px-3 py-2 h-auto"
                       >
-                        Xem Lại Đánh Giá
+                        {t('order.viewReview')}
                       </Button>
                     </>
                   )}

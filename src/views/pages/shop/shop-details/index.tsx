@@ -15,17 +15,16 @@ type TProps = {
   shop: any;
 };
 
-const tabs = [
-  { value: 'store', label: 'Cửa Hàng' },
-  { value: 'all-products', label: 'Tất Cả Sản Phẩm' },
-  { value: 'collections', label: 'Bộ Sưu Tập' },
-  { value: 'flash-sale', label: 'Giá Sốc Hôm Nay' },
-  { value: 'profile', label: 'Hồ Sơ Cửa Hàng' },
-];
-
-export const ShopDetails = ({ shop }: TProps) => {
+const ShopDetails = ({ shop }: TProps) => {
+  const { t } = useTranslation();
+  const tabs = [
+    { value: 'store', label: t('shop.tabs.store') },
+    { value: 'all-products', label: t('shop.tabs.allProducts') },
+    { value: 'collections', label: t('shop.tabs.collections') },
+    { value: 'today-flash-sale', label: t('shop.tabs.todayFlashSale') },
+    { value: 'profile', label: t('shop.shopProfile') },
+  ];
   const [activeTab, setActiveTab] = useState('store');
-  const {t} = useTranslation();
   const templateWidgets =
     shop?.Template[0]?.widgets.sort(
       (a: any, b: any) => a.widgetIndex - b.widgetIndex,
@@ -40,7 +39,7 @@ export const ShopDetails = ({ shop }: TProps) => {
         <div
           className="px-8 pt-6 pb-2 bg-green-600"
           style={{
-            background: `linear-gradient(to right, ${shop?.Template[0].theme}, #222})`,
+            background: `linear-gradient(to right, ${shop?.Template?.[0]?.theme || '#22c55e'}, #222)`,
           }}
         >
           <div className="flex items-center justify-between">
@@ -65,14 +64,14 @@ export const ShopDetails = ({ shop }: TProps) => {
                     {shop.ratingStar} / 5
                   </span>
                   <Icon icon={'ri:user-add-line'} width={18} height={18} />{' '}
-                  <span>Theo dõi: 1</span>
+                  <span>{t('shop.followers')}: 1</span>
                 </div>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <Button className="bg-white/10 hover:bg-white/20 text-white border border-white/30">
                 <MessageCircle className="mr-2 h-4 w-4" />
-                Chat
+                {t('shop.chat')}
               </Button>
               <Button className="bg-blue-500 hover:bg-blue-600 text-white">
                 <span className="mr-2">+</span>
@@ -104,7 +103,7 @@ export const ShopDetails = ({ shop }: TProps) => {
               <Search className="h-4 w-4 text-gray-400" />
               <input
                 type="text"
-                placeholder="Tìm sản phẩm tại cửa hàng"
+                placeholder={t('shop.searchProductInShop')}
                 className="w-64 border-none bg-transparent text-sm outline-none placeholder:text-gray-400"
               />
             </div>
@@ -203,3 +202,4 @@ export const ShopDetails = ({ shop }: TProps) => {
     </div>
   );
 };
+export default ShopDetails;

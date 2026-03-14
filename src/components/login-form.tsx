@@ -12,6 +12,9 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '@/hooks/use-auth';
+import { Icon } from '@iconify/react';
+import { useTranslation } from 'react-i18next';
+
 
 // Định nghĩa schema validation với yup
 const schema = yup
@@ -32,6 +35,8 @@ export function LoginForm({
   ...props
 }: React.ComponentProps<'div'>) {
   const { login } = useAuth();
+  const { t } = useTranslation();
+
   const {
     control,
     handleSubmit,
@@ -39,6 +44,8 @@ export function LoginForm({
   } = useForm({
     resolver: yupResolver(schema), // Kết nối yup validation với react-hook-form
   });
+  const [showPassword, setShowPassword] = React.useState(false);
+
 
   const onSubmit = (data: { email: string; password: string }) => {
     if (!Object.keys(errors).length) {
@@ -53,15 +60,15 @@ export function LoginForm({
           <form className="p-6 md:p-8" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-6">
               <div className="flex flex-col items-center text-center">
-                <h1 className="text-2xl font-bold">Welcome back</h1>
+                <h1 className="text-2xl font-bold">{t('auth.login.title')}</h1>
                 <p className="text-muted-foreground text-balance">
-                  Login to your Acme Inc account
+                  {t('auth.login.subtitle')}
                 </p>
               </div>
 
               {/* Email Field */}
               <div className="grid gap-3">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t('auth.login.emailLabel')}</Label>
                 <Controller
                   name="email"
                   control={control}
@@ -83,19 +90,41 @@ export function LoginForm({
               {/* Password Field */}
               <div className="grid gap-3">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">{t('auth.login.passwordLabel')}</Label>
                   <a
                     href="#"
                     className="ml-auto text-sm underline-offset-2 hover:underline"
                   >
-                    Forgot your password?
+                    {t('auth.login.forgotPassword')}
                   </a>
                 </div>
                 <Controller
                   name="password"
                   control={control}
                   render={({ field }) => (
-                    <Input {...field} id="password" type="password" required />
+                    <div className="relative">
+                      <Input
+                        {...field}
+                        id="password"
+                        type={showPassword ? 'text' : 'password'}
+                        className="pr-10"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                      >
+                        <Icon
+                          icon={
+                            showPassword
+                              ? 'heroicons-outline:eye-off'
+                              : 'heroicons-outline:eye'
+                          }
+                          width="20"
+                        />
+                      </button>
+                    </div>
                   )}
                 />
                 {/* Hiển thị lỗi nếu có */}
@@ -108,13 +137,13 @@ export function LoginForm({
 
               {/* Submit Button */}
               <Button type="submit" className="w-full">
-                Login
+                {t('auth.login.loginButton')}
               </Button>
 
               {/* Or continue with */}
               <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                 <span className="bg-card text-muted-foreground relative z-10 px-2">
-                  Or continue with
+                  {t('auth.login.continueWith')}
                 </span>
               </div>
 
@@ -150,9 +179,9 @@ export function LoginForm({
               </div>
 
               <div className="text-center text-sm">
-                Don&apos;t have an account?{' '}
+                {t('auth.login.noAccount')}{' '}
                 <Link href="register" className="underline underline-offset-4">
-                  Sign up
+                  {t('auth.login.signUp')}
                 </Link>
               </div>
             </div>
@@ -169,9 +198,7 @@ export function LoginForm({
         </CardContent>
       </Card>
       <div className="text-muted-foreground *:[a]:hover:text-primary text-center text-xs text-balance *:[a]:underline *:[a]:underline-offset-4">
-        By clicking continue, you agree to our{' '}
-        <Link href="#">Terms of Service</Link> and{' '}
-        <Link href="#">Privacy Policy</Link>.
+        {t('auth.login.termsAgreement')}
       </div>
     </div>
   );

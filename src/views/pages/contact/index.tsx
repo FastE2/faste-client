@@ -14,6 +14,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Mail, Phone, MapPin, Clock, Linkedin, Twitter } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
 
 /**
  * Contact Page Component
@@ -39,6 +41,7 @@ interface ContactFormData {
 }
 
 export default function ContactPage() {
+  const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     'idle' | 'success' | 'error'
@@ -71,7 +74,7 @@ export default function ContactPage() {
         if (Math.random() > 0.1) {
           resolve();
         } else {
-          reject(new Error('Failed to send message. Please try again.'));
+          reject(new Error(t('contact.errors.submitError')));
         }
       }, 2000);
     });
@@ -107,12 +110,10 @@ export default function ContactPage() {
         {/* Header */}
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-bold tracking-tight text-foreground mb-4">
-            Get in Touch
+            {t('contact.title')}
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Have a question or want to work together? We&apos;d love to hear
-            from you. Send us a message and we&apos;ll respond as soon as
-            possible.
+            {t('contact.desc')}
           </p>
         </div>
 
@@ -121,9 +122,9 @@ export default function ContactPage() {
           {/* Contact Form Card */}
           <Card className="h-fit">
             <CardHeader>
-              <CardTitle>Send us a Message</CardTitle>
+              <CardTitle>{t('contact.formTitle')}</CardTitle>
               <CardDescription>
-                Fill out the form below and we&apos;ll get back to you shortly.
+                {t('contact.formDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -134,20 +135,20 @@ export default function ContactPage() {
                     htmlFor="fullName"
                     className="block text-sm font-medium text-foreground"
                   >
-                    Full Name <span className="text-destructive">*</span>
+                    {t('contact.fullName')} <span className="text-destructive">*</span>
                   </label>
                   <Input
                     id="fullName"
-                    placeholder="John Doe"
+                    placeholder={t('contact.fullNamePlaceholder')}
                     aria-invalid={errors.fullName ? 'true' : 'false'}
                     aria-describedby={
                       errors.fullName ? 'fullName-error' : undefined
                     }
                     {...register('fullName', {
-                      required: 'Full name is required',
+                      required: t('contact.errors.nameRequired'),
                       minLength: {
                         value: 2,
-                        message: 'Full name must be at least 2 characters',
+                        message: t('contact.errors.nameMin'),
                       },
                     })}
                   />
@@ -168,19 +169,19 @@ export default function ContactPage() {
                     htmlFor="email"
                     className="block text-sm font-medium text-foreground"
                   >
-                    Email Address <span className="text-destructive">*</span>
+                    {t('contact.email')} <span className="text-destructive">*</span>
                   </label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="you@example.com"
+                    placeholder={t('contact.emailPlaceholder')}
                     aria-invalid={errors.email ? 'true' : 'false'}
                     aria-describedby={errors.email ? 'email-error' : undefined}
                     {...register('email', {
-                      required: 'Email is required',
+                      required: t('contact.errors.emailRequired'),
                       pattern: {
                         value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                        message: 'Please enter a valid email address',
+                        message: t('contact.errors.emailInvalid'),
                       },
                     })}
                   />
@@ -201,14 +202,14 @@ export default function ContactPage() {
                     htmlFor="subject"
                     className="block text-sm font-medium text-foreground"
                   >
-                    Subject{' '}
+                    {t('contact.subject')}{' '}
                     <span className="text-muted-foreground text-xs">
-                      (Optional)
+                      {t('contact.subjectOptional')}
                     </span>
                   </label>
                   <Input
                     id="subject"
-                    placeholder="How can we help?"
+                    placeholder={t('contact.subjectPlaceholder')}
                     {...register('subject')}
                   />
                 </div>
@@ -219,21 +220,21 @@ export default function ContactPage() {
                     htmlFor="message"
                     className="block text-sm font-medium text-foreground"
                   >
-                    Message <span className="text-destructive">*</span>
+                    {t('contact.message')} <span className="text-destructive">*</span>
                   </label>
                   <Textarea
                     id="message"
-                    placeholder="Tell us more about your inquiry..."
+                    placeholder={t('contact.messagePlaceholder')}
                     rows={5}
                     aria-invalid={errors.message ? 'true' : 'false'}
                     aria-describedby={
                       errors.message ? 'message-error' : undefined
                     }
                     {...register('message', {
-                      required: 'Message is required',
+                      required: t('contact.errors.messageRequired'),
                       minLength: {
                         value: 10,
-                        message: 'Message must be at least 10 characters',
+                        message: t('contact.errors.messageMin'),
                       },
                     })}
                   />
@@ -252,8 +253,7 @@ export default function ContactPage() {
                 {submitStatus === 'success' && (
                   <Alert className="bg-green-50 border-green-200 text-green-800">
                     <AlertDescription>
-                      ✓ Your message has been sent successfully! We&apos;ll be
-                      in touch soon.
+                      ✓ {t('contact.successMessage')}
                     </AlertDescription>
                   </Alert>
                 )}
@@ -275,10 +275,10 @@ export default function ContactPage() {
                   {isSubmitting ? (
                     <>
                       <span className="inline-block animate-spin mr-2">⏳</span>
-                      Sending...
+                      {t('contact.sending')}
                     </>
                   ) : (
-                    'Send Message'
+                    t('contact.sendMessage')
                   )}
                 </Button>
               </form>
@@ -290,9 +290,9 @@ export default function ContactPage() {
             {/* Company Info Card */}
             <Card>
               <CardHeader>
-                <CardTitle>Contact Information</CardTitle>
+                <CardTitle>{t('contact.infoTitle')}</CardTitle>
                 <CardDescription>
-                  Reach out to us through any of these channels
+                  {t('contact.infoDesc')}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -301,7 +301,7 @@ export default function ContactPage() {
                   <MapPin className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">
-                      Address
+                      {t('contact.address')}
                     </h3>
                     <p className="text-muted-foreground">
                       123 Business Street
@@ -318,7 +318,7 @@ export default function ContactPage() {
                   <Phone className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">
-                      Phone
+                      {t('contact.phone')}
                     </h3>
                     <a
                       href="tel:+14155551234"
@@ -334,7 +334,7 @@ export default function ContactPage() {
                   <Mail className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">
-                      Email
+                      {t('contact.email')}
                     </h3>
                     <a
                       href="mailto:hello@example.com"
@@ -350,12 +350,12 @@ export default function ContactPage() {
                   <Clock className="w-5 h-5 text-primary flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="font-semibold text-foreground mb-1">
-                      Business Hours
+                      {t('contact.businessHours')}
                     </h3>
                     <p className="text-muted-foreground text-sm">
-                      Monday - Friday: 9:00 AM - 6:00 PM PST
+                      {t('contact.hoursWork')}
                       <br />
-                      Saturday - Sunday: Closed
+                      {t('contact.hoursWeekend')}
                     </p>
                   </div>
                 </div>
@@ -363,7 +363,7 @@ export default function ContactPage() {
                 {/* Social Links */}
                 <div className="pt-4 border-t border-border">
                   <h3 className="font-semibold text-foreground mb-3">
-                    Follow Us
+                    {t('contact.followUs')}
                   </h3>
                   <div className="flex gap-3">
                     <a

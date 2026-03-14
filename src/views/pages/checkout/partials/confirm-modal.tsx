@@ -32,7 +32,7 @@ export default function ConfirmModal({
   selectedPaymentMethod,
   totalAmount,
 }: ConfirmModalProps) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   console.log("= Confirm model render")
 
@@ -50,10 +50,10 @@ export default function ConfirmModal({
           </div>
           <div>
             <DialogTitle className="text-xl font-bold">
-              Xác nhận đơn hàng
+              {t('checkout.confirmTitle')}
             </DialogTitle>
             <DialogDescription>
-              Vui lòng kiểm tra lại thông tin trước khi đặt hàng
+              {t('checkout.confirmDesc')}
             </DialogDescription>
           </div>
         </DialogHeader>
@@ -63,7 +63,7 @@ export default function ConfirmModal({
           {/* Delivery Info */}
           <div className="p-3 rounded-lg bg-muted/50 border border-border/50">
             <p className="text-xs font-medium text-muted-foreground mb-1">
-              Giao hàng
+              {t('checkout.shippingUnit')}
             </p>
             <p className="font-medium">{selectedDelivery?.name}</p>
             <p className="text-sm text-muted-foreground">
@@ -74,7 +74,7 @@ export default function ConfirmModal({
           {/* Payment Info */}
           <div className="p-3 rounded-lg bg-muted/50 border border-border/50">
             <p className="text-xs font-medium text-muted-foreground mb-1">
-              Thanh toán
+              {t('checkout.selectPaymentMethod')}
             </p>
             <p className="font-medium">{selectedPaymentMethod}</p>
           </div>
@@ -82,11 +82,11 @@ export default function ConfirmModal({
           {/* Total */}
           <div className="p-3 rounded-lg bg-primary/10 border border-primary/20">
             <p className="text-xs font-medium text-muted-foreground mb-1">
-              Tổng cộng
+              {t('cart.totalPayment')}
             </p>
             <p className="text-2xl font-bold bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
               {formatCurrencyWithExchange(Number(totalAmount), {
-                language: i18n.language as 'vi' | 'en',
+                language: i18n.language as 'vi' | 'en' | 'cn' | 'kr',
               })}
             </p>
           </div>
@@ -100,7 +100,7 @@ export default function ConfirmModal({
             disabled={isLoading}
             className="flex-1 bg-transparent cursor-pointer"
           >
-            Hủy
+            {t('common.cancel')}
           </Button>
           <Button
             onClick={onConfirm}
@@ -115,7 +115,7 @@ export default function ConfirmModal({
                 height={18}
               />
             ) : (
-              'Xác nhận'
+              t('common.confirm')
             )}
           </Button>
         </DialogFooter>

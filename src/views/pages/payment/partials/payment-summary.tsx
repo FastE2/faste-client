@@ -14,23 +14,23 @@ export default function PaymentSummary({
   transactionData,
   paymentStatus = 'idle',
 }: PaymentSummaryProps) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const getStatusBadge = () => {
     switch (paymentStatus) {
       case 'success':
         return (
-          <Badge className="bg-green-600 hover:bg-green-700">Completed</Badge>
+          <Badge className="bg-green-600 hover:bg-green-700">{t('order.tabs.completed')}</Badge>
         );
       case 'processing':
         return (
-          <Badge className="bg-blue-600 hover:bg-blue-700">Processing</Badge>
+          <Badge className="bg-blue-600 hover:bg-blue-700">{t('order.tabs.shipping')}</Badge>
         );
       case 'error':
-        return <Badge className="bg-red-600 hover:bg-red-700">Failed</Badge>;
+        return <Badge className="bg-red-600 hover:bg-red-700">{t('order.tabs.cancelled')}</Badge>;
       default:
         return (
-          <Badge className="bg-slate-600 hover:bg-slate-700">Pending</Badge>
+          <Badge className="bg-slate-600 hover:bg-slate-700">{t('order.tabs.pending')}</Badge>
         );
     }
   };
@@ -39,7 +39,7 @@ export default function PaymentSummary({
     <Card className="border-0 shadow-lg sticky top-8 max-h-[450px]">
       <CardHeader className="border-b border-slate-200 dark:border-slate-800">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg">Order Summary</CardTitle>
+          <CardTitle className="text-lg">{t('payment.summary.title')}</CardTitle>
           {getStatusBadge()}
         </div>
       </CardHeader>
@@ -48,7 +48,7 @@ export default function PaymentSummary({
           {/* Order ID */}
           <div>
             <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">
-              Transaction ID
+              {t('payment.summary.orderId')}
             </p>
             <p className="font-mono text-sm font-semibold text-slate-900 dark:text-white">
               {transactionData?.id}
@@ -60,7 +60,7 @@ export default function PaymentSummary({
           {/* Description */}
           <div>
             <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">
-              Description
+              {t('payment.summary.description')}
             </p>
             <p className="text-sm text-slate-900 dark:text-white">
               {`DH${transactionData?.id}`}
@@ -72,11 +72,11 @@ export default function PaymentSummary({
           {/* Total Amount */}
           <div className="bg-slate-50 dark:bg-slate-900 rounded-lg p-4">
             <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
-              Total Amount
+              {t('payment.summary.amount')}
             </p>
             <p className="text-3xl font-bold text-slate-900 dark:text-white">
               {formatCurrencyWithExchange(Number(transactionData?.total), {
-                language: i18n.language as 'vi' | 'en',
+                language: i18n.language as 'vi' | 'en' | 'cn' | 'kr',
               })}
             </p>
           </div>

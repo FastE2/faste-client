@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 const list = [
   'Careers for Gorgon',
   'About Gorgon',
@@ -9,9 +11,11 @@ const list = [
 ];
 
 export default function KnowUs() {
+  const { t } = useTranslation();
+
   return (
     <div>
-      <h4 className="font-semibold mb-4">Get to Know Us</h4>
+      <h4 className="font-semibold mb-4">{t('footer.knowUs')}</h4>
       <ul className="space-y-2 text-sm">
         {list.map((item, i) => (
           <li key={i}>

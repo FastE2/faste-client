@@ -5,6 +5,25 @@ import { keepPreviousData } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SkeletonCardCategory } from './SkeletonCardCategory';
+import { PackageOpen } from 'lucide-react';
+
+const EmptyCategory = () => {
+  return (
+    <div className="flex flex-col items-center justify-center py-16 text-center">
+      <PackageOpen className="w-12 h-12 text-muted-foreground mb-4" />
+
+      <h3 className="text-lg font-semibold mb-2">No categories found</h3>
+
+      <p className="text-sm text-muted-foreground mb-4 max-w-sm">
+        There are currently no product categories available.
+      </p>
+
+      <Link href="/products" className="text-sm text-primary hover:underline">
+        Browse all products
+      </Link>
+    </div>
+  );
+};
 
 const CardCategory = () => {
   const { data, isLoading } = useGetCategories(
@@ -36,13 +55,13 @@ const CardCategory = () => {
                   href={'/product?categoryIds=' + item.id}
                   key={item.id}
                   className={`
-        flex flex-col items-center justify-between p-2 h-40
-        bg-white dark:bg-black border-gray-200
-        ${index === data.length - 1 || index === 0 ? 'border' : ' border border-l-0'}
-        w-1/4 sm:w-1/4 md:w-1/5 lg:w-1/5 // Responsive width based on screen size
-        hover:shadow-xl
-        transform transition duration-300 ease-in-out
-      `}
+                    flex flex-col items-center justify-between p-2 h-40
+                    bg-white dark:bg-black border-gray-200
+                    ${index === data.length - 1 || index === 0 ? 'border' : ' border border-l-0'}
+                    w-1/4 sm:w-1/4 md:w-1/5 lg:w-1/5 // Responsive width based on screen size
+                    hover:shadow-xl
+                    transform transition duration-300 ease-in-out
+                  `}
                 >
                   <div className="rounded-full bg-[#F5F5F5] w-[83px] h-[83px]">
                     <Image
@@ -59,7 +78,7 @@ const CardCategory = () => {
               ))}
           </div>
         ) : (
-          <div>No data</div>
+          EmptyCategory()
         )}
       </div>
     </>

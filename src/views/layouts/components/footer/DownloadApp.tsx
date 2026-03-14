@@ -1,9 +1,12 @@
 import { Icon } from '@iconify/react';
+import { useTranslation } from 'react-i18next';
 
 export default function DownloadApp() {
+  const { t } = useTranslation();
+
   return (
     <div className="mb-8">
-      <h4 className="font-bold text-sm mb-5 tracking-wider uppercase">TẢI ỨNG DỤNG</h4>
+      <h4 className="font-bold text-sm mb-5 tracking-wider uppercase">{t('footer.downloadApp')}</h4>
 
       <div className="flex flex-col sm:flex-row lg:flex-col gap-3">
         <a href="#" className="flex-1 transition-transform hover:-translate-y-1">

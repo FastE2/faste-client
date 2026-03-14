@@ -49,4 +49,12 @@ export const LANGUAGE_OPTIONS = [
     lang: 'English',
     value: 'en',
   },
+  {
+    lang: '中文 (Chinese)',
+    value: 'cn',
+  },
+  {
+    lang: '한국어 (Korean)',
+    value: 'kr',
+  },
 ];

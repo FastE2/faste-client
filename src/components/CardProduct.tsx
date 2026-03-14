@@ -44,10 +44,10 @@ const CartProduct = (props: { data: any; className?: string }) => {
               <div className="text-[#EE4D2D] text-base">
                 {data?.skus?.length
                   ? formatCurrencyWithExchange(data.skus[0].price, {
-                      language: i18n.language as 'vi' | 'en',
+                      language: i18n.language as 'vi' | 'en' | 'cn' | 'kr',
                     })
                   : formatCurrencyWithExchange(data?.basePrice ?? 0, {
-                      language: i18n.language as 'vi' | 'en',
+                      language: i18n.language as 'vi' | 'en' | 'cn' | 'kr',
                     })}
               </div>
               <div className="w-8 h-4 text-[10px] bg-[#FEEEEA] text-[#EE4D2D] py-0.5 px-1 ">

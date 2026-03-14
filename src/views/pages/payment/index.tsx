@@ -19,10 +19,12 @@ import PayfastPayment from './partials/payfast-payment';
 import PaymentSummary from './partials/payment-summary';
 import CountdownTimer from './partials/countdown-timer';
 import { getDetailOrderTXById } from '@/services/order';
+import { useTranslation } from 'react-i18next';
 
 type PaymentMethod = 'SEPAY' | 'WEB3' | 'PayFast';
 
 export default function PaymentPage() {
+  const { t } = useTranslation();
   const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>('SEPAY');
   const [timeExpired, setTimeExpired] = useState(false);
   const paymentState = usePaymentState();
@@ -38,7 +40,7 @@ export default function PaymentPage() {
     setTimeExpired(true);
     paymentState.setError(
       'PAYMENT_EXPIRED',
-      'Payment time has expired. Please initiate a new payment.',
+      t('payment.timeExpired'),
       false,
     );
   }, [paymentState]);
@@ -84,10 +86,10 @@ export default function PaymentPage() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-slate-900 dark:text-white mb-2">
-            Complete Your Payment
+            {t('payment.title')}
           </h1>
           <p className="text-slate-600 dark:text-slate-400">
-            Select your preferred payment method to proceed
+            {t('payment.subtitle')}
           </p>
         </div>
 
@@ -98,9 +100,9 @@ export default function PaymentPage() {
               <CardHeader className="border-b border-slate-200 dark:border-slate-800 px-4 pb-2!">
                 <div className="flex justify-between items-center">
                   <div>
-                    <CardTitle>Payment Method</CardTitle>
+                    <CardTitle>{t('payment.method')}</CardTitle>
                     <CardDescription>
-                      Choose how you&apos;d like to pay
+                      {t('payment.chooseMethod')}
                     </CardDescription>
                   </div>
                   {/* <CountdownTimer onTimeExpired={handleTimeExpired} /> */}
@@ -112,8 +114,7 @@ export default function PaymentPage() {
                   <Alert className="mb-6 bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800">
                     <AlertDescription className="text-red-800 dark:text-red-200 flex items-center justify-between">
                       <span>
-                        ⏰ Payment window has expired. Please start a new
-                        payment.
+                        ⏰ {t('payment.timeExpired')}
                       </span>
                       <Button
                         onClick={handleStartNewPayment}
@@ -121,7 +122,7 @@ export default function PaymentPage() {
                         size="sm"
                         className="ml-4 bg-transparent"
                       >
-                        Start New Payment
+                        {t('payment.startNew')}
                       </Button>
                     </AlertDescription>
                   </Alert>
@@ -131,7 +132,7 @@ export default function PaymentPage() {
                 {paymentState.status === 'success' && (
                   <Alert className="mb-6 bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800">
                     <AlertDescription className="text-green-800 dark:text-green-200">
-                      ✓ Payment successful! Your order has been confirmed.
+                      ✓ {t('payment.success')}
                     </AlertDescription>
                   </Alert>
                 )}
@@ -163,7 +164,7 @@ export default function PaymentPage() {
                               size="sm"
                               className="ml-4 bg-red-100 dark:bg-red-900 hover:bg-red-200 dark:hover:bg-red-800 text-red-800 dark:text-red-200 border-red-300 dark:border-red-700"
                             >
-                              Retry
+                              {t('payment.retry')}
                             </Button>
                           )}
                         </div>
@@ -196,7 +197,7 @@ export default function PaymentPage() {
                         timeExpired || paymentState.status === 'success'
                       }
                     >
-                      WEB3
+                      {t('checkout.payment.web3')}
                     </TabsTrigger>
                     <TabsTrigger
                       value="PayFast"
@@ -204,7 +205,7 @@ export default function PaymentPage() {
                         timeExpired || paymentState.status === 'success'
                       }
                     >
-                      PayFast
+                      {t('checkout.payment.payfast')}
                     </TabsTrigger>
                   </TabsList>
 

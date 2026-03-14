@@ -14,7 +14,6 @@ import { setCheckoutItems } from '@/helpers/storage';
 import { useRouter } from 'next/navigation';
 import useDebounce from '@/hooks/use-debounce';
 import { UpdateCartQuantityRequest } from '@/types/cart';
-import { se } from 'date-fns/locale';
 import { ShopSectionSkeleton } from './partials/ShopSectionSkeleton';
 import { useTranslation } from 'react-i18next';
 
@@ -23,20 +22,20 @@ export default function CartPage() {
 
   const [cartItemList, SetCartItemList] = useState<any[] | null>(null);
   const router = useRouter();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
-  const fetchDataCartItem = async () => {
+  const fetchDataCartItem = useCallback(async () => {
     try {
       const res = await getCartByMe();
       if (res.statusCode === 200) {
         SetCartItemList(res.data.data);
       }
-    } catch (error) {}
-  };
+    } catch {}
+  }, []);
 
   useEffect(() => {
     fetchDataCartItem();
-  }, []);
+  }, [fetchDataCartItem]);
 
   const handleQuantityChange = (
     id: number,
@@ -122,12 +121,14 @@ export default function CartPage() {
       ) ?? []
     );
   }, [cartItemList]);
+
   const subtotal = useMemo(() => {
     return selectedItems.reduce(
       (sum, item) => sum + item.sku.price * item.quantity,
       0,
     );
   }, [selectedItems]);
+
   const handleCheckoutProduct = useCallback(() => {
     if (selectedItems.length === 0) return;
 
@@ -142,7 +143,7 @@ export default function CartPage() {
     setCheckoutItems(checkoutData!);
 
     router.push('/checkout');
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedItems]);
 
   const allSelected = cartItemList?.every((shop) =>
@@ -161,11 +162,16 @@ export default function CartPage() {
   const debouncedUpdate = useDebounce(pendingUpdate, 400);
 
   const updateCartQuantityApi = async (data: UpdateCartQuantityRequest) => {
-    await await updateCartQuantity(data);
+    await updateCartQuantity(data);
   };
   useEffect(() => {
     if (!debouncedUpdate) return;
+    const controller = new AbortController();
     updateCartQuantityApi(debouncedUpdate);
+
+    updateCartQuantityApi(debouncedUpdate);
+
+    return () => controller.abort();
   }, [debouncedUpdate]);
 
   console.log('==== render cart page', selectedItems);
@@ -175,7 +181,9 @@ export default function CartPage() {
       <div className="max-w-6xl mx-auto p-2">
         {/* Header */}
         <div className="mb-4">
-          <h1 className="text-2xl font-bold text-foreground mb-2">{t('navigation.cart')}</h1>
+          <h1 className="text-2xl font-bold text-foreground mb-2">
+            {t('navigation.cart')}
+          </h1>
           <p className="text-muted-foreground">
             {cartItemList?.length} {t('navigation.products')}
           </p>
@@ -216,7 +224,7 @@ export default function CartPage() {
                     <Trash2 className="h-4 w-4 text-muted-foreground" />
                   </div>
                 </div>
-                {cartItemList ? 
+                {cartItemList ? (
                   cartItemList.map((CartShop) => (
                     <ShopSection
                       key={CartShop.shop.shopid}
@@ -226,9 +234,10 @@ export default function CartPage() {
                       onSelect={handleSelect}
                       onSelectAll={handleSelectAll}
                     />
-                  )) : (
-                    <ShopSectionSkeleton />
-                  )}
+                  ))
+                ) : (
+                  <ShopSectionSkeleton />
+                )}
               </div>
             )}
           </div>

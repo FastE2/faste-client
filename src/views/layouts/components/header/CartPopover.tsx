@@ -80,7 +80,7 @@ function CartPopover({ totalCartItem, data }: CartPopoverProps) {
                       </div>
                       <div className="text-sm text-red-500">
                         {formatCurrencyWithExchange(item.sku.price, {
-                          language: i18n.language as 'vi' | 'en',
+                          language: i18n.language as 'vi' | 'en' | 'cn' | 'kr',
                         })}
                       </div>
                     </div>

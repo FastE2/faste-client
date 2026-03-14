@@ -1,13 +1,8 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { getPopupShown, setPopupShown } from '@/helpers/storage';
 import { X } from 'lucide-react';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
@@ -16,8 +11,7 @@ const WelcomePopup = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Kiểm tra nếu popup đã được hiển thị trước đó
-    const hasSeenPopup = localStorage.getItem('popup_shown');
+    const hasSeenPopup = getPopupShown();
 
     if (!hasSeenPopup) {
       setIsVisible(true);
@@ -26,7 +20,7 @@ const WelcomePopup = () => {
 
   const closePopup = () => {
     setIsVisible(false);
-    localStorage.setItem('popup_shown', 'true');
+    setPopupShown('true');
   };
 
   return (

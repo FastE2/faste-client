@@ -11,14 +11,19 @@ import React, {
 import { TLoginAuth, TRegisterAuth, UserDataType } from '@/types/auth';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { loginAuth, logoutAuth, registerAuth } from '@/services/auth';
-import { setLocalAccessToken, setLocalUserData, getLocalUserData, clearCheckoutItems, clearLocalUserData } from '@/helpers/storage';
+import {
+  setLocalAccessToken,
+  setLocalUserData,
+  getLocalUserData,
+  clearCheckoutItems,
+  clearLocalUserData,
+} from '@/helpers/storage';
 import { toastify } from '@/components/ToastNotification';
 import { injectAuthDependencies } from '@/utils/axios';
 import { useGetProfile } from '@/hooks/queries/useGetProfile';
 import { keepPreviousData } from '@tanstack/react-query';
 import { ROUTE_CONFIG } from '@/configs/router';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
-import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 
 type AuthContextType = {
   user: UserDataType;
@@ -85,7 +90,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     if (!isLoading) {
       setLoading(false);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [enabled, data, isLoading, accessToken]);
 
   useEffect(() => {
@@ -189,8 +194,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <AuthContext.Provider value={value}>
-      <Suspense fallback={<LoadingSpinner />}>
-      {!loading && children}
+      <Suspense fallback={<LoadingDialog isLoading />}>
+        {!loading && children}
       </Suspense>
     </AuthContext.Provider>
   );

@@ -2,12 +2,14 @@ import { navigationItems } from '@/configs/header';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import Link from 'next/link';
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface TProps {
   setIsOpen: (isOpen: boolean) => void;
 }
 
 export default React.memo(function MobileNavigation({ setIsOpen }: TProps) {
+  const { t } = useTranslation();
   return (
     <nav className="flex flex-col space-y-4">
       {navigationItems.map((item) => (
@@ -18,7 +20,7 @@ export default React.memo(function MobileNavigation({ setIsOpen }: TProps) {
           onClick={() => setIsOpen(false)}
         >
           <Icon icon={item.icon} className="w-5 h-5" />
-          <span>{item.label}</span>
+          <span>{t(item.label)}</span>
           {item.hasDropdown && (
             <Icon icon="icon-park-outline:down" className="w-4 h-4 ml-auto" />
           )}

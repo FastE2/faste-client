@@ -13,11 +13,14 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ChevronDown, Search, Star } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
 import { getAllShopsIsPublic } from '@/services/shop';
 import { toastify } from '@/components/ToastNotification';
 
 interface TShop {
-  id: number;
+  shopid: number;
+  id?: number;
   slug: string;
   name: string;
   description: string;
@@ -29,6 +32,7 @@ interface TShop {
 type SortOption = 'name-asc' | 'name-desc' | 'rating-high' | 'products-high';
 
 export default function ShopPage() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<SortOption>('name-asc');
   const [currentPage, setCurrentPage] = useState(1);
@@ -121,10 +125,10 @@ export default function ShopPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-              Our Shops
+              {t('shops.title')}
             </h1>
             <p className="mt-4 text-lg opacity-90">
-              Discover amazing products from trusted sellers
+              {t('shops.subtitle')}
             </p>
           </div>
         </div>
@@ -140,11 +144,11 @@ export default function ShopPage() {
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 type="text"
-                placeholder="Search shops..."
+                placeholder={t('shops.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => handleSearchChange(e.target.value)}
                 className="pl-10"
-                aria-label="Search shops"
+                aria-label={t('shops.searchPlaceholder')}
               />
             </div>
 
@@ -152,26 +156,26 @@ export default function ShopPage() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="gap-2 bg-transparent">
-                  Sort by
+                  {t('shops.sortBy')}
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuItem onClick={() => handleSortChange('name-asc')}>
-                  Name (A-Z)
+                  {t('shops.sortOptions.nameAsc')}
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => handleSortChange('name-desc')}>
-                  Name (Z-A)
+                  {t('shops.sortOptions.nameDesc')}
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => handleSortChange('rating-high')}
                 >
-                  Rating (High to Low)
+                  {t('shops.sortOptions.ratingHigh')}
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={() => handleSortChange('products-high')}
                 >
-                  Most Products
+                  {t('shops.sortOptions.productsHigh')}
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -182,7 +186,7 @@ export default function ShopPage() {
             <>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {paginatedShops.map((shop, index) => (
-                  <article key={shop.id + index}>
+                  <article key={shop.shopid || index}>
                     <Link href={`/shop/${shop.slug}`}>
                       <Card className="h-full overflow-hidden transition-all hover:shadow-lg gap-y-4">
                         {/* Shop Logo */}
@@ -218,15 +222,12 @@ export default function ShopPage() {
 
                           {/* Product Count */}
                           <div className="flex items-center justify-between text-xs text-muted-foreground">
-                            <span>{shop.itemCount} products</span>
-                            {/* {shop.category && (
-                              <Badge variant="secondary">{shop.category}</Badge>
-                            )} */}
+                            <span>{t('shops.productCount', { count: shop.itemCount })}</span>
                           </div>
 
                           {/* View Shop Button */}
                           <Button className="w-full mt-2" size="sm">
-                            View Shop
+                            {t('shops.viewShop')}
                           </Button>
                         </CardContent>
                       </Card>
@@ -243,7 +244,7 @@ export default function ShopPage() {
                     onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
                   >
-                    Previous
+                    {t('blog.previous')}
                   </Button>
 
                   <div className="flex items-center gap-1">
@@ -269,7 +270,7 @@ export default function ShopPage() {
                     }
                     disabled={currentPage === totalPages}
                   >
-                    Next
+                    {t('blog.next')}
                   </Button>
                 </div>
               )}
@@ -278,10 +279,10 @@ export default function ShopPage() {
             /* Empty State */
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <p className="text-lg font-medium text-foreground">
-                No shops found
+                {t('shops.noShops')}
               </p>
               <p className="mt-2 text-muted-foreground">
-                Try adjusting your search criteria
+                {t('shops.noShopsDesc')}
               </p>
               <Button
                 variant="outline"
@@ -291,7 +292,7 @@ export default function ShopPage() {
                 }}
                 className="mt-4"
               >
-                Clear Filters
+                {t('blog.clearFilters')}
               </Button>
             </div>
           )}

@@ -21,8 +21,10 @@ import UserDropdownMenu from './UserDropdownMenu';
 import MobileNavigation from './mobile/MobileNavigation';
 import MobileTopNavigation from './mobile/MobileTopNavigation';
 import { ModeToggle } from '@/components/ModeToggle';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const totalCartItemRef = useRef<number>(0);
   const { data, isLoading } = useGetCart(
@@ -157,7 +159,7 @@ const Header = () => {
                       <div className="relative">
                         <Input
                           type="text"
-                          placeholder="Search products..."
+                          placeholder={t('header.searchPlaceholder')}
                           className="pr-10 bg-muted/50 border-0 rounded-2xl"
                         />
                         <Button

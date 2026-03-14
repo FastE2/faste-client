@@ -34,7 +34,7 @@ export const ProductInfo = memo(({ product, matchedSku, totalSold }: Props) => {
 
       <p className="text-xl font-semibold mt-4">
         {formatCurrencyWithExchange(displayPrice, {
-          language: i18n.language as 'vi' | 'en',
+          language: i18n.language as 'vi' | 'en' | 'cn' | 'kr',
         })}
       </p>
     </div>

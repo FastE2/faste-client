@@ -7,6 +7,8 @@ import { randomBytes } from 'crypto';
 import { Link } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PaginationWithLinks } from '@/components/pagination-table';
+import { useTranslation } from 'react-i18next';
+
 
 interface OrderListProps {
   orders: any;
@@ -15,12 +17,13 @@ interface OrderListProps {
 }
 
 function EmptyOrder() {
+  const { t } = useTranslation();
   return (
     <Card className="p-12 text-center flex flex-col items-center gap-4">
-      <p className="text-gray-500 text-lg">No orders found</p>
+      <p className="text-gray-500 text-lg">{t('order.empty')}</p>
 
       <Link href="/products">
-        <Button className="mt-2">Go shopping</Button>
+        <Button className="mt-2">{t('order.goShopping')}</Button>
       </Link>
     </Card>
   );

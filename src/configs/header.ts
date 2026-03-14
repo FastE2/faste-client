@@ -1,32 +1,37 @@
 export const topNavItems = [
-  { href: '/about', label: 'About us' },
-  { href: '/sellercenter/dashboard', label: 'My Shop' },
-  { href: '/wishlist', label: 'Wishlist' },
+  { href: '/about', label: 'navigation.about' },
+  { href: '/sellercenter/dashboard', label: 'navigation.myShop' },
+  { href: '/wishlist', label: 'navigation.wishlist' },
 ];
 
 export const rightNavItems = [
-  { href: '/# ', label: 'My account' },
-  { href: '/support', label: 'Support' },
+  { href: '/# ', label: 'navigation.myAccount' },
+  { href: '/support', label: 'navigation.support' },
 ];
 
 export const navigationItems = [
   {
     href: '/',
-    label: 'Home',
+    label: 'navigation.home',
     icon: 'material-symbols:home-outline',
     hasDropdown: true,
   },
-  { href: '/shop', label: 'Shop', icon: 'iconoir:shop', hasDropdown: true },
+  {
+    href: '/shop',
+    label: 'navigation.shop',
+    icon: 'iconoir:shop',
+    hasDropdown: true,
+  },
   {
     href: '#',
-    label: 'Fruits & Vegetables',
+    label: 'navigation.fruitsVegetables',
     icon: 'lucide:apple',
   },
-  { href: '/#', label: 'Beverages', icon: 'line-md:coffee-loop' },
-  { href: '/blog', label: 'Blog', icon: 'mdi:file-text-outline' },
+  { href: '/#', label: 'navigation.beverages', icon: 'line-md:coffee-loop' },
+  { href: '/blog', label: 'navigation.blog', icon: 'mdi:file-text-outline' },
   {
     href: '/contact',
-    label: 'Contact',
+    label: 'navigation.contact',
     icon: 'material-symbols:mail-outline',
   },
 ];

@@ -3,11 +3,160 @@
   "saveAndSee": "Save and see your changes instantly.",
   "deployNow": "Deploy now",
   "readDocs": "Read documentation",
+  "header": {
+    "searchPlaceholder": "Search for products, categories or brands...",
+    "searchSuggestions": "SEARCH SUGGESTIONS",
+    "searchHistory": "SEARCH HISTORY",
+    "clearAll": "Clear all",
+    "noSearchHistory": "No search history",
+    "popularKeywords": "POPULAR KEYWORDS",
+    "deliveryInfo": "We deliver to you every day from <1>7:00</1> to <2>23:00</2>",
+    "keywords": {
+      "computer": "Computer",
+      "ram": "Ram Laptop",
+      "clothing": "Clothing",
+      "laptop": "Laptop Dell",
+      "cosmetics": "Cosmetics"
+    }
+  },
 
   "footer": {
-    "learn": "Learn",
-    "examples": "Examples",
-    "goToNextjs": "Go to nextjs.org →"
+    "newsletterTitle": "Join our newsletter",
+    "newsletterDesc": "Subscribe now for the latest updates on promotions and coupons. We promise not to spam.",
+    "emailPlaceholder": "Enter your email address",
+    "subscribe": "SUBSCRIBE",
+    "termsDesc": "By subscribing, you agree to our Terms & Conditions and Privacy Policy.",
+    "getInTouch": "Get in touch with us",
+    "needHelp": "Do you need help?",
+    "helpDesc": "FastE support team is always here to help you.",
+    "makeMoney": "Make money with FastE",
+    "helpYou": "Let us help you",
+    "knowUs": "Get to know FastE",
+    "downloadApp": "Download App",
+    "copyright": "Copyright 2024 © FastE Ecommerce. All rights reserved. Powered by FastE Team.",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy Policy",
+    "trackOrder": "Track Order"
+  },
+
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Login to your FastE account",
+      "emailLabel": "Email",
+      "passwordLabel": "Password",
+      "forgotPassword": "Forgot password?",
+      "loginButton": "Login",
+      "continueWith": "Or continue with",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "termsAgreement": "By clicking continue, you agree to our Terms of Service and Privacy Policy."
+    },
+    "register": {
+      "title": "Create an account",
+      "subtitle": {
+        "email": "Enter your email to get started",
+        "otp": "Enter the OTP sent to your email",
+        "complete": "Complete your registration"
+      },
+      "emailLabel": "Email",
+      "nameLabel": "Full Name",
+      "phoneNumberLabel": "Phone Number",
+      "passwordLabel": "Password",
+      "confirmPasswordLabel": "Confirm Password",
+      "otpLabel": "OTP Code",
+      "sendOtp": "Send OTP",
+      "sending": "Sending...",
+      "verifyOtp": "Verify OTP",
+      "verifying": "Verifying...",
+      "createAccount": "Create Account",
+      "creating": "Creating Account...",
+      "back": "Back",
+      "alreadyHaveAccount": "Already have an account?",
+      "login": "Login",
+      "continueWith": "Or continue with"
+    }
+  },
+  "order": {
+    "tabs": {
+      "all": "All",
+      "pending": "To Pay",
+      "shipping": "To Ship",
+      "receive": "To Receive",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "returns": "Return/Refund"
+    },
+    "searchPlaceholder": "You can search by Shop Name, Order ID or Product Name",
+    "confirmReceivedDescription": "FastE will pay the Seller. Please only click 'Confirm' if you have received the product and it is in good condition.",
+    "updateSuccess": "Status updated successfully!",
+    "updateFailed": "Failed to update status!",
+    "empty": "No orders found",
+    "goShopping": "Go Shopping Now",
+    "chatNow": "Chat Now",
+    "viewShop": "View Shop",
+    "totalAmountLabel": "Order Total:",
+    "payNow": "Pay Now",
+    "contactSeller": "Contact Seller",
+    "cancelOrder": "Cancel Order",
+    "trackOrder": "Track Order",
+    "received": "Order Received",
+    "returnRequest": "Return/Refund Request",
+    "rate": "Rate",
+    "buyAgain": "Buy Again",
+    "viewCancelledDetails": "View Cancelled Details",
+    "viewReview": "View Review",
+    "reviewBefore": "Rate product before",
+    "reviewPenaltyNote": "You will not be able to rate the order and receive 200 Shopee Coins after {{date}}. Rate the product and get 200 Shopee Coins now!",
+    "cancelConfirmTitle": "Confirm Cancel Order",
+    "cancelConfirmDescription": "Are you sure you want to cancel this order?",
+    "rating": {
+      "title": "Product Rating",
+      "productQuality": "Product Quality",
+      "vVeryBad": "Very Bad",
+      "vBad": "Bad",
+      "vOk": "Ok",
+      "vGood": "Good",
+      "vExcellent": "Excellent",
+      "lowRatingReason": "Why the low rating?",
+      "reasons": {
+        "damaged": "Damaged product",
+        "fake": "Fake product",
+        "notAsDescribed": "Not as described",
+        "poorQuality": "Poor quality"
+      },
+      "selectStarsError": "Please select stars",
+      "selectReasonError": "Please select a reason",
+      "placeholder": "Share your thoughts about this product with other buyers.",
+      "charsRemaining": "{{count}} characters remaining",
+      "maxChars": "Maximum {{count}} characters",
+      "maxImagesError": "You can only select up to {{count}} images",
+      "imageUploadTitle": "Product Images (max 5) and 1 video",
+      "anonymousLabel": "Send rating anonymously",
+      "serviceSection": "Service quality",
+      "sellerService": "Seller service",
+      "shipService": "Shipping service",
+      "cancel": "Cancel",
+      "submit": "Submit Rating",
+      "success": "Rating submitted successfully!",
+      "failed": "An error occurred while submitting the rating."
+    },
+    "status": {
+      "unknown": "Unknown",
+      "pendingConfirmation": "Pending Confirmation",
+      "processing": "Processing",
+      "pendingPayment": "Pending Payment",
+      "pendingPickup": "Pending Pickup",
+      "pendingDelivery": "Pending Delivery",
+      "delivered": "Delivered Successfully",
+      "returned": "Returned / Refunded",
+      "cancelled": "Cancelled",
+      "updateSuccess": "Success",
+      "updateSuccessDesc": "Order cancelled successfully!",
+      "updateError": "Error",
+      "updateErrorDesc": "An error occurred while cancelling the order!",
+      "confirmReceived": "Confirm order received"
+    }
   },
 
   "common": {
@@ -17,7 +166,18 @@
     "apply": "Apply",
     "share": "Share",
     "viewNow": "View now",
-    "update": "Update"
+    "update": "Update",
+    "category": "Variation",
+    "customerName": "Customer",
+    "outOf5": "out of 5",
+    "stars": "{{count}} stars",
+    "noReviews": "No reviews yet",
+    "all": "All",
+    "status": {
+      "success": "Success",
+      "info": "Information",
+      "error": "Error"
+    }
   },
 
   "navigation": {
@@ -30,26 +190,28 @@
     "register": "Register",
     "logout": "Logout",
     "categories": "Categories",
-    "brands": "Brands"
+    "brands": "Brands",
+    "myShop": "My Shop",
+    "wishlist": "Wishlist",
+    "myAccount": "My account",
+    "support": "Support",
+    "blog": "Blog",
+    "shop": "Shop",
+    "fruitsVegetables": "Fruits & Vegetables",
+    "beverages": "Beverages",
+    "trendingProducts": "Trending Products",
+    "almostFinished": "Almost Finished",
+    "sale": "SALE"
+  },
+  "promo": {
+    "freeDelivery": "FREE delivery & 40% Discount for next 3 orders! Place your 1st order in.",
+    "off": "40% OFF next 3 orders!",
+    "untilEnd": "Until the end of the sale:",
+    "days": "days",
+    "hrs": "hrs",
+    "min": "min"
   },
 
-  "product": {
-    "bestSelling": "Best Selling Products",
-    "newProducts": "New Products",
-    "newAdded": "Newly Added Products",
-    "priceShockToday": "Today's Hot Deals",
-    "description": "Product Description",
-    "reviews": "Product Reviews",
-    "rating": "Rating",
-    "sold": "Sold",
-    "joined": "Joined",
-    "similarProducts": "Similar Products",
-    "remainingProducts": "Remaining Products",
-    "shipFrom": "Ships from",
-    "addToCart": "Add to Cart",
-    "buyNow": "Buy Now",
-    "inStock": "In Stock"
-  },
 
   "account": {
     "accountInfo": "Account Information",
@@ -61,6 +223,7 @@
   },
 
   "userMenu": {
+    "myAccount": "My Account",
     "account": "Account",
     "address": "Address",
     "security": "Security",
@@ -71,6 +234,7 @@
     "myOrders": "My Orders",
     "voucherWallet": "Voucher Wallet",
     "wallet": "Wallet",
+    "cryptoWallet": "Crypto Wallet",
     "viewedProducts": "Viewed Products",
     "favoriteProducts": "Favorite Products"
   },
@@ -95,16 +259,34 @@
     "totalPayment": "Total Payment",
     "vatIncluded": "VAT included if applicable",
     "checkout": "Checkout",
-    "emptyCart": "Your cart is empty"
+    "emptyCart": "Your cart is empty",
+    "deliveryEstimation": "Delivery in 2-4 days"
   },
 
   "checkout": {
+    "title": "Checkout",
     "selectShippingMethod": "Select Shipping Method",
     "chooseShippingMethod": "Choose the shipping method that suits you",
     "selectPaymentMethod": "Select Payment Method",
     "choosePaymentMethod": "Choose a secure payment method",
     "shippingUnit": "Shipping Carrier",
-    "placeOrder": "Place Order"
+    "placeOrder": "Place Order",
+    "delivery": {
+      "economy": "Economy Delivery",
+      "express": "Express Delivery",
+      "provider": "Delivered by FastE",
+      "timeEconomy": "1 PM - 6 PM, 28/10",
+      "timeExpress": "9 AM - 12 PM, 28/10"
+    },
+    "payment": {
+      "cod": "Cash on Delivery",
+      "sepay": "SEPAY Payment",
+      "payfast": "PayFast",
+      "web3": "Web3 Wallet"
+    },
+    "confirmTitle": "Confirm Checkout",
+    "confirmDesc": "Are you sure you want to place the order with the selected details?",
+    "ordering": "Placing order..."
   },
 
   "shop": {
@@ -112,20 +294,76 @@
     "shopProfile": "Shop Profile",
     "searchProductInShop": "Search products in shop",
     "follow": "Follow",
-    "collection": "Collection",
+    "chat": "Chat",
+    "followers": "Followers",
     "viewShop": "View Shop",
-    "chatNow": "Chat Now"
+    "chatNow": "Chat Now",
+    "tabs": {
+      "store": "Store",
+      "allProducts": "All Products",
+      "collections": "Collections",
+      "todayFlashSale": "Today's Flash Sale"
+    },
+    "info": {
+      "description": "Shop Description",
+      "noDescription": "No description yet",
+      "joinedDate": "Joined Date",
+      "responseRate": "Response Rate",
+      "responseTime": "Response Time"
+    }
+  },
+  "product": {
+    "bestSelling": "Best Selling Products",
+    "newProducts": "New Products",
+    "newAdded": "Newly Added Products",
+    "priceShockToday": "Today's Hot Deals",
+    "description": "Product Description",
+    "details": "Product Details",
+    "specs": "Specifications",
+    "reviews": "Product Reviews",
+    "rating": "Rating",
+    "sold": "sold",
+    "joined": "Joined",
+    "similarProducts": "Similar Products",
+    "remainingProducts": "Remaining Products",
+    "shipFrom": "Ships from",
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "inStock": "In Stock",
+    "outOfStock": "Out of Stock",
+    "quantity": "Quantity",
+    "available": "pieces available",
+    "relatedTitle": "YOU MAY ALSO LIKE",
+    "messages": {
+      "addSuccess": "Added to cart successfully!",
+      "addError": "Failed to add product to cart.",
+      "somethingWrong": "Something went wrong, please try again!"
+    }
   },
 
   "search": {
-    "filter": "Search Filters",
-    "resultsForKeyword": "Results for keyword",
-    "sortBy": "Sort by",
-    "sellerLocation": "Seller Location",
-    "byCategory": "By Category",
+    "filterTitle": "Search Filters",
+    "location": "Seller Location",
+    "category": "By Category",
+    "shipping": "Shipping Carrier",
+    "brand": "Brand",
     "priceRange": "Price Range",
+    "priceFrom": "from",
+    "priceTo": "to",
+    "apply": "APPLY",
     "rating": "Rating",
-    "noProductsFound": "No products found",
+    "ratingAbove": "& Up",
+    "clearAll": "CLEAR ALL",
+    "resultsForKeyword": "Results for keyword",
+    "searchResults": "Search results for keyword",
+    "sortBy": "Sort by:",
+    "popular": "Popular",
+    "newest": "Newest",
+    "bestseller": "Bestseller",
+    "price": "Price",
+    "priceAsc": "Price: Low to High",
+    "priceDesc": "Price: High to Low",
+    "noProducts": "No products found",
     "tryAnotherKeyword": "Try another keyword or adjust your filters"
   },
 
@@ -136,7 +374,231 @@
   },
 
   "support": {
-    "helpCenter": "Help Center"
+    "helpCenter": "Help Center",
+    "title": "We're Here to Help",
+    "subtitle": "Find answers to common questions or get in touch with our support team. We're committed to providing you with the best customer experience.",
+    "contactSupport": "Contact Support",
+    "visitHelpCenter": "Visit Help Center",
+    "getInTouch": "Get in Touch",
+    "getInTouchDesc": "Choose the support method that works best for you",
+    "faqTitle": "Frequently Asked Questions",
+    "faqDesc": "Find quick answers to the most common questions",
+    "helpTopicsTitle": "Browse Help Topics",
+    "helpTopicsDesc": "Explore our comprehensive guides and resources",
+    "ctaTitle": "Didn't find what you're looking for?",
+    "ctaDesc": "Submit a support request and our team will get back to you as soon as possible",
+    "submitRequest": "Submit a Support Request",
+    "contactOptions": {
+      "liveChat": {
+        "title": "Live Chat",
+        "desc": "Chat with our support team in real-time",
+        "availability": "Available 24/7"
+      },
+      "email": {
+        "title": "Email Support",
+        "desc": "Send us an email and we'll respond within 24 hours",
+        "availability": "support@faste.com"
+      },
+      "phone": {
+        "title": "Phone Support",
+        "desc": "Call our dedicated support team",
+        "availability": "+1 (555) 123-4567"
+      }
+    },
+    "helpTopics": {
+      "orders": {
+        "title": "Orders",
+        "desc": "Track, modify, or cancel your orders"
+      },
+      "shipping": {
+        "title": "Shipping",
+        "desc": "Learn about delivery options and rates"
+      },
+      "payments": {
+        "title": "Payments",
+        "desc": "Payment methods and billing questions"
+      },
+      "returns": {
+        "title": "Returns",
+        "desc": "Return or exchange your items"
+      },
+      "account": {
+        "title": "Account",
+        "desc": "Manage your profile and preferences"
+      },
+      "products": {
+        "title": "Products",
+        "desc": "Product information and specifications"
+      }
+    },
+    "faq": {
+      "q1": "How do I track my order?",
+      "a1": "You can track your order in real-time by visiting your account dashboard and clicking on \"My Orders\". You'll receive email notifications at each stage of your delivery.",
+      "q2": "What is your return policy?",
+      "a2": "We offer a 30-day return policy for most items. Products must be in original condition with all packaging. Simply initiate a return from your account, and we'll provide a prepaid shipping label.",
+      "q3": "How long does shipping take?",
+      "a3": "Standard shipping typically takes 5-7 business days. Express shipping is available for 2-3 business days. Shipping times are calculated from the order confirmation date.",
+      "q4": "Do you offer international shipping?",
+      "a4": "Yes, we ship to over 150 countries worldwide. International shipping rates and delivery times vary by location. You can check shipping costs at checkout before completing your purchase.",
+      "q5": "How do I reset my password?",
+      "a5": "Click \"Forgot Password\" on the login page and enter your email address. You'll receive a password reset link within minutes. Follow the instructions to create a new password.",
+      "q6": "Are my payment details secure?",
+      "a6": "Yes, we use industry-standard SSL encryption and PCI DSS compliance to protect your payment information. We never store full credit card details on our servers."
+    }
+  },
+  "about": {
+    "badge": "About Our Company",
+    "heroTitle": "Building the Future Together",
+    "heroDesc": "We're on a mission to revolutionize how people connect, shop, and share their stories online.",
+    "getInTouch": "Get in Touch",
+    "readBlog": "Read Our Blog",
+    "missionTitle": "Our Mission",
+    "missionDesc1": "To create a seamless digital marketplace that empowers sellers and delights buyers, fostering a community where quality products and exceptional service thrive.",
+    "missionDesc2": "We believe in democratizing e-commerce, making it accessible to businesses of all sizes while maintaining the highest standards of quality and customer satisfaction.",
+    "visionTitle": "Our Vision",
+    "visionDesc1": "To become the world's most trusted online marketplace, where innovation meets integrity and every transaction creates value for all stakeholders.",
+    "visionDesc2": "We envision a future where technology enables meaningful connections between people, transcending geographical boundaries and creating opportunities for growth.",
+    "coreValuesTitle": "Our Core Values",
+    "coreValuesDesc": "These principles guide every decision we make and shape our company culture.",
+    "values": {
+      "customerFirst": "Customer First",
+      "customerFirstDesc": "We prioritize customer needs and satisfaction in every decision we make.",
+      "innovation": "Innovation",
+      "innovationDesc": "We constantly push boundaries and embrace new technologies and ideas.",
+      "integrity": "Integrity",
+      "integrityDesc": "We operate with transparency and honesty in all our business dealings.",
+      "community": "Community",
+      "communityDesc": "We believe in building strong relationships with our team and customers."
+    },
+    "teamTitle": "Meet Our Team",
+    "teamDesc": "Talented individuals united by a shared vision to transform the digital marketplace.",
+    "stats": {
+      "activeSellers": "Active Sellers",
+      "productsListed": "Products Listed",
+      "happyCustomers": "Happy Customers",
+      "countriesServed": "Countries Served"
+    },
+    "ctaTitle": "Join Our Community",
+    "ctaDesc": "Whether you're a seller looking to grow your business or a buyer seeking quality products, we'd love to have you join us.",
+    "exploreShops": "Explore Shops",
+    "teamRoles": {
+      "ceo": "Founder & CEO",
+      "cto": "CTO",
+      "design": "Head of Design",
+      "ops": "Head of Operations"
+    },
+    "teamBios": {
+      "ceo": "Visionary leader with 15+ years in tech entrepreneurship",
+      "cto": "Full-stack engineer passionate about scalable architecture",
+      "design": "Creative designer focused on user-centered experiences",
+      "ops": "Operations expert ensuring smooth business growth"
+    }
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "desc": "Have a question or want to work together? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+    "formTitle": "Send us a Message",
+    "formDesc": "Fill out the form below and we'll get back to you shortly.",
+    "fullName": "Full Name",
+    "email": "Email Address",
+    "subject": "Subject",
+    "subjectOptional": "(Optional)",
+    "message": "Message",
+    "fullNamePlaceholder": "John Doe",
+    "emailPlaceholder": "you@example.com",
+    "subjectPlaceholder": "How can we help?",
+    "messagePlaceholder": "Tell us more about your inquiry...",
+    "sending": "Sending...",
+    "sendMessage": "Send Message",
+    "successMessage": "Your message has been sent successfully! We'll be in touch soon.",
+    "infoTitle": "Contact Information",
+    "infoDesc": "Reach out to us through any of these channels",
+    "address": "Address",
+    "phone": "Phone",
+    "businessHours": "Business Hours",
+    "hoursWork": "Monday - Friday: 9:00 AM - 6:00 PM PST",
+    "hoursWeekend": "Saturday - Sunday: Closed",
+    "followUs": "Follow Us",
+    "errors": {
+      "nameRequired": "Full name is required",
+      "nameMin": "Full name must be at least 2 characters",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "messageRequired": "Message is required",
+      "messageMin": "Message must be at least 10 characters",
+      "submitError": "Failed to send message. Please try again."
+    }
+  },
+  "blog": {
+    "title": "Our Blog",
+    "subtitle": "Insights, tips, and best practices for modern web development",
+    "searchPlaceholder": "Search posts...",
+    "allTags": "All Tags",
+    "tagPrefix": "Tag: ",
+    "noPosts": "No posts found",
+    "noPostsDesc": "Try adjusting your search or filter criteria",
+    "clearFilters": "Clear Filters",
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "shops": {
+    "title": "Our Shops",
+    "subtitle": "Discover amazing products from trusted sellers",
+    "searchPlaceholder": "Search shops...",
+    "sortBy": "Sort by",
+    "sortOptions": {
+      "nameAsc": "Name (A-Z)",
+      "nameDesc": "Name (Z-A)",
+      "ratingHigh": "Rating (High to Low)",
+      "productsHigh": "Most Products"
+    },
+    "productCount": "{{count}} products",
+    "viewShop": "View Shop",
+    "noShops": "No shops found",
+    "noShopsDesc": "Try adjusting your search criteria"
+  },
+  "profile": {
+    "changePassword": {
+      "title": "Change Password",
+      "description": "Update your security password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmNewPassword": "Confirm New Password",
+      "placeholderCurrent": "Enter current Password",
+      "placeholderNew": "Enter new Password",
+      "placeholderConfirm": "Confirm new Password",
+      "updateButton": "Update Password",
+      "errors": {
+        "minChars": "Password must be at least {{count}} characters",
+        "currentRequired": "Current password is required",
+        "newRequired": "New password is required",
+        "confirmRequired": "Confirm password is required",
+        "mustMatch": "Passwords must match"
+      },
+      "messages": {
+        "success": "Password changed successfully!",
+        "error": "Error changing password",
+        "somethingWrong": "Something went wrong"
+      }
+    }
+  },
+  "payment": {
+    "title": "Complete Your Payment",
+    "subtitle": "Select your preferred payment method to proceed",
+    "method": "Payment Method",
+    "chooseMethod": "Choose how you'd like to pay",
+    "timeExpired": "Payment time has expired. Please initiate a new payment.",
+    "startNew": "Start New Payment",
+    "success": "Payment successful! Your order has been confirmed.",
+    "error": "Payment Error",
+    "retry": "Retry",
+    "attempt": "Attempt {{current}} of {{total}}",
+    "summary": {
+      "title": "Order Summary",
+      "orderId": "Order ID",
+      "amount": "Total Amount",
+      "description": "Description"
+    }
   },
   "NotFound": "Not found"
 }

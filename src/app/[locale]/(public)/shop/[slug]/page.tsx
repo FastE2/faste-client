@@ -2,7 +2,7 @@ import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
 import { getDetailShopPublicBySlug } from '@/services/shop';
 import LayoutPublic from '@/views/layouts/LayoutPublic';
-import { ShopDetails } from '@/views/pages/shop/shop-details';
+import ShopDetails from '@/views/pages/shop/shop-details';
 import { Metadata } from 'next';
 import { ReactElement } from 'react';
 

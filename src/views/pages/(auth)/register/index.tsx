@@ -12,6 +12,8 @@ import { useForm, Controller } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAuth } from '@/hooks/use-auth';
+import { useTranslation } from 'react-i18next';
+
 import { Card, CardContent } from '@/components/ui/card';
 import { sendOTP } from '@/services/auth';
 import { VerificationCodeTypeType } from '@/constants';
@@ -68,6 +70,8 @@ export function RegisterPage({
   ...props
 }: React.ComponentProps<'div'>) {
   const { register: registerUser, loading } = useAuth();
+  const { t } = useTranslation();
+
 
   const [step, setStep] = useState<'email' | 'otp' | 'register'>('email');
   const [email, setEmail] = useState('');
@@ -149,11 +153,11 @@ export function RegisterPage({
             <div className="flex flex-col gap-6">
               {/* Header */}
               <div className="flex flex-col items-center text-center">
-                <h1 className="text-2xl font-bold">Create an account</h1>
+                <h1 className="text-2xl font-bold">{t('auth.register.title')}</h1>
                 <p className="text-muted-foreground">
-                  {step === 'email' && 'Enter your email to get started'}
-                  {step === 'otp' && 'Enter the OTP sent to your email'}
-                  {step === 'register' && 'Complete your registration'}
+                  {step === 'email' && t('auth.register.subtitle.email')}
+                  {step === 'otp' && t('auth.register.subtitle.otp')}
+                  {step === 'register' && t('auth.register.subtitle.complete')}
                 </p>
               </div>
 
@@ -164,7 +168,7 @@ export function RegisterPage({
                   onSubmit={emailForm.handleSubmit(handleSendOTP)}
                 >
                   <div className="grid gap-3">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">{t('auth.register.emailLabel')}</Label>
                     <Controller
                       name="email"
                       control={emailForm.control}
@@ -186,11 +190,11 @@ export function RegisterPage({
                   </div>
 
                   <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? 'Sending...' : 'Send OTP'}
+                    {loading ? t('auth.register.sending') : t('auth.register.sendOtp')}
                   </Button>
                   <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
                     <span className="bg-card text-muted-foreground relative z-10 px-2">
-                      Or continue with
+                      {t('auth.register.continueWith')}
                     </span>
                   </div>
 
@@ -234,12 +238,12 @@ export function RegisterPage({
                     </Button>
                   </div>
                   <div className="text-center text-sm">
-                    Already have an account?{' '}
+                    {t('auth.register.alreadyHaveAccount')}{' '}
                     <Link
                       href="/login"
                       className="underline underline-offset-4"
                     >
-                      Login
+                      {t('auth.register.login')}
                     </Link>
                   </div>
                 </form>
@@ -252,7 +256,7 @@ export function RegisterPage({
                   onSubmit={otpForm.handleSubmit(handleVerifyOTP)}
                 >
                   <div className="grid gap-3">
-                    <Label htmlFor="code">OTP Code</Label>
+                    <Label htmlFor="code">{t('auth.register.otpLabel')}</Label>
                     <Controller
                       name="code"
                       control={otpForm.control}
@@ -298,7 +302,7 @@ export function RegisterPage({
                   </div>
 
                   <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? 'Verifying...' : 'Verify OTP'}
+                    {loading ? t('auth.register.verifying') : t('auth.register.verifyOtp')}
                   </Button>
 
                   <Button
@@ -312,7 +316,7 @@ export function RegisterPage({
                     }}
                     disabled={loading}
                   >
-                    Back
+                    {t('auth.register.back')}
                   </Button>
                 </form>
               )}
@@ -325,7 +329,7 @@ export function RegisterPage({
                 >
                   {/* Email (readonly) */}
                   <div className="grid gap-3">
-                    <Label htmlFor="display-email">Email</Label>
+                    <Label htmlFor="display-email">{t('auth.register.emailLabel')}</Label>
                     <Input
                       id="display-email"
                       type="email"
@@ -337,7 +341,7 @@ export function RegisterPage({
 
                   {/* Name */}
                   <div className="grid gap-3">
-                    <Label htmlFor="name">Name</Label>
+                    <Label htmlFor="name">{t('auth.register.nameLabel')}</Label>
                     <Controller
                       name="name"
                       control={registerForm.control}
@@ -359,7 +363,7 @@ export function RegisterPage({
 
                   {/* Phone Number */}
                   <div className="grid gap-3">
-                    <Label htmlFor="phoneNumber">Phone Number</Label>
+                    <Label htmlFor="phoneNumber">{t('auth.register.phoneNumberLabel')}</Label>
                     <Controller
                       name="phoneNumber"
                       control={registerForm.control}
@@ -381,7 +385,7 @@ export function RegisterPage({
 
                   {/* Password */}
                   <div className="grid gap-3">
-                    <Label htmlFor="password">Password</Label>
+                    <Label htmlFor="password">{t('auth.register.passwordLabel')}</Label>
                     <Controller
                       name="password"
                       control={registerForm.control}
@@ -403,7 +407,7 @@ export function RegisterPage({
 
                   {/* Confirm Password */}
                   <div className="grid gap-3">
-                    <Label htmlFor="confirmPassword">Confirm Password</Label>
+                    <Label htmlFor="confirmPassword">{t('auth.register.confirmPasswordLabel')}</Label>
                     <Controller
                       name="confirmPassword"
                       control={registerForm.control}
@@ -423,8 +427,8 @@ export function RegisterPage({
                     )}
                   </div>
 
-                  <Button type="submit" className="w-full" disabled={loading}>
-                    {loading ? 'Creating Account...' : 'Create Account'}
+                   <Button type="submit" className="w-full" disabled={loading}>
+                    {loading ? t('auth.register.creating') : t('auth.register.createAccount')}
                   </Button>
 
                   <Button
@@ -440,16 +444,16 @@ export function RegisterPage({
                     }}
                     disabled={loading}
                   >
-                    Back
+                    {t('auth.register.back')}
                   </Button>
 
                   <div className="text-center text-sm">
-                    Already have an account?{' '}
+                    {t('auth.register.alreadyHaveAccount')}{' '}
                     <Link
                       href="/login"
                       className="underline underline-offset-4"
                     >
-                      Login
+                      {t('auth.register.login')}
                     </Link>
                   </div>
                 </form>

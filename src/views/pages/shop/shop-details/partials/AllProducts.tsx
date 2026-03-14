@@ -44,8 +44,7 @@ export const AllProducts = (props: TProps) => {
     },
   );
   return (
-    <div>
-      <div className="grid grid-cols-12 gap-2">
+      <div className="grid grid-cols-12 gap-2 bg-background">
         <div className="col-span-2 bg-card py-2">
           <div className="font-semibold py-2 px-4 flex items-center gap-x-2">
             <Icon icon="fluent:align-left-16-regular" width="16" height="16" />
@@ -106,6 +105,5 @@ export const AllProducts = (props: TProps) => {
           </div>
         </div>
       </div>
-    </div>
   );
 };

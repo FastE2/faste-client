@@ -4,4 +4,5 @@ export const KEY_STORAGE = {
   CHECKOUT_ITEMS: 'checkout_items',
   SEARCH_HISTORY: 'search_history',
   RECENT_VIEWED_PRODUCTS: 'recent_viewed_products',
+  POPUP_SHOWN: 'popup_shown',
 };

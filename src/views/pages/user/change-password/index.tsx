@@ -19,27 +19,38 @@ import { Controller, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
+import { useTranslation } from 'react-i18next';
+import { useMemo } from 'react';
 
-// Validation schema
-const schema = yup.object({
-  oldPassword: yup
-    .string()
-    .min(6, 'Password must be at least 6 characters')
-    .required('Old password is required'),
 
-  newPassword: yup
-    .string()
-    .min(6, 'Password must be at least 6 characters')
-    .required('New password is required'),
-
-  confirmNewPassword: yup
-    .string()
-    .oneOf([yup.ref('newPassword')], 'Passwords must match')
-    .required('Confirm password is required'),
-});
 
 export const ChangePasswordPage = () => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
+
+  const schema = useMemo(
+    () =>
+      yup.object({
+        oldPassword: yup
+          .string()
+          .min(6, t('profile.changePassword.errors.minChars', { count: 6 }))
+          .required(t('profile.changePassword.errors.currentRequired')),
+
+        newPassword: yup
+          .string()
+          .min(6, t('profile.changePassword.errors.minChars', { count: 6 }))
+          .required(t('profile.changePassword.errors.newRequired')),
+
+        confirmNewPassword: yup
+          .string()
+          .oneOf(
+            [yup.ref('newPassword')],
+            t('profile.changePassword.errors.mustMatch'),
+          )
+          .required(t('profile.changePassword.errors.confirmRequired')),
+      }),
+    [t],
+  );
 
   const {
     control,
@@ -48,6 +59,11 @@ export const ChangePasswordPage = () => {
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
+    defaultValues: {
+      oldPassword: '',
+      newPassword: '',
+      confirmNewPassword: '',
+    },
   });
 
   const onSubmit = async (data: TChangePasswordBody) => {
@@ -55,17 +71,23 @@ export const ChangePasswordPage = () => {
     try {
       const res = await changePassword(data);
       if (res.error) {
-        toastify.error('Change password', res.message);
+        toastify.error(t('profile.changePassword.title'), res.message);
       } else {
         reset({
           oldPassword: '',
           newPassword: '',
           confirmNewPassword: '',
         });
-        toastify.success('Change password', res.message);
+        toastify.success(
+          t('profile.changePassword.title'),
+          t('profile.changePassword.messages.success'),
+        );
       }
     } catch (err) {
-      toastify.error('Change password', 'Something went wrong');
+      toastify.error(
+        t('profile.changePassword.title'),
+        t('profile.changePassword.messages.somethingWrong'),
+      );
     } finally {
       setLoading(false);
     }
@@ -75,13 +97,17 @@ export const ChangePasswordPage = () => {
     <Card>
       {loading && <LoadingDialog isLoading={loading} />}
       <CardHeader>
-        <CardTitle>Change password</CardTitle>
-        <CardDescription>Update your security password</CardDescription>
+        <CardTitle>{t('profile.changePassword.title')}</CardTitle>
+        <CardDescription>
+          {t('profile.changePassword.description')}
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Old Password */}
         <div className="space-y-2">
-          <Label htmlFor="oldPassword">Current Password</Label>
+          <Label htmlFor="oldPassword">
+            {t('profile.changePassword.currentPassword')}
+          </Label>
           <Controller
             name="oldPassword"
             control={control}
@@ -90,7 +116,7 @@ export const ChangePasswordPage = () => {
                 {...field}
                 id="oldPassword"
                 type="password"
-                placeholder="Enter current Password"
+                placeholder={t('profile.changePassword.placeholderCurrent')}
                 disabled={loading}
               />
             )}
@@ -102,7 +128,9 @@ export const ChangePasswordPage = () => {
 
         {/* New Password */}
         <div className="space-y-2">
-          <Label htmlFor="newPassword">New Password</Label>
+          <Label htmlFor="newPassword">
+            {t('profile.changePassword.newPassword')}
+          </Label>
           <Controller
             name="newPassword"
             control={control}
@@ -111,7 +139,7 @@ export const ChangePasswordPage = () => {
                 {...field}
                 id="newPassword"
                 type="password"
-                placeholder="Enter new Password"
+                placeholder={t('profile.changePassword.placeholderNew')}
                 disabled={loading}
               />
             )}
@@ -123,7 +151,9 @@ export const ChangePasswordPage = () => {
 
         {/* Confirm New Password */}
         <div className="space-y-2">
-          <Label htmlFor="confirmNewPassword">Confirm New Password</Label>
+          <Label htmlFor="confirmNewPassword">
+            {t('profile.changePassword.confirmNewPassword')}
+          </Label>
           <Controller
             name="confirmNewPassword"
             control={control}
@@ -132,7 +162,7 @@ export const ChangePasswordPage = () => {
                 {...field}
                 id="confirmNewPassword"
                 type="password"
-                placeholder="Confirm new Password"
+                placeholder={t('profile.changePassword.placeholderConfirm')}
                 disabled={loading}
               />
             )}
@@ -151,7 +181,11 @@ export const ChangePasswordPage = () => {
             disabled={loading}
             className="w-[141px]"
           >
-            {loading ? <LoadingSpinner /> : 'Update Password'}
+            {loading ? (
+              <LoadingSpinner />
+            ) : (
+              t('profile.changePassword.updateButton')
+            )}
           </Button>
         </div>
       </CardContent>

@@ -27,114 +27,121 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 import { Separator } from '@/components/ui/separator';
+import { useTranslation } from 'react-i18next';
+import { useMemo } from 'react';
 
-// Mock FAQ data - replace with API call later
-const faqData = [
-  {
-    id: 'faq-1',
-    question: 'How do I track my order?',
-    answer:
-      'You can track your order in real-time by visiting your account dashboard and clicking on "My Orders". You\'ll receive email notifications at each stage of your delivery.',
-  },
-  {
-    id: 'faq-2',
-    question: 'What is your return policy?',
-    answer:
-      "We offer a 30-day return policy for most items. Products must be in original condition with all packaging. Simply initiate a return from your account, and we'll provide a prepaid shipping label.",
-  },
-  {
-    id: 'faq-3',
-    question: 'How long does shipping take?',
-    answer:
-      'Standard shipping typically takes 5-7 business days. Express shipping is available for 2-3 business days. Shipping times are calculated from the order confirmation date.',
-  },
-  {
-    id: 'faq-4',
-    question: 'Do you offer international shipping?',
-    answer:
-      'Yes, we ship to over 150 countries worldwide. International shipping rates and delivery times vary by location. You can check shipping costs at checkout before completing your purchase.',
-  },
-  {
-    id: 'faq-5',
-    question: 'How do I reset my password?',
-    answer:
-      'Click "Forgot Password" on the login page and enter your email address. You\'ll receive a password reset link within minutes. Follow the instructions to create a new password.',
-  },
-  {
-    id: 'faq-6',
-    question: 'Are my payment details secure?',
-    answer:
-      'Yes, we use industry-standard SSL encryption and PCI DSS compliance to protect your payment information. We never store full credit card details on our servers.',
-  },
-];
-
-// Mock contact options data
-const contactOptions = [
-  {
-    id: 'live-chat',
-    icon: MessageSquare,
-    title: 'Live Chat',
-    description: 'Chat with our support team in real-time',
-    availability: 'Available 24/7',
-  },
-  {
-    id: 'email',
-    icon: Mail,
-    title: 'Email Support',
-    description: "Send us an email and we'll respond within 24 hours",
-    availability: 'support@example.com',
-  },
-  {
-    id: 'phone',
-    icon: Phone,
-    title: 'Phone Support',
-    description: 'Call our dedicated support team',
-    availability: '+1 (555) 123-4567',
-  },
-];
-
-// Mock help topics data
-const helpTopics = [
-  {
-    id: 'orders',
-    icon: Package,
-    title: 'Orders',
-    description: 'Track, modify, or cancel your orders',
-  },
-  {
-    id: 'shipping',
-    icon: Truck,
-    title: 'Shipping',
-    description: 'Learn about delivery options and rates',
-  },
-  {
-    id: 'payments',
-    icon: CreditCard,
-    title: 'Payments',
-    description: 'Payment methods and billing questions',
-  },
-  {
-    id: 'returns',
-    icon: Undo2,
-    title: 'Returns',
-    description: 'Return or exchange your items',
-  },
-  {
-    id: 'account',
-    icon: User,
-    title: 'Account',
-    description: 'Manage your profile and preferences',
-  },
-  {
-    id: 'products',
-    icon: Package,
-    title: 'Products',
-    description: 'Product information and specifications',
-  },
-];
 
 export default function SupportPage() {
+  const { t } = useTranslation();
   const [openFaq, setOpenFaq] = useState<string | undefined>('faq-1');
+
+  // FAQ data with translations
+  const faqData = useMemo(
+    () => [
+      {
+        id: 'faq-1',
+        question: t('support.faq.q1'),
+        answer: t('support.faq.a1'),
+      },
+      {
+        id: 'faq-2',
+        question: t('support.faq.q2'),
+        answer: t('support.faq.a2'),
+      },
+      {
+        id: 'faq-3',
+        question: t('support.faq.q3'),
+        answer: t('support.faq.a3'),
+      },
+      {
+        id: 'faq-4',
+        question: t('support.faq.q4'),
+        answer: t('support.faq.a4'),
+      },
+      {
+        id: 'faq-5',
+        question: t('support.faq.q5'),
+        answer: t('support.faq.a5'),
+      },
+      {
+        id: 'faq-6',
+        question: t('support.faq.q6'),
+        answer: t('support.faq.a6'),
+      },
+    ],
+    [t],
+  );
+
+  // Contact options with translations
+  const contactOptions = useMemo(
+    () => [
+      {
+        id: 'live-chat',
+        icon: MessageSquare,
+        title: t('support.contactOptions.liveChat.title'),
+        description: t('support.contactOptions.liveChat.desc'),
+        availability: t('support.contactOptions.liveChat.availability'),
+      },
+      {
+        id: 'email',
+        icon: Mail,
+        title: t('support.contactOptions.email.title'),
+        description: t('support.contactOptions.email.desc'),
+        availability: t('support.contactOptions.email.availability'),
+      },
+      {
+        id: 'phone',
+        icon: Phone,
+        title: t('support.contactOptions.phone.title'),
+        description: t('support.contactOptions.phone.desc'),
+        availability: t('support.contactOptions.phone.availability'),
+      },
+    ],
+    [t],
+  );
+
+  // Help topics with translations
+  const helpTopics = useMemo(
+    () => [
+      {
+        id: 'orders',
+        icon: Package,
+        title: t('support.helpTopics.orders.title'),
+        description: t('support.helpTopics.orders.desc'),
+      },
+      {
+        id: 'shipping',
+        icon: Truck,
+        title: t('support.helpTopics.shipping.title'),
+        description: t('support.helpTopics.shipping.desc'),
+      },
+      {
+        id: 'payments',
+        icon: CreditCard,
+        title: t('support.helpTopics.payments.title'),
+        description: t('support.helpTopics.payments.desc'),
+      },
+      {
+        id: 'returns',
+        icon: Undo2,
+        title: t('support.helpTopics.returns.title'),
+        description: t('support.helpTopics.returns.desc'),
+      },
+      {
+        id: 'account',
+        icon: User,
+        title: t('support.helpTopics.account.title'),
+        description: t('support.helpTopics.account.desc'),
+      },
+      {
+        id: 'products',
+        icon: Package,
+        title: t('support.helpTopics.products.title'),
+        description: t('support.helpTopics.products.desc'),
+      },
+    ],
+    [t],
+  );
 
   return (
     <main className="min-h-screen bg-background">
@@ -142,17 +149,15 @@ export default function SupportPage() {
       <section className="py-16 md:py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-muted/50 to-background">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-            We&apos;re Here to Help
+            {t('support.title')}
           </h1>
           <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Find answers to common questions or get in touch with our support
-            team. We&apos;re committed to providing you with the best customer
-            experience.
+            {t('support.subtitle')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact">
               <Button size="lg" className="w-full sm:w-auto">
-                Contact Support
+                {t('support.contactSupport')}
               </Button>
             </Link>
             <Button
@@ -160,7 +165,7 @@ export default function SupportPage() {
               variant="outline"
               className="w-full sm:w-auto bg-transparent"
             >
-              Visit Help Center
+              {t('support.visitHelpCenter')}
             </Button>
           </div>
         </div>
@@ -171,10 +176,10 @@ export default function SupportPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Get in Touch
+              {t('support.getInTouch')}
             </h2>
             <p className="text-muted-foreground text-lg">
-              Choose the support method that works best for you
+              {t('support.getInTouchDesc')}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -215,10 +220,10 @@ export default function SupportPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Frequently Asked Questions
+              {t('support.faqTitle')}
             </h2>
             <p className="text-muted-foreground text-lg">
-              Find quick answers to the most common questions
+              {t('support.faqDesc')}
             </p>
           </div>
           <Accordion
@@ -248,10 +253,10 @@ export default function SupportPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Browse Help Topics
+              {t('support.helpTopicsTitle')}
             </h2>
             <p className="text-muted-foreground text-lg">
-              Explore our comprehensive guides and resources
+              {t('support.helpTopicsDesc')}
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
@@ -288,17 +293,16 @@ export default function SupportPage() {
           <Card className="bg-primary/5 border-primary/20">
             <CardHeader>
               <CardTitle className="text-2xl md:text-3xl mb-2">
-                Didn&apos;t find what you&apos;re looking for?
+                {t('support.ctaTitle')}
               </CardTitle>
               <CardDescription className="text-base">
-                Submit a support request and our team will get back to you as
-                soon as possible
+                {t('support.ctaDesc')}
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Link href="/contact">
                 <Button size="lg" className="w-full sm:w-auto">
-                  Submit a Support Request
+                  {t('support.submitRequest')}
                 </Button>
               </Link>
             </CardContent>

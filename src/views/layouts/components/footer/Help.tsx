@@ -1,11 +1,14 @@
 import { Phone, Mail } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export default function Help() {
+  const { t } = useTranslation();
+
   return (
     <div>
-      <h4 className="font-semibold mb-4">Do You Need Help?</h4>
+      <h4 className="font-semibold mb-4">{t('footer.needHelp')}</h4>
       <p className="text-sm text-muted-foreground">
-        Autoseeker car, help desk always help you for create invoice.
+        {t('footer.helpDesc')}
       </p>
 
       <div className="mt-3 space-y-2">

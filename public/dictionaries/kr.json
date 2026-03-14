@@ -1,0 +1,591 @@
+{
+  "getStarted": "수정하여 시작하기",
+  "saveAndSee": "변경 사항을 저장하고 즉시 확인하세요.",
+  "deployNow": "지금 배포",
+  "readDocs": "문서 읽기",
+  "header": {
+    "searchPlaceholder": "제품, 카테고리 또는 브랜드 검색...",
+    "searchSuggestions": "검색 제안",
+    "searchHistory": "검색 기록",
+    "clearAll": "전체 삭제",
+    "noSearchHistory": "검색 기록 없음",
+    "popularKeywords": "인기 키워드",
+    "deliveryInfo": "매일 <1>7:00</1>부터 <2>23:00</2>까지 배달해 드립니다",
+    "keywords": {
+      "computer": "컴퓨터",
+      "ram": "노트북 램",
+      "clothing": "의류",
+      "laptop": "델 노트북",
+      "cosmetics": "화장품"
+    }
+  },
+  "footer": {
+    "newsletterTitle": "뉴스레터 구독",
+    "newsletterDesc": "지금 구독하여 최신 프로모션 및 쿠폰 업데이트를 받으세요. 스팸을 보내지 않을 것을 약속합니다.",
+    "emailPlaceholder": "이메일 주소를 입력하세요",
+    "subscribe": "구독하기",
+    "termsDesc": "구독함으로써 귀하는 당사의 이용 약관 및 개인정보 보호정책에 동의하게 됩니다.",
+    "getInTouch": "문의하기",
+    "needHelp": "도움이 필요하신가요?",
+    "helpDesc": "FastE 지원 팀이 언제나 도와드릴 준비가 되어 있습니다.",
+    "makeMoney": "FastE로 수익 창출",
+    "helpYou": "우리가 도와드리겠습니다",
+    "knowUs": "FastE 소개",
+    "downloadApp": "앱 다운로드",
+    "copyright": "Copyright 2024 © FastE Ecommerce. All rights reserved. Powered by FastE Team.",
+    "terms": "이용 약관",
+    "privacy": "개인정보 보호정책",
+    "trackOrder": "주문 추적"
+  },
+  "auth": {
+    "login": {
+      "title": "다시 오신 것을 환영합니다",
+      "subtitle": "FastE 계정에 로그인하세요",
+      "emailLabel": "이메일",
+      "passwordLabel": "비밀번호",
+      "forgotPassword": "비밀번호를 잊으셨나요?",
+      "loginButton": "로그인",
+      "continueWith": "또는 다음으로 계속",
+      "noAccount": "계정이 없으신가요?",
+      "signUp": "회원가입",
+      "termsAgreement": "계속하기를 클릭하면 당사의 서비스 약관 및 개인정보 보호정책에 동의하는 것입니다."
+    },
+    "register": {
+      "title": "계정 생성",
+      "subtitle": {
+        "email": "시작하려면 이메일을 입력하세요",
+        "otp": "이메일로 전송된 OTP 코드를 입력하세요",
+        "complete": "회원가입 완료"
+      },
+      "emailLabel": "이메일",
+      "nameLabel": "성함",
+      "phoneNumberLabel": "전화번호",
+      "passwordLabel": "비밀번호",
+      "confirmPasswordLabel": "비밀번호 확인",
+      "otpLabel": "OTP 코드",
+      "sendOtp": "OTP 전송",
+      "sending": "전송 중...",
+      "verifyOtp": "OTP 인증",
+      "verifying": "인증 중...",
+      "createAccount": "계정 생성",
+      "creating": "계정 생성 중...",
+      "back": "뒤로",
+      "alreadyHaveAccount": "이미 계정이 있으신가요?",
+      "login": "로그인",
+      "continueWith": "또는 다음으로 계속"
+    }
+  },
+  "order": {
+    "tabs": {
+      "all": "전체",
+      "pending": "결제 대기",
+      "shipping": "배송 준비 중",
+      "receive": "배송 중",
+      "completed": "완료",
+      "cancelled": "취소됨",
+      "returns": "환불/반품"
+    },
+    "searchPlaceholder": "상점 이름, 주문 ID 또는 제품 이름으로 검색할 수 있습니다",
+    "confirmReceivedDescription": "FastE가 판매자에게 대금을 지불합니다. 제품을 수령하고 문제가 없는 경우에만 '확인'을 눌러주세요.",
+    "updateSuccess": "상태 업데이트 성공!",
+    "updateFailed": "상태 업데이트 실패!",
+    "empty": "주문을 찾을 수 없습니다",
+    "goShopping": "지금 쇼핑하기",
+    "chatNow": "지금 채팅",
+    "viewShop": "상점 보기",
+    "totalAmountLabel": "총 주문 금액:",
+    "payNow": "지금 결제",
+    "contactSeller": "판매자에게 연락",
+    "cancelOrder": "주문 취소",
+    "trackOrder": "주문 추적",
+    "received": "수령 확인",
+    "returnRequest": "환불/반품 신청",
+    "rate": "리뷰 작성",
+    "buyAgain": "다시 구매",
+    "viewCancelledDetails": "취소 상세 보기",
+    "viewReview": "리뷰 보기",
+    "reviewBefore": "이 날짜까지 제품 리뷰를 작성하세요",
+    "reviewPenaltyNote": "{{date}} 이후에는 리뷰를 작성하고 200 FastE 코인을 받을 수 없습니다. 지금 리뷰를 작성하고 200 FastE 코인을 받으세요!",
+    "cancelConfirmTitle": "주문 취소 확인",
+    "cancelConfirmDescription": "정말로 이 주문을 취소하시겠습니까?",
+    "rating": {
+      "title": "제품 리뷰",
+      "productQuality": "제품 품질",
+      "vVeryBad": "매우 나쁨",
+      "vBad": "나쁨",
+      "vOk": "보통",
+      "vGood": "좋음",
+      "vExcellent": "매우 좋음",
+      "lowRatingReason": "낮은 점수를 주신 이유는 무엇인가요?",
+      "reasons": {
+        "damaged": "제품 손상",
+        "fake": "가품",
+        "notAsDescribed": "설명과 다름",
+        "poorQuality": "품질 저하"
+      },
+      "selectStarsError": "별점을 선택해주세요",
+      "selectReasonError": "이유를 선택해주세요",
+      "placeholder": "다른 구매자들과 제품에 대한 의견을 공유해주세요.",
+      "charsRemaining": "{{count}}자 남음",
+      "maxChars": "최대 {{count}}자",
+      "maxImagesError": "최대 {{count}}장의 이미지만 선택할 수 있습니다",
+      "imageUploadTitle": "제품 이미지 (최대 5장) 및 비디오 1개",
+      "anonymousLabel": "익명으로 리뷰 남기기",
+      "serviceSection": "서비스 품질",
+      "sellerService": "판매자 서비스",
+      "shipService": "배송 서비스",
+      "cancel": "취소",
+      "submit": "리뷰 제출",
+      "success": "리뷰가 성공적으로 제출되었습니다!",
+      "failed": "리뷰 제출 중 오류가 발생했습니다."
+    },
+    "status": {
+      "unknown": "알 수 없음",
+      "pendingConfirmation": "확인 대기 중",
+      "processing": "처리 중",
+      "pendingPayment": "결제 대기 중",
+      "pendingPickup": "픽업 대기 중",
+      "pendingDelivery": "배송 대기 중",
+      "delivered": "배송 완료",
+      "returned": "반품/환불 완료",
+      "cancelled": "취소됨",
+      "updateSuccess": "성공",
+      "updateSuccessDesc": "주문이 성공적으로 취소되었습니다!",
+      "updateError": "오류",
+      "updateErrorDesc": "주문 취소 중 오류가 발생했습니다!",
+      "confirmReceived": "수령 확인"
+    }
+  },
+  "common": {
+    "viewMore": "더 보기",
+    "saveChanges": "변경 사항 저장",
+    "change": "변경",
+    "apply": "적용",
+    "share": "공유",
+    "viewNow": "지금 보기",
+    "update": "업데이트",
+    "category": "옵션",
+    "customerName": "고객",
+    "outOf5": "5점 만점",
+    "stars": "{{count}}점",
+    "noReviews": "리뷰 없음",
+    "all": "전체",
+    "status": {
+      "success": "성공",
+      "info": "정보",
+      "error": "오류"
+    }
+  },
+  "navigation": {
+    "home": "홈",
+    "products": "제품",
+    "contact": "문의하기",
+    "about": "회사 소개",
+    "cart": "장바구니",
+    "login": "로그인",
+    "register": "회원가입",
+    "logout": "로그아웃",
+    "categories": "카테고리",
+    "brands": "브랜드",
+    "myShop": "내 상점",
+    "wishlist": "위시리스트",
+    "myAccount": "내 계정",
+    "support": "고객지원",
+    "blog": "블로그",
+    "shop": "상점",
+    "fruitsVegetables": "과일 및 채소",
+    "beverages": "음료",
+    "trendingProducts": "인기 제품",
+    "almostFinished": "마감 임박",
+    "sale": "세일"
+  },
+  "promo": {
+    "freeDelivery": "첫 3회 주문 무료 배송 및 40% 할인! 지금 첫 주문을 하세요.",
+    "off": "다음 3회 주문 40% 할인!",
+    "untilEnd": "세일 종료까지:",
+    "days": "일",
+    "hrs": "시간",
+    "min": "분"
+  },
+  "account": {
+    "accountInfo": "계정 정보",
+    "personalInfo": "개인 정보",
+    "fullName": "성함",
+    "gender": "성별",
+    "birthday": "생년월일",
+    "phoneEmail": "전화번호 및 이메일"
+  },
+  "userMenu": {
+    "myAccount": "내 계정",
+    "account": "계정",
+    "address": "주소",
+    "security": "보안",
+    "changePassword": "비밀번호 변경",
+    "notifications": "알림",
+    "notificationSettings": "알림 설정",
+    "orders": "주문",
+    "myOrders": "내 주문",
+    "voucherWallet": "쿠폰함",
+    "wallet": "지갑",
+    "cryptoWallet": "크립토 지갑",
+    "viewedProducts": "최근 본 제품",
+    "favoriteProducts": "관심 제품"
+  },
+  "address": {
+    "myAddress": "내 주소",
+    "addNewAddress": "새 주소 추가"
+  },
+  "cart": {
+    "cart": "장바구니",
+    "productsInCart": "장바구니 제품",
+    "viewCart": "장바구니 보기",
+    "unitPrice": "단가",
+    "quantity": "수량",
+    "totalPrice": "총액",
+    "deliverTo": "배송지",
+    "promoCode": "프로모션 코드",
+    "enterPromoCode": "프로모션 코드 입력",
+    "totalProductPrice": "제품 총액",
+    "shippingFee": "배송비",
+    "totalPayment": "총 결제 금액",
+    "vatIncluded": "부가세 포함 (해당 시)",
+    "checkout": "결제하기",
+    "emptyCart": "장바구니가 비어 있습니다",
+    "deliveryEstimation": "2-4일 내 배송"
+  },
+  "checkout": {
+    "title": "결제",
+    "selectShippingMethod": "배송 방법 선택",
+    "chooseShippingMethod": "귀하에게 적합한 배송 방법을 선택하세요",
+    "selectPaymentMethod": "결제 방법 선택",
+    "choosePaymentMethod": "안전한 결제 방법을 선택하세요",
+    "shippingUnit": "배송 업체",
+    "placeOrder": "주문하기",
+    "delivery": {
+      "economy": "일반 배송",
+      "express": "급행 배송",
+      "provider": "FastE 제공",
+      "timeEconomy": "13시 - 18시, 10/28",
+      "timeExpress": "9시 - 12시, 10/28"
+    },
+    "payment": {
+      "cod": "착불 결제 (COD)",
+      "sepay": "SEPAY 결제",
+      "payfast": "PayFast",
+      "web3": "Web3 지갑"
+    },
+    "confirmTitle": "주문 확인",
+    "confirmDesc": "선택한 상세 내용으로 주문하시겠습니까?",
+    "ordering": "주문 중..."
+  },
+  "shop": {
+    "shop": "상점",
+    "shopProfile": "상점 프로필",
+    "searchProductInShop": "상점에서 제품 검색",
+    "follow": "팔로우",
+    "chat": "채팅",
+    "followers": "팔로워",
+    "viewShop": "상점 보기",
+    "chatNow": "지금 채팅",
+    "tabs": {
+      "store": "상점",
+      "allProducts": "전체 제품",
+      "collections": "컬렉션",
+      "todayFlashSale": "오늘의 타임세일"
+    },
+    "info": {
+      "description": "상점 설명",
+      "noDescription": "설명 없음",
+      "joinedDate": "가입일",
+      "responseRate": "응답률",
+      "responseTime": "응답 시간"
+    },
+    "followers_count": "팔로워"
+  },
+  "product": {
+    "bestSelling": "베스트셀러",
+    "newProducts": "신제품",
+    "newAdded": "최근 추가된 제품",
+    "priceShockToday": "오늘의 핫딜",
+    "description": "제품 설명",
+    "details": "제품 상세",
+    "specs": "사양",
+    "reviews": "제품 리뷰",
+    "rating": "별점",
+    "sold": "판매됨",
+    "joined": "가입일",
+    "similarProducts": "유사한 제품",
+    "remainingProducts": "남은 수량",
+    "shipFrom": "배송지",
+    "addToCart": "장바구니 담기",
+    "buyNow": "지금 구매",
+    "inStock": "재고 있음",
+    "outOfStock": "품절",
+    "quantity": "수량",
+    "available": "개 남음",
+    "relatedTitle": "추천 제품",
+    "messages": {
+      "addSuccess": "장바구니에 성공적으로 추가되었습니다!",
+      "addError": "장바구니 추가에 실패했습니다.",
+      "somethingWrong": "문제가 발생했습니다. 나중에 다시 시도해주세요!"
+    }
+  },
+  "search": {
+    "filterTitle": "검색 필터",
+    "location": "판매자 위치",
+    "category": "카테고리별",
+    "shipping": "배송 업체",
+    "brand": "브랜드",
+    "priceRange": "가격 범위",
+    "priceFrom": "최소",
+    "priceTo": "최대",
+    "apply": "적용",
+    "rating": "별점",
+    "ratingAbove": "이상",
+    "clearAll": "전체 삭제",
+    "resultsForKeyword": "개의 키워드 결과",
+    "searchResults": "키워드 검색 결과",
+    "sortBy": "정렬 기준:",
+    "popular": "인기순",
+    "newest": "최신순",
+    "bestseller": "판매순",
+    "price": "가격",
+    "priceAsc": "가격: 낮은 순",
+    "priceDesc": "가격: 높은 순",
+    "noProducts": "제품을 찾을 수 없습니다",
+    "tryAnotherKeyword": "다른 키워드를 시도하거나 필터를 조정해보세요"
+  },
+  "theme": {
+    "light": "라이트 모드",
+    "dark": "다크 모드",
+    "system": "시스템 설정"
+  },
+  "support": {
+    "helpCenter": "도움말 센터",
+    "title": "무엇을 도와드릴까요?",
+    "subtitle": "자주 묻는 질문에 대한 답변을 찾거나 지원 팀에 문의하세요. 최고의 고객 경험을 제공하기 위해 노력하고 있습니다.",
+    "contactSupport": "고객지원 문의",
+    "visitHelpCenter": "도움말 센터 방문",
+    "getInTouch": "문의하기",
+    "getInTouchDesc": "가장 적합한 지원 방법을 선택하세요",
+    "faqTitle": "자주 묻는 질문",
+    "faqDesc": "가장 일반적인 질문에 대한 빠른 답변을 찾아보세요",
+    "helpTopicsTitle": "도움말 주제 찾아보기",
+    "helpTopicsDesc": "종합 가이드 및 리소스를 살펴보세요",
+    "ctaTitle": "원하시는 정보를 찾지 못하셨나요?",
+    "ctaDesc": "지원 요청을 보내주시면 팀에서 최대한 빨리 답변해 드리겠습니다",
+    "submitRequest": "지원 요청 제출",
+    "contactOptions": {
+      "liveChat": {
+        "title": "실시간 채팅",
+        "desc": "지원 팀과 실시간으로 채팅하세요",
+        "availability": "24/7 이용 가능"
+      },
+      "email": {
+        "title": "이메일 지원",
+        "desc": "이메일을 보내주시면 24시간 이내에 답변해 드립니다",
+        "availability": "support@faste.com"
+      },
+      "phone": {
+        "title": "전화 지원",
+        "desc": "전담 지원 팀에 전화하세요",
+        "availability": "+1 (555) 123-4567"
+      }
+    },
+    "helpTopics": {
+      "orders": {
+        "title": "주문",
+        "desc": "주문 추적, 수정 또는 취소"
+      },
+      "shipping": {
+        "title": "배송",
+        "desc": "배송 옵션 및 요금 안내"
+      },
+      "payments": {
+        "title": "결제",
+        "desc": "결제 방법 및 청구 관련 문의"
+      },
+      "returns": {
+        "title": "반품",
+        "desc": "제품 반품 또는 교환"
+      },
+      "account": {
+        "title": "계정",
+        "desc": "프로필 및 기본 설정 관리"
+      },
+      "products": {
+        "title": "제품",
+        "desc": "제품 정보 및 사양"
+      }
+    },
+    "faq": {
+      "q1": "주문은 어떻게 추적하나요?",
+      "a1": "계정 대시보드에서 \"내 주문\"을 클릭하여 실시간으로 주문을 추적할 수 있습니다. 배송 단계마다 이메일 알림을 받게 됩니다.",
+      "q2": "반품 정책은 어떻게 되나요?",
+      "a2": "대부분의 제품에 대해 30일 반품 정책을 제공합니다. 제품은 모든 포장과 함께 원래 상태여야 합니다. 계정에서 반품을 신청하시면 선불 배송 라벨을 제공해 드립니다.",
+      "q3": "배송은 얼마나 걸리나요?",
+      "a3": "일반 배송은 보통 영업일 기준 5-7일이 소요됩니다. 급행 배송은 영업일 기준 2-3일이 소요됩니다. 배송 기간은 주문 확인일부터 계산됩니다.",
+      "q4": "해외 배송도 가능한가요?",
+      "a4": "네, 전 세계 150여 개국으로 배송이 가능합니다. 해외 배송 요금 및 기간은 지역에 따라 다릅니다. 결제 시 확인하실 수 있습니다.",
+      "q5": "비밀번호는 어떻게 재설정하나요?",
+      "a5": "로그인 페이지에서 \"비밀번호 찾기\"를 클릭하고 이메일 주소를 입력하세요. 몇 분 내로 비밀번호 재설정 링크를 받게 됩니다.",
+      "q6": "결제 정보는 안전한가요?",
+      "a6": "네, 업계 표준 SSL 암호화 및 PCI DSS 준수를 통해 결제 정보를 보호합니다. 당사 서버에는 신용카드 전체 정보를 저장하지 않습니다."
+    }
+  },
+  "about": {
+    "badge": "회사 소개",
+    "heroTitle": "함께 미래를 만듭니다",
+    "heroDesc": "우리는 사람들이 온라인에서 연결하고 쇼핑하며 이야기를 공유하는 방식을 혁신하는 미션을 가지고 있습니다.",
+    "getInTouch": "문의하기",
+    "readBlog": "블로그 읽기",
+    "missionTitle": "우리의 미션",
+    "missionDesc1": "판매자와 구매자 모두에게 힘을 실어주는 원활한 디지털 마켓플레이스를 구축하여 우수한 제품과 서비스가 번창하는 커뮤니티를 육성합니다.",
+    "missionDesc2": "우리는 모든 규모의 비즈니스가 접근 가능한 전자상거래의 민주화를 믿으며, 품질과 고객 만족의 최고 표준을 유지합니다.",
+    "visionTitle": "우리의 비전",
+    "visionDesc1": "혁신과 신뢰가 만나는 세계에서 가장 신뢰받는 온라인 마켓플레이스가 되어 모든 거래가 가치를 창출하도록 합니다.",
+    "visionDesc2": "우리는 기술이 지리적 경계를 넘어 사람들 사이에 의미 있는 연결을 가능하게 하고 성장 기회를 창출하는 미래를 꿈꿉니다.",
+    "coreValuesTitle": "핵심 가치",
+    "coreValuesDesc": "이러한 원칙은 우리가 내리는 모든 결정의 지침이 되며 회사 문화를 형성합니다.",
+    "values": {
+      "customerFirst": "고객 중심",
+      "customerFirstDesc": "우리는 모든 결정에서 고객의 요구와 만족을 최우선으로 생각합니다.",
+      "innovation": "혁신",
+      "innovationDesc": "우리는 끊임없이 한계를 뛰어넘고 새로운 기술과 아이디어를 수용합니다.",
+      "integrity": "정직",
+      "integrityDesc": "우리는 모든 비즈니스 거래에서 투명성과 정직함을 바탕으로 운영합니다.",
+      "community": "커뮤니티",
+      "communityDesc": "우리는 팀 및 고객과 강력한 관계를 구축하는 것을 믿습니다."
+    },
+    "teamTitle": "팀 소개",
+    "teamDesc": "디지털 마켓플레이스 혁신이라는 공동의 비전 아래 모인 재능 있는 인재들입니다.",
+    "stats": {
+      "activeSellers": "활동 판매자",
+      "productsListed": "등록 제품 수",
+      "happyCustomers": "만족한 고객",
+      "countriesServed": "서비스 국가"
+    },
+    "ctaTitle": "커뮤니티에 참여하세요",
+    "ctaDesc": "성장을 원하는 판매자이든 품질 좋은 제품을 찾는 구매자이든, 여러분을 환영합니다.",
+    "exploreShops": "상점 둘러보기",
+    "teamRoles": {
+      "ceo": "창립자 & CEO",
+      "cto": "CTO",
+      "design": "디자인 총괄",
+      "ops": "운영 총괄"
+    },
+    "teamBios": {
+      "ceo": "15년 이상의 기술 스타트업 경험을 가진 비전 있는 리더",
+      "cto": "확장 가능한 아키텍처에 열정을 가진 풀스택 엔지니어",
+      "design": "사용자 중심 경험에 집중하는 창의적인 디자이너",
+      "ops": "비즈니스의 안정적인 성장을 보장하는 운영 전문가"
+    }
+  },
+  "contact": {
+    "title": "문의하기",
+    "desc": "질문이 있거나 협업을 원하시나요? 여러분의 소중한 의견을 기다립니다. 메시지를 보내주시면 최대한 빨리 답변해 드리겠습니다.",
+    "formTitle": "메시지 보내기",
+    "formDesc": "아래 양식을 작성해 주시면 곧 연락드리겠습니다.",
+    "fullName": "성함",
+    "email": "이메일 주소",
+    "subject": "제목",
+    "subjectOptional": "(선택 사항)",
+    "message": "내용",
+    "fullNamePlaceholder": "홍길동",
+    "emailPlaceholder": "you@example.com",
+    "subjectPlaceholder": "무엇을 도와드릴까요?",
+    "messagePlaceholder": "상세한 문의 내용을 입력해주세요...",
+    "sending": "전송 중...",
+    "sendMessage": "메시지 보내기",
+    "successMessage": "메시지가 성공적으로 전송되었습니다! 곧 연락드리겠습니다.",
+    "infoTitle": "연락처 정보",
+    "infoDesc": "아래 채널 중 하나를 통해 문의하실 수 있습니다",
+    "address": "주소",
+    "phone": "전화번호",
+    "businessHours": "영업 시간",
+    "hoursWork": "월요일 - 금요일: 오전 9:00 - 오후 6:00 PST",
+    "hoursWeekend": "토요일 - 일요일: 휴무",
+    "followUs": "팔로우하기",
+    "errors": {
+      "nameRequired": "성함은 필수 입력 사항입니다",
+      "nameMin": "성함은 최소 2자 이상이어야 합니다",
+      "emailRequired": "이메일은 필수 입력 사항입니다",
+      "emailInvalid": "유효한 이메일 주소를 입력해주세요",
+      "messageRequired": "내용은 필수 입력 사항입니다",
+      "messageMin": "내용은 최소 10자 이상이어야 합니다",
+      "submitError": "메시지 전송에 실패했습니다. 다시 시도해주세요."
+    }
+  },
+  "blog": {
+    "title": "공식 블로그",
+    "subtitle": "현대 웹 개발을 위한 통찰력, 팁 및 모범 사례",
+    "searchPlaceholder": "포스트 검색...",
+    "allTags": "모든 태그",
+    "tagPrefix": "태그: ",
+    "noPosts": "포스트를 찾을 수 없습니다",
+    "noPostsDesc": "검색어 또는 필터를 조정해보세요",
+    "clearFilters": "필터 초기화",
+    "previous": "이전",
+    "next": "다음"
+  },
+  "shops": {
+    "title": "인기 상점",
+    "subtitle": "신뢰할 수 있는 판매자들의 놀라운 제품을 살펴보세요",
+    "searchPlaceholder": "상점 검색...",
+    "sortBy": "정렬 기준",
+    "sortOptions": {
+      "nameAsc": "이름순 (A-Z)",
+      "nameDesc": "이름순 (Z-A)",
+      "ratingHigh": "별점순 (높은 순)",
+      "productsHigh": "제품 많은 순"
+    },
+    "productCount": "{{count}}개의 제품",
+    "viewShop": "상점 보기",
+    "noShops": "상점을 찾을 수 없습니다",
+    "noShopsDesc": "검색 조건을 조정해보세요"
+  },
+  "profile": {
+    "changePassword": {
+      "title": "비밀번호 변경",
+      "description": "보안을 위해 비밀번호를 업데이트하세요",
+      "currentPassword": "현재 비밀번호",
+      "newPassword": "새 비밀번호",
+      "confirmNewPassword": "새 비밀번호 확인",
+      "placeholderCurrent": "현재 비밀번호 입력",
+      "placeholderNew": "새 비밀번호 입력",
+      "placeholderConfirm": "새 비밀번호 확인 입력",
+      "updateButton": "비밀번호 업데이트",
+      "errors": {
+        "minChars": "비밀번호는 최소 {{count}}자 이상이어야 합니다",
+        "currentRequired": "현재 비밀번호는 필수 입력 사항입니다",
+        "newRequired": "새 비밀번호는 필수 입력 사항입니다",
+        "confirmRequired": "비밀번호 확인은 필수 입력 사항입니다",
+        "mustMatch": "비밀번호가 일치하지 않습니다"
+      },
+      "messages": {
+        "success": "비밀번호가 성공적으로 변경되었습니다!",
+        "error": "비밀번호 변경 중 오류가 발생했습니다",
+        "somethingWrong": "문제가 발생했습니다"
+      }
+    }
+  },
+  "payment": {
+    "title": "결제 완료",
+    "subtitle": "기본 결제 수단을 선택하여 계속 진행하세요",
+    "method": "결제 수단",
+    "chooseMethod": "원하시는 결제 수단을 선택하세요",
+    "timeExpired": "결제 시간이 만료되었습니다. 다시 시도해주세요.",
+    "startNew": "새 결제 시작",
+    "success": "결제 성공! 주문이 확인되었습니다.",
+    "error": "결제 오류",
+    "retry": "재시도",
+    "attempt": "시도 {{current}} / {{total}}",
+    "summary": {
+      "title": "주문 요약",
+      "orderId": "주문 ID",
+      "amount": "결제 금액",
+      "description": "설명"
+    }
+  },
+  "NotFound": "페이지를 찾을 수 없음"
+}

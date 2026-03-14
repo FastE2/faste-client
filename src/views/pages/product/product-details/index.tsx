@@ -110,13 +110,13 @@ const ProductDetails = (props: TProps) => {
 
       if (res.status === 201 || res.statusCode === 201) {
         setTotalCartItem(totalCartItem + quantityProduct);
-        toastify.success('Thành công', 'Thêm vào giỏ hàng thành công!');
+        toastify.success(t('common.status.success'), t('product.messages.addSuccess'));
       } else {
-        toastify.info('Thông tin', `Đã có lỗi xảy ra vui lòng thử lại!`);
+        toastify.info(t('common.status.info'), t('product.messages.somethingWrong'));
       }
     } catch (error) {
       console.log(error);
-      toastify.error('Lỗi', 'Không thể thêm sản phẩm vào giỏ hàng.');
+      toastify.error(t('common.status.error'), t('product.messages.addError'));
     }
   };
   // const handleAddToCart = useCallback(async () => {
@@ -139,7 +139,7 @@ const ProductDetails = (props: TProps) => {
   // }, [matchedSku, quantityProduct]);
 
   if (!product) {
-    return <div>Product not found</div>;
+    return <div>{t('common.notFound')}</div>;
   }
 
   console.log('render product details');
@@ -198,7 +198,7 @@ const ProductDetails = (props: TProps) => {
           />
 
           {product.skus &&
-            product.skus.length &&
+            product.skus.length > 0 &&
             product.variants.length > 0 && (
               <VariantSelector
                 variants={product.variants}

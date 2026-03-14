@@ -5,6 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Trash2, Plus, Minus } from 'lucide-react';
 import Image from 'next/image';
 
+import { formatCurrencyWithExchange } from '@/utils';
+import { useTranslation } from 'react-i18next';
+
 interface CartItemProps {
   item: any;
   onQuantityChange: (id: number, skuId: number, quantity: number) => void;
@@ -18,8 +21,11 @@ export function CartItem({
   onDelete,
   onSelect,
 }: CartItemProps) {
+  const { i18n, t } = useTranslation();
   const formatPrice = (price: number) => {
-    return price.toLocaleString('vi-VN') + 'đ';
+    return formatCurrencyWithExchange(price, {
+      language: i18n.language as 'vi' | 'en' | 'cn' | 'kr',
+    });
   };
 
   let attributeKeys: string[] = [];
@@ -67,7 +73,7 @@ export function CartItem({
               ))}
             </div>
 
-            <p className="text-xs text-muted-foreground">Giao từ 2-4 ngày</p>
+            <p className="text-xs text-muted-foreground">{t('cart.deliveryEstimation')}</p>
           </div>
         </div>
 

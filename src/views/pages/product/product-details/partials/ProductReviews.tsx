@@ -32,33 +32,29 @@ export const ProductReviews = memo(({ product }: { product: any }) => {
   };
 
   const FILLTER_REVIEW: { value: any; text: string }[] = [
-    // {
-    //   value: 0,
-    //   text: 'Mới nhất',
-    // },
     {
       value: null,
-      text: 'Tất cả',
+      text: t('common.all'),
     },
     {
       value: 1,
-      text: '1 sao',
+      text: t('common.stars', { count: 1 }),
     },
     {
       value: 2,
-      text: '2 sao',
+      text: t('common.stars', { count: 2 }),
     },
     {
       value: 3,
-      text: '3 sao',
+      text: t('common.stars', { count: 3 }),
     },
     {
       value: 4,
-      text: '4 sao',
+      text: t('common.stars', { count: 4 }),
     },
     {
       value: 5,
-      text: '5 sao',
+      text: t('common.stars', { count: 5 }),
     },
   ];
 
@@ -78,7 +74,7 @@ export const ProductReviews = memo(({ product }: { product: any }) => {
       <div className="bg-red-50 w-full mb-4 px-4 py-4 flex items-start gap-x-4">
         <div className="flex flex-col items-center">
           <div className="text-red-500 text-xl font-medium">
-            <span className="text-3xl">{product.rating}</span> trên 5
+            <span className="text-3xl">{product.rating}</span> {t('common.outOf5')}
           </div>
           <ProductRating rating={product.rating ?? 0} size={18} />
         </div>
@@ -111,7 +107,7 @@ export const ProductReviews = memo(({ product }: { product: any }) => {
               <ReviewCard key={review.id} review={review} skus={product.skus} />
             ))
           ) : (
-            <div className="text-center text-gray-600">No reviews yet.</div>
+            <div className="text-center text-gray-600">{t('common.noReviews')}</div>
           )}
         </div>
       )}

@@ -15,6 +15,8 @@ import AlertConfirm from '@/components/AlertConfirm';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import { toastify } from '@/components/ToastNotification';
 import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
+import { useTranslation } from 'react-i18next';
+
 
 type PaymentFieldType = {
   id: number;
@@ -46,18 +48,20 @@ type OrderDataType = {
   [key: string]: any;
 };
 
-const tabs = [
-  { value: 'all', label: 'Tất cả' },
-  { value: 'pending', label: 'Chờ xác nhận' },
-  { value: 'shipping', label: 'Vận chuyển' },
-  { value: 'receive', label: 'Chờ giao hàng' },
-  { value: 'completed', label: 'Hoàn thành' },
-  { value: 'cancelled', label: 'Đã hủy' },
-  { value: 'returns', label: 'Trả hàng/Hoàn tiền' },
-];
-
 export default function OrdersPage() {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
+
+  const tabs = [
+    { value: 'all', label: t('order.tabs.all') },
+    { value: 'pending', label: t('order.tabs.pending') },
+    { value: 'shipping', label: t('order.tabs.shipping') },
+    { value: 'receive', label: t('order.tabs.receive') },
+    { value: 'completed', label: t('order.tabs.completed') },
+    { value: 'cancelled', label: t('order.tabs.cancelled') },
+    { value: 'returns', label: t('order.tabs.returns') },
+  ];
+
   const [activeTab, setActiveTab] = useState('all');
   const [orders, setOrders] = useState<OrderDataType[] | null>(null);
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
@@ -148,11 +152,11 @@ export default function OrdersPage() {
     });
     if (res.status === 'success') {
       // setOrderData({ ...orderData, status: pendingStatus });
-      toastify.success('Cập nhật trạng thái thành công!');
+      toastify.success(t('order.updateSuccess'));
       // setOpenStatusDialog(false);
       fetchDataOrders();
     } else {
-      toastify.error('Cập nhật trạng thái thất bại!');
+      toastify.error(t('order.updateFailed'));
     }
     setIsLoading(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -207,9 +211,7 @@ export default function OrdersPage() {
           open={isOpenAlertConfirm}
           onClose={handleColseAlertConfirm}
           onConfirm={handleSubmitReceived}
-          description={
-            "FastE sẽ thanh toán số tiền trên cho Người bán. Bạn vui lòng chỉ nhấn 'Xác nhận' khi đã nhận được sản phẩm và sản phẩm không có vấn đề nào."
-          }
+          description={t('order.confirmReceivedDescription')}
         />
       </Suspense>
       <div className="sticky top-0 bg-background border-b border-border">
@@ -239,7 +241,7 @@ export default function OrdersPage() {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
           <Input
             type="text"
-            placeholder="Bạn có thể tìm kiếm theo tên Shop, ID đơn hàng hoặc Tên Sản phẩm"
+            placeholder={t('order.searchPlaceholder')}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10 bg-muted/50 border-border rounded-lg text-sm"

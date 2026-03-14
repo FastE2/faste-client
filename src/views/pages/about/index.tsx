@@ -7,65 +7,70 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Users, Target, Zap, Heart } from "lucide-react"
 import Image from "next/image"
+import { useTranslation } from "react-i18next"
 
-// Mock team members data - Replace with API call later
-const teamMembers = [
-  {
-    id: 1,
-    name: "Sarah Johnson",
-    role: "Founder & CEO",
-    bio: "Visionary leader with 15+ years in tech entrepreneurship",
-    image: "/professional-woman-ceo.jpg",
-  },
-  {
-    id: 2,
-    name: "Michael Chen",
-    role: "CTO",
-    bio: "Full-stack engineer passionate about scalable architecture",
-    image: "/professional-man-developer.jpg",
-  },
-  {
-    id: 3,
-    name: "Emily Rodriguez",
-    role: "Head of Design",
-    bio: "Creative designer focused on user-centered experiences",
-    image: "/professional-woman-designer.jpg",
-  },
-  {
-    id: 4,
-    name: "David Kim",
-    role: "Head of Operations",
-    bio: "Operations expert ensuring smooth business growth",
-    image: "/professional-man-operations.jpg",
-  },
-]
 
-// Mock company values
-const values = [
-  {
-    icon: Target,
-    title: "Customer First",
-    description: "We prioritize customer needs and satisfaction in every decision we make.",
-  },
-  {
-    icon: Zap,
-    title: "Innovation",
-    description: "We constantly push boundaries and embrace new technologies and ideas.",
-  },
-  {
-    icon: Heart,
-    title: "Integrity",
-    description: "We operate with transparency and honesty in all our business dealings.",
-  },
-  {
-    icon: Users,
-    title: "Community",
-    description: "We believe in building strong relationships with our team and customers.",
-  },
-]
+import { useMemo } from "react";
 
 export default function AboutPage() {
+  const { t } = useTranslation();
   const [hoveredMember, setHoveredMember] = useState<number | null>(null)
+
+  // Mock team members data
+  const teamMembers = useMemo(() => [
+    {
+      id: 1,
+      name: "Sarah Johnson",
+      role: t("about.teamRoles.ceo"),
+      bio: t("about.teamBios.ceo"),
+      image: "/professional-woman-ceo.jpg",
+    },
+    {
+      id: 2,
+      name: "Michael Chen",
+      role: t("about.teamRoles.cto"),
+      bio: t("about.teamBios.cto"),
+      image: "/professional-man-developer.jpg",
+    },
+    {
+      id: 3,
+      name: "Emily Rodriguez",
+      role: t("about.teamRoles.design"),
+      bio: t("about.teamBios.design"),
+      image: "/professional-woman-designer.jpg",
+    },
+    {
+      id: 4,
+      name: "David Kim",
+      role: t("about.teamRoles.ops"),
+      bio: t("about.teamBios.ops"),
+      image: "/professional-man-operations.jpg",
+    },
+  ], [t]);
+
+  // Mock company values
+  const values = useMemo(() => [
+    {
+      icon: Target,
+      title: t("about.values.customerFirst"),
+      description: t("about.values.customerFirstDesc"),
+    },
+    {
+      icon: Zap,
+      title: t("about.values.innovation"),
+      description: t("about.values.innovationDesc"),
+    },
+    {
+      icon: Heart,
+      title: t("about.values.integrity"),
+      description: t("about.values.integrityDesc"),
+    },
+    {
+      icon: Users,
+      title: t("about.values.community"),
+      description: t("about.values.communityDesc"),
+    },
+  ], [t]);
 
   return (
     <main className="min-h-screen bg-background">
@@ -74,20 +79,20 @@ export default function AboutPage() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <Badge className="mb-4 inline-block" variant="secondary">
-              About Our Company
+              {t("about.badge")}
             </Badge>
             <h1 className="mb-6 text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl text-balance">
-              Building the Future Together
+              {t("about.heroTitle")}
             </h1>
             <p className="mx-auto mb-8 max-w-2xl text-lg text-muted-foreground md:text-xl">
-              We&apos;re on a mission to revolutionize how people connect, shop, and share their stories online.
+              {t("about.heroDesc")}
             </p>
             <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
               <Button size="lg" asChild>
-                <Link href="/contact">Get in Touch</Link>
+                <Link href="/contact">{t("about.getInTouch")}</Link>
               </Button>
               <Button size="lg" variant="outline" asChild>
-                <Link href="/blog">Read Our Blog</Link>
+                <Link href="/blog">{t("about.readBlog")}</Link>
               </Button>
             </div>
           </div>
@@ -101,34 +106,22 @@ export default function AboutPage() {
             {/* Mission */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl">Our Mission</CardTitle>
+                <CardTitle className="text-2xl">{t("about.missionTitle")}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  To create a seamless digital marketplace that empowers sellers and delights buyers, fostering a
-                  community where quality products and exceptional service thrive.
-                </p>
-                <p className="text-muted-foreground">
-                  We believe in democratizing e-commerce, making it accessible to businesses of all sizes while
-                  maintaining the highest standards of quality and customer satisfaction.
-                </p>
+                <p className="text-muted-foreground">{t("about.missionDesc1")}</p>
+                <p className="text-muted-foreground">{t("about.missionDesc2")}</p>
               </CardContent>
             </Card>
 
             {/* Vision */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl">Our Vision</CardTitle>
+                <CardTitle className="text-2xl">{t("about.visionTitle")}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <p className="text-muted-foreground">
-                  To become the world&apos;s most trusted online marketplace, where innovation meets integrity and every
-                  transaction creates value for all stakeholders.
-                </p>
-                <p className="text-muted-foreground">
-                  We envision a future where technology enables meaningful connections between people, transcending
-                  geographical boundaries and creating opportunities for growth.
-                </p>
+                <p className="text-muted-foreground">{t("about.visionDesc1")}</p>
+                <p className="text-muted-foreground">{t("about.visionDesc2")}</p>
               </CardContent>
             </Card>
           </div>
@@ -139,9 +132,9 @@ export default function AboutPage() {
       <section className="bg-muted/50 py-16 md:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl">Our Core Values</h2>
+            <h2 className="mb-4 text-3xl font-bold md:text-4xl">{t("about.coreValuesTitle")}</h2>
             <p className="mx-auto max-w-2xl text-muted-foreground">
-              These principles guide every decision we make and shape our company culture.
+              {t("about.coreValuesDesc")}
             </p>
           </div>
 
@@ -170,9 +163,9 @@ export default function AboutPage() {
       <section className="py-16 md:py-24">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold md:text-4xl">Meet Our Team</h2>
+            <h2 className="mb-4 text-3xl font-bold md:text-4xl">{t("about.teamTitle")}</h2>
             <p className="mx-auto max-w-2xl text-muted-foreground">
-              Talented individuals united by a shared vision to transform the digital marketplace.
+              {t("about.teamDesc")}
             </p>
           </div>
 
@@ -214,10 +207,10 @@ export default function AboutPage() {
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-8 md:grid-cols-4">
             {[
-              { label: "Active Sellers", value: "50K+" },
-              { label: "Products Listed", value: "2M+" },
-              { label: "Happy Customers", value: "500K+" },
-              { label: "Countries Served", value: "45+" },
+              { label: t("about.stats.activeSellers"), value: "50K+" },
+              { label: t("about.stats.productsListed"), value: "2M+" },
+              { label: t("about.stats.happyCustomers"), value: "500K+" },
+              { label: t("about.stats.countriesServed"), value: "45+" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <div className="mb-2 text-4xl font-bold md:text-5xl">{stat.value}</div>
@@ -231,19 +224,18 @@ export default function AboutPage() {
       {/* CTA Section */}
       <section className="py-16 md:py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="mb-4 text-3xl font-bold md:text-4xl">Join Our Community</h2>
+          <h2 className="mb-4 text-3xl font-bold md:text-4xl">{t("about.ctaTitle")}</h2>
           <p className="mb-8 text-lg text-muted-foreground">
-            Whether you&apos;re a seller looking to grow your business or a buyer seeking quality products, we&apos;d love to have
-            you join us.
+            {t("about.ctaDesc")}
           </p>
           <div className="flex flex-col gap-4 sm:flex-row sm:justify-center">
             <Button size="lg" asChild>
               <Link href="/shop">
-                Explore Shops <ArrowRight className="ml-2 h-4 w-4" />
+                {t("about.exploreShops")} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
             <Button size="lg" variant="outline" asChild>
-              <Link href="/contact">Contact Us</Link>
+              <Link href="/contact">{t("navigation.contact")}</Link>
             </Button>
           </div>
         </div>

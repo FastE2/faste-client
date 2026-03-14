@@ -23,6 +23,8 @@ import CartProductSkeleton from '@/components/skeleton/CartProductSkeleton';
 import ProductNotFound from './ProductNotFound';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
+import { useTranslation } from 'react-i18next';
+
 import page from '@/app/[locale]/sellercenter/vouchers/list/page';
 
 type TSearchProducts = {
@@ -33,6 +35,7 @@ type TSearchProducts = {
 };
 
 export const ProductListPage = () => {
+  const { t } = useTranslation();
   const router = useRouter();
   const searchParams = useSearchParams();
   const { searchText } = useSearchStore();
@@ -97,10 +100,10 @@ export const ProductListPage = () => {
           <div className="col-span-2 space-y-4 pr-4">
             <div className="flex justify-between items-center">
               <Icon icon={'line-md:filter'} className="text-lg" />
-              <h2 className="text-lg font-medium">Bộ lọc tiềm kiếm</h2>
+              <h2 className="text-lg font-medium">{t('search.filterTitle')}</h2>
             </div>
             <div className="space-y-2">
-              <div className="text-sm">Nơi bán</div>
+              <div className="text-sm">{t('search.location')}</div>
               <div className="flex flex-col gap-y-2">
                 <div className="flex items-center gap-3">
                   <Checkbox id="terms" />
@@ -125,7 +128,7 @@ export const ProductListPage = () => {
             <div className="w-full h-[1px] bg-gray-200"></div>
             {/* Category  */}
             <div className="space-y-2">
-              <div className="text-sm">Theo danh mục</div>
+              <div className="text-sm">{t('search.category')}</div>
               <div className="flex flex-col gap-y-2">
                 <div className="flex items-center gap-3">
                   <Checkbox id="terms" />
@@ -150,7 +153,7 @@ export const ProductListPage = () => {
             <div className="w-full h-[1px] bg-gray-200"></div>
             {/* Đơn vị vận chuyển */}
             <div className="space-y-2">
-              <div className="text-sm">Đơn vị vận chuyển</div>
+              <div className="text-sm">{t('search.shipping')}</div>
               <div className="flex flex-col gap-y-2">
                 <div className="flex items-center gap-3">
                   <Checkbox id="terms" />
@@ -175,7 +178,7 @@ export const ProductListPage = () => {
             <div className="w-full h-[1px] bg-gray-200"></div>
             {/* Thương hiệu */}
             <div className="space-y-2">
-              <div className="text-sm">Thương hiệu</div>
+              <div className="text-sm">{t('search.brand')}</div>
               <div className="flex flex-col gap-y-2">
                 <div className="flex items-center gap-3">
                   <Checkbox id="terms" />
@@ -201,13 +204,13 @@ export const ProductListPage = () => {
             {/* Theo Giá  */}
             <div className="space-y-2">
               {' '}
-              <div className="text-sm">Khoảng giá</div>
+              <div className="text-sm">{t('search.priceRange')}</div>
               <div className="w-full flex items-center gap-x-2">
                 <input
                   type="number"
                   value={10}
                   onChange={(e) => {}}
-                  placeholder="từ"
+                  placeholder={t('search.priceFrom')}
                   step={1}
                   min={10}
                   max={100}
@@ -220,7 +223,7 @@ export const ProductListPage = () => {
                   type="number"
                   value={10000000}
                   onChange={(e) => {}}
-                  placeholder="đến"
+                  placeholder={t('search.priceTo')}
                   step={1}
                   min={10}
                   max={100}
@@ -230,13 +233,13 @@ export const ProductListPage = () => {
                 />
               </div>
               <Button className="w-full bg-red-500 rounded-none hover:bg-red-400">
-                ÁP DỤNG
+                {t('search.apply')}
               </Button>
             </div>{' '}
             <div className="w-full h-[1px] bg-gray-200" />
             {/* Theo đánh giá  */}
             <div className="space-y-2">
-              <div className="text-sm">Đánh giá</div>
+              <div className="text-sm">{t('search.rating')}</div>
               <div className="pl-4 space-y-1">
                 {[5, 4, 3, 2, 1].map((item) => (
                   <div
@@ -254,7 +257,7 @@ export const ProductListPage = () => {
                       ))}
                     </Rating>
 
-                    {item !== 5 && <span className="text-sm">trở lên</span>}
+                    {item !== 5 && <span className="text-sm">{t('search.ratingAbove')}</span>}
                   </div>
                 ))}
               </div>
@@ -265,7 +268,7 @@ export const ProductListPage = () => {
               className="w-full bg-red-500 rounded-none hover:bg-red-400"
               onClick={() => router.replace('?')}
             >
-              XÓA TẤT CẢ
+              {t('search.clearAll')}
             </Button>
           </div>
 
@@ -278,31 +281,31 @@ export const ProductListPage = () => {
                 width="28"
                 height="28"
               />
-              <span>Kết quả tìm kiếm cho từ khoá</span>
+              <span>{t('search.searchResults')}</span>
               <span className="text-red-500">{`'${searchText}'`}</span>
             </div>
             <div className="flex space-x-4 items-center bg-card px-4 py-2">
-              <span className="font-semibold">Sắp xếp theo:</span>
+              <span className="font-semibold">{t('search.sortBy')}</span>
 
               <button
                 className="px-2 py-1 hover:bg-gray-200 rounded"
                 onClick={() => updateFilter('orderBy', 'popular')}
               >
-                Phổ biến
+                {t('search.popular')}
               </button>
 
               <button
                 className="px-2 py-1 hover:bg-gray-200 rounded"
                 onClick={() => updateFilter('orderBy', 'new')}
               >
-                Mới nhất
+                {t('search.newest')}
               </button>
 
               <button
                 className="px-2 py-1 hover:bg-gray-200 rounded"
                 onClick={() => updateFilter('orderBy', 'bestseller')}
               >
-                Bán chạy
+                {t('search.bestseller')}
               </button>
 
               <Select
@@ -310,12 +313,12 @@ export const ProductListPage = () => {
                 onValueChange={(v) => updateFilter('or.order', v)}
               >
                 <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Giá" />
+                  <SelectValue placeholder={t('search.price')} />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
-                    <SelectItem value="asc">Giá: Thấp → cao</SelectItem>
-                    <SelectItem value="desc">Giá: Cao → thấp</SelectItem>
+                    <SelectItem value="asc">{t('search.priceAsc')}</SelectItem>
+                    <SelectItem value="desc">{t('search.priceDesc')}</SelectItem>
                   </SelectGroup>
                 </SelectContent>
               </Select>

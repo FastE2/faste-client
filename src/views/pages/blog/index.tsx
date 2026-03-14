@@ -14,6 +14,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { ChevronDown, Search } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+
 
 // Mock blog post data
 const BLOG_POSTS = [
@@ -91,6 +93,7 @@ const UNIQUE_TAGS = Array.from(
 ).sort();
 
 export default function BlogPage() {
+  const { t, i18n } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -136,10 +139,10 @@ export default function BlogPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-              Our Blog
+              {t('blog.title')}
             </h1>
             <p className="mt-4 text-lg opacity-90">
-              Insights, tips, and best practices for modern web development
+              {t('blog.subtitle')}
             </p>
           </div>
         </div>
@@ -155,11 +158,11 @@ export default function BlogPage() {
               <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 type="text"
-                placeholder="Search posts..."
+                placeholder={t('blog.searchPlaceholder')}
                 value={searchQuery}
                 onChange={(e) => handleSearchChange(e.target.value)}
                 className="pl-10"
-                aria-label="Search blog posts"
+                aria-label={t('blog.searchPlaceholder')}
               />
             </div>
 
@@ -167,13 +170,13 @@ export default function BlogPage() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="gap-2 bg-transparent">
-                  {selectedTag ? `Tag: ${selectedTag}` : 'All Tags'}
+                  {selectedTag ? `${t('blog.tagPrefix')}${selectedTag}` : t('blog.allTags')}
                   <ChevronDown className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
                 <DropdownMenuItem onClick={() => handleFilterChange(null)}>
-                  All Tags
+                  {t('blog.allTags')}
                 </DropdownMenuItem>
                 {UNIQUE_TAGS.map((tag) => (
                   <DropdownMenuItem
@@ -249,12 +252,12 @@ export default function BlogPage() {
               {/* Pagination Controls */}
               {totalPages > 1 && (
                 <div className="mt-12 flex items-center justify-center gap-2">
-                  <Button
+                    <Button
                     variant="outline"
                     onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
                     disabled={currentPage === 1}
                   >
-                    Previous
+                    {t('blog.previous')}
                   </Button>
 
                   <div className="flex items-center gap-1">
@@ -280,7 +283,7 @@ export default function BlogPage() {
                     }
                     disabled={currentPage === totalPages}
                   >
-                    Next
+                    {t('blog.next')}
                   </Button>
                 </div>
               )}
@@ -289,10 +292,10 @@ export default function BlogPage() {
             /* Empty State */
             <div className="flex flex-col items-center justify-center py-12 text-center">
               <p className="text-lg font-medium text-foreground">
-                No posts found
+                {t('blog.noPosts')}
               </p>
               <p className="mt-2 text-muted-foreground">
-                Try adjusting your search or filter criteria
+                {t('blog.noPostsDesc')}
               </p>
               <Button
                 variant="outline"
@@ -302,7 +305,7 @@ export default function BlogPage() {
                 }}
                 className="mt-4"
               >
-                Clear Filters
+                {t('blog.clearFilters')}
               </Button>
             </div>
           )}

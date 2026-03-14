@@ -3,8 +3,12 @@ import { navigationItems } from "@/configs/header";
 import { cn } from "@/lib/utils";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
+import { usePathname } from "next/navigation";
 
 export default function BottomNavigation() {
+  const { t } = useTranslation();
+  const pathname = usePathname();
   return (
     <div className="hidden lg:block bg-background border-t border-border">
       <div className="container mx-auto max-w-6xl px-4">
@@ -17,11 +21,11 @@ export default function BottomNavigation() {
                 className={cn(
                   'flex items-center gap-2 text-sm font-medium transition-colors',
                   'text-muted-foreground hover:text-purple-600',
-                  item.label === 'Home' && 'text-foreground',
+                  (pathname === item.href || (item.href === '/' && pathname.length <= 3)) && 'text-foreground',
                 )}
               >
                 <Icon icon={item.icon} className="w-5 h-5" />
-                <span>{item.label}</span>
+                <span>{t(item.label)}</span>
                 {item.hasDropdown && (
                   <Icon icon="icon-park-outline:down" className="w-4 h-4" />
                 )}
@@ -31,17 +35,17 @@ export default function BottomNavigation() {
 
           <div className="flex items-center space-x-6">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <span>Trending Products</span>
+              <span>{t('navigation.trendingProducts')}</span>
               <Icon icon="icon-park-outline:down" className="w-4 h-4" />
             </div>
 
             <div className="flex items-center gap-2 text-sm">
-              <span className="text-red-600 font-medium">Almost Finished</span>
+              <span className="text-red-600 font-medium">{t('navigation.almostFinished')}</span>
               <Badge
                 variant="destructive"
                 className="bg-red-500 text-xs px-2 py-1 rounded-md"
               >
-                SALE
+                {t('navigation.sale')}
               </Badge>
             </div>
           </div>

@@ -8,6 +8,8 @@ import { Separator } from '@/components/ui/separator';
 import { usePathname } from 'next/navigation';
 import { ROUTE_CONFIG } from '@/configs/router';
 import { useTranslation } from 'react-i18next';
+import { formatCurrencyWithExchange } from '@/utils';
+
 
 interface SummaryCardProps {
   subtotal: number;
@@ -29,12 +31,17 @@ function SummaryCardComponent({
   onOrder,
 }: SummaryCardProps) {
   const pathname = usePathname();
-  const {t} = useTranslation();
+  const { t, i18n } = useTranslation();
 
   // Memoized format
-  const formatPrice = useCallback((price: number) => {
-    return price.toLocaleString('vi-VN') + 'đ';
-  }, []);
+  const formatPrice = useCallback(
+    (price: number) => {
+      return formatCurrencyWithExchange(price, {
+        language: i18n.language as 'vi' | 'en' | 'cn' | 'kr',
+      });
+    },
+    [i18n.language],
+  );
 
   console.log('== SummaryCard render', {
     subtotal,
@@ -62,10 +69,10 @@ function SummaryCardComponent({
           </button>
         </div>
         <div className="bg-muted p-3 rounded-lg mb-2">
-          <p className="text-sm font-medium text-foreground">Lê Kiệt</p>
-          <p className="text-xs text-muted-foreground mt-1">0886206553</p>
+          <p className="text-sm font-medium text-foreground">Phạm Văn A</p>
+          <p className="text-xs text-muted-foreground mt-1">0xxxxxxxxx</p>
           <p className="text-xs text-muted-foreground mt-1">
-            499 lê quang định, Phường 01, Quận Gò Vấp, Hồ Chí Minh
+            xxxxxxxxxxxxxx, Hồ Chí Minh
           </p>
         </div>
       </div>

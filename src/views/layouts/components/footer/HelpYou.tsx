@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 const list = [
   'Accessibility Statement',
   'Your Orders',
@@ -10,9 +12,11 @@ const list = [
 ];
 
 export default function HelpYou() {
+  const { t } = useTranslation();
+
   return (
     <div>
-      <h4 className="font-semibold mb-4">Let Us Help You</h4>
+      <h4 className="font-semibold mb-4">{t('footer.helpYou')}</h4>
       <ul className="space-y-2 text-sm">
         {list.map((item, i) => (
           <li key={i}>

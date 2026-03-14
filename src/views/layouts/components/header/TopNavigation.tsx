@@ -1,10 +1,12 @@
 'use client';
 
-import LocaleSwitcher from '@/components/locale-switcher';
 import { rightNavItems, topNavItems } from '@/configs/header';
 import Link from 'next/link';
+import { useTranslation, Trans } from 'react-i18next';
+import LocaleSwitcher from '@/components/locale-switcher';
 
 export const TopNavigation = () => {
+  const { t } = useTranslation();
   return (
     <div className="container mx-auto max-w-6xl px-4">
       <div className="flex items-center justify-between py-2 text-xs text-muted-foreground">
@@ -16,16 +18,20 @@ export const TopNavigation = () => {
                   href={item.href}
                   className="hover:text-foreground transition-colors"
                 >
-                  {item.label}
+                  {t(item.label)}
                 </Link>
               </li>
             ))}
           </ul>
           <div className="w-px h-4 bg-border"></div>
           <p className="text-xs">
-            We deliver to you every day from{' '}
-            <span className="text-orange-600 font-semibold">7:00</span> to{' '}
-            <span className="text-orange-600 font-semibold">23:00</span>
+            <Trans
+              i18nKey="header.deliveryInfo"
+              components={{
+                1: <span className="text-orange-600 font-semibold" />,
+                2: <span className="text-orange-600 font-semibold" />,
+              }}
+            />
           </p>
         </nav>
 
@@ -39,7 +45,7 @@ export const TopNavigation = () => {
                 href={item.href}
                 className="hover:text-foreground transition-colors"
               >
-                {item.label}
+                {t(item.label)}
               </Link>
             </li>
           ))}

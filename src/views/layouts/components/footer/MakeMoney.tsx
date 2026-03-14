@@ -1,3 +1,5 @@
+import { useTranslation } from 'react-i18next';
+
 const items = [
   "Sell on Gorgon",
   "Sell Your Brand on Gorgon",
@@ -10,9 +12,11 @@ const items = [
 ];
 
 export default function MakeMoney() {
+  const { t } = useTranslation();
+
   return (
     <div>
-      <h4 className="font-semibold mb-4">Make Money with Us</h4>
+      <h4 className="font-semibold mb-4">{t('footer.makeMoney')}</h4>
       <ul className="space-y-2 text-sm">
         {items.map((item, i) => (
           <li key={i}>

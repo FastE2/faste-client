@@ -3,11 +3,160 @@
   "saveAndSee": "Lưu và xem thay đổi của bạn ngay lập tức.",
   "deployNow": "Triển khai ngay",
   "readDocs": "Đọc tài liệu",
+  "header": {
+    "searchPlaceholder": "Tìm kiếm sản phẩm, danh mục hoặc thương hiệu...",
+    "searchSuggestions": "GỢI Ý TÌM KIẾM",
+    "searchHistory": "LỊCH SỬ TÌM KIẾM",
+    "clearAll": "Xóa tất cả",
+    "noSearchHistory": "Chưa có lịch sử tìm kiếm",
+    "popularKeywords": "TỪ KHÓA PHỔ BIẾN",
+    "deliveryInfo": "Chúng tôi giao hàng cho bạn mỗi ngày từ <1>7:00</1> đến <2>23:00</2>",
+    "keywords": {
+      "computer": "Máy Tính",
+      "ram": "Ram Laptop",
+      "clothing": "Quần áo",
+      "laptop": "Laptop Dell",
+      "cosmetics": "Mỹ phẩm"
+    }
+  },
 
   "footer": {
-    "learn": "Học tập",
-    "examples": "Ví dụ",
-    "goToNextjs": "Đến nextjs.org →"
+    "newsletterTitle": "Tham gia bản tin của chúng tôi",
+    "newsletterDesc": "Đăng ký ngay để nhận thông tin cập nhật mới nhất về các chương trình khuyến mãi và mã giảm giá. Chúng tôi cam kết không gửi thư rác.",
+    "emailPlaceholder": "Nhập địa chỉ email của bạn",
+    "subscribe": "GỬI NGAY",
+    "termsDesc": "Bằng cách đăng ký, bạn đồng ý với Điều khoản & Điều kiện và Chính sách Quyền riêng tư.",
+    "getInTouch": "Liên hệ với chúng tôi",
+    "needHelp": "Bạn có cần trợ giúp?",
+    "helpDesc": "Đội ngũ hỗ trợ của FastE luôn sẵn sàng giúp đỡ bạn.",
+    "makeMoney": "Kiếm tiền với FastE",
+    "helpYou": "Hãy để chúng tôi giúp bạn",
+    "knowUs": "Về FastE",
+    "downloadApp": "Tải ứng dụng",
+    "copyright": "Bản quyền 2024 © FastE Ecommerce. Tất cả các quyền đã được bảo lưu. Được cung cấp bởi FastE Team.",
+    "terms": "Điều khoản & Điều kiện",
+    "privacy": "Chính sách Bảo mật",
+    "trackOrder": "Theo dõi đơn hàng"
+  },
+
+  "auth": {
+    "login": {
+      "title": "Chào mừng trở lại",
+      "subtitle": "Đăng nhập vào tài khoản FastE của bạn",
+      "emailLabel": "Email",
+      "passwordLabel": "Mật khẩu",
+      "forgotPassword": "Quên mật khẩu?",
+      "loginButton": "Đăng nhập",
+      "continueWith": "Hoặc tiếp tục với",
+      "noAccount": "Chưa có tài khoản?",
+      "signUp": "Đăng ký",
+      "termsAgreement": "Bằng cách nhấp vào tiếp tục, bạn đồng ý với Điều khoản dịch vụ và Chính sách bảo mật của chúng tôi."
+    },
+    "register": {
+      "title": "Tạo tài khoản",
+      "subtitle": {
+        "email": "Nhập email của bạn để bắt đầu",
+        "otp": "Nhập mã OTP đã được gửi đến email của bạn",
+        "complete": "Hoàn tất đăng ký của bạn"
+      },
+      "emailLabel": "Email",
+      "nameLabel": "Họ và tên",
+      "phoneNumberLabel": "Số điện thoại",
+      "passwordLabel": "Mật khẩu",
+      "confirmPasswordLabel": "Xác nhận mật khẩu",
+      "otpLabel": "Mã OTP",
+      "sendOtp": "Gửi mã OTP",
+      "sending": "Đang gửi...",
+      "verifyOtp": "Xác thực OTP",
+      "verifying": "Đang xác thực...",
+      "createAccount": "Tạo tài khoản",
+      "creating": "Đang tạo tài khoản...",
+      "back": "Quay lại",
+      "alreadyHaveAccount": "Đã có tài khoản?",
+      "login": "Đăng nhập",
+      "continueWith": "Hoặc tiếp tục với"
+    }
+  },
+  "order": {
+    "tabs": {
+      "all": "Tất cả",
+      "pending": "Chờ xác nhận",
+      "shipping": "Vận chuyển",
+      "receive": "Chờ giao hàng",
+      "completed": "Hoàn thành",
+      "cancelled": "Đã hủy",
+      "returns": "Trả hàng/Hoàn tiền"
+    },
+    "searchPlaceholder": "Bạn có thể tìm kiếm theo tên Shop, ID đơn hàng hoặc Tên Sản phẩm",
+    "confirmReceivedDescription": "FastE sẽ thanh toán số tiền trên cho Người bán. Bạn vui lòng chỉ nhấn 'Xác nhận' khi đã nhận được sản phẩm và sản phẩm không có vấn đề nào.",
+    "updateSuccess": "Cập nhật trạng thái thành công!",
+    "updateFailed": "Cập nhật trạng thái thất bại!",
+    "empty": "Không tìm thấy đơn hàng nào",
+    "goShopping": "Đi mua sắm ngay",
+    "chatNow": "Chat ngay",
+    "viewShop": "Xem Shop",
+    "totalAmountLabel": "Thành tiền:",
+    "payNow": "Thanh toán ngay",
+    "contactSeller": "Liên Hệ Người Bán",
+    "cancelOrder": "Hủy Đơn Hàng",
+    "trackOrder": "Theo Dõi Đơn Hàng",
+    "received": "Đã Nhận Hàng",
+    "returnRequest": "Yêu Cầu Trả Hàng/Hoàn Tiền",
+    "rate": "Đánh giá",
+    "buyAgain": "Mua Lại",
+    "viewCancelledDetails": "Xem chi tiết đơn hủy",
+    "viewReview": "Xem Lại Đánh Giá",
+    "reviewBefore": "Đánh giá sản phẩm trước",
+    "reviewPenaltyNote": "Bạn sẽ không thể đánh giá đơn hàng và nhận 200 Shopee Xu sau ngày {{date}}. Hãy đánh giá sản phẩm và nhận 200 Shopee Xu ngay!",
+    "cancelConfirmTitle": "Xác nhận hủy đơn hàng",
+    "cancelConfirmDescription": "Bạn có chắc chắn muốn hủy đơn hàng này không?",
+    "rating": {
+      "title": "Đánh giá sản phẩm",
+      "productQuality": "Chất lượng sản phẩm",
+      "vVeryBad": "Rất tệ",
+      "vBad": "Tệ",
+      "vOk": "Ổn",
+      "vGood": "Tốt",
+      "vExcellent": "Tuyệt vời",
+      "lowRatingReason": "Lý do bạn đánh giá thấp",
+      "reasons": {
+        "damaged": "Hàng lỗi hoặc bị hư hỏng",
+        "fake": "Sản phẩm giả mạo",
+        "notAsDescribed": "Sản phẩm không như mô tả",
+        "poorQuality": "Sản phẩm chất lượng kém"
+      },
+      "selectStarsError": "Hãy chọn số sao",
+      "selectReasonError": "Hãy chọn lý do",
+      "placeholder": "Hãy chia sẻ cảm nghĩ của bạn về sản phẩm này với những người mua khác nhé.",
+      "charsRemaining": "{{count}} ký tự còn lại",
+      "maxChars": "Tối đa {{count}} ký tự",
+      "maxImagesError": "Chỉ được chọn tối đa {{count}} ảnh",
+      "imageUploadTitle": "Hình ảnh sản phẩm (tối đa 5) và 1 video",
+      "anonymousLabel": "Gửi đánh giá dưới dạng ẩn danh",
+      "serviceSection": "Về dịch vụ",
+      "sellerService": "Dịch vụ của người bán",
+      "shipService": "Dịch vụ vận chuyển",
+      "cancel": "Hủy",
+      "submit": "Gửi đánh giá",
+      "success": "Đánh giá sản phẩm thành công!",
+      "failed": "Có lỗi xảy ra khi gửi đánh giá."
+    },
+    "status": {
+      "unknown": "Không xác định",
+      "pendingConfirmation": "Chờ xác nhận",
+      "processing": "Đang xử lý",
+      "pendingPayment": "Chờ thanh toán",
+      "pendingPickup": "Chờ lấy hàng",
+      "pendingDelivery": "Đang giao hàng",
+      "delivered": "Đã giao thành công",
+      "returned": "Đã trả hàng / hoàn hàng",
+      "cancelled": "Đã hủy đơn",
+      "updateSuccess": "Thành công",
+      "updateSuccessDesc": "Hủy đơn hàng thành công!",
+      "updateError": "Lỗi",
+      "updateErrorDesc": "Có lỗi xảy ra khi hủy đơn hàng!",
+      "confirmReceived": "Xác nhận đã nhận hàng"
+    }
   },
 
   "common": {
@@ -17,7 +166,18 @@
     "apply": "Áp dụng",
     "share": "Chia sẻ",
     "viewNow": "Xem ngay",
-    "update": "Cập nhật"
+    "update": "Cập nhật",
+    "category": "Phân loại",
+    "customerName": "Tên khách hàng",
+    "outOf5": "trên 5",
+    "stars": "{{count}} sao",
+    "noReviews": "Chưa có đánh giá nào",
+    "all": "Tất cả",
+    "status": {
+      "success": "Thành công",
+      "info": "Thông tin",
+      "error": "Lỗi"
+    }
   },
 
   "navigation": {
@@ -30,26 +190,28 @@
     "register": "Đăng ký",
     "logout": "Đăng xuất",
     "categories": "Danh mục",
-    "brands": "Thương hiệu"
+    "brands": "Thương hiệu",
+    "myShop": "Kênh người bán",
+    "wishlist": "Yêu thích",
+    "myAccount": "Tài khoản của tôi",
+    "support": "Hỗ trợ",
+    "blog": "Blog",
+    "shop": "Cửa hàng",
+    "fruitsVegetables": "Trái cây & Rau củ",
+    "beverages": "Đồ uống",
+    "trendingProducts": "Sản phẩm xu hướng",
+    "almostFinished": "Sắp kết thúc",
+    "sale": "GIẢM GIÁ"
+  },
+  "promo": {
+    "freeDelivery": "Miễn phí giao hàng & Giảm giá 40% cho 3 đơn hàng tiếp theo! Đặt đơn hàng đầu tiên của bạn ngay.",
+    "off": "Giảm 40% cho 3 đơn hàng tiếp theo!",
+    "untilEnd": "Cho đến khi kết thúc đợt giảm giá:",
+    "days": "ngày",
+    "hrs": "giờ",
+    "min": "phút"
   },
 
-  "product": {
-    "bestSelling": "Sản phẩm đang bán chạy",
-    "newProducts": "Sản phẩm mới",
-    "newAdded": "Sản phẩm mới thêm",
-    "priceShockToday": "Giá sốc hôm nay",
-    "description": "Mô tả sản phẩm",
-    "reviews": "Đánh giá sản phẩm",
-    "rating": "Đánh giá",
-    "sold": "Đã bán",
-    "joined": "Tham gia",
-    "similarProducts": "Sản phẩm tương tự",
-    "remainingProducts": "Số sản phẩm còn lại",
-    "shipFrom": "Gửi từ",
-    "addToCart": "Thêm vào giỏ hàng",
-    "buyNow": "Mua ngay",
-    "inStock": "Còn hàng"
-  },
 
   "account": {
     "accountInfo": "Thông tin tài khoản",
@@ -61,6 +223,7 @@
   },
 
   "userMenu": {
+    "myAccount": "Tài khoản của tôi",
     "account": "Tài khoản",
     "address": "Địa chỉ",
     "security": "Bảo mật",
@@ -71,6 +234,7 @@
     "myOrders": "Đơn hàng của tôi",
     "voucherWallet": "Kho voucher",
     "wallet": "Ví",
+    "cryptoWallet": "Ví Crypto",
     "viewedProducts": "Sản phẩm đã xem",
     "favoriteProducts": "Sản phẩm yêu thích"
   },
@@ -95,37 +259,111 @@
     "totalPayment": "Tổng tiền thanh toán",
     "vatIncluded": "Đã bao gồm VAT nếu có",
     "checkout": "Mua hàng",
-    "emptyCart": "Giỏ hàng của bạn trống"
+    "emptyCart": "Giỏ hàng của bạn trống",
+    "deliveryEstimation": "Giao từ 2-4 ngày"
   },
 
   "checkout": {
+    "title": "Thanh toán",
     "selectShippingMethod": "Chọn hình thức giao hàng",
     "chooseShippingMethod": "Chọn phương thức giao hàng phù hợp với bạn",
     "selectPaymentMethod": "Chọn hình thức thanh toán",
     "choosePaymentMethod": "Chọn phương thức thanh toán an toàn",
     "shippingUnit": "Đơn vị vận chuyển",
-    "placeOrder": "Đặt hàng"
+    "placeOrder": "Đặt hàng",
+    "delivery": {
+      "economy": "Giao tiết kiệm",
+      "express": "Giao nhanh",
+      "provider": "Được giao bởi FastE",
+      "timeEconomy": "13h - 18h, 28/10",
+      "timeExpress": "9h - 12h, 28/10"
+    },
+    "payment": {
+      "cod": "Thanh toán khi nhận hàng",
+      "sepay": "Thanh toán SEPAY",
+      "payfast": "PayFast",
+      "web3": "Ví Web3"
+    },
+    "confirmTitle": "Xác nhận thanh toán",
+    "confirmDesc": "Bạn có chắc chắn muốn đặt hàng với các thông tin đã chọn?",
+    "ordering": "Đang đặt hàng..."
   },
 
   "shop": {
     "shop": "Cửa hàng",
     "shopProfile": "Hồ sơ cửa hàng",
-    "searchProductInShop": "Tìm kiếm sản phẩm tại cửa hàng",
+    "searchProductInShop": "Tìm sản phẩm tại cửa hàng",
     "follow": "Theo dõi",
-    "collection": "Bộ sưu tập",
+    "chat": "Chat",
+    "followers": "Người theo dõi",
     "viewShop": "Xem Shop",
-    "chatNow": "Chat Ngay"
+    "chatNow": "Chat Ngay",
+    "tabs": {
+      "store": "Cửa Hàng",
+      "allProducts": "Tất Cả Sản Phẩm",
+      "collections": "Bộ Sưu Tập",
+      "todayFlashSale": "Giá Sốc Hôm Nay"
+    },
+    "info": {
+      "description": "Mô tả cửa hàng",
+      "noDescription": "Chưa có mô tả",
+      "joinedDate": "Ngày tham gia",
+      "responseRate": "Tỷ lệ phản hồi",
+      "responseTime": "Thời gian phản hồi"
+    }
+  },
+  "product": {
+    "bestSelling": "Sản phẩm đang bán chạy",
+    "newProducts": "Sản phẩm mới",
+    "newAdded": "Sản phẩm mới thêm",
+    "priceShockToday": "Giá sốc hôm nay",
+    "description": "Mô tả sản phẩm",
+    "details": "Chi tiết sản phẩm",
+    "specs": "Thông số kỹ thuật",
+    "reviews": "Đánh giá sản phẩm",
+    "rating": "Đánh giá",
+    "sold": "đã bán",
+    "joined": "Tham gia",
+    "similarProducts": "Sản phẩm tương tự",
+    "remainingProducts": "Số sản phẩm còn lại",
+    "shipFrom": "Gửi từ",
+    "addToCart": "Thêm vào giỏ hàng",
+    "buyNow": "Mua ngay",
+    "inStock": "Còn hàng",
+    "outOfStock": "Hết hàng",
+    "quantity": "Số lượng",
+    "available": "sản phẩm có sẵn",
+    "relatedTitle": "CÓ THỂ BẠN CŨNG THÍCH",
+    "messages": {
+      "addSuccess": "Thêm vào giỏ hàng thành công!",
+      "addError": "Không thể thêm sản phẩm vào giỏ hàng.",
+      "somethingWrong": "Đã có lỗi xảy ra vui lòng thử lại!"
+    }
   },
 
   "search": {
-    "filter": "Bộ lọc tìm kiếm",
-    "resultsForKeyword": "Kết quả cho từ khóa",
-    "sortBy": "Sắp xếp theo",
-    "sellerLocation": "Nơi bán",
-    "byCategory": "Theo danh mục",
+    "filterTitle": "Bộ lọc tìm kiếm",
+    "location": "Nơi bán",
+    "category": "Theo danh mục",
+    "shipping": "Đơn vị vận chuyển",
+    "brand": "Thương hiệu",
     "priceRange": "Khoảng giá",
+    "priceFrom": "từ",
+    "priceTo": "đến",
+    "apply": "ÁP DỤNG",
     "rating": "Đánh giá",
-    "noProductsFound": "Không tìm thấy sản phẩm",
+    "ratingAbove": "trở lên",
+    "clearAll": "XÓA TẤT CẢ",
+    "resultsForKeyword": "Kết quả cho từ khóa",
+    "searchResults": "Kết quả tìm kiếm cho từ khoá",
+    "sortBy": "Sắp xếp theo:",
+    "popular": "Phổ biến",
+    "newest": "Mới nhất",
+    "bestseller": "Bán chạy",
+    "price": "Giá",
+    "priceAsc": "Giá: Thấp → cao",
+    "priceDesc": "Giá: Cao → thấp",
+    "noProducts": "Không tìm thấy sản phẩm",
     "tryAnotherKeyword": "Hãy thử từ khóa khác hoặc thay đổi bộ lọc tìm kiếm"
   },
 
@@ -136,7 +374,231 @@
   },
 
   "support": {
-    "helpCenter": "Trung tâm trợ giúp"
+    "helpCenter": "Trung tâm trợ giúp",
+    "title": "Chúng tôi Ở đây để Giúp đỡ",
+    "subtitle": "Tìm câu trả lời cho các câu hỏi thường gặp hoặc liên hệ với đội ngũ hỗ trợ của chúng tôi. Chúng tôi cam kết mang đến cho bạn trải nghiệm khách hàng tốt nhất.",
+    "contactSupport": "Liên hệ Hỗ trợ",
+    "visitHelpCenter": "Truy cập Trung tâm Trợ giúp",
+    "getInTouch": "Liên hệ với Chúng tôi",
+    "getInTouchDesc": "Chọn phương thức hỗ trợ phù hợp nhất với bạn",
+    "faqTitle": "Câu hỏi Thường gặp",
+    "faqDesc": "Tìm câu trả lời nhanh chóng cho các câu hỏi phổ biến nhất",
+    "helpTopicsTitle": "Duyệt qua các Chủ đề Trợ giúp",
+    "helpTopicsDesc": "Khám phá các hướng dẫn và tài nguyên toàn diện của chúng tôi",
+    "ctaTitle": "Không tìm thấy điều bạn đang tìm kiếm?",
+    "ctaDesc": "Gửi yêu cầu hỗ trợ và đội ngũ của chúng tôi sẽ phản hồi bạn sớm nhất có thể",
+    "submitRequest": "Gửi Yêu cầu Hỗ trợ",
+    "contactOptions": {
+      "liveChat": {
+        "title": "Chat Trực tuyến",
+        "desc": "Trò chuyện với đội ngũ hỗ trợ của chúng tôi trong thời gian thực",
+        "availability": "Hoạt động 24/7"
+      },
+      "email": {
+        "title": "Hỗ trợ qua Email",
+        "desc": "Gửi email cho chúng tôi và chúng tôi sẽ phản hồi trong vòng 24 giờ",
+        "availability": "support@faste.com"
+      },
+      "phone": {
+        "title": "Hỗ trợ qua Điện thoại",
+        "desc": "Gọi cho đội ngũ hỗ trợ tận tâm của chúng tôi",
+        "availability": "+84 123 456 789"
+      }
+    },
+    "helpTopics": {
+      "orders": {
+        "title": "Đơn hàng",
+        "desc": "Theo dõi, sửa đổi hoặc hủy đơn hàng của bạn"
+      },
+      "shipping": {
+        "title": "Vận chuyển",
+        "desc": "Tìm hiểu về các tùy chọn và phí giao hàng"
+      },
+      "payments": {
+        "title": "Thanh toán",
+        "desc": "Các phương thức thanh toán và câu hỏi về hóa đơn"
+      },
+      "returns": {
+        "title": "Trả hàng",
+        "desc": "Trả lại hoặc đổi hàng của bạn"
+      },
+      "account": {
+        "title": "Tài khoản",
+        "desc": "Quản lý hồ sơ và tùy chọn cá nhân"
+      },
+      "products": {
+        "title": "Sản phẩm",
+        "desc": "Thông tin sản phẩm và thông số kỹ thuật"
+      }
+    },
+    "faq": {
+      "q1": "Làm thế nào để tôi theo dõi đơn hàng?",
+      "a1": "Bạn có thể theo dõi đơn hàng theo thời gian thực bằng cách truy cập bảng điều khiển tài khoản và nhấp vào \"Đơn hàng của tôi\". Bạn sẽ nhận được thông báo qua email ở mỗi giai đoạn giao hàng.",
+      "q2": "Chính sách đổi trả của bạn là gì?",
+      "a2": "Chúng tôi cung cấp chính sách đổi trả trong 30 ngày cho hầu hết các mặt hàng. Sản phẩm phải ở tình trạng ban đầu với đầy đủ bao bì. Chỉ cần bắt đầu yêu cầu trả hàng từ tài khoản của bạn và chúng tôi sẽ cung cấp nhãn vận chuyển trả trước.",
+      "q3": "Thời gian vận chuyển mất bao lâu?",
+      "a3": "Vận chuyển tiêu chuẩn thường mất 5-7 ngày làm việc. Vận chuyển hỏa tốc có sẵn trong 2-3 ngày làm việc. Thời gian vận chuyển được tính từ ngày xác nhận đơn hàng.",
+      "q4": "Bạn có giao hàng quốc tế không?",
+      "a4": "Có, chúng tôi giao hàng đến hơn 150 quốc gia trên toàn thế giới. Phí vận chuyển quốc tế và thời gian giao hàng thay đổi tùy theo địa điểm. Bạn có thể kiểm tra phí vận chuyển khi thanh toán trước khi hoàn tất mua hàng.",
+      "q5": "Làm cách nào để đặt lại mật khẩu của tôi?",
+      "a5": "Nhấp vào \"Quên mật khẩu\" trên trang đăng nhập và nhập địa chỉ email của bạn. Bạn sẽ nhận được liên kết đặt lại mật khẩu trong vòng vài phút. Làm theo hướng dẫn để tạo mật khẩu mới.",
+      "q6": "Thông tin thanh toán của tôi có an toàn không?",
+      "a6": "Có, chúng tôi sử dụng mã hóa SSL tiêu chuẩn ngành và tuân thủ PCI DSS để bảo vệ thông tin thanh toán của bạn. Chúng tôi không bao giờ lưu trữ đầy đủ chi tiết thẻ tín dụng trên máy chủ của mình."
+    }
+  },
+  "about": {
+    "badge": "Về Công ty Chúng tôi",
+    "heroTitle": "Cùng nhau Kiến tạo Tương lai",
+    "heroDesc": "Chúng tôi thực hiện sứ mệnh cách mạng hóa cách mọi người kết nối, mua sắm và chia sẻ câu chuyện của họ trực tuyến.",
+    "getInTouch": "Liên hệ ngay",
+    "readBlog": "Đọc Blog",
+    "missionTitle": "Sứ mệnh của Chúng tôi",
+    "missionDesc1": "Tạo ra một thị trường kỹ thuật số liền mạch giúp trao quyền cho người bán và làm hài lòng người mua, thúc đẩy một cộng đồng nơi các sản phẩm chất lượng và dịch vụ đặc biệt phát triển.",
+    "missionDesc2": "Chúng tôi tin tưởng vào việc dân chủ hóa thương mại điện tử, giúp các doanh nghiệp thuộc mọi quy mô có thể tiếp cận được trong khi vẫn duy trì các tiêu chuẩn cao nhất về chất lượng và sự hài lòng của khách hàng.",
+    "visionTitle": "Tầm nhìn của Chúng tôi",
+    "visionDesc1": "Trở thành thị trường trực tuyến đáng tin cậy nhất thế giới, nơi sự đổi mới gặp gỡ sự chính trực và mỗi giao dịch đều tạo ra giá trị cho tất cả các bên liên quan.",
+    "visionDesc2": "Chúng tôi hình dung về một tương lai nơi công nghệ cho phép các kết nối có ý nghĩa giữa mọi người, vượt qua các ranh giới địa lý và tạo cơ hội phát triển.",
+    "coreValuesTitle": "Giá trị Cốt lõi",
+    "coreValuesDesc": "Những nguyên tắc này định hướng cho mọi quyết định chúng tôi đưa ra và hình thành nên văn hóa công ty.",
+    "values": {
+      "customerFirst": "Khách hàng là trên hết",
+      "customerFirstDesc": "Chúng tôi ưu tiên nhu cầu và sự hài lòng của khách hàng trong mọi quyết định.",
+      "innovation": "Sáng tạo",
+      "innovationDesc": "Chúng tôi không ngừng vượt qua các giới hạn và nắm bắt các công nghệ và ý tưởng mới.",
+      "integrity": "Chính trực",
+      "integrityDesc": "Chúng tôi hoạt động với sự minh bạch và trung thực trong tất cả các giao dịch kinh doanh.",
+      "community": "Cộng đồng",
+      "communityDesc": "Chúng tôi tin tưởng vào việc xây dựng mối quan hệ bền chặt với đội ngũ và khách hàng của mình."
+    },
+    "teamTitle": "Đội ngũ của Chúng tôi",
+    "teamDesc": "Những cá nhân tài năng đoàn kết bởi tầm nhìn chung nhằm chuyển đổi thị trường kỹ thuật số.",
+    "stats": {
+      "activeSellers": "Người bán hoạt động",
+      "productsListed": "Sản phẩm được niêm yết",
+      "happyCustomers": "Khách hàng hài lòng",
+      "countriesServed": "Quốc gia phục vụ"
+    },
+    "ctaTitle": "Tham gia Cộng đồng của Chúng tôi",
+    "ctaDesc": "Dù bạn là người bán muốn phát triển doanh nghiệp hay người mua đang tìm kiếm sản phẩm chất lượng, chúng tôi rất sẵn lòng chào đón bạn.",
+    "exploreShops": "Khám phá các Shop",
+    "teamRoles": {
+      "ceo": "Người sáng lập & Giám đốc điều hành",
+      "cto": "Giám đốc công nghệ",
+      "design": "Trưởng bộ phận Thiết kế",
+      "ops": "Trưởng bộ phận Vận hành"
+    },
+    "teamBios": {
+      "ceo": "Nhà lãnh đạo có tầm nhìn với hơn 15 năm kinh nghiệm khởi nghiệp công nghệ",
+      "cto": "Kỹ sư full-stack đam mê kiến trúc hệ thống có khả năng mở rộng",
+      "design": "Nhà thiết kế sáng tạo tập trung vào trải nghiệm lấy người dùng làm trung tâm",
+      "ops": "Chuyên gia vận hành đảm bảo doanh nghiệp tăng trưởng mượt mà"
+    }
+  },
+  "contact": {
+    "title": "Liên hệ với Chúng tôi",
+    "desc": "Bạn có câu hỏi hoặc muốn hợp tác? Chúng tôi rất sẵn lòng lắng nghe bạn. Hãy gửi tin nhắn và chúng tôi sẽ phản hồi sớm nhất có thể.",
+    "formTitle": "Gửi tin nhắn cho Chúng tôi",
+    "formDesc": "Điền vào biểu mẫu bên dưới và chúng tôi sẽ phản hồi bạn sớm.",
+    "fullName": "Họ và Tên",
+    "email": "Địa chỉ Email",
+    "subject": "Tiêu đề",
+    "subjectOptional": "(Tùy chọn)",
+    "message": "Tin nhắn",
+    "fullNamePlaceholder": "Ví dụ: Nguyễn Văn A",
+    "emailPlaceholder": "example@email.com",
+    "subjectPlaceholder": "Chúng tôi có thể giúp gì cho bạn?",
+    "messagePlaceholder": "Hãy cho chúng tôi biết thêm về yêu cầu của bạn...",
+    "sending": "Đang gửi...",
+    "sendMessage": "Gửi tin nhắn",
+    "successMessage": "Tin nhắn của bạn đã được gửi thành công! Chúng tôi sẽ liên hệ lại sớm.",
+    "infoTitle": "Thông tin Liên hệ",
+    "infoDesc": "Liên hệ với chúng tôi qua bất kỳ kênh nào dưới đây",
+    "address": "Địa chỉ",
+    "phone": "Điện thoại",
+    "businessHours": "Giờ làm việc",
+    "hoursWork": "Thứ Hai - Thứ Sáu: 9:00 AM - 6:00 PM",
+    "hoursWeekend": "Thứ Bảy - Chủ Nhật: Nghỉ",
+    "followUs": "Theo dõi Chúng tôi",
+    "errors": {
+      "nameRequired": "Vui lòng nhập họ và tên",
+      "nameMin": "Họ và tên phải có ít nhất 2 ký tự",
+      "emailRequired": "Vui lòng nhập email",
+      "emailInvalid": "Email không hợp lệ",
+      "messageRequired": "Vui lòng nhập tin nhắn",
+      "messageMin": "Tin nhắn phải có ít nhất 10 ký tự",
+      "submitError": "Không thể gửi tin nhắn. Vui lòng thử lại."
+    }
+  },
+  "blog": {
+    "title": "Blog của Chúng tôi",
+    "subtitle": "Thông tin, mẹo và phương pháp hay nhất cho phát triển web hiện đại",
+    "searchPlaceholder": "Tìm kiếm bài viết...",
+    "allTags": "Tất cả Tag",
+    "tagPrefix": "Tag: ",
+    "noPosts": "Không tìm thấy bài viết nào",
+    "noPostsDesc": "Hãy thử điều chỉnh tìm kiếm hoặc bộ lọc của bạn",
+    "clearFilters": "Xóa bộ lọc",
+    "previous": "Trước",
+    "next": "Tiếp theo"
+  },
+  "shops": {
+    "title": "Cửa hàng của Chúng tôi",
+    "subtitle": "Khám phá những sản phẩm tuyệt vời từ những người bán đáng tin cậy",
+    "searchPlaceholder": "Tìm kiếm cửa hàng...",
+    "sortBy": "Sắp xếp theo",
+    "sortOptions": {
+      "nameAsc": "Tên (A-Z)",
+      "nameDesc": "Tên (Z-A)",
+      "ratingHigh": "Đánh giá (Cao đến Thấp)",
+      "productsHigh": "Nhiều sản phẩm nhất"
+    },
+    "productCount": "{{count}} sản phẩm",
+    "viewShop": "Xem Shop",
+    "noShops": "Không tìm thấy cửa hàng nào",
+    "noShopsDesc": "Hãy thử điều chỉnh tiêu chí tìm kiếm của bạn"
+  },
+  "profile": {
+    "changePassword": {
+      "title": "Đổi mật khẩu",
+      "description": "Cập nhật mật khẩu bảo mật của bạn",
+      "currentPassword": "Mật khẩu hiện tại",
+      "newPassword": "Mật khẩu mới",
+      "confirmNewPassword": "Xác nhận mật khẩu mới",
+      "placeholderCurrent": "Nhập mật khẩu hiện tại",
+      "placeholderNew": "Nhập mật khẩu mới",
+      "placeholderConfirm": "Xác nhận mật khẩu mới",
+      "updateButton": "Cập nhật mật khẩu",
+      "errors": {
+        "minChars": "Mật khẩu phải có ít nhất {{count}} ký tự",
+        "currentRequired": "Vui lòng nhập mật khẩu hiện tại",
+        "newRequired": "Vui lòng nhập mật khẩu mới",
+        "confirmRequired": "Vui lòng xác nhận mật khẩu mới",
+        "mustMatch": "Mật khẩu xác nhận không khớp"
+      },
+      "messages": {
+        "success": "Đổi mật khẩu thành công!",
+        "error": "Có lỗi xảy ra khi đổi mật khẩu",
+        "somethingWrong": "Đã có lỗi xảy ra"
+      }
+    }
+  },
+  "payment": {
+    "title": "Hoàn tất Thanh toán",
+    "subtitle": "Chọn phương thức thanh toán ưu tiên của bạn để tiếp tục",
+    "method": "Phương thức thanh toán",
+    "chooseMethod": "Chọn cách bạn muốn thanh toán",
+    "timeExpired": "Thời gian thanh toán đã hết hạn. Vui lòng bắt đầu thanh toán mới.",
+    "startNew": "Bắt đầu Thanh toán mới",
+    "success": "Thanh toán thành công! Đơn hàng của bạn đã được xác nhận.",
+    "error": "Lỗi thanh toán",
+    "retry": "Thử lại",
+    "attempt": "Lần thử {{current}} trên {{total}}",
+    "summary": {
+      "title": "Tóm tắt đơn hàng",
+      "orderId": "Mã đơn hàng",
+      "amount": "Số tiền cần thanh toán",
+      "description": "Nội dung"
+    }
   },
   "NotFound": "Không tìm thấy"
 }

@@ -45,31 +45,42 @@ interface CartItemData {
   price: number;
 }
 
-const deliveryMethods: DeliveryMethod[] = [
-  {
-    id: 1,
-    name: 'Giao tiết kiếm',
-    estimatedTime: '13h - 18h, 28/10',
-    cost: 16500,
-    provider: 'Được giao bởi Praza',
-  },
-  {
-    id: 2,
-    name: 'Giao nhanh',
-    estimatedTime: '9h - 12h, 28/10',
-    cost: 49000,
-    provider: 'Được giao bởi Praza',
-  },
-];
-
-const paymentMethods = [
-  { id: 'COD', label: 'Thanh toán tiền mặt', icon: 'mdi:cash' },
-  { id: 'SEPAY', label: 'SEPAY', icon: 'mdi:wallet' },
-  // { id: 'PAYFAST', label: 'PayFast', icon: 'mdi:mobile-payment' },
-  // { id: 'WEB3', label: 'Web3 Wallet', icon: 'mdi:ethereum' },
-];
-
 export const CheckoutPage = () => {
+  const { i18n, t } = useTranslation();
+
+  const deliveryMethods: DeliveryMethod[] = useMemo(
+    () => [
+      {
+        id: 1,
+        name: t('checkout.delivery.economy'),
+        estimatedTime: t('checkout.delivery.timeEconomy'),
+        cost: 16500,
+        provider: t('checkout.delivery.provider'),
+      },
+      {
+        id: 2,
+        name: t('checkout.delivery.express'),
+        estimatedTime: t('checkout.delivery.timeExpress'),
+        cost: 49000,
+        provider: t('checkout.delivery.provider'),
+      },
+    ],
+    [t],
+  );
+
+  const paymentMethods = useMemo(
+    () => [
+      {
+        id: 'COD',
+        label: t('checkout.payment.cod'),
+        icon: 'mdi:cash',
+      },
+      { id: 'SEPAY', label: t('checkout.payment.sepay'), icon: 'mdi:wallet' },
+      // { id: 'PAYFAST', label: t('checkout.payment.payfast'), icon: 'mdi:mobile-payment' },
+      // { id: 'WEB3', label: t('checkout.payment.web3'), icon: 'mdi:ethereum' },
+    ],
+    [t],
+  );
   const [checkoutItems, setCheckoutItems] = useState<any[]>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
@@ -79,7 +90,6 @@ export const CheckoutPage = () => {
   const [pendingFormData, setPendingFormData] =
     useState<CheckoutFormData | null>(null);
   const router = useRouter();
-  const { i18n, t } = useTranslation();
 
   const {
     control,
@@ -194,7 +204,7 @@ export const CheckoutPage = () => {
         {/* Header */}
         <div className="mb-4 flex">
           <h2 className="text-xl font-bold text-foreground mb-2">FastE | </h2>
-          <h3 className="text-xl font-bold text-foreground mb-2">Thanh toán</h3>
+          <h3 className="text-xl font-bold text-foreground mb-2">{t('checkout.title')}</h3>
         </div>
 
         {/* Main Content */}
@@ -206,16 +216,16 @@ export const CheckoutPage = () => {
           <div className="lg:col-span-2 space-y-4">
             <div className="flex items-center gap-3 px-4 py-3 bg-card border border-border rounded-t-lg">
               <div className="flex-1 text-sm font-medium text-muted-foreground">
-                Sản phẩm
+                {t('navigation.products')}
               </div>
               <div className="flex-shrink-1 w-30 text-left text-sm font-medium text-muted-foreground">
-                Đơn giá
+                {t('cart.unitPrice')}
               </div>
               <div className="flex-shrink-0 text-sm text-left font-medium text-muted-foreground">
-                Số lượng
+                {t('cart.quantity')}
               </div>
               <div className="flex-shrink-0 w-24 text-left text-sm font-medium text-muted-foreground">
-                Thành tiền
+                {t('cart.totalPrice')}
               </div>
             </div>
             {checkoutItems?.map((shop, index) => (
@@ -230,7 +240,7 @@ export const CheckoutPage = () => {
                   <ChevronRight className="h-4 w-4 text-muted-foreground" />
                   <div className="text-sm text-gray-400 flex items-center gap-1 cursor-pointer">
                     <Icon icon={'entypo:chat'} />
-                    <span>Chat ngay</span>
+                    <span>{t('shop.chatNow')}</span>
                   </div>
                 </div>
                 {shop.cartItems.map((item: any, idx: number) => {
@@ -281,7 +291,7 @@ export const CheckoutPage = () => {
                       <div className="px-4 py-4 align-top text-right">
                         <span className="text-lg font-semibold text-destructive">
                           {formatCurrencyWithExchange(Number(item.sku.price), {
-                            language: i18n.language as 'vi' | 'en',
+                          language: i18n.language as 'vi' | 'en' | 'cn' | 'kr',
                           })}
                         </span>
                       </div>
@@ -300,7 +310,7 @@ export const CheckoutPage = () => {
                         {formatCurrencyWithExchange(
                           Number(item.sku.price * item.quantity),
                           {
-                            language: i18n.language as 'vi' | 'en',
+                            language: i18n.language as 'vi' | 'en' | 'cn' | 'kr',
                           },
                         )}
                       </div>
@@ -317,7 +327,7 @@ export const CheckoutPage = () => {
                   {t('checkout.selectShippingMethod')}
                 </h2>
                 <p className="text-sm text-muted-foreground">
-                  Chọn phương thức giao hàng phù hợp với bạn
+                  {t('checkout.chooseShippingMethod')}
                 </p>
               </div>
               <Controller
@@ -345,10 +355,10 @@ export const CheckoutPage = () => {
             <div className="space-y-4 w-full bg-card p-2 rounded-md">
               <div>
                 <h2 className="text-xl font-semibold mb-2">
-                  Chọn hình thức thanh toán
+                  {t('checkout.selectPaymentMethod')}
                 </h2>
                 <p className="text-sm text-muted-foreground">
-                  Chọn phương thức thanh toán an toàn
+                  {t('checkout.choosePaymentMethod')}
                 </p>
               </div>
               <Controller

@@ -182,7 +182,7 @@ export default function SepayPayment({
             <Input
               id="amount"
               value={formatCurrencyWithExchange(Number(sepayData.amount), {
-                language: i18n.language as 'vi' | 'en',
+                language: i18n.language as 'vi' | 'en' | 'cn' | 'kr',
               })}
               readOnly
               className="bg-slate-100 dark:bg-slate-800 border-slate-300 dark:border-slate-700"

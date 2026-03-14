@@ -1,6 +1,8 @@
 interface IFormatCurrencyOptions {
-  language?: 'vi' | 'en';
+  language?: 'vi' | 'en' | 'cn' | 'kr';
   exchangeRate?: number;
+  exchangeRateCNY?: number;
+  exchangeRateKRW?: number;
   minimumFractionDigits?: number;
   maximumFractionDigits?: number;
 }
@@ -9,7 +11,9 @@ export const formatCurrencyWithExchange = (
   value: number | string,
   {
     language = 'vi',
-    exchangeRate = 24500,
+    exchangeRate = 26000,
+    exchangeRateCNY = 3400,
+    exchangeRateKRW = 18.2,
     minimumFractionDigits = 0,
   }: IFormatCurrencyOptions = {},
 ): string => {
@@ -18,10 +22,23 @@ export const formatCurrencyWithExchange = (
   );
   if (isNaN(amount)) return String(value);
 
-  const locale = language === 'en' ? 'en-US' : 'vi-VN';
-  const currency = language === 'en' ? 'USD' : 'VND';
+  let locale = 'vi-VN';
+  let currency = 'VND';
+  let finalAmount = amount;
 
-  const finalAmount = language === 'en' ? amount / exchangeRate : amount;
+  if (language === 'en') {
+    locale = 'en-US';
+    currency = 'USD';
+    finalAmount = amount / exchangeRate;
+  } else if (language === 'cn') {
+    locale = 'zh-CN';
+    currency = 'CNY';
+    finalAmount = amount / exchangeRateCNY;
+  } else if (language === 'kr') {
+    locale = 'ko-KR';
+    currency = 'KRW';
+    finalAmount = amount / exchangeRateKRW;
+  }
 
   return finalAmount.toLocaleString(locale, {
     style: 'currency',
