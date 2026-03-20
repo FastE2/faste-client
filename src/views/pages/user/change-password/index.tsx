@@ -15,14 +15,12 @@ import { Label } from '@/components/ui/label';
 import { changePassword } from '@/services/profile';
 import { TChangePasswordBody } from '@/types/profile';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import { useTranslation } from 'react-i18next';
 import { useMemo } from 'react';
-
-
 
 export const ChangePasswordPage = () => {
   const { t } = useTranslation();
@@ -53,9 +51,9 @@ export const ChangePasswordPage = () => {
   );
 
   const {
-    control,
     handleSubmit,
     reset,
+    register,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -108,18 +106,12 @@ export const ChangePasswordPage = () => {
           <Label htmlFor="oldPassword">
             {t('profile.changePassword.currentPassword')}
           </Label>
-          <Controller
-            name="oldPassword"
-            control={control}
-            render={({ field }) => (
-              <Input
-                {...field}
-                id="oldPassword"
-                type="password"
-                placeholder={t('profile.changePassword.placeholderCurrent')}
-                disabled={loading}
-              />
-            )}
+          <Input
+            {...register('oldPassword')}
+            id="oldPassword"
+            type="password"
+            placeholder={t('profile.changePassword.placeholderCurrent')}
+            disabled={loading}
           />
           {errors.oldPassword && (
             <p className="text-red-500 text-sm">{errors.oldPassword.message}</p>
@@ -131,18 +123,12 @@ export const ChangePasswordPage = () => {
           <Label htmlFor="newPassword">
             {t('profile.changePassword.newPassword')}
           </Label>
-          <Controller
-            name="newPassword"
-            control={control}
-            render={({ field }) => (
-              <Input
-                {...field}
-                id="newPassword"
-                type="password"
-                placeholder={t('profile.changePassword.placeholderNew')}
-                disabled={loading}
-              />
-            )}
+          <Input
+            {...register('newPassword')}
+            id="newPassword"
+            type="password"
+            placeholder={t('profile.changePassword.placeholderNew')}
+            disabled={loading}
           />
           {errors.newPassword && (
             <p className="text-red-500 text-sm">{errors.newPassword.message}</p>
@@ -154,18 +140,12 @@ export const ChangePasswordPage = () => {
           <Label htmlFor="confirmNewPassword">
             {t('profile.changePassword.confirmNewPassword')}
           </Label>
-          <Controller
-            name="confirmNewPassword"
-            control={control}
-            render={({ field }) => (
-              <Input
-                {...field}
-                id="confirmNewPassword"
-                type="password"
-                placeholder={t('profile.changePassword.placeholderConfirm')}
-                disabled={loading}
-              />
-            )}
+          <Input
+            {...register('confirmNewPassword')}
+            id="confirmNewPassword"
+            type="password"
+            placeholder={t('profile.changePassword.placeholderConfirm')}
+            disabled={loading}
           />
           {errors.confirmNewPassword && (
             <p className="text-red-500 text-sm">

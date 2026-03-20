@@ -90,14 +90,15 @@ export default function AccountPage() {
   const {
     control,
     handleSubmit,
+    register,
     watch,
     formState: { errors },
   } = useForm<TProfileForm>({
     resolver: yupResolver(schema),
     values: formValues,
     resetOptions: {
-      keepDefaultValues: false, 
-    }
+      keepDefaultValues: false,
+    },
   });
 
   const { isPending, mutate: mutateUpdateProfile } = useMutationUpdateProfile({
@@ -119,7 +120,6 @@ export default function AccountPage() {
     mutateUpdateProfile(payload);
   };
 
-
   return (
     <div className="flex gap-4 h-full">
       {isLoading && <LoadingDialog isLoading />}
@@ -137,17 +137,11 @@ export default function AccountPage() {
                 <Label htmlFor="name" className="text-sm font-medium">
                   {t('account.fullName')}
                 </Label>
-                <Controller
-                  name="name"
-                  control={control}
-                  render={({ field }) => (
-                    <Input
-                      {...field}
-                      id="name"
-                      className="mt-1"
-                      placeholder="Nhập họ và tên"
-                    />
-                  )}
+                <Input
+                  {...register("name")}
+                  id="name"
+                  className="mt-1"
+                  placeholder="Nhập họ và tên"
                 />
                 {errors.name && (
                   <p className="text-red-500 text-sm">{errors.name.message}</p>

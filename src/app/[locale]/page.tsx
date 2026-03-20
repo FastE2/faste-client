@@ -1,3 +1,4 @@
+import { LOCALE_MAP } from '@/constants/meta';
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
 import { getAllProductsPublic } from '@/services/product';
 import LayoutPublic from '@/views/layouts/LayoutPublic';
@@ -13,59 +14,43 @@ interface TProps {
   totalPage: number;
 }
 
-export const metadata: Metadata = {
-  title: 'FastE - Mua sắm thời trang & điện tử trực tuyến',
-  description:
-    'FastE cung cấp các sản phẩm thời trang, điện tử chất lượng với giá tốt và giao hàng nhanh chóng.',
-  keywords: [
-    'FastE',
-    'thời trang',
-    'điện tử',
-    'mua sắm online',
-    'shopping',
-    'fast delivery',
-  ],
-  metadataBase: new URL('https://faste.vn'),
-  alternates: {
-    canonical: '/',
-    languages: {
-      'vi-VN': '/',
-      'en-US': '/en',
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: keyof typeof LOCALE_MAP }>;
+}): Promise<Metadata> {
+  const { locale = 'vi' } = await params;
+
+  const meta = LOCALE_MAP[locale];
+
+  const baseUrl = 'https://fasteapp.vercel.app';
+  const path = locale === 'vi' ? '' : `/${locale}`;
+
+  return {
+    title: meta.title,
+    description: meta.desc,
+
+    metadataBase: new URL(baseUrl),
+
+    alternates: {
+      canonical: path || '/',
+      languages: {
+        'x-default': '/',
+        'vi-VN': '/',
+        'en-US': '/en',
+        'zh-CN': '/cn',
+        'ko-KR': '/kr',
+      },
     },
-  },
-  openGraph: {
-    type: 'website',
-    title: 'FastE - Mua sắm thời trang & điện tử trực tuyến',
-    description:
-      'FastE cung cấp các sản phẩm thời trang, điện tử chất lượng với giá tốt và giao hàng nhanh chóng.',
-    siteName: 'FastE',
-    url: 'https://faste.vn',
-    images: [
-      {
-        url: 'https://faste.vn/faste.png',
-        width: 1200,
-        height: 630,
-        alt: 'FastE - Logo',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'FastE - Mua sắm thời trang & điện tử trực tuyến',
-    description:
-      'FastE cung cấp các sản phẩm thời trang, điện tử chất lượng với giá tốt và giao hàng nhanh chóng.',
-    images: [
-      {
-        url: 'https://faste.vn/faste.png',
-        width: 1200,
-        height: 630,
-        alt: 'FastE - Logo',
-      },
-    ],
-  },
-  // JSON-LD schema.org cho landing page
-  icons: [{ rel: 'icon', url: '/favicon.ico' }],
-};
+
+    openGraph: {
+      locale: meta.lang.replace('-', '_'),
+      title: meta.title,
+      description: meta.desc,
+      url: `${baseUrl}${path}`,
+    },
+  };
+}
 
 export const viewport: Viewport = {
   width: 'device-width',

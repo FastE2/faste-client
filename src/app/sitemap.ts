@@ -22,6 +22,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: now,
       changeFrequency: 'daily',
       priority: 1,
+      alternates: {
+        languages: {
+          'vi-VN': 'https://faste.vn/',
+          'en-US': 'https://faste.vn/en',
+          'zh-CN': 'https://faste.vn/cn',
+          'ko-KR': 'https://faste.vn/kr',
+        },
+      },
     },
     {
       url: `${BASE_URL}/products`,

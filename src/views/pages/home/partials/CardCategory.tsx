@@ -6,6 +6,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { SkeletonCardCategory } from './SkeletonCardCategory';
 import { PackageOpen } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const EmptyCategory = () => {
   return (
@@ -39,13 +40,16 @@ const CardCategory = () => {
       placeholderData: keepPreviousData,
     },
   );
+  const { t } = useTranslation();
   if (isLoading) {
     return <SkeletonCardCategory />;
   }
   return (
     <>
       <div className="bg-white dark:bg-black w-full mb-5">
-        <p className="text-gray-400 py-2 px-4 uppercase">Category</p>
+        <p className="text-gray-400 py-2 px-4 uppercase">
+          {t('navigation.categories')}
+        </p>
         {data ? (
           <div className="flex flex-wrap w-full">
             {data
