@@ -16,7 +16,7 @@ import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import { toastify } from '@/components/ToastNotification';
 import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 import { useTranslation } from 'react-i18next';
-
+import { OrderStatus } from '@/types/order';
 
 type PaymentFieldType = {
   id: number;
@@ -52,17 +52,18 @@ export default function OrdersPage() {
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
 
-  const tabs = [
-    { value: 'all', label: t('order.tabs.all') },
-    { value: 'pending', label: t('order.tabs.pending') },
-    { value: 'shipping', label: t('order.tabs.shipping') },
-    { value: 'receive', label: t('order.tabs.receive') },
-    { value: 'completed', label: t('order.tabs.completed') },
-    { value: 'cancelled', label: t('order.tabs.cancelled') },
-    { value: 'returns', label: t('order.tabs.returns') },
+  const tabs: { value: OrderStatus | ''; label: string }[] = [
+    { value: '', label: t('order.tabs.all') },
+
+    { value: 'PENDING_CONFIRMATION', label: t('order.tabs.pending') },
+    { value: 'PENDING_DELIVERY', label: t('order.tabs.shipping') },
+    { value: 'DELIVERED', label: t('order.tabs.receive') },
+    { value: 'RECEIVED', label: t('order.tabs.completed') },
+    { value: 'CANCELLED', label: t('order.tabs.cancelled') },
+    { value: 'RETURNED', label: t('order.tabs.returns') },
   ];
 
-  const [activeTab, setActiveTab] = useState('all');
+  const [activeTab, setActiveTab] = useState<OrderStatus | ''>('');
   const [orders, setOrders] = useState<OrderDataType[] | null>(null);
   const [isOpenForm, setIsOpenForm] = useState<boolean>(false);
   const [isOpenAlertConfirm, setIsOpenAlertConfirm] = useState<boolean>(false);
@@ -159,7 +160,7 @@ export default function OrdersPage() {
       toastify.error(t('order.updateFailed'));
     }
     setIsLoading(false);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectOrder]);
   const handleColseForm = useCallback(() => {
     setSelectOrder(null);
@@ -174,13 +175,18 @@ export default function OrdersPage() {
     setSelectOrder(id);
   }, []);
 
+  const handleChangeTab = (value: string) => {
+    setActiveTab(value as OrderStatus | '');
+  };
 
   const fetchDataOrders = async () => {
     setIsLoading(true);
     try {
-      const res = await getAllOrdersByUser();
-      // console.log('res orders', groupOrdersForUI(res.data.data));
-      // console.log('res orders', res, groupOrdersForUI(res.data.data));
+      const res = await getAllOrdersByUser({
+        page: 1,
+        limit: 10,
+        status: activeTab || undefined,
+      });
       setOrders(groupOrdersForUI(res.data.data) as any);
     } catch (error) {
       console.log(error);
@@ -190,15 +196,14 @@ export default function OrdersPage() {
   };
 
   useEffect(() => {
-    console.log('fetch');
     fetchDataOrders();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [activeTab]);
+
 
   return (
     <main className="bg-background space-y-2">
       {/* Header */}
-      {isLoading && <LoadingDialog isLoading={isLoading}  />}
       <Suspense fallback={<LoadingSpinner />}>
         <ProductRatingForm
           id={selectOrder}
@@ -219,7 +224,7 @@ export default function OrdersPage() {
         <div className="max-w-7xl mx-auto">
           <Tabs
             value={activeTab}
-            onValueChange={setActiveTab}
+            onValueChange={handleChangeTab}
             className="w-full"
           >
             <TabsList className="w-full justify-start bg-transparent border-b border-border rounded-none h-auto p-0 gap-0">
@@ -252,6 +257,7 @@ export default function OrdersPage() {
       {/* Orders List */}
       <OrderList
         orders={orders}
+        isLoading={isLoading}
         handleProductRating={handleProductRating}
         handleConfirnReceived={handleConfirnReceived}
       />

@@ -1,6 +1,6 @@
 import { API_ENDPOINT } from '@/configs/api';
 import { ApiResponse } from '@/types/api-response';
-import { CreateOrderType, OrderStatus } from '@/types/order';
+import { CreateOrderType, IParamsOrder, OrderStatus } from '@/types/order';
 import axiosInstance from '@/utils/axios';
 
 export const createOrder = async (data: CreateOrderType) => {
@@ -17,7 +17,7 @@ export const createOrder = async (data: CreateOrderType) => {
 };
 
 export const getAllOrdersByUser = async (
-  params: { page?: number; limit?: number } = { page: 1, limit: 10 },
+  params: IParamsOrder = { page: 1, limit: 10 },
 ) => {
   try {
     const res = await axiosInstance.get(

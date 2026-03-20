@@ -1,17 +1,17 @@
 'use client';
 
-import { memo, useId } from 'react';
+import { memo } from 'react';
 import OrderCard from './order-card';
 import { Card } from '@/components/ui/card';
-import { randomBytes } from 'crypto';
 import { Link } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PaginationWithLinks } from '@/components/pagination-table';
 import { useTranslation } from 'react-i18next';
-
+import OrderCardSkeleton from './OrderCardSkeleton';
 
 interface OrderListProps {
   orders: any;
+  isLoading: boolean;
   handleProductRating: (id: number) => void;
   handleConfirnReceived: (id: number) => void;
 }
@@ -31,29 +31,33 @@ function EmptyOrder() {
 
 const OrderList = memo(function OrderList({
   orders,
+  isLoading,
   handleProductRating,
   handleConfirnReceived,
 }: OrderListProps) {
-  const uniqueId = useId();
   return (
     <div className="min-h-[600px] mx-auto">
-      {!orders || orders.length === 0 ? (
+      {isLoading ? (
+        <div className="space-y-4">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <OrderCardSkeleton key={i} />
+          ))}
+        </div>
+      ) : !orders || orders.length === 0 ? (
         <EmptyOrder />
       ) : (
         <div className="space-y-4">
-          {orders &&
-            orders.map((order: any, index: number) => (
-              <OrderCard
-                key={
-                  order?.orders[0]?.id + order?.transactionId + randomBytes(4)
-                }
-                order={order}
-                handleProductRating={handleProductRating}
-                handleConfirnReceived={handleConfirnReceived}
-              />
-            ))}
+          {orders.map((order: any) => (
+            <OrderCard
+              key={`${order.transactionId}-${order.orders[0]?.id}`}
+              order={order}
+              handleProductRating={handleProductRating}
+              handleConfirnReceived={handleConfirnReceived}
+            />
+          ))}
         </div>
       )}
+
       <div className="pt-4 flex w-full justify-center">
         <PaginationWithLinks
           page={1}

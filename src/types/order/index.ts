@@ -1,3 +1,5 @@
+import { TPagination } from '../params';
+
 export type CreateOrderType = {
   addressShipId: number;
   shopId: number;
@@ -16,3 +18,8 @@ export type OrderStatus =
   | 'RECEIVED'
   | 'RETURNED'
   | 'CANCELLED';
+
+export interface IParamsOrder extends TPagination {
+  status?: OrderStatus;
+  keyword?: string;
+}

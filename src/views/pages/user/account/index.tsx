@@ -26,6 +26,7 @@ import { keepPreviousData } from '@tanstack/react-query';
 import { useMutationUpdateProfile } from '@/hooks/mutations/use-update-profile';
 import { toastify } from '@/components/ToastNotification';
 import { useTranslation } from 'react-i18next';
+import { LoadingDialog } from '@/components/loading/LoadingDialog';
 
 type TProfileForm = {
   name: string;
@@ -37,6 +38,10 @@ type TProfileForm = {
   year: string;
   gender: GENDER;
 };
+
+const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
+const months = Array.from({ length: 12 }, (_, i) => (i + 1).toString());
+const years = Array.from({ length: 100 }, (_, i) => (2025 - i).toString());
 
 const schema = yup.object({
   name: yup.string().required('Name is required'),
@@ -56,90 +61,68 @@ const schema = yup.object({
 });
 
 export default function AccountPage() {
-  const {
-    control,
-    handleSubmit,
-    reset,
-    watch,
-    formState: { errors },
-  } = useForm<TProfileForm>({
-    resolver: yupResolver(schema),
-    defaultValues: {
-      name: '',
-      avatar: null,
-      email: '',
-      phoneNumber: '',
-      day: '',
-      month: '',
-      year: '',
-      gender: GENDER.OTHER,
-    },
-  });
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
-  const days = Array.from({ length: 31 }, (_, i) => (i + 1).toString());
-  const months = Array.from({ length: 12 }, (_, i) => (i + 1).toString());
-  const years = Array.from({ length: 100 }, (_, i) => (2025 - i).toString());
-
-  const { data, isLoading } = useGetProfile({
+  const { data, isLoading, isFetched } = useGetProfile({
     select: (data) => data,
     staleTime: 1000 * 60 * 5,
     gcTime: 30 * 60 * 1000,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
-    placeholderData: keepPreviousData,
+    // placeholderData: keepPreviousData,
+  });
+
+  const formValues = React.useMemo(() => {
+    if (!data) return undefined;
+    const d = data.dateOfBirth ? dayjs(data.dateOfBirth) : null;
+    return {
+      name: data.name || '',
+      avatar: data.avatar ?? null,
+      email: data.email || '',
+      phoneNumber: data.phoneNumber || '',
+      gender: data.gender || GENDER.OTHER,
+      day: d?.isValid() ? String(d.date()) : '',
+      month: d?.isValid() ? String(d.month() + 1) : '',
+      year: d?.isValid() ? String(d.year()) : '',
+    };
+  }, [data]);
+
+  const {
+    control,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<TProfileForm>({
+    resolver: yupResolver(schema),
+    values: formValues,
+    resetOptions: {
+      keepDefaultValues: false, 
+    }
   });
 
   const { isPending, mutate: mutateUpdateProfile } = useMutationUpdateProfile({
     onSuccess: () => {
-      toastify.success('Notify', 'Update profile successfully!');
+      toastify.success('', 'Update profile successfully!');
     },
     onError: (err) => {
-      toastify.error('Notify', 'Update profile error!');
+      toastify.error('', 'Update profile error!');
     },
   });
-
-  console.log('render account page');
-
-  useEffect(() => {
-    if (data) {
-      const { dateOfBirth, ...rest } = data;
-      const d = dateOfBirth ? dayjs(dateOfBirth) : null;
-
-      reset({
-        name: rest.name || '',
-        avatar: rest.avatar ?? null,
-        email: rest.email || '',
-        phoneNumber: rest.phoneNumber || '',
-        gender: rest.gender || GENDER.OTHER,
-        day: d ? String(d.date()) : '',
-        month: d ? String(d.month() + 1) : '',
-        year: d ? String(d.year()) : '',
-      });
-    }
-  }, [data, reset]);
-
-  // if (isLoading) {
-  //   return <LoadingDialog isLoading={true} message="" />;
-  // }
 
   const onSubmit = (formData: TProfileForm) => {
     const { day, month, year, email, ...rest } = formData;
 
-    const dateOfBirth = new Date(
-      Number(year),
-      Number(month) - 1,
-      Number(day),
-    );
+    const dateOfBirth = new Date(Number(year), Number(month) - 1, Number(day));
 
     const payload = { ...rest, dateOfBirth };
 
-    console.log('Payload ready to send:', payload);
     mutateUpdateProfile(payload);
   };
 
+
   return (
     <div className="flex gap-4 h-full">
+      {isLoading && <LoadingDialog isLoading />}
       <div className="flex-[7]">
         <h1 className="text-lg font-medium text-muted-foreground mb-6">
           {t('account.accountInfo')}
@@ -148,7 +131,7 @@ export default function AccountPage() {
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Profile Avatar */}
           <div className="flex items-start gap-4">
-            <ProfileAvatar  avatar={data.avatar}/>
+            <ProfileAvatar avatar={data.avatar} />
             <div className="flex-1 space-y-4">
               <div>
                 <Label htmlFor="name" className="text-sm font-medium">
@@ -175,42 +158,39 @@ export default function AccountPage() {
 
           {/* Birth Date */}
           <div>
-            <Label className="text-sm font-medium">{t('account.birthday')}</Label>
+            <Label className="text-sm font-medium">
+              {t('account.birthday')}
+            </Label>
             <div className="flex gap-2 mt-1">
-              {['day', 'month', 'year'].map((fieldName, idx) => {
-                const options =
-                  fieldName === 'day'
-                    ? days
-                    : fieldName === 'month'
-                      ? months
-                      : years;
-                return (
-                  <Controller
-                    key={fieldName}
-                    name={fieldName as keyof TProfileForm}
-                    control={control}
-                    render={({ field }) => {
-                      return (
-                        <Select
-                          value={field.value!}
-                          onValueChange={field.onChange}
-                        >
-                          <SelectTrigger className="flex-1">
-                            <SelectValue placeholder={fieldName} />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {options.map((opt) => (
-                              <SelectItem key={opt} value={opt}>
-                                {opt}
-                              </SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      );
-                    }}
-                  />
-                );
-              })}
+              {(['day', 'month', 'year'] as const).map((fieldName) => (
+                <Controller
+                  key={fieldName}
+                  name={fieldName}
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      value={field.value || ''}
+                      onValueChange={field.onChange}
+                    >
+                      <SelectTrigger className="flex-1">
+                        <SelectValue placeholder={t(`common.${fieldName}`)} />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {(fieldName === 'day'
+                          ? days
+                          : fieldName === 'month'
+                            ? months
+                            : years
+                        ).map((opt) => (
+                          <SelectItem key={opt} value={opt}>
+                            {opt}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
+                />
+              ))}
             </div>
           </div>
 
