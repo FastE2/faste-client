@@ -1,6 +1,6 @@
 import { LoginForm } from '@/components/login-form';
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
-import LayoutPublic from '@/views/layouts/LayoutPublic';
+import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import { Metadata } from 'next';
 import { ReactNode } from 'react';
 

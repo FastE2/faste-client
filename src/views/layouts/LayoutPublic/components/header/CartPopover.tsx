@@ -110,4 +110,4 @@ function CartPopover({ totalCartItem, data }: CartPopoverProps) {
   );
 }
 
-export default React.memo(CartPopover);
+export default CartPopover;

@@ -1,5 +1,5 @@
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
-import LayoutPublic from '@/views/layouts/LayoutPublic';
+import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import { RegisterPage } from '@/views/pages/(auth)/register';
 import { Metadata } from 'next';
 import { ReactNode } from 'react';

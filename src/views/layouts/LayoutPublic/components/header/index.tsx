@@ -14,7 +14,7 @@ import { TopNavigation } from './TopNavigation';
 import BottomNavigation from './BottomNavigation';
 import { useGetCart } from '@/hooks/api/queries/useGetCart';
 import { keepPreviousData } from '@tanstack/react-query';
-import { useCartStore } from '@/stores/cart-store';
+import { useCartStore } from '@/stores/cart.store';
 import CartPopover from './CartPopover';
 import SearchHeader from './SearchHeader';
 import UserDropdownMenu from './UserDropdownMenu';

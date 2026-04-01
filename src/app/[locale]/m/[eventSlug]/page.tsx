@@ -8,7 +8,7 @@ import VoucherSection from './components/VoucherSection';
 import CategoryGrid from './components/CategoryGrid';
 import { EventPageData, PageProps } from '@/types/event';
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
-import LayoutPublic from '@/views/layouts/LayoutPublic';
+import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import { ReactElement } from 'react';
 
 // Mock data với eventSlug support

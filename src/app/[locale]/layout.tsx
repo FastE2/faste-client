@@ -5,7 +5,6 @@ import { i18nConfig } from '@/i18n-config';
 import TranslationProvider from '@/providers/TranslationProvider';
 import initTranslations from '@/configs/i18n';
 import AppWrapper from '@/hocs/AppWrappers';
-import { Suspense } from 'react';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import { LOCALE_MAP } from '@/constants/meta';
 
@@ -77,15 +76,13 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Suspense fallback={<LoadingDialog isLoading />}>
-          <TranslationProvider
-            locale={locale}
-            resources={resources}
-            namespaces={i18nNamespaces}
-          >
-            <AppWrapper>{children}</AppWrapper>
-          </TranslationProvider>
-        </Suspense>
+        <TranslationProvider
+          locale={locale}
+          resources={resources}
+          namespaces={i18nNamespaces}
+        >
+          <AppWrapper>{children}</AppWrapper>
+        </TranslationProvider>
       </body>
     </html>
   );

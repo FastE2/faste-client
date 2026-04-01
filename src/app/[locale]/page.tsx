@@ -1,7 +1,7 @@
 import { LOCALE_MAP } from '@/constants/meta';
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
 import { getAllProductsPublic } from '@/services/product';
-import LayoutPublic from '@/views/layouts/LayoutPublic';
+import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import HomePage from '@/views/pages/home';
 import { Metadata, Viewport } from 'next';
 import { ReactElement } from 'react';
@@ -99,5 +99,4 @@ export default async function Home() {
   );
 }
 
-export const dynamic = 'force-static';
-export const revalidate = 60;
+// No force-static to prevent hydration block on home

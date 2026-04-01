@@ -1,6 +1,6 @@
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
 import { getDetailProductPublicBySlug } from '@/services/product';
-import LayoutPublic from '@/views/layouts/LayoutPublic';
+import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import { Metadata } from 'next';
 import { ReactElement } from 'react';
 import Script from 'next/script';

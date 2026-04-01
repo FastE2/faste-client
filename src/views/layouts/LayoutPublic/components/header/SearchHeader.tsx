@@ -10,8 +10,6 @@ import { useSearchStore } from '@/stores/useSearchStore';
 import useDebounce from '@/hooks/use-debounce';
 import { getSearchSuggest } from '@/services/search';
 import { hasVietnameseAccent } from '@/helpers/hasVietnameseAccent';
-import { LoadingDialog } from '@/components/loading/LoadingDialog';
-import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 import { useTranslation } from 'react-i18next';
 
 const POPULAR_KEYWORDS = [

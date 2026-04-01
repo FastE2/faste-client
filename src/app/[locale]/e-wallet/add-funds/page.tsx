@@ -1,5 +1,5 @@
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
-import LayoutPublic from '@/views/layouts/LayoutPublic';
+import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import AddFundsPage from '@/views/pages/e-wallet/add-funds';
 import { ReactElement } from 'react';
 

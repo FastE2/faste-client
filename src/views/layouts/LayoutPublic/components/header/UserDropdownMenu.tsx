@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from '@/components/ui/button';
 import { ROUTE_CONFIG } from '@/configs/router';
 import { useAuth } from '@/hooks'

@@ -1,7 +1,7 @@
 import AppSidebar from '@/components/sidebar-user/app-sidebar-user';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
-import LayoutPublic from '@/views/layouts/LayoutPublic';
+import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import { ReactElement } from 'react';
 
 export default function ListVerticalLayout({

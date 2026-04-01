@@ -17,7 +17,7 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useWalletStore } from '@/stores/walletStore';
+import { useWalletStore } from '@/stores/wallet.store';
 
 type ChainType = 'testnet' | 'mainnet' | 'localnet';
 

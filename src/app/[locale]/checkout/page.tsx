@@ -1,5 +1,5 @@
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
-import LayoutPublic from '@/views/layouts/LayoutPublic';
+import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import { CheckoutPage } from '@/views/pages/checkout';
 import { Metadata } from 'next';
 import { ReactElement } from 'react';

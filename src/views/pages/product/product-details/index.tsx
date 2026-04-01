@@ -13,7 +13,7 @@ import {
   Suspense,
 } from 'react';
 import { ImageGallery } from './partials/ImageGallery';
-import { useCartStore } from '@/stores/cart-store';
+import { useCartStore } from '@/stores/cart.store';
 import { ProductRelated } from './partials/ProductRelated';
 import CartProductSkeleton from '@/components/skeleton/CartProductSkeleton';
 import { ShopInfo } from './partials/ShopInfo';
