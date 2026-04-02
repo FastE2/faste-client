@@ -1,5 +1,5 @@
 import { QUERY_KEYS } from '@/constants/query-keys';
-import { getCartByMe } from '@/services/cart';
+import { getCartByMe } from '@/services/cart.service';
 import { useCartStore } from '@/stores/cart.store';
 import { TParamsGets } from '@/types/common';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';

@@ -1,6 +1,6 @@
 import { LOCALE_MAP } from '@/constants/meta';
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
-import { getAllProductsPublic } from '@/services/product';
+import { getAllProductsPublic } from '@/services/product.service';
 import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import HomePage from '@/views/pages/home';
 import HomeSkeleton from '@/views/pages/home/HomeSkeleton';

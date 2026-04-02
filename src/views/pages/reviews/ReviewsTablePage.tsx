@@ -37,7 +37,7 @@ import { StatsSidebar } from './StatsSidebar';
 import { DetailModal } from './partials/DetailModal';
 import { ReplyModal } from './partials/ReplyModal';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
-import { getAllReviews } from '@/services/review';
+import { getAllReviews } from '@/services/review.service';
 import { useAuth } from '@/hooks'
 import { ReasonType, ReviewQueryType } from '@/types/review';
 import { LoadingSpinner } from '@/components/loading/LoadingSpinner';

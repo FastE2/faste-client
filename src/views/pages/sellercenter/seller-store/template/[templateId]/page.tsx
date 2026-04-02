@@ -9,13 +9,13 @@ import { toastify } from '@/components/ToastNotification';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuth } from '@/hooks'
-import { getDetailShopById } from '@/services/shop';
+import { getDetailShopById } from '@/services/shop.service';
 import {
   AddWidget,
   deleteWidget,
   getAllWidgets,
   updateManyWidgets,
-} from '@/services/widget';
+} from '@/services/widget.service';
 import { StoreConfig, Widget, WidgetType } from '@/types/widget';
 import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';

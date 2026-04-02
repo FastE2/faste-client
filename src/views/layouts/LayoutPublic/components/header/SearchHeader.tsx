@@ -8,7 +8,7 @@ import { getStoreSearchHistory, setStoreSearchHistory, clearStoreSearchHistory }
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useSearchStore } from '@/stores/useSearchStore';
 import useDebounce from '@/hooks/use-debounce';
-import { getSearchSuggest } from '@/services/search';
+import { getSearchSuggest } from '@/services/search.service';
 import { hasVietnameseAccent } from '@/helpers/hasVietnameseAccent';
 import { useTranslation } from 'react-i18next';
 

@@ -9,6 +9,7 @@ export const ROUTE_CONFIG = {
       NOTIFICATION: '/user/notification',
     },
     NOTIFICATION: '/user/notification',
+    SECURITY: '/user/security',
     PRODUCT: {
       FAVORITE: '/user/favorite',
       RECENTLY_VIEWED: '/user/recently-viewed',

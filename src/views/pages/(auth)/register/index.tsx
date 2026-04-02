@@ -15,7 +15,7 @@ import { useAuth } from '@/hooks'
 import { useTranslation } from 'react-i18next';
 
 import { Card, CardContent } from '@/components/ui/card';
-import { sendOTP } from '@/services/auth';
+import { sendOTP } from '@/services/auth.service';
 import { VerificationCodeTypeType } from '@/constants';
 import {
   InputOTP,

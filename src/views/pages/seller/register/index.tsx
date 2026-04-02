@@ -32,7 +32,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { getDetailShopMe } from '@/services/shop';
+import { getDetailShopMe } from '@/services/shop.service';
 import { useRouter } from 'next/navigation';
 import { ROUTE_CONFIG } from '@/configs/router';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';

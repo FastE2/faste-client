@@ -15,7 +15,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip';
 import AlertConfirm from '@/components/AlertConfirm';
-import { cancelOrder } from '@/services/order';
+import { cancelOrder } from '@/services/order.service';
 import { toastify } from '@/components/ToastNotification';
 import { useTranslation } from 'react-i18next';
 

@@ -18,7 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Icon } from '@iconify/react';
 import { toastify } from '@/components/ToastNotification';
 import { PaginationWithLinks } from '@/components/pagination-table';
-import { getAdminUsers } from '@/services/admin-user';
+import { getAdminUsers } from '@/services/admin-user.service';
 import { TAdminUser } from '@/types/admin/user';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { 

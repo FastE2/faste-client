@@ -23,7 +23,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { TAdminBrand, TCreateBrandInput } from '@/types/admin/brand';
-import { createBrand, updateBrand } from '@/services/admin-brand';
+import { createBrand, updateBrand } from '@/services/admin-brand.service';
 import Image from 'next/image';
 import { Icon } from '@iconify/react';
 import { toastify } from '@/components/ToastNotification';

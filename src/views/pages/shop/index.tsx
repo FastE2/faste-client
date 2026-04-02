@@ -15,7 +15,7 @@ import {
 import { ChevronDown, Search, Star } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { getAllShopsIsPublic } from '@/services/shop';
+import { getAllShopsIsPublic } from '@/services/shop.service';
 import { toastify } from '@/components/ToastNotification';
 
 interface TShop {

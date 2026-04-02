@@ -24,7 +24,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { TAdminRole, TCreateRoleInput } from '@/types/admin/role';
-import { createRole, updateRole } from '@/services/admin-role';
+import { createRole, updateRole } from '@/services/admin-role.service';
 import { toastify } from '@/components/ToastNotification';
 
 const roleSchema = z.object({

@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { changePassword } from '@/services/profile';
+import { changePassword } from '@/services/profile.service';
 import { TChangePasswordBody } from '@/types/profile';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm } from 'react-hook-form';

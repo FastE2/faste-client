@@ -15,7 +15,7 @@ import { ROUTE_CONFIG } from '@/configs/router';
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import { formatCurrencyWithExchange } from '@/utils';
 import { useTranslation } from 'react-i18next';
-import { createOrder } from '@/services/order';
+import { createOrder } from '@/services/order.service';
 import { CreateOrderType } from '@/types/order';
 import dynamic from 'next/dynamic';
 import { LoadingSpinner } from '@/components/loading/LoadingSpinner';

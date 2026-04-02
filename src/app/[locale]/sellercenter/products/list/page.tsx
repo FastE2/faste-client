@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { DropdownMenuCheckboxes } from './MultiSelectProducts';
-import { getAllProductPublicBySeller } from '@/services/product';
+import { getAllProductPublicBySeller } from '@/services/product.service';
 import { useEffect, useState } from 'react';
 import { toastify } from '@/components/ToastNotification';
 import { TableData } from './TableData';

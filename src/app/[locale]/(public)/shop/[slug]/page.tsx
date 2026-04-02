@@ -1,6 +1,6 @@
 import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
-import { getDetailShopPublicBySlug } from '@/services/shop';
+import { getDetailShopPublicBySlug } from '@/services/shop.service';
 import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import ShopDetails from '@/views/pages/shop/shop-details';
 import { Metadata } from 'next';

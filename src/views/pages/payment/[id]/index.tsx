@@ -12,7 +12,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
 import { usePaymentState } from '@/hooks/use-payment-state';
 import { getErrorMessage, isRetryableError } from '@/lib/error-handler';
-import { getDetailOrderTXById } from '@/services/order';
+import { getDetailOrderTXById } from '@/services/order.service';
 import CountdownTimer from '../partials/countdown-timer';
 import SepayPayment from '../partials/sepay-payment';
 import Web3Payment from '../partials/web3-payment';

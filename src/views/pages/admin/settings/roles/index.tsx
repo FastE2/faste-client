@@ -15,7 +15,7 @@ import {
   updateRole, 
   deleteRole,
   getRolePermissions 
-} from '@/services/admin-role';
+} from '@/services/admin-role.service';
 import { TAdminRole, TAdminPermission } from '@/types/admin/role';
 import { Plus, Trash2, Edit, Save, Shield, ShieldCheck, Check } from 'lucide-react';
 import { RoleModal } from './role-modal';

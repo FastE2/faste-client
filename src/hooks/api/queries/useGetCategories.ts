@@ -1,5 +1,5 @@
 import { QUERY_KEYS } from '@/constants/query-keys';
-import { getAllCategories } from '@/services/category';
+import { getAllCategories } from '@/services/category.service';
 import { TParamsGets } from '@/types/common';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 

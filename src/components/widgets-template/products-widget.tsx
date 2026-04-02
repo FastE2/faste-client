@@ -1,6 +1,6 @@
 'use client';
 
-import { getAllProductsPublicByShop } from '@/services/product';
+import { getAllProductsPublicByShop } from '@/services/product.service';
 import { Widget } from '@/types/widget';
 import { useEffect, useState } from 'react';
 import CartProduct from '../CardProduct';

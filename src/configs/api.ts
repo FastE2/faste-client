@@ -9,6 +9,10 @@ export const API_ENDPOINT = {
     LOGIN: `${BASE_URL}/auth/login`,
     REGISTER: `${BASE_URL}/auth/register`,
     OTP: `${BASE_URL}/auth/otp`,
+    FORGOT_PASSWORD: `${BASE_URL}/auth/forgot-password`,
+    TWO_FA_ENABLE: `${BASE_URL}/auth/2fa/enable`,
+    TWO_FA_DISABLE: `${BASE_URL}/auth/2fa/disable`,
+    DEVICE_ME: `${BASE_URL}/auth/device/me`,
   },
   SELLER_STORE: {
     TEMPLATE: `${BASE_URL}/template`,

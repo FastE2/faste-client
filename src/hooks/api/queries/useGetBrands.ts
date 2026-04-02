@@ -1,5 +1,5 @@
 import { QUERY_KEYS } from '@/constants/query-keys';
-import { getAllBrands } from '@/services/brand';
+import { getAllBrands } from '@/services/brand.service';
 import { TParamsGets } from '@/types/common';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 

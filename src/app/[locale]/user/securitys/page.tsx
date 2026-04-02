@@ -1,4 +1,3 @@
-import AddressPage from '@/views/pages/user/address';
 import { SecurityPage } from '@/views/pages/user/securitys';
 import { Metadata } from 'next';
 

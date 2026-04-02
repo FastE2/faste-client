@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { getAdminUserById } from '@/services/admin-user';
+import { getAdminUserById } from '@/services/admin-user.service';
 import { TAdminUser } from '@/types/admin/user';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Badge } from '@/components/ui/badge';

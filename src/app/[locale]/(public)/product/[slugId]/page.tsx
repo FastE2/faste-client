@@ -1,5 +1,5 @@
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
-import { getDetailProductPublicBySlug } from '@/services/product';
+import { getDetailProductPublicBySlug } from '@/services/product.service';
 import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import { Metadata } from 'next';
 import { ReactElement } from 'react';
@@ -15,6 +15,9 @@ type Product = {
   price: number;
   brand?: string;
 };
+type Props = {
+  params: Promise<{ slugId: string; locale: string }>;
+};
 
 async function getDetailProduct(slugId: string): Promise<Product | null> {
   try {
@@ -25,12 +28,9 @@ async function getDetailProduct(slugId: string): Promise<Product | null> {
   }
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { slugId: string };
-}): Promise<Metadata> {
-  const product = await getDetailProduct(params.slugId);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slugId } = await params;
+  const product = await getDetailProduct(slugId);
 
   if (!product) {
     return {
@@ -63,8 +63,8 @@ export async function generateMetadata({
   };
 }
 
-export default async function Page({ params }: { params: { slugId: string } }) {
-  const { slugId } = params;
+export default async function Page({ params }: Props) {
+  const { slugId } = await params;
   const product = await getDetailProduct(slugId);
 
   if (!product) {

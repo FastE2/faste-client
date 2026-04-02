@@ -18,7 +18,7 @@ import Web3Payment from './partials/web3-payment';
 import PayfastPayment from './partials/payfast-payment';
 import PaymentSummary from './partials/payment-summary';
 import CountdownTimer from './partials/countdown-timer';
-import { getDetailOrderTXById } from '@/services/order';
+import { getDetailOrderTXById } from '@/services/order.service';
 import { useTranslation } from 'react-i18next';
 
 type PaymentMethod = 'SEPAY' | 'WEB3' | 'PayFast';

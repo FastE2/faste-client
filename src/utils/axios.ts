@@ -5,7 +5,7 @@ import {
   setLocalAccessToken,
   clearLocalUserData,
 } from '@/helpers/storage';
-import { refreshToken } from '@/services/auth';
+import { refreshToken } from '@/services/auth.service';
 import { ROUTE_CONFIG } from '@/configs/router';
 import { createUrlQuery } from './create-query-url';
 

@@ -26,6 +26,10 @@ export const USER_MENU_ITEMS: IMenuItem[] = [
         title: 'userMenu.changePassword',
         url: ROUTE_CONFIG.USER.INFO.CHANGE_PASSWORD,
       },
+      {
+        title: 'Bảo mật',
+        url: ROUTE_CONFIG.USER.INFO.SECURITYS,
+      },
     ],
   },
   // {

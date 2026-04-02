@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Icon } from '@iconify/react';
 import Image from 'next/image';
-import { getDetailShopMe } from '@/services/shop';
+import { getDetailShopMe } from '@/services/shop.service';
 
 // --- TYPE DEFINITIONS ---
 interface ShopData {

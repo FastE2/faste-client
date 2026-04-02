@@ -30,7 +30,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { TAdminCategory, TCreateCategoryInput } from '@/types/admin/category';
-import { createCategory, updateCategory, getAdminCategories } from '@/services/admin-category';
+import { createCategory, updateCategory, getAdminCategories } from '@/services/admin-category.service';
 import { toastify } from '@/components/ToastNotification';
 
 const categorySchema = z.object({

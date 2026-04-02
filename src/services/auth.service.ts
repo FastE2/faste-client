@@ -1,5 +1,13 @@
 import { API_ENDPOINT } from '@/configs/api';
-import { TLoginAuth, TRegisterAuth, TSendOtp } from '@/types/auth';
+import {
+  TDevice,
+  TForgotPasswordAuth,
+  TLoginAuth,
+  TRegisterAuth,
+  TSendOtp,
+  TTwoFADisable,
+  TTwoFAEnableRes,
+} from '@/types/auth';
 import axiosInstance from '@/utils/axios';
 import axios from 'axios';
 
@@ -43,4 +51,30 @@ export const logoutAuth = async () => {
     },
   );
   return res.data;
+};
+
+export const forgotPassword = async (data: TForgotPasswordAuth) => {
+  const res = await axios.post(`${API_ENDPOINT.AUTH.FORGOT_PASSWORD}`, data);
+  return res.data;
+};
+
+export const enableTwoFactorAuth = async () => {
+  const res = await axiosInstance.post(
+    `${API_ENDPOINT.AUTH.TWO_FA_ENABLE}`,
+    {},
+  );
+  return res.data.data as TTwoFAEnableRes;
+};
+
+export const disableTwoFactorAuth = async (data: TTwoFADisable) => {
+  const res = await axiosInstance.post(
+    `${API_ENDPOINT.AUTH.TWO_FA_DISABLE}`,
+    data,
+  );
+  return res.data;
+};
+
+export const getDevices = async () => {
+  const res = await axiosInstance.get(`${API_ENDPOINT.AUTH.DEVICE_ME}`);
+  return res.data as TDevice[];
 };

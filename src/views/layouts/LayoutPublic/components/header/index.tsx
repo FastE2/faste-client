@@ -22,6 +22,7 @@ import MobileNavigation from './mobile/MobileNavigation';
 import MobileTopNavigation from './mobile/MobileTopNavigation';
 import { ModeToggle } from '@/components/ModeToggle';
 import { useTranslation } from 'react-i18next';
+import Link from 'next/link';
 
 const Header = () => {
   const { t } = useTranslation();
@@ -61,13 +62,15 @@ const Header = () => {
           <div className="flex items-center justify-between py-4 gap-4">
             {/* Logo */}
             <div className="flex items-center gap-2 shrink-0">
-              <Image
-                src="/logo.svg"
-                width={120}
-                height={24}
-                alt="FastE3 logo"
-                className="dark:invert w-auto h-16"
-              />
+              <Link href="/">
+                <Image
+                  src="/logo.svg"
+                  width={120}
+                  height={24}
+                  alt="FastE3 logo"
+                  className="dark:invert w-auto h-16"
+                />
+              </Link>
               {/* <span className="font-bold text-xl text-foreground hidden sm:block">
                   FastE3
                 </span> */}

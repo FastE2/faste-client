@@ -7,7 +7,7 @@ import {
   cancelOrder,
   getDetailOrderByIdByShop,
   updateOrderStatus,
-} from '@/services/order';
+} from '@/services/order.service';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -51,7 +51,7 @@ import {
 import Image from 'next/image';
 import { Icon } from '@iconify/react';
 import { formatCurrency } from '@/helpers/currency';
-import { getAddressShipIsDefaultUser } from '@/services/address-ship';
+import { getAddressShipIsDefaultUser } from '@/services/address-ship.service';
 import { OrderStatus } from '@/types/order';
 import {
   Dialog,

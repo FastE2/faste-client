@@ -19,7 +19,7 @@ import {
   Box,
   ArrowRight,
 } from 'lucide-react';
-import { getAllTemplatesBySeller } from '@/services/template';
+import { getAllTemplatesBySeller } from '@/services/template.service';
 import { useRouter } from 'next/navigation';
 
 interface Template {

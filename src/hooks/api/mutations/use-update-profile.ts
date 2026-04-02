@@ -1,5 +1,5 @@
 import { QUERY_KEYS } from '@/constants/query-keys';
-import { updateProfile } from '@/services/profile';
+import { updateProfile } from '@/services/profile.service';
 import { TUpdateProfile } from '@/types/profile';
 import { useMutation, UseMutationOptions } from '@tanstack/react-query';
 

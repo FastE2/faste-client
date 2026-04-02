@@ -1,5 +1,5 @@
 import { QUERY_KEYS } from '@/constants/query-keys';
-import { getAllProductsPublicByShop } from '@/services/product';
+import { getAllProductsPublicByShop } from '@/services/product.service';
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 
 export const useGetAllProductPublicByShop = (

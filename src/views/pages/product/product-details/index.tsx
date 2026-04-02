@@ -1,8 +1,8 @@
 'use client';
 
 import { toastify } from '@/components/ToastNotification';
-import { addToCart } from '@/services/cart';
-import { getAllProductsPublic } from '@/services/product';
+import { addToCart } from '@/services/cart.service';
+import { getAllProductsPublic } from '@/services/product.service';
 import { Icon } from '@iconify/react';
 import {
   useState,

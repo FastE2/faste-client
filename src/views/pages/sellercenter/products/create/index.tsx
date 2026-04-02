@@ -32,7 +32,7 @@ import { generateSKUsV2 } from '@/helpers/generate-skus';
 import { generateSlug } from '@/helpers/generate-slug';
 import { keepPreviousData } from '@tanstack/react-query';
 import { TSKUs, VariantsType } from '@/types/product';
-import { createProductBySeller } from '@/services/product';
+import { createProductBySeller } from '@/services/product.service';
 
 // -- Partial --
 import ProductCharacteristics from './partials/ProductCharacteristics';

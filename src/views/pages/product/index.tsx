@@ -15,7 +15,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Icon } from '@iconify/react';
 import { useSearchStore } from '@/stores/useSearchStore';
-import { getSearchProduct } from '@/services/search';
+import { getSearchProduct } from '@/services/search.service';
 import { TParamsSearch } from '@/types/params';
 import CartProductSkeleton from '@/components/skeleton/CartProductSkeleton';
 import ProductNotFound from './ProductNotFound';

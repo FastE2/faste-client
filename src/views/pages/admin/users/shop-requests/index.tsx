@@ -18,7 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Icon } from '@iconify/react';
 import { toastify } from '@/components/ToastNotification';
 import { PaginationWithLinks } from '@/components/pagination-table';
-import { getShopRequests, handleShopRequest } from '@/services/admin-user';
+import { getShopRequests, handleShopRequest } from '@/services/admin-user.service';
 import { TShopRequest } from '@/types/admin/user';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {

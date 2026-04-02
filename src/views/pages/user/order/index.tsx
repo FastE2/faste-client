@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { Search } from 'lucide-react';
 import OrderCard from './partials/order-card';
-import { getAllOrdersByUser, updateOrderStatus } from '@/services/order';
+import { getAllOrdersByUser, updateOrderStatus } from '@/services/order.service';
 import { PaymentMethods } from '@/enums';
 
 import ProductRatingForm from './partials/ProductRatingForm';

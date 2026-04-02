@@ -2,7 +2,7 @@
 
 import { useAuthStore } from '@/stores/auth.store';
 import { TLoginAuth, TRegisterAuth } from '@/types/auth';
-import { loginAuth, logoutAuth, registerAuth } from '@/services/auth';
+import { loginAuth, logoutAuth, registerAuth } from '@/services/auth.service';
 import {
   setLocalAccessToken,
   setLocalUserData,
@@ -29,7 +29,7 @@ export const useAuth = () => {
       setLocalAccessToken(accessToken);
 
       try {
-        const { getProfile } = await import('@/services/profile');
+        const { getProfile } = await import('@/services/profile.service');
         const profileRes = await getProfile();
         setUser(profileRes.data);
         setLocalUserData(profileRes.data);
@@ -48,14 +48,18 @@ export const useAuth = () => {
       const returnUrl = searchParams?.get('returnUrl');
       router.replace(returnUrl && returnUrl !== '/' ? returnUrl : '/');
     } catch (error: any) {
-      if (error.response?.status === 400) {
+      if (
+        error.response?.status === 400 &&
+        error.response?.data?.message !== 'Error.InvalidTokenTOTPException'
+      ) {
         toastify.error('Login', 'Email or password invalid!');
-      } else {
+      } else if (error.response?.status !== 400) {
         toastify.error(
           'Server Error',
           'Something went wrong. Please try again later.',
         );
       }
+      throw error;
     } finally {
       setLoading(false);
     }

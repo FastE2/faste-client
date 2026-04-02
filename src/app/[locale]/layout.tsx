@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
-import '../globals.css';
+import '@/app/globals.css';
 import { i18nConfig } from '@/i18n-config';
 import TranslationProvider from '@/providers/TranslationProvider';
 import initTranslations from '@/configs/i18n';
 import AppWrapper from '@/hocs/AppWrappers';
-import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import { LOCALE_MAP } from '@/constants/meta';
 
 const geistSans = Geist({

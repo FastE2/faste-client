@@ -9,7 +9,7 @@ import {
   deleteCartItem,
   getCartByMe,
   updateCartQuantity,
-} from '@/services/cart';
+} from '@/services/cart.service';
 import { setCheckoutItems } from '@/helpers/storage';
 import { useRouter } from 'next/navigation';
 import useDebounce from '@/hooks/use-debounce';

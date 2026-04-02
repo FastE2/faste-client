@@ -1,5 +1,5 @@
 import { ProductRating } from '@/components/ProductRating';
-import { getAllReviews } from '@/services/review';
+import { getAllReviews } from '@/services/review.service';
 import { memo, useState, useEffect } from 'react';
 import { ReviewCard } from './ReviewCard';
 import { useTranslation } from 'react-i18next';

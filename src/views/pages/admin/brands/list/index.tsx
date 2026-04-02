@@ -15,7 +15,7 @@ import {
 import { Icon } from '@iconify/react';
 import { toastify } from '@/components/ToastNotification';
 import { PaginationWithLinks } from '@/components/pagination-table';
-import { getAdminBrands, deleteBrand } from '@/services/admin-brand';
+import { getAdminBrands, deleteBrand } from '@/services/admin-brand.service';
 import { TAdminBrand } from '@/types/admin/brand';
 import { 
   DropdownMenu,
