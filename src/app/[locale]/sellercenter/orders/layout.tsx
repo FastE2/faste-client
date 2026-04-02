@@ -11,7 +11,6 @@ export default function OrdersLayout({
   list: React.ReactNode; // @list slot
   detail: React.ReactNode; // @detail slot
 }) {
-  console.log('RUN LAYOUT');
   const pathname = usePathname();
   const showParallelSlots =
     pathname === '/sellercenter/orders/list' ||

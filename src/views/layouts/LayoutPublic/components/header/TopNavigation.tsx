@@ -8,7 +8,7 @@ import LocaleSwitcher from '@/components/locale-switcher';
 export const TopNavigation = () => {
   const { t } = useTranslation();
   return (
-    <div className="container mx-auto max-w-6xl px-4">
+    <div className="container mx-auto max-w-7xl px-4">
       <div className="flex items-center justify-between py-2 text-xs text-muted-foreground">
         <nav className="flex items-center gap-4">
           <ul className="flex items-center gap-4">

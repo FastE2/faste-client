@@ -72,7 +72,7 @@ export default function PaymentPage({ id }: TProps) {
         if (res.statusCode !== 200) {
           throw new Error();
         }
-        console.log('Transaction data:', res.data);
+        // console.log('Transaction data:', res.data);
         setTransactionData(res.data);
       } catch (error) {
         router.push(ROUTE_CONFIG.HOME);

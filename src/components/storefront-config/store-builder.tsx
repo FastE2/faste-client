@@ -150,9 +150,9 @@ export default function StoreBuilder() {
 
   const handleApply = async () => {
     try {
-      console.log(config);
+      // console.log(config);
     } catch (err) {
-      console.error(err);
+      // console.error(err);
     }
   };
 

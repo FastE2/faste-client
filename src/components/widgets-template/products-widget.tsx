@@ -45,7 +45,6 @@ export default function ProductsWidget({
   ];
   const fetchProductByShop = async (shopId: number) => {
     const res = await getAllProductsPublicByShop(shopId);
-    console.log('PRODUCT BY SHOP =========', res);
     if (!res.error) {
       setDataProducts(res.data.data);
     }

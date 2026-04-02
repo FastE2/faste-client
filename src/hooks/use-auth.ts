@@ -65,7 +65,7 @@ export const useAuth = () => {
     setLoading(true);
     try {
       const response = await registerAuth(data);
-      console.log(response);
+
       if (response.statusCode === 201) {
         toastify.success('Success', 'Your account has been registered!');
       }

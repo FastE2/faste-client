@@ -67,13 +67,10 @@ export function ProductVariantTable(props: TProps) {
   };
   let attributeKeys: any[] = [];
   if (skusData[0]?.attributes) {
-    // console.log(skusData[0].attributes);
     attributeKeys = Object.keys(skusData[0].attributes);
   }
 
   const renderedAttributeKeyOne = new Set<string>();
-
-  console.log("RENDER VARIANR TABLE")
 
   return (
     <Card className="overflow-hidden">

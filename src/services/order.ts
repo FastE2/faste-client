@@ -102,7 +102,7 @@ export const getDetailOrderByIdByShop = async (
       errorCode: null,
     };
   } catch (error: any) {
-    console.log('error', error);
+    // console.log('error', error);
     const errorMessage =
       error?.response?.data?.message || 'Unknown error occurred';
     const errorCode = error?.response?.status || 500;
@@ -138,7 +138,7 @@ export const updateOrderStatus = async (
       errorCode: null,
     };
   } catch (error: any) {
-    console.log('error', error);
+    // console.log('error', error);
     const errorMessage =
       error?.response?.data?.message || 'Unknown error occurred';
     const errorCode = error?.response?.status || 500;
@@ -167,7 +167,7 @@ export const cancelOrder = async (id: number): Promise<ApiResponse> => {
       errorCode: null,
     };
   } catch (error: any) {
-    console.log('error', error);
+    // console.log('error', error);
     const errorMessage =
       error?.response?.data?.message || 'Unknown error occurred';
     const errorCode = error?.response?.status || 500;

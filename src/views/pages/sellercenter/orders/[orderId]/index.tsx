@@ -120,7 +120,6 @@ export const OrderDetailPage = ({ orderId }: Props) => {
     const res = await updateOrderStatus(Number(orderId), {
       status: pendingStatus as OrderStatus,
     });
-    console.log('RES ORX', res);
     if (res.status === 'success') {
       setOrderData({ ...orderData, status: pendingStatus });
       toastify.success('Cập nhật trạng thái thành công!');

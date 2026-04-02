@@ -30,7 +30,7 @@ const HomePage = (props: TProps) => {
 
   return (
     <>
-      <div className="container mx-auto max-w-6xl px-4">
+      <div className="container mx-auto max-w-7xl px-4">
         <WelcomePopup />
         <BannerWeb />
         <CardCategory />

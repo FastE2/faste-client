@@ -3,6 +3,7 @@ import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
 import { getAllProductsPublic } from '@/services/product';
 import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import HomePage from '@/views/pages/home';
+import HomeSkeleton from '@/views/pages/home/HomeSkeleton';
 import { Metadata, Viewport } from 'next';
 import { ReactElement, Suspense } from 'react';
 
@@ -93,7 +94,7 @@ export default async function Home() {
       authGuard={false}
       guestGuard={false}
     >
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<HomeSkeleton />}>
         <HomeContent />
       </Suspense>
     </GuardLayoutWrapper>

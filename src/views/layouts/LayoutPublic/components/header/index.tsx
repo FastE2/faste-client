@@ -57,7 +57,7 @@ const Header = () => {
 
       {/* Main Header */}
       <div className="bg-background">
-        <div className="container mx-auto max-w-6xl px-4">
+        <div className="container mx-auto max-w-7xl px-4">
           <div className="flex items-center justify-between py-4 gap-4">
             {/* Logo */}
             <div className="flex items-center gap-2 shrink-0">

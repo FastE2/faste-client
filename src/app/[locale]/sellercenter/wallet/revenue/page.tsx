@@ -423,7 +423,7 @@ const WithdrawRequestModal = ({ isOpen, onClose, availableBalance, bankAccount }
             await fakeApi.requestWithdraw({ amount: data.amount, bankId: 1, otp: data.otp });
             onClose();
             // Using console.log instead of alert for success message
-            console.log(`Yêu cầu rút tiền ${formatCurrency(data.amount)} đã được gửi thành công!`); 
+            // console.log(`Yêu cầu rút tiền ${formatCurrency(data.amount)} đã được gửi thành công!`); 
         } catch (e) {
             console.error("Yêu cầu rút tiền thất bại:", e);
         }

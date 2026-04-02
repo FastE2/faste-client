@@ -150,7 +150,7 @@ const ProductRatingForm = memo(function ProductRatingForm({
   const ship = watch('serviceShip');
 
   const onSubmit = async (data: FormData) => {
-    console.log('Form Submitted:', data);
+    // console.log('Form Submitted:', data);
 
     const orderItemId = productOrder!.id;
     const productId = productOrder!.productId;
@@ -158,14 +158,14 @@ const ProductRatingForm = memo(function ProductRatingForm({
     const sellerId = productOrder!.shopId;
     try {
       const { images, ...rest } = data;
-      console.log({
-        orderItemId,
-        productId,
-        sellerId,
-        skuId,
-        images: [],
-        ...rest,
-      });
+      // console.log({
+      //   orderItemId,
+      //   productId,
+      //   sellerId,
+      //   skuId,
+      //   images: [],
+      //   ...rest,
+      // });
       const res = await CreateReview({
         orderItemId,
         productId,

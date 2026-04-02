@@ -77,7 +77,6 @@ interface TProps {
 
 export function TableData(props: TProps) {
   const { data, limit, page, totalItem, totalPage } = props;
-  console.log(data);
   return (
     <Table>
       {/* <TableCaption>A list of your recent invoices.</TableCaption> */}

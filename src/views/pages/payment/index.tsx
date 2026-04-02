@@ -72,9 +72,9 @@ export default function PaymentPage() {
     const fetchDetailOrder = async () => {
       try {
         const res = await getDetailOrderTXById(3);
-        console.log(res);
+        // console.log(res);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     fetchDetailOrder();

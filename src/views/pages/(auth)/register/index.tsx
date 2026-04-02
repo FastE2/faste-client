@@ -116,10 +116,10 @@ export function RegisterPage({
   };
 
   const handleRegister = async (data: any) => {
-    console.log({
-      ...data,
-      code: otpForm.getValues('code'),
-    });
+    // console.log({
+    //   ...data,
+    //   code: otpForm.getValues('code'),
+    // });
     const res = await registerUser({
       ...data,
       code: otpForm.getValues('code'),

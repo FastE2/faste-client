@@ -25,7 +25,7 @@ export const getAllReviews = async (
       errorCode: null,
     };
   } catch (error: any) {
-    console.log('error', error);
+    // console.log('error', error);
     const errorMessage =
       error?.response?.data?.message || 'Unknown error occurred';
     const errorCode = error?.response?.status || 500;
@@ -57,7 +57,7 @@ export const CreateReview = async (
       errorCode: null,
     };
   } catch (error: any) {
-    console.log('error', error);
+    // console.log('error', error);
     const errorMessage =
       error?.response?.data?.message || 'Unknown error occurred';
     const errorCode = error?.response?.status || 500;
@@ -86,7 +86,7 @@ export const deleteWidget = async (id: number): Promise<ApiResponse> => {
       errorCode: null,
     };
   } catch (error: any) {
-    console.log('error', error);
+    // console.log('error', error);
     const errorMessage =
       error?.response?.data?.message || 'Unknown error occurred';
     const errorCode = error?.response?.status || 500;
@@ -119,7 +119,7 @@ export const updateReview = async (
       errorCode: null,
     };
   } catch (error: any) {
-    console.log('error', error);
+    // console.log('error', error);
     const errorMessage =
       error?.response?.data?.message || 'Unknown error occurred';
     const errorCode = error?.response?.status || 500;

@@ -188,7 +188,6 @@ export default function OrderListPage() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedOrder]);
 
-  console.log('paginatedOrders', paginatedOrders);
 
   return (
     <div className="container mx-auto p-4 md:p-6 space-y-6">

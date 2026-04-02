@@ -53,7 +53,6 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
 
   const handleUpload = () => {
     // Handle upload logic here
-    console.log('Uploading files:', selectedFiles);
     setSelectedFiles([]);
     onClose();
   };

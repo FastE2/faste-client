@@ -11,7 +11,7 @@ export default function BottomNavigation() {
   const pathname = usePathname();
   return (
     <div className="hidden lg:block bg-background border-t border-border">
-      <div className="container mx-auto max-w-6xl px-4">
+      <div className="container mx-auto max-w-7xl px-4">
         <div className="flex items-center justify-between py-4">
           <nav className="flex items-center space-x-8">
             {navigationItems.map((item) => (

@@ -124,7 +124,6 @@ export default function StoreInfoPage() {
     try {
       const res = await getDetailShopMe();
       if (res.data && res.status === 'success') {
-        console.log(res)
         setShop(res.data);
       }
     } catch (error) {}

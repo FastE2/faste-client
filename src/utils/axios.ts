@@ -55,14 +55,14 @@ axiosInstance.interceptors.response.use(
   async (error: AxiosError & { config?: AxiosRequestConfig }) => {
     const originalRequest = error.config;
 
-    console.log(error.response?.status);
+    // console.log(error.response?.status);
 
     if (error.response?.status === 500 && !(originalRequest as any)?._retry) {
       if (isRefreshing) {
         return new Promise(function (resolve, reject) {
           failedQueue.push({ resolve, reject });
         }).then((token) => {
-          console.log(token);
+          // console.log(token);
           originalRequest!.headers.Authorization = `Bearer ${token}`;
           return axiosInstance(originalRequest!);
         });

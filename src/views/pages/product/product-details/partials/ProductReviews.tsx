@@ -23,7 +23,6 @@ export const ProductReviews = memo(({ product }: { product: any }) => {
         sortBy: 'createdAt',
         rating: selectedRating !== null ? selectedRating : undefined,
       });
-      console.log('fetchReviewsByProduct', res);
       if (res?.data) {
         setReviews(res.data);
       }

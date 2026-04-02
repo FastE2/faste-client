@@ -108,13 +108,13 @@ const DetailOrderModel = memo(function DetailOrderModel({
     }
   };
 
-  console.log(
-    'RENDER MODEL',
-    isModalOpen,
-    selectedOrder,
-    setIsModalOpen,
-    handleCloseModal,
-  );
+  // console.log(
+  //   'RENDER MODEL',
+  //   isModalOpen,
+  //   selectedOrder,
+  //   setIsModalOpen,
+  //   handleCloseModal,
+  // );
 
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>

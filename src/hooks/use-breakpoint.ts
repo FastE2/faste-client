@@ -29,8 +29,6 @@ export default function useBreakpoint() {
     window.addEventListener('resize', handleResize);
     handleResize();
 
-    console.log(breakpoint);
-
     if (windowSize.width < 600) {
       setBreakPoint(breakpoints[0]); // xs
     } else if (windowSize.width < 960) {
@@ -46,7 +44,6 @@ export default function useBreakpoint() {
     }
 
     return () => window.removeEventListener('resize', handleResize);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [windowSize.width]);
 
   return breakpoint;

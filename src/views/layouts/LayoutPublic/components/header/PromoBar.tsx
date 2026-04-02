@@ -6,7 +6,7 @@ const PromoBar = () => {
   const { t } = useTranslation();
   return (
     <div className="bg-purple-600 dark:bg-purple-700">
-      <div className="container mx-auto max-w-6xl px-4">
+      <div className="container mx-auto max-w-7xl px-4">
         <div className="flex items-center justify-between py-2 text-white">
           <p className="text-xs sm:text-sm">
             <span className="hidden sm:inline">

@@ -28,8 +28,6 @@ const UserDropdownMenu = () => {
   const handleNavigateMyAccount = () => {
     router.replace(ROUTE_CONFIG.USER.INFO.ACCOUNT);
   };
-
-  console.log('user', user);
   
   return (
     <div className="group relative">

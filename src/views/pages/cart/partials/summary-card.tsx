@@ -43,15 +43,15 @@ function SummaryCardComponent({
     [i18n.language],
   );
 
-  console.log('== SummaryCard render', {
-    subtotal,
-    shipping,
-    discount,
-    total,
-    selectedItems,
-    onCheckout,
-    onOrder
-  });
+  // console.log('== SummaryCard render', {
+  //   subtotal,
+  //   shipping,
+  //   discount,
+  //   total,
+  //   selectedItems,
+  //   onCheckout,
+  //   onOrder
+  // });
 
   const isCartPage = pathname === ROUTE_CONFIG.CART;
   const disableCheckout = selectedItems.length <= 0;

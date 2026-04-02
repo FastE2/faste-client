@@ -96,11 +96,9 @@ export const ProductListPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-  // console.log('==== PRODUCT RENDER');
-
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <div className="container max-w-6xl mx-auto px-4 py-6">
+      <div className="container max-w-7xl mx-auto px-4 py-6">
         <div className="flex flex-col lg:flex-row gap-6">
           {/* DESKTOP FILTER SIDEBAR */}
           <aside className="hidden lg:block w-64 flex-shrink-0">
@@ -132,7 +130,7 @@ export const ProductListPage = () => {
                       {t('search.filterTitle')}
                     </Button>
                   </SheetTrigger>
-                  <SheetContent side="left" className="w-[300px] overflow-y-auto pt-10">
+                  <SheetContent side="left" className="w-[300px] overflow-y-auto py-6 px-2">
                     <SheetHeader className="mb-4">
                       <SheetTitle className="text-left">{t('search.filterTitle')}</SheetTitle>
                     </SheetHeader>

@@ -115,7 +115,7 @@ const ProductDetails = (props: TProps) => {
         toastify.info(t('common.status.info'), t('product.messages.somethingWrong'));
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       toastify.error(t('common.status.error'), t('product.messages.addError'));
     }
   };
@@ -141,8 +141,6 @@ const ProductDetails = (props: TProps) => {
   if (!product) {
     return <div>{t('common.notFound')}</div>;
   }
-
-  console.log('render product details');
 
   function collectProductImages(product: any): string[] {
     const productImages = product.images.filter(Boolean);

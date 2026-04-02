@@ -199,7 +199,6 @@ export const CreateProductPage = () => {
         }
       }
     } catch (error) {
-      console.log(error);
       toastify.error('product', 'An error occurred while submitting the form');
     }
   };
@@ -371,8 +370,6 @@ export const CreateProductPage = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [variants]);
-
-  console.log('==== RENDER CREATE PRODUCT');
 
   return (
     <div className="w-full">

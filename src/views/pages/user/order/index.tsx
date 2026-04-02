@@ -189,7 +189,7 @@ export default function OrdersPage() {
       });
       setOrders(groupOrdersForUI(res.data.data) as any);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     } finally {
       setIsLoading(false);
     }

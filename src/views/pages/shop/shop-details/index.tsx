@@ -29,7 +29,7 @@ const ShopDetails = ({ shop }: TProps) => {
     shop?.Template[0]?.widgets.sort(
       (a: any, b: any) => a.widgetIndex - b.widgetIndex,
     ) || [];
-  console.log('Shop in ShopDetails component:', shop, templateWidgets);
+  // console.log('Shop in ShopDetails component:', shop, templateWidgets);
 
   return (
     <div className="mx-auto -mt-8 w-full max-w-7xl">

@@ -174,8 +174,6 @@ export default function CartPage() {
     return () => controller.abort();
   }, [debouncedUpdate]);
 
-  console.log('==== render cart page', selectedItems);
-
   return (
     <main className="min-h-screen">
       <div className="max-w-6xl mx-auto p-2">

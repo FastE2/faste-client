@@ -79,7 +79,7 @@ export const TemplateWidgetDetailPage = (props: TProps) => {
       toastify.error('', 'Có lỗi xảy ra vui lòng thử lại!');
     } else {
       try {
-        console.log(confirmDialog);
+    
         const res = await deleteWidget(Number(confirmDialog.itemId));
         if (res.status === 'success') {
           toastify.success('', res.message);
@@ -166,7 +166,6 @@ export const TemplateWidgetDetailPage = (props: TProps) => {
         isVisible: item.isVisible,
         viewConfig: item.viewConfig ? item.viewConfig : null,
       }));
-      console.log('APply config', config);
       const res = await updateManyWidgets(templateId, {
         widgets: newWidgetFillter,
       });
@@ -188,8 +187,8 @@ export const TemplateWidgetDetailPage = (props: TProps) => {
   ) => {
     const resShop = await getDetailShopById(userId);
     const resWidget = await getAllWidgets(templateId);
-    console.log(resShop);
-    console.log('resWidget', resWidget);
+    // console.log(resShop);
+    // console.log('resWidget', resWidget);
     if (resShop.status === 'success' && resWidget.status === 'success') {
       setConfig({
         followers: resShop.data.followerCount ? resShop.data.followerCount : 0,

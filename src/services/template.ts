@@ -16,7 +16,7 @@ export const getAllTemplatesBySeller = async (): Promise<ApiResponse> => {
       errorCode: null,
     };
   } catch (error: any) {
-    console.log('error', error);
+    // console.log('error', error);
     const errorMessage =
       error?.response?.data?.message || 'Unknown error occurred';
     const errorCode = error?.response?.status || 500;

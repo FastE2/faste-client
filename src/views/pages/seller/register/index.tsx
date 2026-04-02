@@ -200,7 +200,7 @@ export default function RegisterSellerPage() {
   };
 
   const onSubmit = (values: RegisterShopFormType) => {
-    console.log('Form Submit:', values);
+    // console.log('Form Submit:', values);
   };
 
   if (isLoading) {

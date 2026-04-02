@@ -9,7 +9,7 @@ const FormComponent = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(username);
+    // console.log(username);
   };
 
   const setDefaultValue = () => {

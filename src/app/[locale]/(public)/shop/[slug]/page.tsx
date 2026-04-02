@@ -42,7 +42,6 @@ const Page = async ({ params }: ShopDetailPageProps) => {
     return <div className="p-8 text-center text-red-500">{shop.message}</div>;
   }
 
-  console.log('Shop detail:', shop);
   // Log slug to the console
   // useEffect(() => {
   //   console.log('Store slug:', slug);

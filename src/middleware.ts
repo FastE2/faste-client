@@ -6,7 +6,7 @@ import Negotiator from 'negotiator';
 
 function getLocale(request: NextRequest): string {
   const headers: Record<string, string> = {};
-  console.log(request.headers);
+  // console.log(request.headers);
   request.headers.forEach((value, key) => (headers[key] = value));
   const languages = new Negotiator({ headers }).languages(i18nConfig.locales);
   return matchLocale(languages, i18nConfig.locales, i18nConfig.defaultLocale);
@@ -14,7 +14,7 @@ function getLocale(request: NextRequest): string {
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  console.log('pathname middleware', pathname);
+  // console.log('pathname middleware', pathname);
 
   const locale = getLocale(request);
   return i18nRouter(request, {

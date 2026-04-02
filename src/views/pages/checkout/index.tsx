@@ -168,12 +168,12 @@ export const CheckoutPage = () => {
       const res = await createOrder(payloads);
 
       if (res.statusCode !== 201) throw new Error('Checkout failed');
-      console.log('payload data', payloads, res);
+      // console.log('payload data', payloads, res);
 
       setSubmitStatus('success');
       setTimeout(() => {
         // Handle success - redirect to confirmation page
-        console.log('Order placed successfully');
+        // console.log('Order placed successfully');
         if (pendingFormData.paymentMethod !== 'COD') {
           clearCheckoutItems();
           router.push(`${ROUTE_CONFIG.PAYMENT}`);
@@ -191,11 +191,6 @@ export const CheckoutPage = () => {
   const handleOpenConfirmModal = useCallback(() => {
     setShowConfirmModal(true);
   }, []);
-
-  console.log('==== Checkout Page render', {
-    checkoutItems: checkoutItems ? 'has data' : 'undefined',
-    timestamp: Date.now(),
-  });
 
   return (
     <main className="min-h-screen">
