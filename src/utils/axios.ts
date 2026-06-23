@@ -57,7 +57,7 @@ axiosInstance.interceptors.response.use(
 
     // console.log(error.response?.status);
 
-    if (error.response?.status === 500 && !(originalRequest as any)?._retry) {
+    if (error.response?.status === 401 && !(originalRequest as any)?._retry) {
       if (isRefreshing) {
         return new Promise(function (resolve, reject) {
           failedQueue.push({ resolve, reject });

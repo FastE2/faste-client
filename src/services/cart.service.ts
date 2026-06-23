@@ -8,10 +8,12 @@ import axiosInstance from '@/utils/axios';
  */
 export const getCartByMe = async (
   params: { page?: number; limit?: number } = { page: 1, limit: 10 },
+  signal?: AbortSignal,
 ) => {
   try {
     const res = await axiosInstance.get(`${API_ENDPOINT.CART.INDEX}`, {
       params,
+      signal,
     });
 
     return res.data;

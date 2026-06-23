@@ -4,7 +4,7 @@ import CartProduct from '@/components/CardProduct';
 import CardCategory from './partials/CardCategory';
 import { Button } from '@/components/ui/button';
 import BannerWeb from './partials/BannerWeb';
-import { Icon } from '@iconify/react';
+import { Flame } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import PrimaryProductCard from './partials/PrimaryProductCard';
 import Image from 'next/image';
@@ -19,10 +19,11 @@ interface TProps {
   page: number;
   limit: number;
   totalPage: number;
+  categories: Array<{ id: number | string; image?: string; name: string }>;
 }
 
 const HomePage = (props: TProps) => {
-  const { data: products, limit, page, totalItem, totalPage } = props;
+  const { data: products, categories } = props;
   const router = useRouter();
   const { t } = useTranslation(undefined, { useSuspense: false });
   const bestSelling = products.slice(0, 7);
@@ -33,18 +34,13 @@ const HomePage = (props: TProps) => {
       <div className="container mx-auto max-w-7xl px-4">
         <WelcomePopup />
         <BannerWeb />
-        <CardCategory />
+        <CardCategory data={categories} />
 
         {/* Best Sellers Section */}
         <div className="w-full mb-5">
           <div className="bg-white dark:bg-black w-full mb-4">
             <div className="text-center uppercase text-base font-medium text-red-400 py-2 w-full flex justify-center items-center gap-2">
-              <Icon
-                icon="mingcute:fire-line"
-                width="24"
-                height="24"
-                suppressHydrationWarning
-              />
+              <Flame aria-hidden="true" className="h-6 w-6" />
               {t('product.bestSelling')}
             </div>
             <div className="bg-red-500 h-1 w-full"></div>
@@ -74,7 +70,8 @@ const HomePage = (props: TProps) => {
             src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/2f/bf/2fbff17f2d97cb69d9d10194b17611aa.png"
             alt="primary product"
             width={1200}
-            height={1000}
+            height={380}
+            sizes="(max-width: 1280px) 100vw, 1280px"
             className="w-full h-[380px] object-cover"
           />
         </div>

@@ -2,9 +2,10 @@ import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
 import { getDetailProductPublicBySlug } from '@/services/product.service';
 import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import { Metadata } from 'next';
-import { ReactElement } from 'react';
+import { cache, ReactElement } from 'react';
 import Script from 'next/script';
 import ProductDetails from '@/views/pages/product/product-details';
+import { getLocalizedAlternates, getLocalizedPath, getSiteUrl } from '@/lib/seo';
 
 type Product = {
   id: string;
@@ -19,17 +20,17 @@ type Props = {
   params: Promise<{ slugId: string; locale: string }>;
 };
 
-async function getDetailProduct(slugId: string): Promise<Product | null> {
+const getDetailProduct = cache(async (slugId: string): Promise<Product | null> => {
   try {
     const product = await getDetailProductPublicBySlug(slugId);
     return product?.data ?? null;
   } catch (error) {
     return null;
   }
-}
+});
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slugId } = await params;
+  const { slugId, locale } = await params;
   const product = await getDetailProduct(slugId);
 
   if (!product) {
@@ -40,12 +41,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     };
   }
 
-  const canonicalUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/products/${product.slugId}`;
+  const productPath = `/product/${product.slugId}`;
+  const canonicalUrl = new URL(
+    getLocalizedPath(locale, productPath),
+    getSiteUrl(),
+  ).toString();
 
   return {
     title: `${product.name} | FastE`,
     description: product.description,
-    alternates: { canonical: canonicalUrl },
+    alternates: getLocalizedAlternates(locale, productPath),
     openGraph: {
       type: 'website',
       url: canonicalUrl,
@@ -64,7 +69,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Props) {
-  const { slugId } = await params;
+  const { slugId, locale } = await params;
   const product = await getDetailProduct(slugId);
 
   if (!product) {
@@ -100,7 +105,10 @@ export default async function Page({ params }: Props) {
       priceCurrency: 'USD',
       price: product.price,
       availability: 'https://schema.org/InStock',
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/products/${product.slugId}`,
+      url: new URL(
+        getLocalizedPath(locale, `/product/${product.slugId}`),
+        getSiteUrl(),
+      ).toString(),
     },
   };
   return (

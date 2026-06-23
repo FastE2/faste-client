@@ -11,17 +11,18 @@ export const SkeletonCardCategory = () => {
         {Array.from({ length: 10 }).map((_, index) => (
           <div
             key={index}
-            className={`w-[10%]
-              h-40
-              flex flex-col items-center justify-between
-              p-2
-              bg-white
-              dark:bg-black
-              ${index === 10 || index === 0 ? 'border' : ' border border-l-0'}
+            data-category-skeleton-card="true"
+            className={`w-1/4 sm:w-1/4 md:w-1/5 lg:w-1/5
+              flex h-40 flex-col items-center justify-between p-2
+              bg-white dark:bg-black
+              ${index >= 8 ? 'max-[768px]:hidden' : ''}
+              ${index === 9 || index === 0 ? 'border' : 'border border-l-0'}
               border-gray-200`}
           >
             <Skeleton className="rounded-full w-[83px] h-[83px]" />
-            <Skeleton className="h-4 w-3/4 rounded mt-2" />
+            <div className="w-full max-w-[100px] text-center">
+              <Skeleton className="mx-auto mt-2 h-4 w-3/4 rounded" />
+            </div>
           </div>
         ))}
       </div>

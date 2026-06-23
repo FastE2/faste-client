@@ -9,8 +9,8 @@ export const useGetCategories = (
 ) => {
   return useQuery({
     queryKey: [QUERY_KEYS.CATEGORIES, params],
-    queryFn: async () => {
-      const response = await getAllCategories(params);
+    queryFn: async ({ signal }) => {
+      const response = await getAllCategories(params, signal);
       return response.data;
     },
     ...options,

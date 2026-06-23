@@ -1,12 +1,11 @@
 'use client';
 
-import { useGetCategories } from '@/hooks/api/queries/useGetCategories';
-import { keepPreviousData } from '@tanstack/react-query';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SkeletonCardCategory } from './SkeletonCardCategory';
 import { PackageOpen } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const EmptyCategory = () => {
   return (
@@ -26,43 +25,74 @@ const EmptyCategory = () => {
   );
 };
 
-const CardCategory = () => {
-  const { data, isLoading } = useGetCategories(
-    {
-      page: 1,
-      limit: 10,
-    },
-    {
-      select: (data) => data.data,
-      staleTime: 1000 * 60 * 5,
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
-      placeholderData: keepPreviousData,
-    },
-  );
+const CardCategory = ({
+  data,
+}: {
+  data: Array<{ id: number | string; image?: string; name: string }>;
+}) => {
   const { t } = useTranslation();
-  if (isLoading) {
-    return <SkeletonCardCategory />;
-  }
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [canScrollPrevious, setCanScrollPrevious] = useState(false);
+  const [canScrollNext, setCanScrollNext] = useState(false);
+
+  const updateNavigation = useCallback(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+
+    setCanScrollPrevious(viewport.scrollLeft > 1);
+    setCanScrollNext(
+      viewport.scrollLeft + viewport.clientWidth < viewport.scrollWidth - 1,
+    );
+  }, []);
+
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+
+    updateNavigation();
+    const resizeObserver = new ResizeObserver(updateNavigation);
+    resizeObserver.observe(viewport);
+    viewport.addEventListener('scroll', updateNavigation, { passive: true });
+
+    return () => {
+      resizeObserver.disconnect();
+      viewport.removeEventListener('scroll', updateNavigation);
+    };
+  }, [data.length, updateNavigation]);
+
+  const scroll = (direction: -1 | 1) => {
+    const viewport = viewportRef.current;
+    if (!viewport) return;
+
+    viewport.scrollBy({
+      left: direction * viewport.clientWidth,
+      behavior: 'smooth',
+    });
+  };
+
   return (
-    <>
-      <div className="bg-white dark:bg-black w-full mb-5">
+      <div className="relative mb-5 w-full bg-white dark:bg-black">
         <p className="text-gray-400 py-2 px-4 uppercase">
           {t('navigation.categories')}
         </p>
-        {data ? (
-          <div className="flex flex-wrap w-full">
+        {data.length > 0 ? (
+          <>
+          <div
+            ref={viewportRef}
+            className="hide-scrollbar w-full overflow-x-auto overscroll-x-contain scroll-smooth"
+          >
+            <div className="grid h-80 grid-flow-col grid-rows-2 auto-cols-[25%] md:auto-cols-[20%]">
             {data
-              .slice(0, window.innerWidth <= 768 ? 8 : 20)
               .map((item: any, index: number) => (
                 <Link
                   href={'/product?categoryIds=' + item.id}
                   key={item.id + index + 'skeleton'}
+                  data-category-card="true"
                   className={`
                     flex flex-col items-center justify-between p-2 h-40
                     bg-white dark:bg-black border-gray-200
                     ${index === data.length - 1 || index === 0 ? 'border' : ' border border-l-0'}
-                    w-1/4 sm:w-1/4 md:w-1/5 lg:w-1/5 // Responsive width based on screen size
+                    w-full snap-start
                     hover:shadow-xl
                     transform transition duration-300 ease-in-out
                   `}
@@ -72,7 +102,9 @@ const CardCategory = () => {
                       src={item.image ? item.image : '/vercel.svg'}
                       width={100}
                       height={100}
-                      alt="category image"
+                      sizes="83px"
+                      alt={item.name}
+                      className="h-[83px] w-[83px] rounded-full object-cover"
                     />
                   </div>
                   <div className="text-wrap max-w-[100px] text-center text-sm">
@@ -80,12 +112,31 @@ const CardCategory = () => {
                   </div>
                 </Link>
               ))}
+            </div>
           </div>
+          <button
+            type="button"
+            aria-label="Previous categories"
+            disabled={!canScrollPrevious}
+            onClick={() => scroll(-1)}
+            className="absolute left-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-background/95 shadow-md transition-opacity disabled:pointer-events-none disabled:opacity-0"
+          >
+            <ChevronLeft aria-hidden="true" className="h-5 w-5" />
+          </button>
+          <button
+            type="button"
+            aria-label="Next categories"
+            disabled={!canScrollNext}
+            onClick={() => scroll(1)}
+            className="absolute right-2 top-1/2 z-10 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-background/95 shadow-md transition-opacity disabled:pointer-events-none disabled:opacity-0"
+          >
+            <ChevronRight aria-hidden="true" className="h-5 w-5" />
+          </button>
+          </>
         ) : (
-          EmptyCategory()
+          <EmptyCategory />
         )}
       </div>
-    </>
   );
 };
 

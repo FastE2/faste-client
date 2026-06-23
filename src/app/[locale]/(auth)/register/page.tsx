@@ -6,6 +6,7 @@ import { ReactNode } from 'react';
 
 export const metadata: Metadata = {
   title: 'Đăng ký ngay - FastE',
+  robots: { index: false, follow: false },
 };
 
 export default function Page() {

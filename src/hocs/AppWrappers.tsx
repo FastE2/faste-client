@@ -7,15 +7,9 @@ import { Toaster } from '@/components/ui/sonner';
 import { AuthProvider } from '@/contexts/AuthContext';
 import { useState } from 'react';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import {
-  createNetworkConfig,
-  SuiClientProvider,
-  WalletProvider,
-} from '@mysten/dapp-kit';
-import { getFullnodeUrl } from '@mysten/sui/client';
+import { QueryClientProvider } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
+import { createQueryClient } from '@/lib/query-client';
 const Analytics = dynamic(
   () => import('@vercel/analytics/react').then((m) => m.Analytics),
   { ssr: false },
@@ -31,12 +25,7 @@ export default function AppWrapper({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { networkConfig } = createNetworkConfig({
-    localnet: { url: getFullnodeUrl('localnet') },
-    testnet: { url: getFullnodeUrl('testnet') },
-    mainnet: { url: getFullnodeUrl('mainnet') },
-  });
-  const [queryClient] = useState(() => new QueryClient());
+  const [queryClient] = useState(createQueryClient);
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider
@@ -46,17 +35,21 @@ export default function AppWrapper({
         disableTransitionOnChange
       >
         <Toaster />
-        <SuiClientProvider networks={networkConfig} defaultNetwork="testnet">
-          <WalletProvider autoConnect>
-            <AuthProvider>
-              {children}
-              <Analytics />
-              <SpeedInsights />
-            </AuthProvider>
-          </WalletProvider>
-        </SuiClientProvider>
+        <AuthProvider>
+          {children}
+          <Analytics />
+          <SpeedInsights />
+        </AuthProvider>
       </ThemeProvider>
-      <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+      {process.env.NODE_ENV === 'development' ? <QueryDevtools /> : null}
     </QueryClientProvider>
   );
 }
+
+const QueryDevtools = dynamic(
+  () =>
+    import('@tanstack/react-query-devtools').then(
+      (module) => module.ReactQueryDevtools,
+    ),
+  { ssr: false },
+);

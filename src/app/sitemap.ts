@@ -1,59 +1,35 @@
 import { MetadataRoute } from 'next';
+import { getLocalizedAlternates, getSiteUrl } from '@/lib/seo';
 
-const BASE_URL = 'https://fast-e2.com';
-
-async function getProducts() {
-  return [{ slug: 'ao-thun-nam' }, { slug: 'giay-the-thao' }];
-}
-
-async function getCategories() {
-  return [{ slug: 'thoi-trang' }, { slug: 'dien-thoai' }];
-}
+const PUBLIC_ROUTES = [
+  '/',
+  '/product',
+  '/shop',
+  '/blog',
+  '/about',
+  '/contact',
+  '/support',
+];
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const products = await getProducts();
-  const categories = await getCategories();
-
   const now = new Date();
+  const siteUrl = getSiteUrl();
 
-  return [
-    {
-      url: `${BASE_URL}`,
+  return PUBLIC_ROUTES.map((path) => {
+    const alternates = getLocalizedAlternates('vi', path);
+    return {
+      url: new URL(alternates.canonical, siteUrl).toString(),
       lastModified: now,
-      changeFrequency: 'daily',
-      priority: 1,
+      changeFrequency: path === '/' ? 'daily' : 'weekly',
+      priority: path === '/' ? 1 : 0.7,
       alternates: {
-        languages: {
-          'vi-VN': 'https://faste.vn/',
-          'en-US': 'https://faste.vn/en',
-          'zh-CN': 'https://faste.vn/cn',
-          'ko-KR': 'https://faste.vn/kr',
-        },
+        languages: Object.fromEntries(
+          Object.entries(alternates.languages).map(([locale, href]) => [
+            locale,
+            new URL(href, siteUrl).toString(),
+          ]),
+        ),
       },
-    },
-    {
-      url: `${BASE_URL}/products`,
-      lastModified: now,
-      changeFrequency: 'daily',
-      priority: 0.8,
-    },
-    // ...products.map((p) => ({
-    //   url: `${BASE_URL}/products/${p.slug}`,
-    //   lastModified: now,
-    //   changeFrequency: 'weekly',
-    //   priority: 0.7,
-    // })),
-    // ...categories.map((c) => ({
-    //   url: `${BASE_URL}/categories/${c.slug}`,
-    //   lastModified: now,
-    //   changeFrequency: 'weekly',
-    //   priority: 0.6,
-    // })),
-    {
-      url: `${BASE_URL}/contact`,
-      lastModified: now,
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-  ];
+    } satisfies MetadataRoute.Sitemap[number];
+  });
 }

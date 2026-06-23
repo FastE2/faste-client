@@ -4,18 +4,22 @@ import { getDetailShopPublicBySlug } from '@/services/shop.service';
 import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import ShopDetails from '@/views/pages/shop/shop-details';
 import { Metadata } from 'next';
-import { ReactElement } from 'react';
+import { cache, ReactElement } from 'react';
+import { getLocalizedAlternates, getLocalizedPath, getSiteUrl } from '@/lib/seo';
 
 interface ShopDetailPageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }
+
+const getShop = cache(getDetailShopPublicBySlug);
 
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string; locale: string }>;
 }): Promise<Metadata> {
-  const shop = await getDetailShopPublicBySlug(params.slug);
+  const { slug, locale } = await params;
+  const shop = await getShop(slug);
 
   if (!shop.data) {
     return {
@@ -25,18 +29,27 @@ export async function generateMetadata({
     };
   }
 
-  const canonicalUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/shops/${shop.data.slug}`;
+  const shopPath = `/shop/${shop.data.slug}`;
+  const canonicalUrl = new URL(
+    getLocalizedPath(locale, shopPath),
+    getSiteUrl(),
+  ).toString();
 
   return {
     title: `${shop.data.name} | FastE`,
     description: shop.data.description,
-    alternates: { canonical: canonicalUrl },
+    alternates: getLocalizedAlternates(locale, shopPath),
+    openGraph: {
+      title: shop.data.name,
+      description: shop.data.description,
+      url: canonicalUrl,
+    },
   };
 }
 
 const Page = async ({ params }: ShopDetailPageProps) => {
   const { slug } = await params;
-  const shop = await getDetailShopPublicBySlug(slug);
+  const shop = await getShop(slug);
 
   if (shop.status === 'error') {
     return <div className="p-8 text-center text-red-500">{shop.message}</div>;

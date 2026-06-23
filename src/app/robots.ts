@@ -1,7 +1,9 @@
 // src/app/robots.ts
 import { MetadataRoute } from 'next';
+import { getSiteUrl } from '@/lib/seo';
 
 export default function robots(): MetadataRoute.Robots {
+  const siteUrl = getSiteUrl();
   return {
     rules: [
       {
@@ -19,7 +21,7 @@ export default function robots(): MetadataRoute.Robots {
         ],
       },
     ],
-    sitemap: 'https://fast-e2.com/sitemap.xml',
-    host: 'https://fast-e2.com',
+    sitemap: `${siteUrl}/sitemap.xml`,
+    host: siteUrl,
   };
 }

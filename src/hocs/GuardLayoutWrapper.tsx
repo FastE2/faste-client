@@ -12,13 +12,15 @@ type TProps = {
 
 const GuardLayoutWrapper = (props: TProps) => {
   const { children, authGuard = true, guestGuard = false, getLayout, roles } = props;
+  const content = getLayout ? getLayout(<>{children}</>) : <LayoutPublic>{children}</LayoutPublic>;
+
+  if (!authGuard && !guestGuard) {
+    return content;
+  }
+
   return (
     <Guard authGuard={authGuard} guestGuard={guestGuard} roles={roles}>
-      {getLayout ? (
-        getLayout(<>{children}</>)
-      ) : (
-        <LayoutPublic>{children}</LayoutPublic>
-      )}
+      {content}
     </Guard>
   );
 };

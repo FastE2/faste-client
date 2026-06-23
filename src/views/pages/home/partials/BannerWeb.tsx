@@ -1,6 +1,6 @@
 'use client';
 
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
@@ -47,7 +47,7 @@ const BannerWeb = () => {
                 src="https://salt.tikicdn.com/cache/w750/ts/tikimsp/a8/2a/88/3ba09c5a662677b72cf8263dbd4ab56e.png.webp"
                 alt="Slide 2"
                 fill
-                priority
+                loading="lazy"
                 sizes="(max-width: 768px) 100vw, 33vw"
                 className="overflow-hidden rounded-xl object-cover"
               />
@@ -59,7 +59,7 @@ const BannerWeb = () => {
                 src="https://salt.tikicdn.com/cache/w750/ts/tikimsp/8c/a7/e5/a95e0e2b29839fad6ade9e67b812dd23.png.webp"
                 alt="Slide 3"
                 fill
-                priority
+                loading="lazy"
                 sizes="(max-width: 768px) 100vw, 33vw"
                 className="overflow-hidden rounded-xl object-cover"
               />

@@ -6,6 +6,8 @@ import HomePage from '@/views/pages/home';
 import HomeSkeleton from '@/views/pages/home/HomeSkeleton';
 import { Metadata, Viewport } from 'next';
 import { ReactElement, Suspense } from 'react';
+import { getAllCategories } from '@/services/category.service';
+import { getLocalizedAlternates, getSiteUrl } from '@/lib/seo';
 
 interface TProps {
   data: [];
@@ -24,8 +26,7 @@ export async function generateMetadata({
 
   const meta = LOCALE_MAP[locale];
 
-  const baseUrl = 'https://fasteapp.vercel.app';
-  const path = locale === 'vi' ? '' : `/${locale}`;
+  const baseUrl = getSiteUrl();
 
   return {
     title: meta.title,
@@ -33,22 +34,13 @@ export async function generateMetadata({
 
     metadataBase: new URL(baseUrl),
 
-    alternates: {
-      canonical: path || '/',
-      languages: {
-        'x-default': '/',
-        'vi-VN': '/',
-        'en-US': '/en',
-        'zh-CN': '/cn',
-        'ko-KR': '/kr',
-      },
-    },
+    alternates: getLocalizedAlternates(locale),
 
     openGraph: {
       locale: meta.lang.replace('-', '_'),
       title: meta.title,
       description: meta.desc,
-      url: `${baseUrl}${path}`,
+      url: new URL(getLocalizedAlternates(locale).canonical, baseUrl),
     },
   };
 }
@@ -79,9 +71,18 @@ async function getProductsData(): Promise<TProps> {
 }
 
 async function HomeContent() {
-  const products = await getProductsData();
+  const [products, categoriesResponse] = await Promise.all([
+    getProductsData(),
+    getAllCategories({ page: 1, limit: 20 }),
+  ]);
+  const categoryPayload = categoriesResponse?.data;
+  const categories = Array.isArray(categoryPayload)
+    ? categoryPayload
+    : Array.isArray(categoryPayload?.data)
+      ? categoryPayload.data
+      : [];
 
-  return <HomePage {...products} />;
+  return <HomePage {...products} categories={categories} />;
 }
 
 export default async function Home() {

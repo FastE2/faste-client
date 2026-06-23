@@ -11,8 +11,8 @@ export const useGetCart = (
   const setTotalCartItem = useCartStore((s) => s.setTotalCartItem);
   return useQuery({
     queryKey: [QUERY_KEYS.CART, params],
-    queryFn: async () => {
-      const response = await getCartByMe(params);
+    queryFn: async ({ signal }) => {
+      const response = await getCartByMe(params, signal);
       setTotalCartItem(response.data?.totalItem || 0);
       return response.data;
     },
