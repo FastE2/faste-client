@@ -1,8 +1,6 @@
 'use client';
-// ** hooks
-import { useAuth } from '@/hooks'
-// ** React Imports
-import { ReactNode, ReactElement, useEffect, memo } from 'react';
+
+import { ReactNode, ReactElement, memo } from 'react';
 
 interface PublicGuardProps {
   children: ReactNode;
@@ -10,15 +8,7 @@ interface PublicGuardProps {
 }
 
 const PublicGuard = memo((props: PublicGuardProps) => {
-  // ** props
-  const { children, fallback } = props;
-
-  // ** auth
-  const { loading } = useAuth();
-
-  if (loading) {
-    return fallback;
-  }
+  const { children } = props;
 
   return <>{children}</>;
 });

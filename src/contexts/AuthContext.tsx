@@ -1,16 +1,15 @@
 'use client';
 
-import React, { useEffect, ReactNode, Suspense } from 'react';
+import React, { useEffect, ReactNode } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { getLocalUserData, setLocalUserData } from '@/helpers/storage';
 import { injectAuthDependencies } from '@/utils/axios';
 import { useGetProfile } from '@/hooks/api/queries/useGetProfile';
 import { keepPreviousData } from '@tanstack/react-query';
-import { LoadingDialog } from '@/components/loading/LoadingDialog';
 import { useAuthStore } from '@/stores/auth.store';
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const { setUser, setLoading, loading } = useAuthStore();
+  const { setUser, setLoading } = useAuthStore();
   const router = useRouter();
   const pathName = usePathname();
 
@@ -49,9 +48,5 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     injectAuthDependencies(router, setUser, pathName);
   }, [router, setUser, pathName]);
 
-  return (
-    <Suspense fallback={<LoadingDialog isLoading />}>
-      {!loading && children}
-    </Suspense>
-  );
+  return children;
 };

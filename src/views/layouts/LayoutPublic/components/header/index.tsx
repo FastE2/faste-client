@@ -23,10 +23,12 @@ import MobileTopNavigation from './mobile/MobileTopNavigation';
 import { ModeToggle } from '@/components/ModeToggle';
 import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
+import { useHeaderVisibility } from './use-header-visibility';
 
 const Header = () => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
+  const isHeaderVisible = useHeaderVisibility({ disabled: isOpen });
   const totalCartItemRef = useRef<number>(0);
   const { data, isLoading } = useGetCart(
     {
@@ -47,7 +49,11 @@ const Header = () => {
   }
 
   return (
-    <header className="bg-background border-b border-border">
+    <header
+      className={`sticky top-0 z-50 w-full bg-background border-b border-border transition-transform duration-300 ease-in-out motion-reduce:transition-none ${
+        isHeaderVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}
+    >
       {/* Promo Bar */}
       <PromoBar />
 

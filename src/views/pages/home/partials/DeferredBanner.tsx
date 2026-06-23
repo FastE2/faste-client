@@ -4,9 +4,9 @@ import dynamic from 'next/dynamic';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
-const BannerCarousel = dynamic(() => import('./BannerCarousel'), {
-  ssr: false,
-});
+// const BannerCarousel = dynamic(() => import('./BannerCarousel'), {
+//   ssr: false,
+// });
 
 interface DeferredBannerProps {
   images: readonly string[];
@@ -30,7 +30,7 @@ export default function DeferredBanner({ images }: DeferredBannerProps) {
     };
   }, []);
 
-  if (isInteractive) return <BannerCarousel images={images} />;
+  // if (isInteractive) return <BannerCarousel images={images} />;
 
   return (
     <div className="relative aspect-[16/7] min-h-48 overflow-hidden rounded-xl md:aspect-[2/1] md:min-h-0">
