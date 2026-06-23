@@ -43,7 +43,7 @@ export default function PaymentPage() {
       t('payment.timeExpired'),
       false,
     );
-  }, [paymentState]);
+  }, [paymentState, t]);
 
   const handlePaymentSuccess = useCallback(() => {
     paymentState.setSuccess();

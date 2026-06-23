@@ -12,7 +12,7 @@
 
 <br />
 
-![App Preview](public/app.png)
+![App Preview](public/app.webp)
 
 ---
 

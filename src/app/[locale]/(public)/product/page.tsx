@@ -3,7 +3,8 @@ import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import ContactPage from '@/views/pages/contact';
 import { ProductListPage } from '@/views/pages/product';
 import { Metadata } from 'next';
-import { ReactElement } from 'react';
+import { ReactElement, Suspense } from 'react';
+import { LoadingSpinner } from '@/components/loading/LoadingSpinner';
 
 export const metadata: Metadata = {
   title: 'List product - FastE',
@@ -17,7 +18,9 @@ export default function Page() {
       authGuard={false}
       guestGuard={false}
     >
-      <ProductListPage />
+      <Suspense fallback={<LoadingSpinner />}>
+        <ProductListPage />
+      </Suspense>
     </GuardLayoutWrapper>
   );
 }
