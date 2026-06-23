@@ -1,10 +1,13 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import Image from 'next/image';
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import { Dialog } from '@/components/ui/dialog';
-import { DialogContent } from '@radix-ui/react-dialog';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import dynamic from 'next/dynamic';
+
+const GalleryLightbox = dynamic(() => import('./GalleryLightbox'), {
+  ssr: false,
+});
 
 interface ProductGalleryProps {
   images: string[];
@@ -19,6 +22,12 @@ export function ImageGallery({
   const [thumbnailStartIndex, setThumbnailStartIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
+  useEffect(() => {
+    setSelectedImage(images[0]);
+    setThumbnailStartIndex(0);
+    setIsLightboxOpen(false);
+  }, [images]);
+
   const visibleThumbnails = useMemo(() => {
     return images.slice(thumbnailStartIndex, thumbnailStartIndex + 5);
   }, [images, thumbnailStartIndex]);
@@ -31,13 +40,15 @@ export function ImageGallery({
   };
 
   const handleNext = () => {
-    setThumbnailStartIndex((prev) => Math.min(images.length - 5, prev + 1));
+    setThumbnailStartIndex((prev) =>
+      Math.min(Math.max(0, images.length - 5), prev + 1),
+    );
   };
 
   return (
     <div className="w-full">
       <div
-        className="w-full max-w-[420px] aspect-square mb-4 cursor-zoom-in overflow-hidden rounded-lg bg-muted mx-auto lg:mx-0"
+        className="relative mx-auto mb-4 aspect-square w-full max-w-[420px] cursor-zoom-in overflow-hidden rounded-lg bg-muted lg:mx-0"
         onClick={() => setIsLightboxOpen(true)}
         role="button"
         tabIndex={0}
@@ -47,9 +58,9 @@ export function ImageGallery({
         <Image
           src={selectedImage || '/placeholder.svg'}
           alt={productName}
-          width={1000}
-          height={1000}
-          className="h-full w-full object-cover transition-opacity duration-300 ease-in-out"
+          fill
+          sizes="(max-width: 1024px) 100vw, 40vw"
+          className="object-cover transition-opacity duration-300 ease-in-out"
           priority
         />
       </div>
@@ -84,6 +95,8 @@ export function ImageGallery({
                   alt={`Thumbnail ${idx + 1}`}
                   width={80}
                   height={80}
+                  loading="lazy"
+                  sizes="80px"
                   className="h-full w-full object-cover transition-transform duration-300 hover:scale-110"
                 />
               </div>
@@ -105,90 +118,16 @@ export function ImageGallery({
       <p className="mt-2 text-center text-sm text-muted-foreground">
         {images.indexOf(selectedImage) + 1} of {images.length}
       </p>
-      <Dialog open={isLightboxOpen} onOpenChange={setIsLightboxOpen}>
-        <DialogContent
-          className="
-      fixed inset-0 z-50 
-      flex items-center justify-center 
-      bg-black/95 border-none rounded-none p-0
-    "
-        >
-          <div className="flex flex-col md:flex-row w-full max-w-[1200px] h-[90vh] md:h-[80vh] items-center justify-center gap-6 px-4 py-8">
-            {/* Sidebar Thumbnails - Responsive */}
-            <div className="hidden md:flex w-[90px] h-full overflow-y-auto flex-col gap-2 pl-2">
-              {images.map((img, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setSelectedImage(img)}
-                  className={`relative h-20 w-20 rounded-md overflow-hidden border-2 transition-all duration-200 cursor-pointer ${
-                    selectedImage === img
-                      ? 'border-red-500 ring-2 ring-red-300'
-                      : 'border-transparent hover:border-gray-400'
-                  }`}
-                >
-                  <Image
-                    src={img}
-                    alt={`Thumbnail ${idx + 1}`}
-                    width={100}
-                    height={100}
-                    className="object-cover w-full h-full"
-                  />
-                </button>
-              ))}
-            </div>
-
-            {/* Mobile Thumbnails Scrollbar */}
-            <div className="flex md:hidden w-full overflow-x-auto gap-2 py-2 hide-scrollbar">
-              {images.map((img, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setSelectedImage(img)}
-                  className={`relative h-16 w-16 flex-shrink-0 rounded-md overflow-hidden border-2 transition-all duration-200 cursor-pointer ${
-                    selectedImage === img
-                      ? 'border-red-500 ring-2 ring-red-300'
-                      : 'border-transparent'
-                  }`}
-                >
-                  <Image
-                    src={img}
-                    alt={`Thumbnail ${idx + 1}`}
-                    width={80}
-                    height={80}
-                    className="object-cover w-full h-full"
-                  />
-                </button>
-              ))}
-            </div>
-
-            {/* Main Image Section */}
-            <div className="flex-1 flex items-center justify-center relative w-full overflow-hidden">
-              {/* Background (prevent layout shift) */}
-              <div
-                className="absolute inset-0 bg-center bg-no-repeat bg-contain opacity-40 transition-all duration-300"
-                style={{ backgroundImage: `url(${selectedImage})` }}
-              ></div>
-
-              {/* Main Image */}
-              <Image
-                src={selectedImage}
-                alt="Main product"
-                width={1200}
-                height={1200}
-                className="object-contain max-h-[80vh] w-auto z-10 transition-opacity duration-300"
-              />
-            </div>
-          </div>
-
-          {/* Close Button */}
-          <button
-            onClick={() => setIsLightboxOpen(false)}
-            className="absolute top-4 right-4 bg-black/50 text-white rounded-full p-2 hover:bg-black/70 transition-colors cursor-pointer"
-            aria-label="Close fullscreen"
-          >
-            ✕
-          </button>
-        </DialogContent>
-      </Dialog>
+      {isLightboxOpen ? (
+        <GalleryLightbox
+          images={images}
+          selectedImage={selectedImage}
+          productName={productName}
+          open={isLightboxOpen}
+          onOpenChange={setIsLightboxOpen}
+          onSelect={setSelectedImage}
+        />
+      ) : null}
     </div>
   );
 }

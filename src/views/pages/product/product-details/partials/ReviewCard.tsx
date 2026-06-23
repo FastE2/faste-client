@@ -2,27 +2,30 @@ import dayjs from 'dayjs';
 import { ProductRating } from '@/components/ProductRating';
 import Image from 'next/image';
 import { Icon } from '@iconify/react';
+import type { ProductReview, ProductSKU } from '../product-detail.types';
 
 type ReviewCardProps = {
-  review: any;
-  skus: any[];
+  review: ProductReview;
+  skus: ProductSKU[];
 };
 
 export const ReviewCard = ({ review, skus }: ReviewCardProps) => {
   const sku = skus.find((sku) => sku.id === review.skuId);
-  const attributeText = Object.entries(sku.attributes)
+  const reviewImages = review.images ?? [];
+  const attributeText = Object.entries(sku?.attributes ?? {})
     .map(([key, value]) => `${key}: ${value}`)
     .join(' • ');
   return (
     <div className="border-b border-gray-200 py-4 flex gap-x-4">
       {/* Avatar */}
-      {review.createdBy.avatar ? (
-        <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center text-sm font-medium">
+      {review.createdBy?.avatar ? (
+        <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden rounded-full bg-gray-200">
           <Image
-            width={100}
-            height={100}
+            fill
+            sizes="40px"
             src={review.createdBy.avatar}
-            alt={review.createdBy.name}
+            alt={review.createdBy.name ?? ''}
+            className="object-cover"
           />
         </div>
       ) : (
@@ -37,7 +40,7 @@ export const ReviewCard = ({ review, skus }: ReviewCardProps) => {
             <div className="font-medium text-sm">
               {review.isAnonymous
                 ? 'Người dùng ẩn danh'
-                : `User ${review.createdBy.name}`}
+                : `User ${review.createdBy?.name ?? ''}`}
             </div>
             <ProductRating rating={review.rating ?? 0} size={14} />
           </div>
@@ -56,15 +59,17 @@ export const ReviewCard = ({ review, skus }: ReviewCardProps) => {
         )}
 
         {/* Images */}
-        {review.images?.length > 0 && (
+        {reviewImages.length > 0 && (
           <div className="flex gap-2 mt-2">
-            {review.images.map((img: string, idx: number) => (
+            {reviewImages.map((img: string, idx: number) => (
               <Image
                 width={100}
                 height={100}
                 key={idx}
                 src={img}
                 alt="review"
+                loading="lazy"
+                sizes="80px"
                 className="w-20 h-20 object-cover rounded-md border"
               />
             ))}

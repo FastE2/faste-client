@@ -10,11 +10,12 @@ import axiosInstance from '@/utils/axios';
 
 export const getAllReviews = async (
   params: ReviewQueryType,
+  signal?: AbortSignal,
 ): Promise<ApiResponse<any[]>> => {
   try {
     const res = await axiosInstance.get(
       `${API_ENDPOINT.MANAGE_ORDER.REVIEW.INDEX}`,
-      { params },
+      { params, signal },
     );
 
     return {

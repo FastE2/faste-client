@@ -21,23 +21,22 @@ const CartProduct = (props: { data: any; className?: string }) => {
         className={`rounded-none bg-white dark:bg-black max-w-80 h-72 hover:shadow-accent-foreground text-xs gap-y-1 p-0 border-none transition-all duration-300 ease-in-out overflow-hidden ${className}`}
       >
         <CardContent className="p-0 h-full">
-          {imgLoading && (
-            <Skeleton className="absolute top-0 left-0 w-full h-[190px]" />
-          )}
-
-          {/* Ảnh */}
-         <Image
-  src={data.images[0] ?? '/nftt-1.png'}
-  loading="lazy"
-  width={190}
-  height={190}
-  alt={data.name}
-  className={`w-full h-auto transition-opacity duration-300 ${
-    imgLoading ? 'opacity-0' : 'opacity-100'
-  }`}
-  style={{ objectFit: 'cover', objectPosition: 'center' }}
-  onLoad={() => setImgLoading(false)}
-/>
+          <div className="relative h-[190px] w-full overflow-hidden">
+            {imgLoading ? (
+              <Skeleton className="absolute inset-0 h-full w-full" />
+            ) : null}
+            <Image
+              src={data.images?.[0] ?? '/nftt-1.webp'}
+              loading="lazy"
+              fill
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 190px"
+              alt={data.name}
+              className={`object-cover object-center transition-opacity duration-300 ${
+                imgLoading ? 'opacity-0' : 'opacity-100'
+              }`}
+              onLoad={() => setImgLoading(false)}
+            />
+          </div>
           <div className="p-1">
             <p className="line-clamp-2 text-sm">{data.name}</p>
             <div className="flex items-center gap-x-1">

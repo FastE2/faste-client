@@ -13,6 +13,7 @@ type Props = {
   onAddToCart: () => void;
   variantsLength: number;
   selectedLength: number;
+  isPending?: boolean;
 };
 
 export const AddToCartSection = memo(
@@ -23,9 +24,13 @@ export const AddToCartSection = memo(
     onAddToCart,
     variantsLength,
     selectedLength,
+    isPending = false,
   }: Props) => {
     const isDisabled =
-      selectedLength < variantsLength || matchedSku?.quantity === 0;
+      isPending ||
+      !matchedSku ||
+      selectedLength < variantsLength ||
+      matchedSku.quantity === 0;
     const {t} = useTranslation();
 
     return (
@@ -49,6 +54,7 @@ export const AddToCartSection = memo(
           <button
             disabled={isDisabled}
             onClick={onAddToCart}
+            aria-busy={isPending}
             className={`flex items-center justify-center px-4 py-2 border rounded-lg transition-colors flex-1
             ${isDisabled ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed' : 'bg-red-50 text-red-500 border-red-500 hover:bg-red-100'}`}
           >

@@ -23,6 +23,8 @@ export const ShopInfo = memo(({ shop }: Props) => {
           alt={shop.name}
           width={80}
           height={80}
+          loading="lazy"
+          sizes="(max-width: 768px) 64px, 80px"
           className="rounded-full w-16 h-16 md:w-20 md:h-20 object-cover flex-shrink-0"
         />
 
