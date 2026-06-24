@@ -42,7 +42,7 @@ export function LoginForm({
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(schema), // Kết nối yup validation với react-hook-form
+    resolver: yupResolver(schema), 
   });
   const [showPassword, setShowPassword] = React.useState(false);
   const { executeRecaptcha } = useGoogleReCaptcha();

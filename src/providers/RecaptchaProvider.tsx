@@ -2,7 +2,11 @@
 
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
-export default function RecaptchaProvider({ children }) {
+export default function RecaptchaProvider({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <GoogleReCaptchaProvider
       reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!}
