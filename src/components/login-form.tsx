@@ -190,7 +190,7 @@ export function LoginForm({
             <Image
               width={500}
               height={500}
-              src="/login.webp"
+              src="/images/login.webp"
               alt="Login"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
             />

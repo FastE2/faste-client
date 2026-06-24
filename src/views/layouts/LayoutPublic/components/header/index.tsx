@@ -58,7 +58,7 @@ const Header = () => {
       <PromoBar />
 
       {/* Top Navigation */}
-      <div className="hidden md:block bg-muted/30">
+      <div className="hidden md:block bg-muted/60">
         <TopNavigation />
       </div>
 

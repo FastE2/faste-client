@@ -7,6 +7,9 @@ import { X } from 'lucide-react';
 import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 
+const IMAGE_URL =
+  'https://salt.tikicdn.com/ts/tikimsp/ff/69/10/7b80a9093949c7f8f10dcc45661d64d9.png?w=600&q=75';
+
 const WelcomePopup = () => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -14,8 +17,17 @@ const WelcomePopup = () => {
     const hasSeenPopup = getPopupShown();
 
     if (!hasSeenPopup) {
-      setIsVisible(true);
+      const timer = setTimeout(() => {
+        requestIdleCallback(() => {
+          setIsVisible(true);
+        });
+      }, 1500);
+
+      return () => clearTimeout(timer);
     }
+
+    const img = new window.Image();
+    img.src = IMAGE_URL;
   }, []);
 
   const closePopup = () => {
@@ -27,24 +39,36 @@ const WelcomePopup = () => {
     isVisible && (
       <Dialog open={isVisible} onOpenChange={setIsVisible}>
         <DialogContent
-          className="flex flex-col items-center justify-center bg-transparent border-0 border-transparent outline-none border-none shadow-none rounded-xl w-[380px] h-[500px]"
-          showCloseButton={false}
+          className={`
+    p-0
+    bg-transparent border-0 shadow-none
+    flex items-center justify-center
+  `}
         >
-          <Button
-            onClick={closePopup}
-            className="absolute top-2 right-2 w-8 h-8 text-blue-500 bg-white  rounded-full p-2 hover:bg-gray-200 focus:outline-none cursor-pointer"
+          <div
+            className={`
+      relative
+      w-[90vw] max-w-[380px]
+      h-[500px]
+      rounded-xl
+      overflow-hidden
+    `}
           >
-            <X />
-          </Button>
-          <Image
-            src={
-              'https://salt.tikicdn.com/ts/tikimsp/ff/69/10/7b80a9093949c7f8f10dcc45661d64d9.png'
-            }
-            width={500}
-            height={500}
-            alt="Welcome"
-            className="w-full h-full"
-          />
+            <Button
+              onClick={closePopup}
+              className="absolute top-2 right-2 z-10 w-8 h-8 bg-white/60 rounded-full"
+            >
+              <X />
+            </Button>
+
+            <Image
+              src={IMAGE_URL}
+              alt="Welcome"
+              fill
+              sizes="(max-width: 640px) 90vw, 380px"
+              className="object-cover"
+            />
+          </div>
         </DialogContent>
       </Dialog>
     )

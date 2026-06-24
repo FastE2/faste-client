@@ -28,8 +28,8 @@ export const TopNavigation = () => {
             <Trans
               i18nKey="header.deliveryInfo"
               components={{
-                1: <span className="text-orange-600 font-semibold" />,
-                2: <span className="text-orange-600 font-semibold" />,
+                1: <span className="text-orange-700 font-semibold" />,
+                2: <span className="text-orange-700 font-semibold" />,
               }}
             />
           </p>

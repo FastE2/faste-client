@@ -65,16 +65,18 @@ const HomePage = (props: TProps) => {
           )}
         </div>
 
-        <div className="w-full mb-5 rounded-2xl overflow-hidden">
-          <Image
-            src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/2f/bf/2fbff17f2d97cb69d9d10194b17611aa.png"
-            alt="primary product"
-            width={1200}
-            height={380}
-            sizes="(max-width: 1280px) 100vw, 1280px"
-            className="w-full h-[380px] object-cover"
-          />
-        </div>
+        <Image
+          src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Banner/2f/bf/2fbff17f2d97cb69d9d10194b17611aa.png?w=1280&q=75"
+          alt="primary product"
+          width={1280}
+          height={400}
+          sizes="
+            (max-width: 640px) 100vw,
+            (max-width: 1024px) 100vw,
+            1280px
+          "
+          className="w-full h-auto object-cover"
+        />
 
         {/* New Products Section */}
         <div className="w-full">
