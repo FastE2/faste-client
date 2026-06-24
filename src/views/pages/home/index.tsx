@@ -26,8 +26,8 @@ const HomePage = (props: TProps) => {
   const { data: products, categories } = props;
   const router = useRouter();
   const { t } = useTranslation(undefined, { useSuspense: false });
-  const bestSelling = products.slice(0, 7);
-  const newProducts = products.slice(7);
+  const bestSelling = products?.slice(0, 7) || [];
+  const newProducts = products?.slice(7) || [];
 
   return (
     <>

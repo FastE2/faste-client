@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -40,7 +40,7 @@ export default function RoleSettingsPage() {
 
   const isAdminRole = selectedRole?.name === 'ADMIN';
 
-  const fetchRoles = async () => {
+  const fetchRoles = useCallback(async () => {
     setIsLoadingRoles(true);
     try {
       const res = await getAdminRoles();
@@ -54,7 +54,7 @@ export default function RoleSettingsPage() {
     } finally {
       setIsLoadingRoles(false);
     }
-  };
+  }, [selectedRole]);
 
   const fetchPermissions = async () => {
     setIsLoadingPermissions(true);
@@ -72,7 +72,7 @@ export default function RoleSettingsPage() {
   useEffect(() => {
     fetchRoles();
     fetchPermissions();
-  }, []);
+  }, [fetchRoles]);
 
   useEffect(() => {
     if (selectedRole) {

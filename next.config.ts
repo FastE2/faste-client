@@ -1,7 +1,7 @@
-import type { NextConfig } from 'next';
+import { withAeo } from 'aeo.js/next'
+import { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
   experimental: {
     optimizePackageImports: [
       'lucide-react',
@@ -21,6 +21,6 @@ const nextConfig: NextConfig = {
     ],
   },
   reactStrictMode: false,
-};
+}
 
-export default nextConfig;
+export default withAeo(nextConfig as any)

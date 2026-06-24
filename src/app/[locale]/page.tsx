@@ -17,6 +17,8 @@ interface TProps {
   totalPage: number;
 }
 
+export const revalidate = 3600;
+
 export async function generateMetadata({
   params,
 }: {

@@ -166,7 +166,7 @@ export function AppSidebarSeller({
       <SidebarHeader>
         <Link href={'/'} className="flex items-center gap-1.5 shrink-0">
           <Image
-            src="/logo.svg"
+            src="/images/logo.svg"
             width={100}
             height={100}
             alt="FastE3 logo"

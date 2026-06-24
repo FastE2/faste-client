@@ -17,6 +17,25 @@ export default function Page() {
       guestGuard={false}
     >
       <ContactPage />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: [
+              {
+                '@type': 'Question',
+                name: 'How can I contact FastE?',
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: 'You can contact FastE via the contact form.',
+                },
+              },
+            ],
+          }),
+        }}
+      />
     </GuardLayoutWrapper>
   );
 }

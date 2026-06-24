@@ -165,7 +165,7 @@ export function AppSidebarAdmin({
     <Sidebar collapsible="icon" {...props}>
       <Link href={'/'} className="flex items-center gap-1.5 shrink-0">
         <Image
-          src="/logo.svg"
+          src="/images/logo.svg"
           width={120}
           height={24}
           alt="FastE3 logo"

@@ -1,0 +1,89 @@
+{
+  "version": "1.0",
+  "generated": "2026-06-24T06:24:26.378Z",
+  "site": {
+    "title": "FastE",
+    "description": "FastE is a modern e-commerce platform optimized for buyers, sellers, and AI answer engines.",
+    "url": "https://fasteapp.vercel.app"
+  },
+  "entries": [
+    {
+      "id": "2ff80b5dfd4de8bd",
+      "url": "https://fasteapp.vercel.app",
+      "title": "FastE Ecommerce Platform",
+      "content": "# FastE Ecommerce Platform\n\nFastE is a modern e-commerce marketplace for discovering products, buying online, and managing seller storefronts.",
+      "keywords": [
+        "faste",
+        "ecommerce",
+        "platform",
+        "modern",
+        "e-commerce",
+        "marketplace",
+        "discovering",
+        "products",
+        "buying",
+        "online"
+      ],
+      "metadata": {
+        "chunkIndex": 0,
+        "totalChunks": 1,
+        "sourcePath": "/"
+      }
+    },
+    {
+      "id": "37358c7c3b87586b",
+      "url": "https://fasteapp.vercel.app/faq",
+      "title": "FastE FAQ",
+      "content": "# FastE FAQ\n\n## What is FastE?\nFastE is an e-commerce platform connecting buyers and sellers with product, order, and payment management.\n\n## How do I buy products on FastE?\nBrowse products, add items to cart, check out, and track orders in your account.\n\n## Can I return products?\nReturn eligibility depends on seller policy and the product conditions shown during purchase.",
+      "keywords": [
+        "faste",
+        "products",
+        "product",
+        "return",
+        "what",
+        "e-commerce",
+        "platform",
+        "connecting",
+        "buyers",
+        "sellers"
+      ],
+      "metadata": {
+        "chunkIndex": 0,
+        "totalChunks": 1,
+        "sourcePath": "/faq"
+      }
+    },
+    {
+      "id": "b9b1a3017fb686ce",
+      "url": "https://fasteapp.vercel.app/shop",
+      "title": "Browse FastE Shops",
+      "content": "# Browse FastE Shops\n\nDiscover public shops and sellers on FastE, including their ratings, product counts, and storefront information.",
+      "keywords": [
+        "faste",
+        "shops",
+        "browse",
+        "discover",
+        "public",
+        "sellers",
+        "including",
+        "their",
+        "ratings",
+        "product"
+      ],
+      "metadata": {
+        "chunkIndex": 0,
+        "totalChunks": 1,
+        "sourcePath": "/shop"
+      }
+    }
+  ],
+  "metadata": {
+    "totalEntries": 3,
+    "generator": "aeo.js",
+    "generatorUrl": "https://aeojs.org",
+    "embedding": {
+      "recommended": "text-embedding-ada-002",
+      "dimensions": 1536
+    }
+  }
+}

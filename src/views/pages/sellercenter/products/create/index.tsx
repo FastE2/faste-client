@@ -751,7 +751,7 @@ export const CreateProductPage = () => {
           </div>
           <ProductDescription
             blockRefDescription={blockRefs.description}
-            control={control}
+            control={control as any}
             errors={errors}
             editorRef={editorRef}
           />

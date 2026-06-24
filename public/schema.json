@@ -1,0 +1,110 @@
+{
+  "site": [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "FastE",
+      "description": "FastE is a modern e-commerce platform optimized for buyers, sellers, and AI answer engines.",
+      "url": "https://fasteapp.vercel.app"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "FastE",
+      "url": "https://fasteapp.vercel.app",
+      "logo": "https://fasteapp.vercel.app/images/logo.svg"
+    }
+  ],
+  "pages": {
+    "/": [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "FastE Ecommerce Platform",
+        "url": "https://fasteapp.vercel.app"
+      }
+    ],
+    "/shop": [
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Browse FastE Shops",
+        "url": "https://fasteapp.vercel.app/shop"
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://fasteapp.vercel.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Shop",
+            "item": "https://fasteapp.vercel.app/shop"
+          }
+        ]
+      }
+    ],
+    "/faq": [
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is FastE?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "FastE is an e-commerce platform connecting buyers and sellers with product, order, and payment management."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I buy products on FastE?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Browse products, add items to cart, check out, and track orders in your account."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I return products?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Return eligibility depends on seller policy and the product conditions shown during purchase."
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "FastE FAQ",
+        "url": "https://fasteapp.vercel.app/faq"
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://fasteapp.vercel.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Faq",
+            "item": "https://fasteapp.vercel.app/faq"
+          }
+        ]
+      }
+    ]
+  }
+}

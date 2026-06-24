@@ -7,6 +7,8 @@ import initTranslations from '@/configs/i18n';
 import AppWrapper from '@/hocs/AppWrappers';
 import { LOCALE_MAP } from '@/constants/meta';
 import { getLocalizedAlternates, getSiteUrl } from '@/lib/seo';
+import { organizationJsonLd } from '@/lib/aeo/schema';
+import Script from 'next/script';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -56,9 +58,18 @@ export default async function RootLayout({
 }>) {
   const { locale } = await params;
   const { resources } = await initTranslations(locale, i18nNamespaces);
+  const siteUrl = getSiteUrl();
   return (
     <html lang={locale} suppressHydrationWarning>
       <body className={`${geistSans.variable} font-sans antialiased`}>
+        <Script
+          id="organization-jsonld"
+          type="application/ld+json"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationJsonLd(siteUrl)),
+          }}
+        />
         <TranslationProvider
           locale={locale}
           resources={resources}

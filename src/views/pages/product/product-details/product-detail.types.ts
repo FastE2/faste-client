@@ -33,6 +33,7 @@ export type ProductDetail = {
   images?: string[];
   basePrice: number;
   price?: number;
+  status?: string;
   rating?: number;
   ratingCount?: number;
   sold?: number;

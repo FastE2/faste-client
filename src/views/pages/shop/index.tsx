@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useEffect } from 'react';
+import { useMemo, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -15,10 +15,7 @@ import {
 import { ChevronDown, Search, Star } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-import { getAllShopsIsPublic } from '@/services/shop.service';
-import { toastify } from '@/components/ToastNotification';
-
-interface TShop {
+export interface TShop {
   shopid: number;
   id?: number;
   slug: string;
@@ -31,23 +28,24 @@ interface TShop {
 
 type SortOption = 'name-asc' | 'name-desc' | 'rating-high' | 'products-high';
 
-export default function ShopPage() {
+type ShopPageProps = {
+  initialShops?: TShop[];
+};
+
+export default function ShopPage({ initialShops = [] }: ShopPageProps) {
   const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState<SortOption>('name-asc');
   const [currentPage, setCurrentPage] = useState(1);
-  const [dataShops, setDataShops] = useState<TShop[]>();
   const shopsPerPage = 8;
 
   // Filter and sort shops
   const filteredAndSortedShops = useMemo(() => {
-    const filtered = dataShops
-      ? dataShops.filter(
-          (shop) =>
-            shop.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            shop.description.toLowerCase().includes(searchQuery.toLowerCase()),
-        )
-      : [];
+    const filtered = initialShops.filter(
+      (shop) =>
+        shop.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        shop.description.toLowerCase().includes(searchQuery.toLowerCase()),
+    );
 
     // Apply sorting
     switch (sortBy) {
@@ -66,7 +64,7 @@ export default function ShopPage() {
     }
 
     return filtered;
-  }, [searchQuery, sortBy, dataShops]);
+  }, [searchQuery, sortBy, initialShops]);
 
   // Pagination logic
   const totalPages = Math.ceil(filteredAndSortedShops.length / shopsPerPage);
@@ -87,16 +85,6 @@ export default function ShopPage() {
     setCurrentPage(1);
   };
 
-  // Fetch data
-  const fetchDataShopsIsPublic = async () => {
-    const res = await getAllShopsIsPublic();
-    if (!res.error) {
-      setDataShops(res.data.data);
-    } else {
-      toastify.error('', res.message);
-    }
-  };
-
   // Render star rating
   const renderStars = (rating: number) => {
     return (
@@ -113,10 +101,6 @@ export default function ShopPage() {
       </div>
     );
   };
-
-  useEffect(() => {
-    fetchDataShopsIsPublic();
-  }, []);
 
   return (
     <main className="min-h-screen bg-background">

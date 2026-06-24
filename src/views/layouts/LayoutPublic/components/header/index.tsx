@@ -70,7 +70,7 @@ const Header = () => {
             <div className="flex items-center gap-2 shrink-0">
               <Link href="/">
                 <Image
-                  src="/logo.svg"
+                  src="/images/logo.svg"
                   width={120}
                   height={24}
                   alt="FastE3 logo"
