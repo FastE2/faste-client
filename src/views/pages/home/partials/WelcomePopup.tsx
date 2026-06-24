@@ -40,19 +40,19 @@ const WelcomePopup = () => {
       <Dialog open={isVisible} onOpenChange={setIsVisible}>
         <DialogContent
           className={`
-    p-0
-    bg-transparent border-0 shadow-none
-    flex items-center justify-center
-  `}
+            p-0
+            bg-transparent border-0 shadow-none
+            flex items-center justify-center
+          `}
         >
           <div
             className={`
-      relative
-      w-[90vw] max-w-[380px]
-      h-[500px]
-      rounded-xl
-      overflow-hidden
-    `}
+              relative
+              w-[90vw] max-w-95
+              h-125
+              rounded-xl
+              overflow-hidden
+            `}
           >
             <Button
               onClick={closePopup}
