@@ -7,16 +7,22 @@ import Image from 'next/image';
 
 import { formatCurrencyWithExchange } from '@/utils';
 import { useTranslation } from 'react-i18next';
+import { memo } from 'react';
+import type { CartItemData } from '../cart.types';
 
 interface CartItemProps {
-  item: any;
+  item: CartItemData;
+  selected: boolean;
+  eagerImage: boolean;
   onQuantityChange: (id: number, skuId: number, quantity: number) => void;
   onDelete: (id: number) => void;
   onSelect: (id: number, selected: boolean) => void;
 }
 
-export function CartItem({
+export const CartItem = memo(function CartItem({
   item,
+  selected,
+  eagerImage,
   onQuantityChange,
   onDelete,
   onSelect,
@@ -41,20 +47,23 @@ export function CartItem({
       <div className="flex items-start gap-4 px-4">
         {/* Checkbox */}
         <Checkbox
-          checked={item.isSelected}
+          checked={selected}
           onCheckedChange={(checked) => onSelect(item.id, checked as boolean)}
           className="mt-2"
         />
 
         {/* Product Image + Info */}
         <div className="flex gap-4 flex-1">
-          <Image
-            src={item.sku.image || item.sku.product.images[0]}
-            alt={item.sku.product.name.slice(0, 5)}
-            width={80}
-            height={80}
-            className="rounded-md object-cover"
-          />
+          <div className="relative h-20 w-20 flex-shrink-0 overflow-hidden rounded-md bg-muted">
+            <Image
+              src={item.sku.image || item.sku.product.images?.[0] || '/nftt-1.webp'}
+              alt={item.sku.product.name}
+              fill
+              sizes="80px"
+              loading={eagerImage ? 'eager' : 'lazy'}
+              className="object-cover"
+            />
+          </div>
 
           <div className="flex flex-col gap-2 flex-1">
             <h3 className="text-sm font-medium text-foreground line-clamp-2">
@@ -143,4 +152,4 @@ export function CartItem({
       </div>
     </div>
   );
-}
+});

@@ -12,9 +12,14 @@ export default function OrdersLayout({
   detail: React.ReactNode; // @detail slot
 }) {
   const pathname = usePathname();
+  const localePrefix = /^\/(vi|en|kr|cn)/;
+  const normalizedPath = pathname.replace(localePrefix, '');
+
   const showParallelSlots =
-    pathname === '/sellercenter/orders/list' ||
-    pathname.startsWith('/sellercenter/orders/detail/');
+    normalizedPath === '' ||
+    normalizedPath === '/' ||
+    normalizedPath === '/sellercenter/orders/list' ||
+    normalizedPath.startsWith('/sellercenter/orders/detail/');
 
   return (
     <>

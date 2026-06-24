@@ -12,7 +12,10 @@ import LocaleSwitcher from '@/components/locale-switcher';
 import PromoBar from './PromoBar';
 import { TopNavigation } from './TopNavigation';
 import BottomNavigation from './BottomNavigation';
-import { useGetCart } from '@/hooks/api/queries/useGetCart';
+import {
+  CART_QUERY_PARAMS,
+  useGetCart,
+} from '@/hooks/api/queries/useGetCart';
 import { keepPreviousData } from '@tanstack/react-query';
 import { useCartStore } from '@/stores/cart.store';
 import CartPopover from './CartPopover';
@@ -31,10 +34,7 @@ const Header = () => {
   const isHeaderVisible = useHeaderVisibility({ disabled: isOpen });
   const totalCartItemRef = useRef<number>(0);
   const { data, isLoading } = useGetCart(
-    {
-      page: 1,
-      limit: 10,
-    },
+    CART_QUERY_PARAMS,
     {
       select: (data) => data.data,
       staleTime: 1000 * 60 * 5,

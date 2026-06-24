@@ -18,7 +18,7 @@ export const getCartByMe = async (
 
     return res.data;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
@@ -32,30 +32,36 @@ export const addToCart = async (data: AddToCartRequest) => {
 
     return res.data;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
-export const updateCartQuantity = async (data: UpdateCartQuantityRequest) => {
+export const updateCartQuantity = async (
+  data: UpdateCartQuantityRequest,
+  signal?: AbortSignal,
+) => {
   const { id, ...rest } = data;
   try {
     const res = await axiosInstance.put(
       `${API_ENDPOINT.CART.INDEX}/${id}`,
       rest,
+      { signal },
     );
 
     return res.data;
   } catch (error) {
-    return error;
+    throw error;
   }
 };
 
-export const deleteCartItem = async (id: number) => {
+export const deleteCartItem = async (id: number, signal?: AbortSignal) => {
   try {
-    const res = await axiosInstance.delete(`${API_ENDPOINT.CART.INDEX}/${id}`);
+    const res = await axiosInstance.delete(`${API_ENDPOINT.CART.INDEX}/${id}`, {
+      signal,
+    });
 
     return res.data;
   } catch (error) {
-    return error;
+    throw error;
   }
 };

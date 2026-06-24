@@ -19,6 +19,7 @@ interface SummaryCardProps {
   selectedItems: any[];
   onCheckout?: () => void;
   onOrder?: () => void;
+  isPending?: boolean;
 }
 
 function SummaryCardComponent({
@@ -29,6 +30,7 @@ function SummaryCardComponent({
   selectedItems,
   onCheckout,
   onOrder,
+  isPending = false,
 }: SummaryCardProps) {
   const pathname = usePathname();
   const { t, i18n } = useTranslation();
@@ -54,10 +56,10 @@ function SummaryCardComponent({
   // });
 
   const isCartPage = pathname === ROUTE_CONFIG.CART;
-  const disableCheckout = selectedItems.length <= 0;
+  const disableCheckout = selectedItems.length <= 0 || isPending;
 
   return (
-    <Card className="p-6 sticky top-4 h-fit">
+    <Card className="sticky top-4 h-fit min-h-[430px] p-6">
       {/* Delivery Address */}
       <div>
         <div className="flex justify-between items-center">
@@ -138,6 +140,7 @@ function SummaryCardComponent({
           disableCheckout ? 'cursor-not-allowed' : 'cursor-pointer'
         }`}
         onClick={isCartPage ? onCheckout : onOrder}
+        aria-busy={isPending}
       >
         {`${isCartPage ? t('cart.checkout') : t('checkout.placeOrder')} (${selectedItems.length})`}
       </Button>

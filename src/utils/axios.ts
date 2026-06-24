@@ -9,6 +9,8 @@ import { refreshToken } from '@/services/auth.service';
 import { ROUTE_CONFIG } from '@/configs/router';
 import { createUrlQuery } from './create-query-url';
 
+const NO_RETRY_URLS = ['/cart'];
+
 let _router: any = null;
 let _setUser: any = null;
 let _pathName: string | null = null;
@@ -56,6 +58,11 @@ axiosInstance.interceptors.response.use(
     const originalRequest = error.config;
 
     // console.log(error.response?.status);
+    const url = originalRequest?.url || '';
+
+    if (NO_RETRY_URLS.some((endpoint) => url.includes(endpoint))) {
+      return Promise.reject(error);
+    }
 
     if (error.response?.status === 401 && !(originalRequest as any)?._retry) {
       if (isRefreshing) {

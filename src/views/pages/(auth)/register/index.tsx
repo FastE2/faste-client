@@ -142,7 +142,7 @@ export function RegisterPage({
             <Image
               width={500}
               height={500}
-              src="/login.jpg"
+              src="/login.webp"
               alt="Registration"
               className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
             />
