@@ -1,5 +1,6 @@
 import { LoginForm } from '@/components/login-form';
 import GuardLayoutWrapper from '@/hocs/GuardLayoutWrapper';
+import RecaptchaProvider from '@/providers/RecaptchaProvider';
 import LayoutPublic from '@/views/layouts/LayoutPublic/LayoutPublic';
 import { Metadata } from 'next';
 import { ReactNode } from 'react';
@@ -17,7 +18,9 @@ export default function LoginPage() {
     >
       <div className="bg-muted flex  flex-col items-center justify-center p-6 md:p-10">
         <div className="w-full max-w-sm md:max-w-3xl">
-          <LoginForm />
+          <RecaptchaProvider>
+            <LoginForm />
+          </RecaptchaProvider>
         </div>
       </div>
     </GuardLayoutWrapper>

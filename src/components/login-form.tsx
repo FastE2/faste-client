@@ -13,8 +13,8 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Icon } from '@iconify/react';
 import { useTranslation } from 'react-i18next';
-import { useAuth } from '@/hooks'
-
+import { useAuth } from '@/hooks';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 // Định nghĩa schema validation với yup
 const schema = yup
@@ -45,11 +45,14 @@ export function LoginForm({
     resolver: yupResolver(schema), // Kết nối yup validation với react-hook-form
   });
   const [showPassword, setShowPassword] = React.useState(false);
+  const { executeRecaptcha } = useGoogleReCaptcha();
 
+  const onSubmit = async (data: { email: string; password: string }) => {
+    if (!executeRecaptcha) return;
+    const captchaToken = await executeRecaptcha('login');
 
-  const onSubmit = (data: { email: string; password: string }) => {
     if (!Object.keys(errors).length) {
-      login(data);
+      login({...data, captchaToken});
     }
   };
 
@@ -90,7 +93,9 @@ export function LoginForm({
               {/* Password Field */}
               <div className="grid gap-3">
                 <div className="flex items-center">
-                  <Label htmlFor="password">{t('auth.login.passwordLabel')}</Label>
+                  <Label htmlFor="password">
+                    {t('auth.login.passwordLabel')}
+                  </Label>
                   <a
                     href="#"
                     className="ml-auto text-sm underline-offset-2 hover:underline"

@@ -3,6 +3,7 @@ import { VerificationCodeType } from '../../constants/index';
 export type TLoginAuth = {
   email: string;
   password: string;
+  captchaToken: string;
   totpCode?: string;
 };
 
