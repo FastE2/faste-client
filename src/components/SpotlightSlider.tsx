@@ -6,6 +6,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import CardSpotlightDemo from '@/components/CardSpotlight';
 
+
 const cards = [1, 2, 3]; // dummy array 3 phần tử
 
 const cardItems = [

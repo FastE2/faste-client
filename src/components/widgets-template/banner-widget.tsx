@@ -1,10 +1,19 @@
 import { Widget } from '@/types/widget';
 import Image from 'next/image';
 import { Autoplay, Navigation, Pagination } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
+import dynamic from 'next/dynamic';
+const Swiper = dynamic(
+  () => import('swiper/react').then((mod) => mod.Swiper),
+  { ssr: false }
+);
+
+const SwiperSlide = dynamic(
+  () => import('swiper/react').then((mod) => mod.SwiperSlide),
+  { ssr: false }
+);
 
 interface BannerWidgetProps {
   widget: Widget;

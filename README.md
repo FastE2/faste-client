@@ -1,116 +1,357 @@
-<div align="center">
-  <img src="public/logo.svg" alt="FastE Logo" width="120" height="auto" />
-  <h1>🚀 FastE - NEXT GENERATION E-COMMERCE PLATFORM</h1>
+# <div align="center">
 
-  [![Next.js](https://img.shields.io/badge/Next.js-15.0-black?logo=next.js)](https://nextjs.org/)
-  [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript)](https://www.typescriptlang.org/)
-  [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-v4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
-  [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+<img src="public/images/logo.svg" alt="FastE Logo" width="120" />
 
-  <p><strong>FastE</strong> is a modern, high-performance e-commerce platform built with the latest web technologies. The project focuses on providing a seamless shopping experience with high speed, clean UI, and multi-language support.</p>
+# 🚀 FastE — Next Generation E-Commerce Platform
+
+### High-Performance • SEO First • Multi-language • Modern UI • Marketplace
+
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)]
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-v4-38B2AC?logo=tailwind-css)]
+[![License](https://img.shields.io/badge/License-MIT-green.svg)]
+
+**FastE** is a modern marketplace platform built with **Next.js 15 App Router**, designed for exceptional performance, SEO, and user experience. It delivers a fast, scalable shopping experience with internationalization, Seller Center, Admin Dashboard, and enterprise-grade frontend architecture.
+
 </div>
 
-<br />
+---
 
-![App Preview](public/app.webp)
+## 📸 Preview
+
+| Home                        | Lighthouse                             |
+| --------------------------- | -------------------------------------- |
+| ![](public/images/app.webp) | ![](public/images/pagespeed-test.webp) |
 
 ---
 
-## ✨ Key Features
+# ✨ Features
 
-### 🛒 Shopping Experience (Client)
-- **Marketplace**: Browse thousands of products with extreme performance powered by Next.js Turbopack.
-- **Advanced Search**: Fast and intuitive product discovery.
-- **Cart & Checkout**: Optimized checkout flow for a friction-less experience.
-- **Internationalization (i18n)**: Full support for English, Vietnamese, Chinese, and Korean.
-- **Modern UI/UX**: Smooth animations and transitions using GSAP and Framer Motion.
+## 🛍 Marketplace
 
-### 🏪 Seller Center
-- **Store Management**: Manage products, orders, and inventory effortlessly.
-- **Analytics**: Track sales performance and customer data with interactive charts.
-
-### 🛡️ Admin Dashboard
-- **System Control**: Manage users, products, and overall platform health.
-- **Reporting**: Comprehensive reports on platform statistics.
-
----
-
-## 🛠️ Tech Stack
-
-### Core Stack
-- **Framework**: [Next.js 15](https://nextjs.org/) (App Router & Turbopack)
-- **UI & Styling**: [Tailwind CSS v4](https://tailwindcss.com/), [Radix UI](https://www.radix-ui.com/), [Lucide React](https://lucide.dev/)
-- **State Management**: [Zustand](https://zustand-demo.pmnd.rs/) & [TanStack Query v5](https://tanstack.com/query)
-
-### Libraries & Tools
-- **Animations**: GSAP, Framer Motion
-- **Form Handling**: React Hook Form, Zod, Yup
-- **Charts**: Recharts
-- **Internationalization**: i18next & next-i18n-router
-- **Media & UI**: Swiper, Quill Editor, Sonner (Toasts), Vaul (Drawers)
-
-### Development Workflow
-- **Testing**: Vitest, Playwright, Storybook 9
-- **Linter & Formatter**: ESLint, Prettier, Husky, Commitlint
-- **Deployment**: Ready for Vercel & Docker environments
+* ⚡ Ultra-fast page rendering with App Router & Turbopack
+* 🔍 Intelligent product search
+* ❤️ Wishlist
+* 🛒 Shopping cart
+* 💳 Optimized checkout flow
+* 📦 Product detail pages
+* ⭐ Ratings & Reviews
+* 🎯 Product recommendations
+* 📱 Fully responsive design
+* 🌙 Dark / Light mode
+* 🔥 Skeleton loading & optimistic UI
 
 ---
 
-## 🚀 Getting Started
+## 🌍 Internationalization
 
-### Prerequisites
-- Node.js >= 18.x
-- npm / yarn / pnpm
+Supports multiple languages:
 
-### Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/ahkiet22/faste-client.git
-   cd faste-client
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Set up environment variables: create a `.env` file based on `.env.example`.
+* 🇺🇸 English
+* 🇻🇳 Vietnamese
+* 🇨🇳 Chinese
+* 🇰🇷 Korean
 
-### Running the App
-- **Development Mode:**
-  ```bash
-  npm run dev
-  ```
-- **Build for Production:**
-  ```bash
-  npm run build
-  ```
-- **Storybook (UI Docs):**
-  ```bash
-  npm run storybook
-  ```
+Built using:
+
+* i18next
+* next-i18n-router
+* Locale-aware routing
+* hreflang
+* Canonical URLs
 
 ---
 
-## 📂 Project Structure
+## 🏪 Seller Center
+
+Complete seller management dashboard.
+
+### Products
+
+* Product Management
+* Categories
+* Inventory
+* Media Upload
+* Variants
+
+### Orders
+
+* Order Management
+* Shipping Status
+* Returns
+* Customer Messages
+
+### Analytics
+
+* Revenue
+* Orders
+* Products
+* Visitors
+* Charts & Reports
+
+---
+
+## 🛡 Admin Dashboard
+
+Platform management system.
+
+Features include:
+
+* User Management
+* Product Moderation
+* Category Management
+* Store Management
+* Banner Management
+* Reports
+* Permission & Roles
+* Platform Analytics
+
+---
+
+# 🚀 Performance
+
+FastE is designed with performance as a first-class citizen.
+
+### Optimizations
+
+* Next.js App Router
+* Turbopack
+* Server Components
+* Route-level Code Splitting
+* Dynamic Imports
+* Image Optimization
+* WebP Images
+* Lazy Loading
+* Prefetching
+* Suspense Streaming
+* React Cache
+* TanStack Query Caching
+* Skeleton UI
+* Bundle Optimization
+* Font Optimization
+* Edge-ready Deployment
+
+---
+
+# 🔍 SEO / GEO / AEO
+
+FastE is optimized for both traditional search engines and AI-powered search.
+
+### SEO
+
+* Metadata API
+* Dynamic Metadata
+* Open Graph
+* Twitter Cards
+* robots.txt
+* sitemap.xml
+* Canonical URLs
+* Structured Data (JSON-LD)
+* Product Schema
+* Organization Schema
+* Breadcrumb Schema
+* FAQ Schema
+
+### GEO
+
+Generative Engine Optimization for AI search engines.
+
+Optimized for:
+
+* ChatGPT
+* Google AI Overview
+* Perplexity
+* Claude
+* Gemini
+
+### AEO
+
+Answer Engine Optimization
+
+* Semantic HTML
+* Rich structured content
+* FAQ
+* Knowledge Graph ready
+* AI-friendly metadata
+
+---
+
+# 🎨 UI / UX
+
+Modern interface built with:
+
+* Tailwind CSS v4
+* Radix UI
+* Lucide Icons
+* GSAP
+* Framer Motion
+* Swiper
+* Sonner
+* Vaul
+* Responsive Design
+
+---
+
+# 🛠 Tech Stack
+
+## Frontend
+
+* Next.js 15
+* React 19
+* TypeScript
+* Tailwind CSS v4
+
+## State Management
+
+* Zustand
+* TanStack Query v5
+
+## Forms
+
+* React Hook Form
+* Zod
+* Yup
+
+## Charts
+
+* Recharts
+
+## Rich Text
+
+* React Quill
+
+## Media
+
+* Cloudinary
+
+## Authentication
+
+* JWT
+* Refresh Token
+* Role-based Access Control
+
+---
+
+# 🧪 Developer Experience
+
+* ESLint
+* Prettier
+* Husky
+* lint-staged
+* Commitlint
+* Storybook 9
+* Vitest
+* Playwright
+
+---
+
+# 📂 Project Structure
+
 ```text
-src/
-├── app/            # Next.js App Router (Layouts, Pages, APIs)
-├── components/     # Reusable UI components
-├── hooks/          # Custom react hooks & mutations/queries
-├── services/       # API services & data fetching logic
-├── stores/         # Zustand state management
-├── types/          # TypeScript interfaces & types
-├── views/          # Page-specific views & logic
-└── ...
+src
+├── app
+├── assets
+├── components
+├── configs
+├── constants
+├── hooks
+├── i18n
+├── layouts
+├── lib
+├── providers
+├── services
+├── stores
+├── types
+├── utils
+├── views
+└── middleware.ts
 ```
 
 ---
 
-## 🤝 Contributing
-Contributions, issues, and feature requests are welcome! Feel free to check the issues page and submit pull requests.
+# 🚀 Getting Started
+
+## Requirements
+
+* Node.js >= 20
+* npm / pnpm / yarn
+
+## Installation
+
+```bash
+git clone https://github.com/ahkiet22/faste-client.git
+
+cd faste-client
+
+npm install
+```
+
+Create your environment file:
+
+```bash
+cp .env.example .env
+```
+
+Run development server:
+
+```bash
+npm run dev
+```
+
+Production build:
+
+```bash
+npm run build
+```
+
+Start production:
+
+```bash
+npm run start
+```
+
+Storybook:
+
+```bash
+npm run storybook
+```
 
 ---
 
-## 📄 License
-This project is licensed under the **MIT License**.
+# 📈 Lighthouse
 
-© 2025 **ahkiet lekiett2201@gmail.com**
+FastE is continuously optimized to achieve:
+
+* 🚀 Performance: 95+
+* ♿ Accessibility: 85+
+* ✅ Best Practices: 96
+* 🔍 SEO: 92
+
+---
+
+# 🤝 Contributing
+
+Contributions are welcome!
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push your branch
+5. Open a Pull Request
+
+---
+
+# 📄 License
+
+Licensed under the **MIT License**.
+
+---
+
+<div align="center">
+
+Made with ❤️ by **Lê Anh Kiệt**
+
+⭐ If you like this project, don't forget to give it a star.
+
+</div>

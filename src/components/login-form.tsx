@@ -41,7 +41,7 @@ export function LoginForm({
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm({// Kết nối yup validation với react-hook-form
     resolver: yupResolver(schema), 
   });
   const [showPassword, setShowPassword] = React.useState(false);
